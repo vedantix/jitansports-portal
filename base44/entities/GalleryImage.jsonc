@@ -1,0 +1,26 @@
+{
+  "name": "GalleryImage",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "title": "Titel"
+    },
+    "image_url": {
+      "type": "string",
+      "title": "Afbeelding URL"
+    },
+    "order": {
+      "type": "number",
+      "title": "Volgorde"
+    },
+    "visible": {
+      "type": "boolean",
+      "title": "Zichtbaar",
+      "default": true
+    }
+  },
+  "required": [
+    "image_url"
+  ]
+}

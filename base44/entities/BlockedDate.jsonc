@@ -1,0 +1,22 @@
+{
+  "name": "BlockedDate",
+  "type": "object",
+  "properties": {
+    "date": {
+      "type": "string",
+      "format": "date",
+      "title": "Datum"
+    },
+    "time": {
+      "type": "string",
+      "title": "Tijd (leeg = hele dag geblokkeerd)"
+    },
+    "reason": {
+      "type": "string",
+      "title": "Reden (bijv. vakantie)"
+    }
+  },
+  "required": [
+    "date"
+  ]
+}

@@ -1,189 +1,325 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import { Calendar, Clock, CheckCircle, ArrowRight, ArrowLeft } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
-import { toast } from 'sonner';
+import { CheckCircle, Calendar, Clock, ChevronLeft, ArrowRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const SERVICES = [
-  "Gratis Proefles",
-  "Personal Training Outdoor",
-  "Personal Training @Home",
-  "Deep Tissue Massage",
-  "Ontspanningsmassage",
-  "Get Fit Pakket",
+  { id: 'pt-outdoor', name: 'Personal Training Outdoor', duration: '60 min', price: 'Gratis proefles', desc: 'Training in de buitenlucht, op jouw locatie' },
+  { id: 'pt-home', name: 'Personal Training @Home', duration: '60 min', price: 'Gratis proefles', desc: 'Training aan huis, volledig op maat' },
+  { id: 'deep-tissue', name: 'Deep Tissue Massage', duration: '60–90 min', price: 'Vanaf €65', desc: 'Professionele massage voor herstel en pijn' },
+  { id: 'relaxation', name: 'Ontspanningsmassage', duration: '60–90 min', price: 'Vanaf €55', desc: 'Diepe ontspanning en stress-relief' },
+  { id: 'get-fit', name: 'Get Fit Pakket', duration: '12 weken', price: 'Op aanvraag', desc: 'Compleet transformatieprogramma' },
+  { id: 'trial', name: 'Gratis Proefles', duration: '60 min', price: 'Gratis', desc: 'Vrijblijvend kennismaken met Jitan' },
 ];
 
-const TIME_SLOTS = [
-  "07:00", "08:00", "09:00", "10:00", "11:00", "12:00",
-  "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00",
+const DEFAULT_SLOTS = ['09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
+
+function generateSlots(availability, dayOfWeek) {
+  if (!availability?.length) return DEFAULT_SLOTS;
+  const dayAvail = availability.find(a => a.day_of_week === dayOfWeek && a.is_active);
+  if (!dayAvail) return [];
+  const slots = [];
+  const [startH, startM] = dayAvail.start_time.split(':').map(Number);
+  const [endH, endM] = dayAvail.end_time.split(':').map(Number);
+  const duration = dayAvail.slot_duration || 60;
+  let cur = startH * 60 + startM;
+  const end = endH * 60 + endM;
+  while (cur + duration <= end) {
+    slots.push(`${String(Math.floor(cur / 60)).padStart(2, '0')}:${String(cur % 60).padStart(2, '0')}`);
+    cur += duration;
+  }
+  return slots;
+}
+
+const STEPS = [
+  { n: 1, label: 'Dienst' },
+  { n: 2, label: 'Datum & Tijd' },
+  { n: 3, label: 'Uw gegevens' },
 ];
 
 export default function Booking() {
   const [step, setStep] = useState(1);
   const [form, setForm] = useState({ service: '', date: '', time: '', name: '', email: '', phone: '', message: '' });
-  const [sending, setSending] = useState(false);
-  const [done, setDone] = useState(false);
+  const [availability, setAvailability] = useState([]);
+  const [bookedSlots, setBookedSlots] = useState([]);
+  const [blockedDates, setBlockedDates] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
-  const update = (key, val) => setForm(f => ({ ...f, [key]: val }));
+  useEffect(() => {
+    base44.entities.Availability.list().then(setAvailability).catch(() => {});
+    base44.entities.BlockedDate.list().then(setBlockedDates).catch(() => {});
+  }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setSending(true);
-    await base44.entities.Appointment.create(form);
-    setSending(false);
-    setDone(true);
-    toast.success('Afspraak aangevraagd! We nemen snel contact op ter bevestiging.');
-  };
+  useEffect(() => {
+    if (!form.date) return;
+    base44.entities.Appointment.filter({ date: form.date }).then(apts => {
+      setBookedSlots(apts.filter(a => a.status !== 'geannuleerd').map(a => a.time));
+    }).catch(() => {});
+  }, [form.date]);
 
   const today = new Date().toISOString().split('T')[0];
 
-  if (done) {
+  const isDayBlocked = (dateStr) => blockedDates.some(b => b.date === dateStr && !b.time);
+
+  const getAvailableSlots = () => {
+    if (!form.date) return [];
+    const dow = new Date(form.date + 'T12:00:00').getDay();
+    const slots = generateSlots(availability, dow);
+    const timeBlocked = blockedDates.filter(b => b.date === form.date && b.time).map(b => b.time);
+    return slots.filter(s => !bookedSlots.includes(s) && !timeBlocked.includes(s));
+  };
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    await base44.entities.Appointment.create({
+      name: form.name,
+      email: form.email,
+      phone: form.phone,
+      service: form.service,
+      date: form.date,
+      time: form.time,
+      message: form.message,
+      status: 'nieuw',
+    });
+    base44.integrations.Core.SendEmail({
+      to: form.email,
+      subject: 'Afspraakverzoek ontvangen – JitanSports',
+      body: `Beste ${form.name},\n\nBedankt voor uw afspraakverzoek!\n\nDienst: ${form.service}\nDatum: ${form.date}\nTijd: ${form.time}\n\nWe nemen zo snel mogelijk contact met u op ter bevestiging.\n\nMet vriendelijke groet,\nJitanSports\n06 8227 2680\ninfo@jitansports.nl`,
+    }).catch(() => {});
+    setLoading(false);
+    setSubmitted(true);
+  };
+
+  const resetForm = () => {
+    setSubmitted(false);
+    setStep(1);
+    setForm({ service: '', date: '', time: '', name: '', email: '', phone: '', message: '' });
+  };
+
+  if (submitted) {
     return (
-      <div className="min-h-[70vh] flex items-center justify-center px-4">
-        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="text-center max-w-md">
-          <CheckCircle className="w-20 h-20 text-primary mx-auto mb-6" />
-          <h1 className="text-3xl font-display font-bold text-secondary mb-3">Afspraak Aangevraagd!</h1>
-          <p className="text-muted-foreground mb-2">Bedankt, {form.name}! We hebben jouw aanvraag ontvangen.</p>
-          <p className="text-muted-foreground mb-8">
-            {"We nemen zo snel mogelijk contact op ter bevestiging van je "}
-            {form.service}{" op "}{form.date}{" om "}{form.time}.
-          </p>
-          <a href="/"><Button variant="outline">Terug naar Home</Button></a>
+      <div className="min-h-screen bg-muted/30 flex items-center justify-center px-4 py-16">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="bg-white rounded-3xl p-8 md:p-10 text-center max-w-md w-full shadow-xl"
+        >
+          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-5">
+            <CheckCircle className="w-8 h-8 text-green-500" />
+          </div>
+          <h2 className="text-2xl font-display font-bold text-secondary mb-2">Aanvraag ontvangen!</h2>
+          <p className="text-muted-foreground mb-6">We nemen binnen 24 uur contact op om uw afspraak te bevestigen.</p>
+          <div className="bg-muted/50 rounded-2xl p-5 text-left mb-6 space-y-1">
+            <p className="font-semibold text-secondary">{form.service}</p>
+            <p className="text-sm text-muted-foreground">{form.date} om {form.time}</p>
+            <p className="text-sm text-muted-foreground">{form.name} · {form.email}</p>
+          </div>
+          <Button onClick={resetForm} variant="outline" className="w-full">Nieuwe afspraak plannen</Button>
         </motion.div>
       </div>
     );
   }
 
+  const availableSlots = getAvailableSlots();
+  const dateBlocked = form.date && isDayBlocked(form.date);
+
   return (
-    <div>
-      <section className="py-20 px-4 bg-secondary text-secondary-foreground">
-        <div className="max-w-7xl mx-auto text-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <p className="text-primary font-semibold mb-3 uppercase tracking-wider text-sm">Reserveren</p>
-            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">Maak een Afspraak</h1>
-            <p className="text-secondary-foreground/70 text-lg">Kies jouw dienst, datum en tijd. Simpel en snel.</p>
-          </motion.div>
-        </div>
+    <div className="min-h-screen bg-muted/30">
+      {/* Header */}
+      <section className="bg-secondary py-12 px-4 text-center">
+        <h1 className="text-3xl md:text-4xl font-display font-bold text-white mb-2">Maak een Afspraak</h1>
+        <p className="text-white/60 text-base">Gratis proefles of direct boeken – volledig vrijblijvend</p>
       </section>
 
-      <section className="py-20 px-4">
-        <div className="max-w-xl mx-auto">
-          <div className="flex items-center justify-center gap-2 mb-10">
-            {[1, 2, 3].map(s => (
-              <div key={s} className="flex items-center gap-2">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${
-                  step >= s ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'
-                }`}>{s}</div>
-                {s < 3 && <div className={`w-12 h-0.5 ${step > s ? 'bg-primary' : 'bg-muted'}`} />}
-              </div>
-            ))}
-          </div>
+      {/* Progress bar */}
+      <div className="bg-white border-b border-border sticky top-0 md:top-20 z-10">
+        <div className="max-w-2xl mx-auto flex">
+          {STEPS.map(s => (
+            <div
+              key={s.n}
+              className={`flex-1 py-4 text-center text-sm font-medium border-b-2 transition-colors ${
+                step === s.n
+                  ? 'border-primary text-primary'
+                  : step > s.n
+                  ? 'border-green-400 text-green-600'
+                  : 'border-transparent text-muted-foreground'
+              }`}
+            >
+              <span className={`inline-flex w-6 h-6 rounded-full items-center justify-center text-xs mr-1.5 ${
+                step >= s.n ? 'bg-primary text-secondary font-bold' : 'bg-muted text-muted-foreground'
+              }`}>
+                {s.n}
+              </span>
+              <span className="hidden sm:inline">{s.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
 
-          <form onSubmit={handleSubmit}>
-            {step === 1 && (
-              <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-6">
-                <h2 className="text-2xl font-display font-bold text-secondary">Kies een dienst</h2>
-                <div className="grid grid-cols-1 gap-3">
-                  {SERVICES.map(s => (
-                    <button
-                      key={s}
-                      type="button"
-                      onClick={() => { update('service', s); setStep(2); }}
-                      className={`p-5 rounded-xl border text-left transition-all ${
-                        form.service === s
-                          ? 'border-primary bg-primary/5 ring-2 ring-primary/20'
-                          : 'border-border/50 hover:border-primary/30 hover:bg-muted/50'
-                      }`}
-                    >
-                      <span className="font-semibold text-secondary">{s}</span>
-                      {s === 'Gratis Proefles' && <span className="block text-xs text-primary mt-0.5">Eerste les altijd gratis!</span>}
-                    </button>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-
-            {step === 2 && (
-              <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-6">
-                <h2 className="text-2xl font-display font-bold text-secondary">{"Kies datum en tijd"}</h2>
-                <div>
-                  <Label className="flex items-center gap-2 mb-1.5"><Calendar className="w-4 h-4" /> Datum</Label>
-                  <Input type="date" min={today} value={form.date} onChange={e => update('date', e.target.value)} required />
-                </div>
-                <div>
-                  <Label className="flex items-center gap-2 mb-1.5"><Clock className="w-4 h-4" /> Tijd</Label>
-                  <div className="grid grid-cols-4 gap-2">
-                    {TIME_SLOTS.map(t => (
-                      <button
-                        key={t}
-                        type="button"
-                        onClick={() => update('time', t)}
-                        className={`py-2.5 rounded-lg text-sm font-medium transition-all ${
-                          form.time === t ? 'bg-primary text-primary-foreground' : 'bg-muted hover:bg-muted/80 text-foreground'
-                        }`}
-                      >
-                        {t}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                <div className="flex gap-3">
-                  <Button type="button" variant="outline" onClick={() => setStep(1)} className="gap-2">
-                    <ArrowLeft className="w-4 h-4" /> Terug
-                  </Button>
-                  <Button
-                    type="button"
-                    disabled={!form.date || !form.time}
-                    onClick={() => setStep(3)}
-                    className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2 flex-1"
+      <div className="max-w-2xl mx-auto px-4 py-8 pb-16">
+        <AnimatePresence mode="wait">
+          {/* Step 1 – Service */}
+          {step === 1 && (
+            <motion.div key="s1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+              <h2 className="text-xl font-bold text-secondary mb-5">Kies uw dienst</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                {SERVICES.map(s => (
+                  <button
+                    key={s.id}
+                    onClick={() => setForm(p => ({ ...p, service: s.name }))}
+                    className={`text-left p-5 rounded-2xl border-2 transition-all ${
+                      form.service === s.name
+                        ? 'border-primary bg-primary/5 shadow-sm'
+                        : 'border-border bg-white hover:border-primary/40'
+                    }`}
                   >
-                    Volgende <ArrowRight className="w-4 h-4" />
-                  </Button>
-                </div>
-              </motion.div>
-            )}
+                    <p className="font-semibold text-secondary mb-1 text-sm">{s.name}</p>
+                    <p className="text-xs text-muted-foreground mb-3">{s.desc}</p>
+                    <div className="flex items-center gap-3 text-xs">
+                      <span className="text-primary font-bold">{s.price}</span>
+                      <span className="text-muted-foreground">{s.duration}</span>
+                    </div>
+                  </button>
+                ))}
+              </div>
+              <Button
+                disabled={!form.service}
+                onClick={() => setStep(2)}
+                className="w-full gap-2 bg-secondary text-white hover:bg-secondary/90 py-6 text-base"
+              >
+                Volgende: Datum kiezen <ArrowRight className="w-5 h-5" />
+              </Button>
+            </motion.div>
+          )}
 
-            {step === 3 && (
-              <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-5">
-                <h2 className="text-2xl font-display font-bold text-secondary">Jouw Gegevens</h2>
-                <div className="p-4 rounded-xl bg-primary/5 border border-primary/20 text-sm">
-                  <p><strong>Dienst:</strong> {form.service}</p>
-                  <p><strong>Datum:</strong> {form.date}</p>
-                  <p><strong>Tijd:</strong> {form.time}</p>
+          {/* Step 2 – Date & Time */}
+          {step === 2 && (
+            <motion.div key="s2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+              <button onClick={() => setStep(1)} className="flex items-center gap-1 text-muted-foreground hover:text-foreground text-sm mb-5 transition-colors">
+                <ChevronLeft className="w-4 h-4" /> Terug
+              </button>
+              <h2 className="text-xl font-bold text-secondary mb-5">Kies datum en tijd</h2>
+
+              <div className="bg-white rounded-2xl p-5 border border-border mb-4">
+                <label className="block text-sm font-medium text-secondary mb-2 flex items-center gap-2">
+                  <Calendar className="w-4 h-4 text-primary" /> Datum
+                </label>
+                <input
+                  type="date"
+                  min={today}
+                  value={form.date}
+                  onChange={e => setForm(p => ({ ...p, date: e.target.value, time: '' }))}
+                  className="w-full border border-border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+                {dateBlocked && (
+                  <p className="text-red-500 text-sm mt-2">
+                    ⚠ Deze datum is niet beschikbaar. Kies een andere datum.
+                  </p>
+                )}
+              </div>
+
+              {form.date && !dateBlocked && (
+                <div className="bg-white rounded-2xl p-5 border border-border mb-4">
+                  <label className="block text-sm font-medium text-secondary mb-3 flex items-center gap-2">
+                    <Clock className="w-4 h-4 text-primary" /> Beschikbare tijden
+                  </label>
+                  {availableSlots.length === 0 ? (
+                    <p className="text-muted-foreground text-sm text-center py-4">
+                      Geen beschikbare tijden op deze datum.<br />Kies een andere datum.
+                    </p>
+                  ) : (
+                    <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                      {availableSlots.map(slot => (
+                        <button
+                          key={slot}
+                          onClick={() => setForm(p => ({ ...p, time: slot }))}
+                          className={`py-3 px-2 rounded-xl text-sm font-semibold transition-all ${
+                            form.time === slot
+                              ? 'bg-primary text-secondary shadow-sm'
+                              : 'bg-muted hover:bg-primary/10 text-foreground'
+                          }`}
+                        >
+                          {slot}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
+              )}
+
+              <Button
+                disabled={!form.date || !form.time || !!dateBlocked}
+                onClick={() => setStep(3)}
+                className="w-full gap-2 bg-secondary text-white hover:bg-secondary/90 py-6 text-base"
+              >
+                Volgende: Uw gegevens <ArrowRight className="w-5 h-5" />
+              </Button>
+            </motion.div>
+          )}
+
+          {/* Step 3 – Personal Details */}
+          {step === 3 && (
+            <motion.div key="s3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+              <button onClick={() => setStep(2)} className="flex items-center gap-1 text-muted-foreground hover:text-foreground text-sm mb-5 transition-colors">
+                <ChevronLeft className="w-4 h-4" /> Terug
+              </button>
+              <h2 className="text-xl font-bold text-secondary mb-5">Uw gegevens</h2>
+
+              <div className="bg-primary/5 rounded-2xl p-4 border border-primary/20 mb-5 flex items-center gap-3">
                 <div>
-                  <Label>Naam *</Label>
-                  <Input required value={form.name} onChange={e => update('name', e.target.value)} placeholder="Jouw volledige naam" className="mt-1.5" />
+                  <p className="text-sm font-semibold text-secondary">{form.service}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">{form.date} om {form.time}</p>
                 </div>
+              </div>
+
+              <div className="bg-white rounded-2xl p-5 border border-border space-y-4 mb-5">
+                {[
+                  { key: 'name', label: 'Naam', placeholder: 'Uw volledige naam', type: 'text', required: true },
+                  { key: 'email', label: 'E-mailadres', placeholder: 'uw@email.nl', type: 'email', required: true },
+                  { key: 'phone', label: 'Telefoonnummer', placeholder: '06 1234 5678', type: 'tel', required: true },
+                ].map(field => (
+                  <div key={field.key}>
+                    <label className="block text-sm font-medium text-secondary mb-1">
+                      {field.label} {field.required && <span className="text-primary">*</span>}
+                    </label>
+                    <input
+                      type={field.type}
+                      value={form[field.key]}
+                      onChange={e => setForm(p => ({ ...p, [field.key]: e.target.value }))}
+                      placeholder={field.placeholder}
+                      className="w-full border border-border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                    />
+                  </div>
+                ))}
                 <div>
-                  <Label>E-mail *</Label>
-                  <Input required type="email" value={form.email} onChange={e => update('email', e.target.value)} placeholder="jouw@email.nl" className="mt-1.5" />
+                  <label className="block text-sm font-medium text-secondary mb-1">Bericht (optioneel)</label>
+                  <textarea
+                    value={form.message}
+                    onChange={e => setForm(p => ({ ...p, message: e.target.value }))}
+                    placeholder="Bijzonderheden, vragen of blessures..."
+                    rows={3}
+                    className="w-full border border-border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary resize-none"
+                  />
                 </div>
-                <div>
-                  <Label>Telefoon *</Label>
-                  <Input required value={form.phone} onChange={e => update('phone', e.target.value)} placeholder="06-12345678" className="mt-1.5" />
-                </div>
-                <div>
-                  <Label>Opmerkingen</Label>
-                  <Textarea value={form.message} onChange={e => update('message', e.target.value)} placeholder="Heb je nog iets dat we moeten weten?" rows={3} className="mt-1.5" />
-                </div>
-                <div className="flex gap-3">
-                  <Button type="button" variant="outline" onClick={() => setStep(2)} className="gap-2">
-                    <ArrowLeft className="w-4 h-4" /> Terug
-                  </Button>
-                  <Button type="submit" disabled={sending} className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2 flex-1">
-                    {sending ? 'Bezig...' : 'Bevestig Afspraak'}
-                  </Button>
-                </div>
-              </motion.div>
-            )}
-          </form>
-        </div>
-      </section>
+              </div>
+
+              <Button
+                disabled={!form.name || !form.email || !form.phone || loading}
+                onClick={handleSubmit}
+                className="w-full bg-primary text-secondary font-bold gap-2 py-6 text-base hover:bg-primary/90"
+              >
+                {loading ? 'Verzenden...' : 'Afspraak Bevestigen'}
+                {!loading && <CheckCircle className="w-5 h-5" />}
+              </Button>
+              <p className="text-xs text-muted-foreground text-center mt-3">
+                We nemen binnen 24 uur contact op ter bevestiging. Geen verplichtingen.
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   );
 }

@@ -16,6 +16,21 @@ import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import Contact from './pages/Contact';
 import Booking from './pages/Booking';
+import PersonalTrainerDenHaag from './pages/PersonalTrainerDenHaag';
+import PersonalTrainerWassenaar from './pages/PersonalTrainerWassenaar';
+import PersonalTrainerVoorburg from './pages/PersonalTrainerVoorburg';
+import PersonalTrainerLeidschendam from './pages/PersonalTrainerLeidschendam';
+import MassageDenHaag from './pages/MassageDenHaag';
+import DeepTissueMassageDenHaag from './pages/DeepTissueMassageDenHaag';
+import AdminLayout from './components/AdminLayout';
+import AdminDashboard from './pages/admin/Dashboard';
+import ManageAppointments from './pages/admin/ManageAppointments';
+import ManageAvailability from './pages/admin/ManageAvailability';
+import ManageReviews from './pages/admin/ManageReviews';
+import ManageBlog from './pages/admin/ManageBlog';
+import ManagePricing from './pages/admin/ManagePricing';
+import ManageFAQ from './pages/admin/ManageFAQ';
+import ManageGallery from './pages/admin/ManageGallery';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -54,8 +69,24 @@ const AuthenticatedApp = () => {
         <Route path="/blog/:slug" element={<BlogPost />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/booking" element={<Booking />} />
-        <Route path="*" element={<PageNotFound />} />
+        <Route path="/personal-trainer-den-haag" element={<PersonalTrainerDenHaag />} />
+        <Route path="/personal-trainer-wassenaar" element={<PersonalTrainerWassenaar />} />
+        <Route path="/personal-trainer-voorburg" element={<PersonalTrainerVoorburg />} />
+        <Route path="/personal-trainer-leidschendam" element={<PersonalTrainerLeidschendam />} />
+        <Route path="/massage-den-haag" element={<MassageDenHaag />} />
+        <Route path="/deep-tissue-massage-den-haag" element={<DeepTissueMassageDenHaag />} />
       </Route>
+      <Route path="/admin" element={<AdminLayout />}>
+        <Route index element={<AdminDashboard />} />
+        <Route path="appointments" element={<ManageAppointments />} />
+        <Route path="availability" element={<ManageAvailability />} />
+        <Route path="reviews" element={<ManageReviews />} />
+        <Route path="blog" element={<ManageBlog />} />
+        <Route path="pricing" element={<ManagePricing />} />
+        <Route path="faq" element={<ManageFAQ />} />
+        <Route path="gallery" element={<ManageGallery />} />
+      </Route>
+      <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
 };

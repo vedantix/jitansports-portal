@@ -1,73 +1,139 @@
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin } from 'lucide-react';
+import { Phone, Mail, MapPin, Instagram, Facebook, Linkedin, Star, Users, Clock } from 'lucide-react';
 
 export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="bg-secondary text-secondary-foreground">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+    <footer className="bg-secondary text-white">
+      {/* Trust bar */}
+      <div className="border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-4 py-6 grid grid-cols-3 gap-4 text-center">
+          {[
+            { icon: Clock, value: '10+', label: 'Jaar ervaring' },
+            { icon: Users, value: '100+', label: 'Tevreden klanten' },
+            { icon: Star, value: '5.0', label: 'Google rating' },
+          ].map(item => (
+            <div key={item.label} className="flex flex-col items-center gap-1">
+              <item.icon className="w-5 h-5 text-primary mb-1" />
+              <p className="text-xl font-bold text-primary">{item.value}</p>
+              <p className="text-white/50 text-xs">{item.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Main footer */}
+      <div className="max-w-7xl mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Brand */}
           <div>
-            <span className="text-2xl font-display font-bold">
-              Jitan<span className="text-primary">Sports</span>
-            </span>
-            <p className="mt-4 text-secondary-foreground/70 text-sm leading-relaxed">
-              {"Personal Training, Voedingsadvies en Massage in één compleet traject. Jouw gezondheid is ons doel."}
+            <h3 className="font-display font-bold text-2xl text-primary mb-3">JitanSports</h3>
+            <p className="text-white/60 text-sm leading-relaxed mb-5">
+              Personal Training, Deep Tissue Massage en voedingsbegeleiding in Den Haag en omgeving.
             </p>
-          </div>
-          <div>
-            <h4 className="font-semibold text-sm uppercase tracking-wider mb-4 text-primary">Diensten</h4>
-            <div className="space-y-2.5">
+            <div className="flex gap-3">
               {[
-                { label: 'Personal Training', path: '/personal-training' },
-                { label: 'Massage', path: '/massage' },
-                { label: 'Get Fit Programma', path: '/get-fit' },
-                { label: 'Tarieven', path: '/tarieven' },
-              ].map(l => (
-                <Link key={l.path} to={l.path} className="block text-sm text-secondary-foreground/70 hover:text-primary transition-colors">
-                  {l.label}
-                </Link>
+                { icon: Instagram, href: 'https://instagram.com', label: 'Instagram' },
+                { icon: Facebook, href: 'https://facebook.com', label: 'Facebook' },
+                { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
+              ].map(social => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-primary hover:text-secondary transition-all flex items-center justify-center"
+                >
+                  <social.icon className="w-4 h-4" />
+                </a>
               ))}
             </div>
           </div>
+
+          {/* Diensten */}
           <div>
-            <h4 className="font-semibold text-sm uppercase tracking-wider mb-4 text-primary">Informatie</h4>
-            <div className="space-y-2.5">
+            <h4 className="font-semibold text-white mb-4">Diensten</h4>
+            <ul className="space-y-2">
               {[
-                { label: 'Over Ons', path: '/over-ons' },
-                { label: 'Blog', path: '/blog' },
-                { label: 'Contact', path: '/contact' },
-                { label: 'Afspraak Maken', path: '/booking' },
-              ].map(l => (
-                <Link key={l.path} to={l.path} className="block text-sm text-secondary-foreground/70 hover:text-primary transition-colors">
-                  {l.label}
-                </Link>
+                ['Personal Training', '/personal-training'],
+                ['Deep Tissue Massage', '/massage'],
+                ['Get Fit Programma', '/get-fit'],
+                ['Tarieven', '/tarieven'],
+                ['Gratis Proefles', '/booking'],
+                ['Blog', '/blog'],
+              ].map(([label, path]) => (
+                <li key={path}>
+                  <Link to={path} className="text-white/60 hover:text-primary text-sm transition-colors">
+                    {label}
+                  </Link>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
+
+          {/* Werkgebied */}
           <div>
-            <h4 className="font-semibold text-sm uppercase tracking-wider mb-4 text-primary">Contact</h4>
-            <div className="space-y-3">
-              <a href="tel:+31682272680" className="flex items-center gap-3 text-sm text-secondary-foreground/70 hover:text-primary transition-colors">
-                <Phone className="w-4 h-4 shrink-0" /> 06 82 27 26 80
+            <h4 className="font-semibold text-white mb-4">Werkgebied</h4>
+            <ul className="space-y-2">
+              {[
+                ['Personal Trainer Den Haag', '/personal-trainer-den-haag'],
+                ['Personal Trainer Wassenaar', '/personal-trainer-wassenaar'],
+                ['Personal Trainer Voorburg', '/personal-trainer-voorburg'],
+                ['Personal Trainer Leidschendam', '/personal-trainer-leidschendam'],
+                ['Massage Den Haag', '/massage-den-haag'],
+                ['Deep Tissue Massage Den Haag', '/deep-tissue-massage-den-haag'],
+              ].map(([label, path]) => (
+                <li key={path}>
+                  <Link to={path} className="text-white/60 hover:text-primary text-sm transition-colors">
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h4 className="font-semibold text-white mb-4">Contact</h4>
+            <div className="space-y-3 mb-5">
+              <a href="tel:+31682272680" className="flex items-center gap-2 text-white/60 hover:text-primary text-sm transition-colors">
+                <Phone className="w-4 h-4 flex-shrink-0" /> 06 8227 2680
               </a>
-              <a href="mailto:info@jitansports.com" className="flex items-center gap-3 text-sm text-secondary-foreground/70 hover:text-primary transition-colors">
-                <Mail className="w-4 h-4 shrink-0" /> info@jitansports.com
+              <a href="mailto:info@jitansports.nl" className="flex items-center gap-2 text-white/60 hover:text-primary text-sm transition-colors">
+                <Mail className="w-4 h-4 flex-shrink-0" /> info@jitansports.nl
               </a>
-              <div className="flex items-start gap-3 text-sm text-secondary-foreground/70">
-                <MapPin className="w-4 h-4 shrink-0 mt-0.5" />
-                <span>{"Regio Den Haag & omstreken"}</span>
+              <div className="flex items-start gap-2 text-white/60 text-sm">
+                <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                <span>Den Haag, Wassenaar, Voorburg, Leidschendam</span>
               </div>
+            </div>
+            <div>
+              <p className="text-xs font-semibold text-white/30 uppercase tracking-wider mb-2">Openingstijden</p>
+              <p className="text-white/50 text-xs">Ma – Vr: 07:00 – 20:00</p>
+              <p className="text-white/50 text-xs">Za: 09:00 – 17:00</p>
             </div>
           </div>
         </div>
-        <div className="mt-12 pt-8 border-t border-secondary-foreground/10 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-secondary-foreground/50">
-            {"© "}{new Date().getFullYear()}{" JitanSports. Alle rechten voorbehouden."}
-          </p>
-          <p className="text-xs text-secondary-foreground/40">
-            {"Website ontwikkeld door "}
-            <a href="https://vedantix.nl" target="_blank" rel="noopener noreferrer dofollow" className="hover:text-primary transition-colors underline">Vedantix</a>
-          </p>
+      </div>
+
+      {/* Bottom */}
+      <div className="border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-white/35">
+          <p>© {currentYear} JitanSports. Alle rechten voorbehouden.</p>
+          <div className="flex items-center gap-4 flex-wrap justify-center">
+            <Link to="/over-ons" className="hover:text-white transition-colors">Over ons</Link>
+            <Link to="/contact" className="hover:text-white transition-colors">Contact</Link>
+            <a
+              href="https://vedantix.nl"
+              target="_blank"
+              rel="dofollow noopener noreferrer"
+              className="hover:text-primary transition-colors"
+            >
+              Website door Vedantix
+            </a>
+          </div>
         </div>
       </div>
     </footer>

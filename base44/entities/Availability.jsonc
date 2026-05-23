@@ -1,0 +1,35 @@
+{
+  "name": "Availability",
+  "type": "object",
+  "properties": {
+    "day_of_week": {
+      "type": "number",
+      "title": "Dag van de week (0=Zondag, 1=Maandag...)",
+      "minimum": 0,
+      "maximum": 6
+    },
+    "start_time": {
+      "type": "string",
+      "title": "Starttijd (HH:MM)"
+    },
+    "end_time": {
+      "type": "string",
+      "title": "Eindtijd (HH:MM)"
+    },
+    "slot_duration": {
+      "type": "number",
+      "title": "Tijdslot duur (minuten)",
+      "default": 60
+    },
+    "is_active": {
+      "type": "boolean",
+      "title": "Actief",
+      "default": true
+    }
+  },
+  "required": [
+    "day_of_week",
+    "start_time",
+    "end_time"
+  ]
+}

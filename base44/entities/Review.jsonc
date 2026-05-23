@@ -6,6 +6,10 @@
       "type": "string",
       "title": "Naam"
     },
+    "city": {
+      "type": "string",
+      "title": "Woonplaats"
+    },
     "rating": {
       "type": "number",
       "title": "Beoordeling",
