@@ -6,55 +6,47 @@ export default function Logo({ to = '/', className = '', compact = false, onClic
 
   return (
     <Link to={to} onClick={onClick} className={`inline-flex items-center gap-2.5 ${className}`}>
-      <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#fff9ef] ring-1 ring-primary/25 shadow-sm">
-        <svg viewBox="0 0 64 64" aria-hidden="true" className="h-11 w-11">
-          <rect width="64" height="64" rx="15" fill="#FFF9EF" />
+      <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-secondary text-primary ring-1 ring-primary/25 shadow-sm">
+        <svg viewBox="0 0 64 64" aria-hidden="true" className="h-10 w-10">
           <path
-            d="M8.5 44C7.8 25.5 22.8 9.5 40.3 9.5C52.1 9.5 58 17.8 58 31"
+            d="M10 39C10.5 23.5 23.2 10 39.5 10C50.2 10 55 17.2 55 29.5"
             fill="none"
-            stroke="#F4BA52"
-            strokeWidth="3"
+            stroke="currentColor"
+            strokeWidth="3.8"
             strokeLinecap="round"
           />
-          <circle cx="41.5" cy="18.5" r="5.8" fill="none" stroke="#F4BA52" strokeWidth="3" />
+          <circle cx="39.5" cy="18.3" r="5.4" fill="none" stroke="currentColor" strokeWidth="3.8" />
           <path
-            d="M37 25C30.5 29 28.2 35 25.2 44"
+            d="M35.2 25C29.2 28.8 26.6 34.8 23.5 43.5"
             fill="none"
-            stroke="#F4BA52"
-            strokeWidth="3"
+            stroke="currentColor"
+            strokeWidth="3.8"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
           <path
-            d="M32.8 34C36 38.2 41 40.5 47.2 40"
+            d="M30.7 34C35 38 40.5 40.1 47.4 40"
             fill="none"
-            stroke="#F4BA52"
-            strokeWidth="3"
+            stroke="currentColor"
+            strokeWidth="3.8"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
           <path
-            d="M6.5 47C17 46.5 25.7 41.4 36 42.3C45.6 43.2 51.5 48.5 59 39.8"
+            d="M7 47C17.2 46.5 25.7 41.4 36 42.4C45.4 43.3 51.4 48.2 58 40"
             fill="none"
-            stroke="#557A4C"
-            strokeWidth="3.2"
+            stroke="white"
+            strokeWidth="4"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
           <path
-            d="M7 53C18 54 27 49.4 36 49.8C46.2 50.2 50.5 57 59.2 52.8"
+            d="M11.5 53C22 54.2 31.1 49.2 39.4 50.3C47.3 51.4 51.4 55.9 57.2 52"
             fill="none"
-            stroke="#557A4C"
-            strokeWidth="3.2"
+            stroke="currentColor"
+            strokeWidth="3.6"
             strokeLinecap="round"
             strokeLinejoin="round"
-          />
-          <path
-            d="M15 57C27.5 58.1 43.2 57.7 54 52"
-            fill="none"
-            stroke="#557A4C"
-            strokeWidth="2.7"
-            strokeLinecap="round"
           />
         </svg>
       </span>
