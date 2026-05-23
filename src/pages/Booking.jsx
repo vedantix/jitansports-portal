@@ -5,15 +5,6 @@ import { CheckCircle, Calendar, Clock, ChevronLeft, ArrowRight } from 'lucide-re
 import { Button } from '@/components/ui/button';
 import { useSiteContent } from '@/hooks/useSiteContent';
 
-const SERVICES = [
-  { id: 'pt-outdoor', name: 'Personal Training Outdoor', duration: '60 min', price: 'Gratis proefles', desc: 'Training in de buitenlucht, op jouw locatie' },
-  { id: 'pt-home', name: 'Personal Training @Home', duration: '60 min', price: 'Gratis proefles', desc: 'Training aan huis, volledig op maat' },
-  { id: 'deep-tissue', name: 'Deep Tissue Massage', duration: '60–90 min', price: 'Vanaf €65', desc: 'Professionele massage voor herstel en pijn' },
-  { id: 'relaxation', name: 'Ontspanningsmassage', duration: '60–90 min', price: 'Vanaf €55', desc: 'Diepe ontspanning en stress-relief' },
-  { id: 'get-fit', name: 'Get Fit Pakket', duration: '12 weken', price: 'Op aanvraag', desc: 'Compleet transformatieprogramma' },
-  { id: 'trial', name: 'Gratis Proefles', duration: '60 min', price: 'Gratis', desc: 'Vrijblijvend kennismaken met Jitan' },
-];
-
 const DEFAULT_SLOTS = ['09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
 
 function generateSlots(availability, dayOfWeek) {
@@ -48,6 +39,13 @@ export default function Booking() {
   const [blockedDates, setBlockedDates] = useState([]);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const services = [1, 2, 3, 4, 5, 6].map((number) => ({
+    id: `service-${number}`,
+    name: content[`booking_service_${number}_name`],
+    desc: content[`booking_service_${number}_desc`],
+    price: content[`booking_service_${number}_price`],
+    duration: content[`booking_service_${number}_duration`],
+  }));
 
   useEffect(() => {
     base44.entities.Availability.list().then(setAvailability).catch(() => {});
@@ -114,14 +112,14 @@ export default function Booking() {
           <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-5">
             <CheckCircle className="w-8 h-8 text-green-500" />
           </div>
-          <h2 className="text-2xl font-display font-bold text-secondary mb-2">Aanvraag ontvangen!</h2>
-          <p className="text-muted-foreground mb-6">We nemen binnen 24 uur contact op om uw afspraak te bevestigen.</p>
+          <h2 className="text-2xl font-display font-bold text-secondary mb-2">{content.booking_success_title}</h2>
+          <p className="text-muted-foreground mb-6">{content.booking_success_text}</p>
           <div className="bg-muted/50 rounded-2xl p-5 text-left mb-6 space-y-1">
             <p className="font-semibold text-secondary">{form.service}</p>
             <p className="text-sm text-muted-foreground">{form.date} om {form.time}</p>
             <p className="text-sm text-muted-foreground">{form.name} · {form.email}</p>
           </div>
-          <Button onClick={resetForm} variant="outline" className="w-full">Nieuwe afspraak plannen</Button>
+          <Button onClick={resetForm} variant="outline" className="w-full">{content.booking_new_button}</Button>
         </motion.div>
       </div>
     );
@@ -134,8 +132,8 @@ export default function Booking() {
     <div className="min-h-screen bg-muted/30">
       {/* Header */}
       <section className="bg-secondary py-12 px-4 text-center">
-        <h1 className="text-3xl md:text-4xl font-display font-bold text-white mb-2">Maak een Afspraak</h1>
-        <p className="text-white/60 text-base">Gratis proefles of direct boeken – volledig vrijblijvend</p>
+        <h1 className="text-3xl md:text-4xl font-display font-bold text-white mb-2">{content.booking_title}</h1>
+        <p className="text-white/60 text-base">{content.booking_subtitle}</p>
       </section>
 
       {/* Progress bar */}
@@ -168,9 +166,9 @@ export default function Booking() {
           {/* Step 1 – Service */}
           {step === 1 && (
             <motion.div key="s1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-              <h2 className="text-xl font-bold text-secondary mb-5">Kies uw dienst</h2>
+              <h2 className="text-xl font-bold text-secondary mb-5">{content.booking_service_title}</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
-                {SERVICES.map(s => (
+                {services.map(s => (
                   <button
                     key={s.id}
                     onClick={() => setForm(p => ({ ...p, service: s.name }))}

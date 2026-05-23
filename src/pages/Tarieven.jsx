@@ -5,6 +5,7 @@ import { ArrowRight, CheckCircle, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 import CTASection from '../components/CTASection';
+import { useSiteContent } from '@/hooks/useSiteContent';
 
 const DEFAULT_PLANS = [
   {
@@ -37,16 +38,14 @@ const DEFAULT_PLANS = [
   },
 ];
 
-const MORE = [
-  { name: "Ontspanningsmassage", price: "€60,00", desc: "Full body – 1 uur" },
-  { name: "Stoelmassage", price: "vanaf €25,00", desc: "20 min (€25) / 30 min (€37,50)" },
-  { name: "Voedingsschema", price: "€45,00", desc: "Op maat, voor 1-1,5 maand" },
-  { name: "Lichaamsanalyse", price: "€15,00", desc: "Inclusief digitaal rapport" },
-  { name: "VIP Behandeling", price: "€190,00", desc: "1 uur training + 1 uur massage" },
-];
-
 export default function Tarieven() {
+  const { content } = useSiteContent();
   const [plans, setPlans] = useState(DEFAULT_PLANS);
+  const moreServices = [1, 2, 3, 4, 5].map((number) => ({
+    name: content[`pricing_more_${number}_name`],
+    desc: content[`pricing_more_${number}_desc`],
+    price: content[`pricing_more_${number}_price`],
+  }));
 
   useEffect(() => {
     base44.entities.PricingPlan.list('order')
@@ -75,10 +74,10 @@ export default function Tarieven() {
       <section className="py-20 px-4 bg-secondary text-secondary-foreground">
         <div className="max-w-7xl mx-auto text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <p className="text-primary font-semibold mb-3 uppercase tracking-wider text-sm">Tarieven</p>
-            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">Investeer in jezelf</h1>
+            <p className="text-primary font-semibold mb-3 uppercase tracking-wider text-sm">{content.pricing_eyebrow}</p>
+            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">{content.pricing_title}</h1>
             <p className="text-secondary-foreground/70 text-lg max-w-2xl mx-auto">
-              Transparante prijzen, geen verborgen kosten. Eerste proefles altijd gratis.
+              {content.pricing_subtitle}
             </p>
           </motion.div>
         </div>
@@ -129,9 +128,9 @@ export default function Tarieven() {
       {/* More services */}
       <section className="py-20 px-4 bg-muted/50">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-display font-bold text-secondary mb-10 text-center">Overige Diensten</h2>
+          <h2 className="text-3xl font-display font-bold text-secondary mb-10 text-center">{content.pricing_more_title}</h2>
           <div className="space-y-4">
-            {MORE.map(s => (
+            {moreServices.map(s => (
               <div key={s.name} className="flex flex-col sm:flex-row sm:items-center justify-between p-5 bg-white rounded-xl border border-border/50 gap-2">
                 <div>
                   <h3 className="font-semibold text-secondary">{s.name}</h3>
@@ -144,7 +143,7 @@ export default function Tarieven() {
         </div>
       </section>
 
-      <CTASection dark title="Klaar om te starten?" subtitle="Plan vandaag nog jouw gratis proefles en ervaar het verschil." />
+      <CTASection dark title={content.pricing_cta_title} subtitle={content.pricing_cta_subtitle} />
     </div>
   );
 }

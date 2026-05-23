@@ -58,6 +58,9 @@ export default function ManageContent() {
     setSaving(true);
     try {
       for (const field of fields) {
+        const defaultValue = DEFAULT_SITE_CONTENT[field.key] ?? '';
+        if (!field.id && (field.value || '') === defaultValue) continue;
+
         const payload = {
           key: field.key,
           label: field.label,
@@ -158,7 +161,7 @@ export default function ManageContent() {
         <div>
           <h1 className="text-2xl font-bold text-secondary">Website content beheren</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Pas algemene teksten, CTA's, contactgegevens, SEO en hoofdafbeeldingen aan.
+            Beheer statische teksten, CTA's, servicefoto's, pagina-afbeeldingen en SEO per publieke pagina.
           </p>
         </div>
         <button

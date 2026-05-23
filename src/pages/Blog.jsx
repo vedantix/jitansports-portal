@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
 import { Calendar, ArrowRight } from 'lucide-react';
+import { useSiteContent } from '@/hooks/useSiteContent';
 
 const FALLBACK_POSTS = [
   { id: "1", title: "Voordelen van Massage en Personal Training", slug: "voordelen-van-massage-en-personal-training", excerpt: "Wil jij je meer ontspannen voelen, fitter en met een sterker lichaam? Dan is de combinatie van massage en personal training het gouden duo!", featured_image: "https://media.base44.com/images/public/6a115e447a3ac96774309014/f2afe8ff0_generated_c71cfae0.png", category: "Lifestyle", created_date: "2025-01-15" },
@@ -21,6 +22,7 @@ const formatDate = (date) =>
   }).format(new Date(date));
 
 export default function Blog() {
+  const { content } = useSiteContent();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -37,9 +39,9 @@ export default function Blog() {
       <section className="py-20 px-4 bg-secondary text-secondary-foreground">
         <div className="max-w-7xl mx-auto text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <p className="text-primary font-semibold mb-3 uppercase tracking-wider text-sm">Blog</p>
-            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">{"Inzichten & Tips"}</h1>
-            <p className="text-secondary-foreground/70 text-lg">De laatste artikelen over training, voeding en welzijn.</p>
+            <p className="text-primary font-semibold mb-3 uppercase tracking-wider text-sm">{content.blog_eyebrow}</p>
+            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">{content.blog_title}</h1>
+            <p className="text-secondary-foreground/70 text-lg">{content.blog_subtitle}</p>
           </motion.div>
         </div>
       </section>

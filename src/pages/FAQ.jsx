@@ -6,6 +6,7 @@ import { base44 } from '@/api/base44Client';
 import FAQAccordion from '@/components/FAQAccordion';
 import CTASection from '@/components/CTASection';
 import SEO, { ROUTE_SEO, buildFAQSchema } from '@/components/SEO';
+import { useSiteContent } from '@/hooks/useSiteContent';
 
 const FALLBACK_FAQS = [
   {
@@ -41,6 +42,7 @@ const FALLBACK_FAQS = [
 ];
 
 export default function FAQ() {
+  const { content } = useSiteContent();
   const [faqs, setFaqs] = useState(FALLBACK_FAQS);
   const [activeCategory, setActiveCategory] = useState('Alle');
 
@@ -72,16 +74,22 @@ export default function FAQ() {
 
   return (
     <div>
-      <SEO {...ROUTE_SEO['/faq']} jsonLd={buildFAQSchema(faqs)} />
+      <SEO
+        {...ROUTE_SEO['/faq']}
+        title={content.seo_faq_title || ROUTE_SEO['/faq'].title}
+        description={content.seo_faq_description || ROUTE_SEO['/faq'].description}
+        image={content.seo_image}
+        jsonLd={buildFAQSchema(faqs)}
+      />
       <section className="bg-secondary px-4 py-16 text-secondary-foreground md:py-20">
         <div className="mx-auto max-w-4xl text-center">
           <div className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/15 text-primary">
             <HelpCircle className="h-6 w-6" />
           </div>
-          <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary">FAQ</p>
-          <h1 className="font-display text-4xl font-bold md:text-5xl">Veelgestelde vragen</h1>
+          <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary">{content.faq_eyebrow}</p>
+          <h1 className="font-display text-4xl font-bold md:text-5xl">{content.faq_title}</h1>
           <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-secondary-foreground/70 md:text-lg">
-            Alles wat je wilt weten over personal training, massage, tarieven en online afspraken.
+            {content.faq_subtitle}
           </p>
         </div>
       </section>
@@ -105,13 +113,13 @@ export default function FAQ() {
           </div>
           <FAQAccordion items={filteredFaqs} />
           <div className="mt-10 rounded-lg border border-primary/20 bg-primary/10 p-5 text-center">
-            <h2 className="mb-2 text-xl font-bold text-secondary">Staat je vraag er niet bij?</h2>
+            <h2 className="mb-2 text-xl font-bold text-secondary">{content.faq_not_found_title}</h2>
             <p className="mb-5 text-sm text-muted-foreground">
-              Stel je vraag direct of plan een gratis kennismaking.
+              {content.faq_not_found_text}
             </p>
             <Link to="/contact">
               <Button className="gap-2 bg-secondary text-white hover:bg-secondary/90">
-                Neem contact op <ArrowRight className="h-4 w-4" />
+                {content.faq_not_found_button} <ArrowRight className="h-4 w-4" />
               </Button>
             </Link>
           </div>

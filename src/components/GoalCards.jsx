@@ -1,47 +1,31 @@
 import { Link } from 'react-router-dom';
 import { Scale, Zap, Shield, Dumbbell, ArrowRight } from 'lucide-react';
+import { useSiteContent } from '@/hooks/useSiteContent';
 
-const GOALS = [
-  {
-    icon: Scale,
-    title: "Afvallen",
-    text: "Bereik een gezond gewicht zonder crashdiëten. Duurzaam, veilig en met blijvend resultaat.",
-    cta: "Start nu",
-    link: "/get-fit",
-  },
-  {
-    icon: Zap,
-    title: "Meer Energie",
-    text: "Voel je fitter en energieker gedurende de dag. Stop met uitgeput wakker worden.",
-    cta: "Ontdek meer",
-    link: "/personal-training",
-  },
-  {
-    icon: Shield,
-    title: "Minder Pijnklachten",
-    text: "Verminder rug-, nek- en schouderklachten door de kracht van massage en gerichte training.",
-    cta: "Meer info",
-    link: "/massage",
-  },
-  {
-    icon: Dumbbell,
-    title: "Sterker en Fitter",
-    text: "Verbeter kracht, conditie en zelfvertrouwen. Ontdek wat jouw lichaam echt kan.",
-    cta: "Plan proefles",
-    link: "/booking",
-  },
-];
+const ICONS = [Scale, Zap, Shield, Dumbbell];
 
 export default function GoalCards() {
+  const { content } = useSiteContent();
+  const goals = ICONS.map((icon, index) => {
+    const number = index + 1;
+    return {
+      icon,
+      title: content[`goal_${number}_title`],
+      text: content[`goal_${number}_text`],
+      cta: content[`goal_${number}_cta`],
+      link: content[`goal_${number}_link`],
+    };
+  });
+
   return (
     <section className="py-14 px-4 bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10">
-          <p className="text-amber-700 font-semibold uppercase tracking-wider text-sm mb-2">Jouw doel, ons resultaat</p>
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-secondary">Wat wil jij bereiken?</h2>
+          <p className="text-amber-700 font-semibold uppercase tracking-wider text-sm mb-2">{content.goal_eyebrow}</p>
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-secondary">{content.goal_title}</h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {GOALS.map((goal) => (
+          {goals.map((goal) => (
             <Link
               key={goal.title}
               to={goal.link}

@@ -4,8 +4,8 @@ import { Button } from '@/components/ui/button';
 import { CheckCircle, ArrowRight, Star, MapPin } from 'lucide-react';
 import FAQAccordion from '../components/FAQAccordion';
 import CTASection from '../components/CTASection';
-
-const HERO_IMG = 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1200';
+import { useSiteContent } from '@/hooks/useSiteContent';
+import { contentLines } from '@/lib/siteContent';
 
 const SCHEMA = {
   "@context": "https://schema.org",
@@ -20,14 +20,20 @@ const SCHEMA = {
   "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "47" }
 };
 
-const FAQS = [
-  { question: "Wat kost een personal trainer in omgeving Den Bosch?", answer: "Bij JitanSports start je altijd met een gratis proefles. Daarna gelden vaste tarieven afhankelijk van het gekozen pakket. Bekijk de tarieven pagina voor exacte prijzen." },
-  { question: "Waar traint JitanSports in omgeving Den Bosch?", answer: "We trainen outdoor, aan huis of op een locatie in omgeving Den Bosch die jou uitkomt. Ook training aan huis is mogelijk." },
-  { question: "Hoe snel zie ik resultaat?", answer: "De meeste klanten zien al na 4–6 weken merkbare verbetering in energie, kracht en lichaamsvorm. Met het Get Fit programma behalen klanten in 12 weken indrukwekkende transformaties." },
-  { question: "Is personal training geschikt voor beginners?", answer: "Absoluut! Of je nu een beginner bent of al ervaring hebt – de training wordt volledig afgestemd op jouw niveau en doelen. We beginnen altijd rustig op te bouwen." },
-];
-
 export default function PersonalTrainerDenBosch() {
+  const { content } = useSiteContent();
+  const sectionParagraphs = contentLines(content, 'trainer_db_section_text');
+  const features = contentLines(content, 'trainer_db_features');
+  const areas = contentLines(content, 'trainer_db_areas');
+  const services = [1, 2, 3, 4].map((number) => ({
+    name: content[`trainer_db_service_${number}_name`],
+    desc: content[`trainer_db_service_${number}_desc`],
+  }));
+  const faqs = [1, 2, 3, 4].map((number) => ({
+    question: content[`trainer_db_faq_${number}_question`],
+    answer: content[`trainer_db_faq_${number}_answer`],
+  }));
+
   useEffect(() => {
     const script = document.createElement('script');
     script.type = 'application/ld+json';
@@ -40,26 +46,26 @@ export default function PersonalTrainerDenBosch() {
     <div>
       <section className="relative py-20 px-4 bg-secondary overflow-hidden">
         <div className="absolute inset-0 opacity-15">
-          <img src={HERO_IMG} alt="" className="w-full h-full object-cover" />
+          <img src={content.trainer_db_hero_image} alt="" className="w-full h-full object-cover" />
         </div>
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <div className="flex items-center justify-center gap-1 mb-4">
             {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-primary text-primary" />)}
-            <span className="text-white/60 text-sm ml-2">5.0 · 47+ beoordelingen</span>
+            <span className="text-white/60 text-sm ml-2">{content.trainer_db_rating_text}</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">Personal Trainer omgeving Den Bosch</h1>
+          <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">{content.trainer_db_title}</h1>
           <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
-            Bereik jouw fitnessdoelen met een ervaren personal trainer in omgeving Den Bosch. Outdoor training, aan huis of bij jou in de buurt. Start met een gratis proefles!
+            {content.trainer_db_subtitle}
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link to="/booking">
               <Button size="lg" className="bg-primary text-secondary font-bold gap-2">
-                Plan Gratis Proefles <ArrowRight className="w-4 h-4" />
+                {content.trainer_db_primary_button} <ArrowRight className="w-4 h-4" />
               </Button>
             </Link>
-            <a href="tel:+31682272680">
+            <a href={`tel:${content.phone_href}`}>
               <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10">
-                06 8227 2680
+                {content.phone_display}
               </Button>
             </a>
           </div>
@@ -69,22 +75,14 @@ export default function PersonalTrainerDenBosch() {
       <section className="py-16 px-4">
         <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div>
-            <h2 className="text-2xl font-display font-bold text-secondary mb-4">Waarom JitanSports als personal trainer in omgeving Den Bosch?</h2>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              Als personal trainer in omgeving Den Bosch bied ik volledig maatwerk – afgestemd op jouw doelen, niveau en agenda. Of je nu wil afvallen, sterker worden, meer energie wil of minder pijnklachten wilt – ik help je resultaat te boeken.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mb-5">
-              Met meer dan 10 jaar ervaring en succesvolle klanten in omgeving Den Bosch weet ik wat werkt. Geen one-size-fits-all, maar jouw persoonlijke programma.
-            </p>
+            <h2 className="text-2xl font-display font-bold text-secondary mb-4">{content.trainer_db_section_title}</h2>
+            {sectionParagraphs.map((paragraph, index) => (
+              <p key={paragraph} className={`text-muted-foreground leading-relaxed ${index === sectionParagraphs.length - 1 ? 'mb-5' : 'mb-4'}`}>
+                {paragraph}
+              </p>
+            ))}
             <div className="space-y-2">
-              {[
-                '1-op-1 persoonlijke begeleiding',
-                'Training op jouw locatie in omgeving Den Bosch',
-                'Voedings- en leefstijladvies inbegrepen',
-                '10+ jaar ervaring als personal trainer',
-                'Combinatie training en massage mogelijk',
-                'Gratis kennismakingsles – geen verplichtingen',
-              ].map(f => (
+              {features.map(f => (
                 <div key={f} className="flex items-center gap-2">
                   <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
                   <span className="text-sm text-foreground">{f}</span>
@@ -93,13 +91,8 @@ export default function PersonalTrainerDenBosch() {
             </div>
           </div>
           <div className="bg-muted/40 rounded-2xl p-6 border border-border">
-            <h3 className="font-bold text-secondary text-lg mb-5">Diensten in omgeving Den Bosch</h3>
-            {[
-              { name: "Personal Training Outdoor", desc: "Training in parken en buitenlocaties in omgeving Den Bosch" },
-              { name: "Personal Training @Home", desc: "Ik kom naar jou toe – geen sportschool nodig" },
-              { name: "Deep Tissue Massage", desc: "Professionele massage voor herstel en pijnvermindering" },
-              { name: "Get Fit Programma", desc: "12 weken totale transformatie incl. voeding en coaching" },
-            ].map(s => (
+            <h3 className="font-bold text-secondary text-lg mb-5">{content.trainer_db_services_title}</h3>
+            {services.map(s => (
               <div key={s.name} className="mb-4 pb-4 border-b border-border last:border-0 last:mb-0 last:pb-0">
                 <p className="font-semibold text-secondary text-sm">{s.name}</p>
                 <p className="text-muted-foreground text-xs mt-0.5">{s.desc}</p>
@@ -107,7 +100,7 @@ export default function PersonalTrainerDenBosch() {
             ))}
             <Link to="/booking" className="block mt-5">
               <Button className="w-full bg-primary text-secondary font-bold gap-2">
-                Start met Gratis Proefles <ArrowRight className="w-4 h-4" />
+                {content.trainer_db_services_button} <ArrowRight className="w-4 h-4" />
               </Button>
             </Link>
           </div>
@@ -116,9 +109,9 @@ export default function PersonalTrainerDenBosch() {
 
       <section className="py-12 px-4 bg-muted/30">
         <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-2xl font-display font-bold text-secondary mb-6">Actief in omgeving Den Bosch</h2>
+          <h2 className="text-2xl font-display font-bold text-secondary mb-6">{content.trainer_db_areas_title}</h2>
           <div className="flex flex-wrap justify-center gap-2.5">
-            {['Den Bosch', 'Rosmalen', 'Vught', 'Oss', 'Sint-Michielsgestel', 'Boxtel', 'Zaltbommel', 'Heusden'].map(area => (
+            {areas.map(area => (
               <span key={area} className="flex items-center gap-1.5 bg-white border border-border px-3 py-1.5 rounded-full text-sm text-foreground">
                 <MapPin className="w-3.5 h-3.5 text-primary" /> {area}
               </span>
@@ -130,15 +123,15 @@ export default function PersonalTrainerDenBosch() {
       <section className="py-16 px-4">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-2xl font-display font-bold text-secondary mb-8 text-center">
-            Veelgestelde vragen – Personal Trainer omgeving Den Bosch
+            {content.trainer_db_faq_title}
           </h2>
-          <FAQAccordion items={FAQS} />
+          <FAQAccordion items={faqs} />
         </div>
       </section>
 
       <CTASection
-        title="Klaar om te starten in omgeving Den Bosch?"
-        subtitle="Plan vandaag nog je gratis proefles bij JitanSports in omgeving Den Bosch."
+        title={content.trainer_db_cta_title}
+        subtitle={content.trainer_db_cta_subtitle}
       />
     </div>
   );

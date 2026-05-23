@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { DEFAULT_SITE_CONTENT } from '@/lib/siteContent';
+import { useSiteContent } from '@/hooks/useSiteContent';
 
 export const SITE_URL = 'https://jitan-sports.nl';
 export const DEFAULT_IMAGE = DEFAULT_SITE_CONTENT.seo_image;
@@ -87,31 +88,47 @@ export const ROUTE_SEO = {
   },
 };
 
+const ROUTE_CONTENT_KEYS = {
+  '/': 'home',
+  '/personal-training': 'personal_training',
+  '/massage': 'massage',
+  '/get-fit': 'get_fit',
+  '/over-ons': 'about',
+  '/tarieven': 'pricing',
+  '/blog': 'blog',
+  '/faq': 'faq',
+  '/contact': 'contact',
+  '/booking': 'booking',
+  '/personal-trainer-den-bosch': 'trainer_den_bosch',
+  '/massage-den-bosch': 'massage_den_bosch',
+  '/deep-tissue-massage-den-bosch': 'deep_tissue_den_bosch',
+};
+
 export function absoluteUrl(path = '/') {
   if (path.startsWith('http')) return path;
   return `${SITE_URL}${path.startsWith('/') ? path : `/${path}`}`;
 }
 
-export function buildLocalBusinessSchema() {
+export function buildLocalBusinessSchema(content = DEFAULT_SITE_CONTENT) {
   return {
     '@context': 'https://schema.org',
     '@type': 'HealthAndBeautyBusiness',
     name: 'JitanSports',
     url: SITE_URL,
-    image: DEFAULT_IMAGE,
-    telephone: '+31682272680',
-    email: DEFAULT_SITE_CONTENT.email,
+    image: content.seo_image || DEFAULT_IMAGE,
+    telephone: content.phone_href || DEFAULT_SITE_CONTENT.phone_href,
+    email: content.email || DEFAULT_SITE_CONTENT.email,
     priceRange: '€€',
-    areaServed: ['omgeving Den Bosch'],
+    areaServed: [content.region || DEFAULT_SITE_CONTENT.region],
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Den Bosch',
       addressCountry: 'NL',
     },
     sameAs: [
-      DEFAULT_SITE_CONTENT.instagram_url,
-      DEFAULT_SITE_CONTENT.facebook_url,
-      DEFAULT_SITE_CONTENT.linkedin_url,
+      content.instagram_url || DEFAULT_SITE_CONTENT.instagram_url,
+      content.facebook_url || DEFAULT_SITE_CONTENT.facebook_url,
+      content.linkedin_url || DEFAULT_SITE_CONTENT.linkedin_url,
     ],
     makesOffer: [
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Personal Training' } },
@@ -238,13 +255,23 @@ export default function SEO({
 
 export function RouteSEO() {
   const location = useLocation();
-  const seo = ROUTE_SEO[location.pathname] || {
+  const { content } = useSiteContent();
+  const routeKey = ROUTE_CONTENT_KEYS[location.pathname];
+  const baseSeo = ROUTE_SEO[location.pathname] || {
     title: DEFAULT_SITE_CONTENT.seo_title,
     description: DEFAULT_SITE_CONTENT.seo_description,
     path: location.pathname,
   };
+  const seo = {
+    ...baseSeo,
+    title: routeKey ? content[`seo_${routeKey}_title`] || baseSeo.title : content.seo_title || baseSeo.title,
+    description: routeKey
+      ? content[`seo_${routeKey}_description`] || baseSeo.description
+      : content.seo_description || baseSeo.description,
+    image: content.seo_image || DEFAULT_IMAGE,
+  };
 
-  const schema = seo.localBusiness ? buildLocalBusinessSchema() : null;
+  const schema = seo.localBusiness ? buildLocalBusinessSchema(content) : null;
 
   return <SEO {...seo} jsonLd={schema} />;
 }

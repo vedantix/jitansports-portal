@@ -30,9 +30,9 @@ export default function Contact() {
       <section className="py-20 px-4 bg-secondary text-secondary-foreground">
         <div className="max-w-7xl mx-auto text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <p className="text-primary font-semibold mb-3 uppercase tracking-wider text-sm">Contact</p>
-            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">Neem Contact Op</h1>
-            <p className="text-secondary-foreground/70 text-lg">We horen graag van je. Neem gerust contact op!</p>
+            <p className="text-primary font-semibold mb-3 uppercase tracking-wider text-sm">{content.contact_eyebrow}</p>
+            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">{content.contact_title}</h1>
+            <p className="text-secondary-foreground/70 text-lg">{content.contact_subtitle}</p>
           </motion.div>
         </div>
       </section>
@@ -40,12 +40,12 @@ export default function Contact() {
       <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
           <div>
-            <h2 className="text-2xl font-display font-bold text-secondary mb-6">Stuur een Bericht</h2>
+            <h2 className="text-2xl font-display font-bold text-secondary mb-6">{content.contact_form_title}</h2>
             {sent ? (
               <div className="text-center py-12 rounded-2xl bg-primary/5 border border-primary/20">
                 <CheckCircle className="w-16 h-16 text-primary mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-secondary mb-2">Bedankt!</h3>
-                <p className="text-muted-foreground">We nemen zo snel mogelijk contact met je op.</p>
+                <h3 className="text-xl font-bold text-secondary mb-2">{content.contact_success_title}</h3>
+                <p className="text-muted-foreground">{content.contact_success_text}</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
@@ -81,7 +81,7 @@ export default function Contact() {
           </div>
 
           <div>
-            <h2 className="text-2xl font-display font-bold text-secondary mb-6">Contactgegevens</h2>
+            <h2 className="text-2xl font-display font-bold text-secondary mb-6">{content.contact_details_title}</h2>
             <div className="space-y-6 mb-10">
               <a href={`tel:${content.phone_href}`} className="flex items-start gap-4 group">
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
@@ -116,21 +116,21 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="font-semibold text-secondary">Openingstijden</p>
-                  <p className="text-muted-foreground">Ma - Za: 07:00 - 21:00</p>
-                  <p className="text-muted-foreground">Zo: Op afspraak</p>
+                  <p className="text-muted-foreground">{content.contact_opening_hours_1}</p>
+                  <p className="text-muted-foreground">{content.contact_opening_hours_2}</p>
                 </div>
               </div>
             </div>
 
             <a href={createWhatsAppUrl(content, 'Hallo JitanSports, ik wil graag meer informatie.')} target="_blank" rel="noopener noreferrer">
               <Button size="lg" className="bg-green-500 hover:bg-green-600 text-white gap-2 w-full">
-                <MessageCircle className="w-5 h-5" /> Direct WhatsApp Contact
+                <MessageCircle className="w-5 h-5" /> {content.contact_whatsapp_button}
               </Button>
             </a>
 
             <div className="mt-8 rounded-2xl overflow-hidden border border-border/50 h-64">
               <iframe
-                src="https://www.google.com/maps?q=Den%20Bosch%2C%20Nederland&output=embed"
+                src={content.contact_map_url}
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

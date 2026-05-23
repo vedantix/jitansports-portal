@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
+import { useSiteContent } from '@/hooks/useSiteContent';
 
 const FALLBACK_IMAGES = [
   { id: 1, image_url: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=600&q=75', title: 'Personal Training' },
@@ -12,6 +13,7 @@ const FALLBACK_IMAGES = [
 ];
 
 export default function GallerySection() {
+  const { content } = useSiteContent();
   const [images, setImages] = useState(FALLBACK_IMAGES);
   const [lightbox, setLightbox] = useState(null);
 
@@ -39,8 +41,8 @@ export default function GallerySection() {
     <section className="py-16 px-4 bg-muted/30">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10">
-          <p className="text-amber-700 font-semibold uppercase tracking-wider text-sm mb-2">Galerij</p>
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-secondary">Trainingen in de praktijk</h2>
+          <p className="text-amber-700 font-semibold uppercase tracking-wider text-sm mb-2">{content.gallery_eyebrow}</p>
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-secondary">{content.gallery_title}</h2>
         </div>
         <div className="columns-2 md:columns-3 gap-3">
           {images.map((img, index) => (
