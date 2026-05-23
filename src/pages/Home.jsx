@@ -36,7 +36,7 @@ const SERVICES = [
 ];
 
 const FAQS = [
-  { question: "Waar trainen we?", answer: "JitanSports traint aan huis, in het park of op een locatie die jou uitkomt in Den Haag, Wassenaar, Voorburg en Leidschendam." },
+  { question: "Waar trainen we?", answer: "JitanSports traint aan huis, in het park of op een locatie die jou uitkomt in omgeving Den Bosch." },
   { question: "Hoe lang duurt een sessie?", answer: "Een standaard trainingssessie duurt 60 minuten. Massages zijn 60 of 90 minuten." },
   { question: "Is de gratis proefles écht gratis?", answer: "Ja, 100% gratis en volledig vrijblijvend. Je ontdekt hoe wij werken en of het bij je past." },
   { question: "Kan ik training en massage combineren?", answer: "Absoluut! Veel klanten combineren personal training met Deep Tissue Massage voor het beste resultaat." },
@@ -85,7 +85,7 @@ export default function Home() {
         <div className="absolute inset-0">
           <img
             src={content.hero_image}
-            alt="JitanSports Personal Trainer Den Haag"
+            alt="JitanSports Personal Trainer omgeving Den Bosch"
             className="w-full h-full object-cover"
             loading="eager"
             fetchPriority="high"
@@ -224,7 +224,7 @@ export default function Home() {
           >
             <img
               src={content.hero_image}
-              alt="Jitan – Personal Trainer Den Haag"
+              alt="Jitan – Personal Trainer omgeving Den Bosch"
               className="w-full h-full object-cover"
               loading="lazy"
               decoding="async"
@@ -236,7 +236,7 @@ export default function Home() {
               Jouw persoonlijke gids naar een gezonde lifestyle
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              JitanSports is ontstaan vanuit eigen ervaring. Ervaring in het er na je 40ste nog steeds goed uit kunnen zien én jezelf goed voelen. Met meer dan 10 jaar ervaring help ik klanten in Den Haag en omgeving hun doelen te bereiken.
+              JitanSports is ontstaan vanuit eigen ervaring. Ervaring in het er na je 40ste nog steeds goed uit kunnen zien én jezelf goed voelen. Met meer dan 10 jaar ervaring help ik klanten in omgeving Den Bosch hun doelen te bereiken.
             </p>
             <div className="grid grid-cols-2 gap-2.5 mb-6">
               {USP_ITEMS.map(item => (

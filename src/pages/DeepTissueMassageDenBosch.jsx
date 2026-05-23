@@ -10,10 +10,10 @@ const HERO_IMG = 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=12
 const SCHEMA = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "name": "JitanSports – Deep Tissue Massage Den Haag",
-  "description": "Professionele Deep Tissue Massage in Den Haag. Effectief bij rugklachten, nek/schouder pijn en sportblessures. Aan huis beschikbaar.",
+  "name": "JitanSports – Deep Tissue Massage omgeving Den Bosch",
+  "description": "Professionele Deep Tissue Massage in omgeving Den Bosch. Effectief bij rugklachten, nek/schouder pijn en sportblessures. Aan huis beschikbaar.",
   "telephone": "+31682272680",
-  "address": { "@type": "PostalAddress", "addressLocality": "Den Haag", "addressCountry": "NL" },
+  "address": { "@type": "PostalAddress", "addressLocality": "Den Bosch", "addressCountry": "NL" },
   "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "28" }
 };
 
@@ -22,7 +22,7 @@ const FAQS = [
   { question: "Is Deep Tissue Massage pijnlijk?", answer: "Tijdens de massage kan er enige druk worden gevoeld op gespannen gebieden. Dit is normaal en gaat gepaard met herkenbare pijn ('goede pijn'). Na de massage voelt u duidelijk verschil." },
   { question: "Hoe vaak moet ik een Deep Tissue Massage krijgen?", answer: "Voor chronische klachten raden we aan te starten met wekelijks en daarna maandelijks. Veel klanten combineren dit met personal training voor optimaal herstel." },
   { question: "Welke klachten behandel je met Deep Tissue Massage?", answer: "Rugpijn, nekpijn, schouderspanning, frozen shoulder, sportblessures, spierkrampen en chronische vermoeidheid. Bij twijfel, neem contact op voor advies." },
-  { question: "Is Deep Tissue Massage aan huis beschikbaar in Den Haag?", answer: "Ja, JitanSports biedt Deep Tissue Massage aan huis in heel Den Haag en omgeving. Geen reiskosten voor locaties in het werkgebied." },
+  { question: "Is Deep Tissue Massage aan huis beschikbaar in omgeving Den Bosch?", answer: "Ja, JitanSports biedt Deep Tissue Massage aan huis in omgeving Den Bosch. Geen reiskosten voor locaties in het werkgebied." },
 ];
 
 const BENEFITS = [
@@ -34,7 +34,7 @@ const BENEFITS = [
   'Stimuleert herstel na training',
 ];
 
-export default function DeepTissueMassageDenHaag() {
+export default function DeepTissueMassageDenBosch() {
   useEffect(() => {
     const script = document.createElement('script');
     script.type = 'application/ld+json';
@@ -54,9 +54,9 @@ export default function DeepTissueMassageDenHaag() {
             {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-primary text-primary" />)}
             <span className="text-white/60 text-sm ml-2">5.0 · 28+ tevreden klanten</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">Deep Tissue Massage Den Haag</h1>
+          <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">Deep Tissue Massage omgeving Den Bosch</h1>
           <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
-            Professionele Deep Tissue Massage in Den Haag. Effectief bij rugklachten, spierspanning en sportblessures. Aan huis beschikbaar!
+            Professionele Deep Tissue Massage in omgeving Den Bosch. Effectief bij rugklachten, spierspanning en sportblessures. Aan huis beschikbaar!
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link to="/booking">
@@ -123,12 +123,12 @@ export default function DeepTissueMassageDenHaag() {
 
       <section className="py-12 px-4 bg-muted/30">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-xl font-display font-bold text-secondary mb-6 text-center">Veelgestelde vragen – Deep Tissue Massage Den Haag</h2>
+          <h2 className="text-xl font-display font-bold text-secondary mb-6 text-center">Veelgestelde vragen – Deep Tissue Massage omgeving Den Bosch</h2>
           <FAQAccordion items={FAQS} />
         </div>
       </section>
 
-      <CTASection title="Boek uw Deep Tissue Massage in Den Haag" subtitle="Aan huis. Professioneel. Effectief. Snel geboekt." />
+      <CTASection title="Boek uw Deep Tissue Massage in omgeving Den Bosch" subtitle="Aan huis. Professioneel. Effectief. Snel geboekt." />
     </div>
   );
 }

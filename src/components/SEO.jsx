@@ -7,34 +7,34 @@ export const DEFAULT_IMAGE = DEFAULT_SITE_CONTENT.seo_image;
 
 export const ROUTE_SEO = {
   '/': {
-    title: 'JitanSports - Personal Trainer & Massage Den Haag',
+    title: 'JitanSports - Personal Trainer & Massage omgeving Den Bosch',
     description:
-      'Personal training, deep tissue massage en voedingsbegeleiding in Den Haag, Wassenaar, Voorburg en Leidschendam. Plan gratis een proefles.',
+      'Personal training, deep tissue massage en voedingsbegeleiding in omgeving Den Bosch. Plan gratis een proefles.',
     path: '/',
     localBusiness: true,
   },
   '/personal-training': {
-    title: 'Personal Training Den Haag - Outdoor & Aan Huis | JitanSports',
+    title: 'Personal Training omgeving Den Bosch - Outdoor & Aan Huis | JitanSports',
     description:
-      '1-op-1 personal training in Den Haag en omgeving. Outdoor, aan huis, duo-training en voedingsadvies. Start met een gratis proefles.',
+      '1-op-1 personal training in omgeving Den Bosch. Outdoor, aan huis, duo-training en voedingsadvies. Start met een gratis proefles.',
     path: '/personal-training',
   },
   '/massage': {
-    title: 'Deep Tissue Massage Den Haag - Aan Huis | JitanSports',
+    title: 'Deep Tissue Massage omgeving Den Bosch - Aan Huis | JitanSports',
     description:
-      'Professionele deep tissue massage en ontspanningsmassage in Den Haag. Gericht op herstel, pijnvermindering en ontspanning.',
+      'Professionele deep tissue massage en ontspanningsmassage in omgeving Den Bosch. Gericht op herstel, pijnvermindering en ontspanning.',
     path: '/massage',
   },
   '/get-fit': {
-    title: 'Get Fit Pakket Den Haag - 12 Weken Coaching | JitanSports',
+    title: 'Get Fit Pakket omgeving Den Bosch - 12 Weken Coaching | JitanSports',
     description:
       'Een compleet 12-weken traject met personal training, voeding, lichaamsanalyse, massage en coaching.',
     path: '/get-fit',
   },
   '/over-ons': {
-    title: 'Over JitanSports - Personal Trainer Den Haag',
+    title: 'Over JitanSports - Personal Trainer omgeving Den Bosch',
     description:
-      'Leer JitanSports kennen: personal training, massage en voedingsbegeleiding met een persoonlijke aanpak in de regio Den Haag.',
+      'Leer JitanSports kennen: personal training, massage en voedingsbegeleiding met een persoonlijke aanpak in omgeving Den Bosch.',
     path: '/over-ons',
   },
   '/tarieven': {
@@ -56,9 +56,9 @@ export const ROUTE_SEO = {
     path: '/faq',
   },
   '/contact': {
-    title: 'Contact met JitanSports | Personal Trainer Den Haag',
+    title: 'Contact met JitanSports | Personal Trainer omgeving Den Bosch',
     description:
-      'Neem contact op met JitanSports voor personal training, massage, voedingsadvies of een gratis proefles in Den Haag en omgeving.',
+      'Neem contact op met JitanSports voor personal training, massage, voedingsadvies of een gratis proefles in omgeving Den Bosch.',
     path: '/contact',
   },
   '/booking': {
@@ -67,41 +67,23 @@ export const ROUTE_SEO = {
       'Plan direct een gratis proefles, personal training sessie of massage bij JitanSports.',
     path: '/booking',
   },
-  '/personal-trainer-den-haag': {
-    title: 'Personal Trainer Den Haag | JitanSports',
+  '/personal-trainer-den-bosch': {
+    title: 'Personal Trainer omgeving Den Bosch | JitanSports',
     description:
-      'Personal trainer in Den Haag voor afvallen, krachttraining, conditie en voedingsbegeleiding. Gratis proefles.',
-    path: '/personal-trainer-den-haag',
+      'Personal trainer in omgeving Den Bosch voor afvallen, krachttraining, conditie en voedingsbegeleiding. Gratis proefles.',
+    path: '/personal-trainer-den-bosch',
   },
-  '/personal-trainer-wassenaar': {
-    title: 'Personal Trainer Wassenaar | JitanSports',
+  '/massage-den-bosch': {
+    title: 'Massage omgeving Den Bosch - Deep Tissue & Ontspanning | JitanSports',
     description:
-      'Personal training in Wassenaar, outdoor of aan huis. Begeleiding op maat en gratis proefles.',
-    path: '/personal-trainer-wassenaar',
+      'Massage in omgeving Den Bosch aan huis of op locatie. Deep tissue massage en ontspanningsmassage voor herstel en ontspanning.',
+    path: '/massage-den-bosch',
   },
-  '/personal-trainer-voorburg': {
-    title: 'Personal Trainer Voorburg | JitanSports',
+  '/deep-tissue-massage-den-bosch': {
+    title: 'Deep Tissue Massage omgeving Den Bosch | JitanSports',
     description:
-      '1-op-1 personal training in Voorburg met voedingsadvies, coaching en een gratis proefles.',
-    path: '/personal-trainer-voorburg',
-  },
-  '/personal-trainer-leidschendam': {
-    title: 'Personal Trainer Leidschendam | JitanSports',
-    description:
-      'Personal training in Leidschendam met training op maat, voedingsadvies en massage.',
-    path: '/personal-trainer-leidschendam',
-  },
-  '/massage-den-haag': {
-    title: 'Massage Den Haag - Deep Tissue & Ontspanning | JitanSports',
-    description:
-      'Massage in Den Haag aan huis of op locatie. Deep tissue massage en ontspanningsmassage voor herstel en ontspanning.',
-    path: '/massage-den-haag',
-  },
-  '/deep-tissue-massage-den-haag': {
-    title: 'Deep Tissue Massage Den Haag | JitanSports',
-    description:
-      'Deep tissue massage in Den Haag voor rugklachten, nek- en schouderpijn, spierherstel en sportblessures.',
-    path: '/deep-tissue-massage-den-haag',
+      'Deep tissue massage in omgeving Den Bosch voor rugklachten, nek- en schouderpijn, spierherstel en sportblessures.',
+    path: '/deep-tissue-massage-den-bosch',
   },
 };
 
@@ -120,10 +102,10 @@ export function buildLocalBusinessSchema() {
     telephone: '+31682272680',
     email: DEFAULT_SITE_CONTENT.email,
     priceRange: '€€',
-    areaServed: ['Den Haag', 'Wassenaar', 'Voorburg', 'Leidschendam'],
+    areaServed: ['omgeving Den Bosch'],
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Den Haag',
+      addressLocality: 'Den Bosch',
       addressCountry: 'NL',
     },
     sameAs: [

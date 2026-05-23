@@ -130,7 +130,7 @@ export default function Contact() {
 
             <div className="mt-8 rounded-2xl overflow-hidden border border-border/50 h-64">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d156388.35!2d4.2!3d52.07!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c5b72f4298bd71%3A0x400de5a8d1e6c10!2sDen%20Haag!5e0!3m2!1snl!2snl!4v1"
+                src="https://www.google.com/maps?q=Den%20Bosch%2C%20Nederland&output=embed"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

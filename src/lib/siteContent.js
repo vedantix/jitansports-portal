@@ -1,9 +1,9 @@
 export const DEFAULT_SITE_CONTENT = Object.freeze({
-  hero_eyebrow: 'Personal Trainer Den Haag',
+  hero_eyebrow: 'Personal Trainer omgeving Den Bosch',
   hero_title: 'Personal training en massage aan huis',
   hero_highlight: 'Fit, sterk en vrij van pijn.',
   hero_subtitle:
-    'JitanSports helpt je met personal training, deep tissue massage en voedingsbegeleiding in Den Haag, Wassenaar, Voorburg en Leidschendam.',
+    'JitanSports helpt je met personal training, deep tissue massage en voedingsbegeleiding in omgeving Den Bosch.',
   hero_image: '/images/jitansports-hero.jpg',
   primary_cta_text: 'Plan gratis proefles',
   secondary_cta_text: 'WhatsApp direct',
@@ -16,14 +16,14 @@ export const DEFAULT_SITE_CONTENT = Object.freeze({
   whatsapp_message:
     'Hallo JitanSports, ik wil graag een gratis proefles aanvragen.',
   email: 'info@jitansports.com',
-  region: 'Den Haag, Wassenaar, Voorburg en Leidschendam',
-  address_label: 'Regio Den Haag',
+  region: 'omgeving Den Bosch',
+  address_label: 'Omgeving Den Bosch',
   instagram_url: 'https://instagram.com',
   facebook_url: 'https://facebook.com',
   linkedin_url: 'https://linkedin.com',
-  seo_title: 'JitanSports - Personal Trainer & Massage Den Haag',
+  seo_title: 'JitanSports - Personal Trainer & Massage omgeving Den Bosch',
   seo_description:
-    'Personal training, deep tissue massage en voedingsbegeleiding in Den Haag en omgeving. Plan gratis een proefles bij JitanSports.',
+    'Personal training, deep tissue massage en voedingsbegeleiding in omgeving Den Bosch. Plan gratis een proefles bij JitanSports.',
   seo_image: '/images/jitansports-hero.jpg',
 });
 

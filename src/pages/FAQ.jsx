@@ -11,7 +11,7 @@ const FALLBACK_FAQS = [
   {
     question: 'Waar geeft JitanSports personal training?',
     answer:
-      'JitanSports traint in Den Haag, Wassenaar, Voorburg en Leidschendam. Dat kan outdoor, aan huis of op een locatie die bij jou past.',
+      'JitanSports traint in omgeving Den Bosch. Dat kan outdoor, aan huis of op een locatie die bij jou past.',
     category: 'Personal Training',
   },
   {

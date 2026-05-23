@@ -19,12 +19,9 @@ const BlogPost = lazy(() => import('./pages/BlogPost'));
 const FAQ = lazy(() => import('./pages/FAQ'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Booking = lazy(() => import('./pages/Booking'));
-const PersonalTrainerDenHaag = lazy(() => import('./pages/PersonalTrainerDenHaag'));
-const PersonalTrainerWassenaar = lazy(() => import('./pages/PersonalTrainerWassenaar'));
-const PersonalTrainerVoorburg = lazy(() => import('./pages/PersonalTrainerVoorburg'));
-const PersonalTrainerLeidschendam = lazy(() => import('./pages/PersonalTrainerLeidschendam'));
-const MassageDenHaag = lazy(() => import('./pages/MassageDenHaag'));
-const DeepTissueMassageDenHaag = lazy(() => import('./pages/DeepTissueMassageDenHaag'));
+const PersonalTrainerDenBosch = lazy(() => import('./pages/PersonalTrainerDenBosch'));
+const MassageDenBosch = lazy(() => import('./pages/MassageDenBosch'));
+const DeepTissueMassageDenBosch = lazy(() => import('./pages/DeepTissueMassageDenBosch'));
 const AdminLogin = lazy(() => import('./pages/admin/AdminLogin'));
 const AdminDashboard = lazy(() => import('./pages/admin/Dashboard'));
 const ManageAppointments = lazy(() => import('./pages/admin/ManageAppointments'));
@@ -62,12 +59,9 @@ const AppRoutes = () => {
             <Route path="/faq" element={<FAQ />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/booking" element={<Booking />} />
-            <Route path="/personal-trainer-den-haag" element={<PersonalTrainerDenHaag />} />
-            <Route path="/personal-trainer-wassenaar" element={<PersonalTrainerWassenaar />} />
-            <Route path="/personal-trainer-voorburg" element={<PersonalTrainerVoorburg />} />
-            <Route path="/personal-trainer-leidschendam" element={<PersonalTrainerLeidschendam />} />
-            <Route path="/massage-den-haag" element={<MassageDenHaag />} />
-            <Route path="/deep-tissue-massage-den-haag" element={<DeepTissueMassageDenHaag />} />
+            <Route path="/personal-trainer-den-bosch" element={<PersonalTrainerDenBosch />} />
+            <Route path="/massage-den-bosch" element={<MassageDenBosch />} />
+            <Route path="/deep-tissue-massage-den-bosch" element={<DeepTissueMassageDenBosch />} />
           </Route>
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<AdminLayout />}>

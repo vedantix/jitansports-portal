@@ -10,24 +10,24 @@ const HERO_IMG = 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w
 const SCHEMA = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "name": "JitanSports – Personal Trainer Den Haag",
-  "description": "Personal trainer in Den Haag voor gewichtsverlies, krachttraining en voedingsbegeleiding. 10+ jaar ervaring. Gratis proefles.",
-  "url": "https://www.jitansports.com/personal-trainer-den-haag",
+  "name": "JitanSports – Personal Trainer omgeving Den Bosch",
+  "description": "Personal trainer in omgeving Den Bosch voor gewichtsverlies, krachttraining en voedingsbegeleiding. 10+ jaar ervaring. Gratis proefles.",
+  "url": "https://www.jitansports.com/personal-trainer-den-bosch",
   "telephone": "+31682272680",
-  "address": { "@type": "PostalAddress", "addressLocality": "Den Haag", "addressCountry": "NL" },
+  "address": { "@type": "PostalAddress", "addressLocality": "Den Bosch", "addressCountry": "NL" },
   "priceRange": "€€",
   "openingHours": ["Mo-Fr 07:00-20:00", "Sa 09:00-17:00"],
   "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "47" }
 };
 
 const FAQS = [
-  { question: "Wat kost een personal trainer in Den Haag?", answer: "Bij JitanSports start je altijd met een gratis proefles. Daarna gelden vaste tarieven afhankelijk van het gekozen pakket. Bekijk de tarieven pagina voor exacte prijzen." },
-  { question: "Waar traint JitanSports in Den Haag?", answer: "We trainen in parken en wijken door heel Den Haag: Scheveningen, Ypenburg, Leidschenveen, het centrum en meer. Ook training aan huis is mogelijk." },
+  { question: "Wat kost een personal trainer in omgeving Den Bosch?", answer: "Bij JitanSports start je altijd met een gratis proefles. Daarna gelden vaste tarieven afhankelijk van het gekozen pakket. Bekijk de tarieven pagina voor exacte prijzen." },
+  { question: "Waar traint JitanSports in omgeving Den Bosch?", answer: "We trainen outdoor, aan huis of op een locatie in omgeving Den Bosch die jou uitkomt. Ook training aan huis is mogelijk." },
   { question: "Hoe snel zie ik resultaat?", answer: "De meeste klanten zien al na 4–6 weken merkbare verbetering in energie, kracht en lichaamsvorm. Met het Get Fit programma behalen klanten in 12 weken indrukwekkende transformaties." },
   { question: "Is personal training geschikt voor beginners?", answer: "Absoluut! Of je nu een beginner bent of al ervaring hebt – de training wordt volledig afgestemd op jouw niveau en doelen. We beginnen altijd rustig op te bouwen." },
 ];
 
-export default function PersonalTrainerDenHaag() {
+export default function PersonalTrainerDenBosch() {
   useEffect(() => {
     const script = document.createElement('script');
     script.type = 'application/ld+json';
@@ -47,9 +47,9 @@ export default function PersonalTrainerDenHaag() {
             {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-primary text-primary" />)}
             <span className="text-white/60 text-sm ml-2">5.0 · 47+ beoordelingen</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">Personal Trainer Den Haag</h1>
+          <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">Personal Trainer omgeving Den Bosch</h1>
           <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
-            Bereik jouw fitnessdoelen met een ervaren personal trainer in Den Haag. Outdoor training, aan huis of bij jou in de buurt. Start met een gratis proefles!
+            Bereik jouw fitnessdoelen met een ervaren personal trainer in omgeving Den Bosch. Outdoor training, aan huis of bij jou in de buurt. Start met een gratis proefles!
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link to="/booking">
@@ -69,17 +69,17 @@ export default function PersonalTrainerDenHaag() {
       <section className="py-16 px-4">
         <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div>
-            <h2 className="text-2xl font-display font-bold text-secondary mb-4">Waarom JitanSports als personal trainer in Den Haag?</h2>
+            <h2 className="text-2xl font-display font-bold text-secondary mb-4">Waarom JitanSports als personal trainer in omgeving Den Bosch?</h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              Als personal trainer in Den Haag bied ik volledig maatwerk – afgestemd op jouw doelen, niveau en agenda. Of je nu wil afvallen, sterker worden, meer energie wil of minder pijnklachten wilt – ik help je resultaat te boeken.
+              Als personal trainer in omgeving Den Bosch bied ik volledig maatwerk – afgestemd op jouw doelen, niveau en agenda. Of je nu wil afvallen, sterker worden, meer energie wil of minder pijnklachten wilt – ik help je resultaat te boeken.
             </p>
             <p className="text-muted-foreground leading-relaxed mb-5">
-              Met meer dan 10 jaar ervaring en honderden succesvolle klanten in Den Haag en omgeving weet ik wat werkt. Geen one-size-fits-all, maar jouw persoonlijke programma.
+              Met meer dan 10 jaar ervaring en succesvolle klanten in omgeving Den Bosch weet ik wat werkt. Geen one-size-fits-all, maar jouw persoonlijke programma.
             </p>
             <div className="space-y-2">
               {[
                 '1-op-1 persoonlijke begeleiding',
-                'Training op jouw locatie in Den Haag',
+                'Training op jouw locatie in omgeving Den Bosch',
                 'Voedings- en leefstijladvies inbegrepen',
                 '10+ jaar ervaring als personal trainer',
                 'Combinatie training en massage mogelijk',
@@ -93,9 +93,9 @@ export default function PersonalTrainerDenHaag() {
             </div>
           </div>
           <div className="bg-muted/40 rounded-2xl p-6 border border-border">
-            <h3 className="font-bold text-secondary text-lg mb-5">Diensten in Den Haag</h3>
+            <h3 className="font-bold text-secondary text-lg mb-5">Diensten in omgeving Den Bosch</h3>
             {[
-              { name: "Personal Training Outdoor", desc: "Training in parken en buitenlocaties in heel Den Haag" },
+              { name: "Personal Training Outdoor", desc: "Training in parken en buitenlocaties in omgeving Den Bosch" },
               { name: "Personal Training @Home", desc: "Ik kom naar jou toe – geen sportschool nodig" },
               { name: "Deep Tissue Massage", desc: "Professionele massage voor herstel en pijnvermindering" },
               { name: "Get Fit Programma", desc: "12 weken totale transformatie incl. voeding en coaching" },
@@ -116,9 +116,9 @@ export default function PersonalTrainerDenHaag() {
 
       <section className="py-12 px-4 bg-muted/30">
         <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-2xl font-display font-bold text-secondary mb-6">Actief in heel Den Haag</h2>
+          <h2 className="text-2xl font-display font-bold text-secondary mb-6">Actief in omgeving Den Bosch</h2>
           <div className="flex flex-wrap justify-center gap-2.5">
-            {['Centrum', 'Scheveningen', 'Loosduinen', 'Escamp', 'Ypenburg', 'Leidschenveen', 'Mariahoeve', 'Wateringse Veld', 'Rijswijk', 'Voorburg', 'Wassenaar'].map(area => (
+            {['Den Bosch', 'Rosmalen', 'Vught', 'Oss', 'Sint-Michielsgestel', 'Boxtel', 'Zaltbommel', 'Heusden'].map(area => (
               <span key={area} className="flex items-center gap-1.5 bg-white border border-border px-3 py-1.5 rounded-full text-sm text-foreground">
                 <MapPin className="w-3.5 h-3.5 text-primary" /> {area}
               </span>
@@ -130,15 +130,15 @@ export default function PersonalTrainerDenHaag() {
       <section className="py-16 px-4">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-2xl font-display font-bold text-secondary mb-8 text-center">
-            Veelgestelde vragen – Personal Trainer Den Haag
+            Veelgestelde vragen – Personal Trainer omgeving Den Bosch
           </h2>
           <FAQAccordion items={FAQS} />
         </div>
       </section>
 
       <CTASection
-        title="Klaar om te starten in Den Haag?"
-        subtitle="Plan vandaag nog je gratis proefles bij de beste personal trainer in Den Haag."
+        title="Klaar om te starten in omgeving Den Bosch?"
+        subtitle="Plan vandaag nog je gratis proefles bij JitanSports in omgeving Den Bosch."
       />
     </div>
   );

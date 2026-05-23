@@ -81,12 +81,12 @@ export default function Footer() {
             <h4 className="font-semibold text-white mb-4">Werkgebied</h4>
             <ul className="space-y-2">
               {[
-                ['Personal Trainer Den Haag', '/personal-trainer-den-haag'],
-                ['Personal Trainer Wassenaar', '/personal-trainer-wassenaar'],
-                ['Personal Trainer Voorburg', '/personal-trainer-voorburg'],
-                ['Personal Trainer Leidschendam', '/personal-trainer-leidschendam'],
-                ['Massage Den Haag', '/massage-den-haag'],
-                ['Deep Tissue Massage Den Haag', '/deep-tissue-massage-den-haag'],
+                ['Personal Trainer omgeving Den Bosch', '/personal-trainer-den-bosch'],
+                ['Outdoor Training omgeving Den Bosch', '/personal-training'],
+                ['Training aan huis omgeving Den Bosch', '/personal-training'],
+                ['Get Fit omgeving Den Bosch', '/get-fit'],
+                ['Massage omgeving Den Bosch', '/massage-den-bosch'],
+                ['Deep Tissue Massage omgeving Den Bosch', '/deep-tissue-massage-den-bosch'],
               ].map(([label, path]) => (
                 <li key={path}>
                   <Link to={path} className="text-white/60 hover:text-primary text-sm transition-colors">

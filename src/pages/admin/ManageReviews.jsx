@@ -65,7 +65,7 @@ export default function ManageReviews() {
             <input
               value={form.city || ''}
               onChange={e => setForm(p => ({ ...p, city: e.target.value }))}
-              placeholder="Woonplaats (bijv. Den Haag)"
+              placeholder="Woonplaats (bijv. omgeving Den Bosch)"
               className="border border-border rounded-lg px-3 py-2 text-sm"
             />
             <input

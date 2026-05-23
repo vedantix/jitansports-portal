@@ -3,11 +3,11 @@ import { Star, ChevronLeft, ChevronRight, MapPin } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
 const FALLBACK_REVIEWS = [
-  { id: 1, name: "Peter V.", city: "Den Haag", rating: 5, text: "Ik ben 12 kilo afgevallen en voel me fitter dan ooit. De persoonlijke aanpak van Jitan maakt echt het verschil!", service: "Personal Training" },
-  { id: 2, name: "Sandra M.", city: "Wassenaar", rating: 5, text: "De Deep Tissue Massage heeft mijn chronische rugklachten enorm verminderd. Al 3 maanden klachtenvrij!", service: "Deep Tissue Massage" },
-  { id: 3, name: "Annemieke K.", city: "Voorburg", rating: 5, text: "Het Get Fit programma heeft mijn leven veranderd. Niet alleen slanker, maar ook zoveel meer energie!", service: "Get Fit Programma" },
-  { id: 4, name: "Mark de J.", city: "Leidschendam", rating: 5, text: "Trainen in de buitenlucht is geweldig. Jitan motiveert je op een persoonlijke manier. Absolute aanrader!", service: "Personal Training Outdoor" },
-  { id: 5, name: "Linda H.", city: "Den Haag", rating: 5, text: "Na 6 maanden training ben ik 8 kilo kwijt en beweeg ik weer pijnloos. Jitan begrijpt wat je nodig hebt.", service: "Personal Training" },
+  { id: 1, name: "Peter V.", city: "omgeving Den Bosch", rating: 5, text: "Ik ben 12 kilo afgevallen en voel me fitter dan ooit. De persoonlijke aanpak van Jitan maakt echt het verschil!", service: "Personal Training" },
+  { id: 2, name: "Sandra M.", city: "omgeving Den Bosch", rating: 5, text: "De Deep Tissue Massage heeft mijn chronische rugklachten enorm verminderd. Al 3 maanden klachtenvrij!", service: "Deep Tissue Massage" },
+  { id: 3, name: "Annemieke K.", city: "omgeving Den Bosch", rating: 5, text: "Het Get Fit programma heeft mijn leven veranderd. Niet alleen slanker, maar ook zoveel meer energie!", service: "Get Fit Programma" },
+  { id: 4, name: "Mark de J.", city: "omgeving Den Bosch", rating: 5, text: "Trainen in de buitenlucht is geweldig. Jitan motiveert je op een persoonlijke manier. Absolute aanrader!", service: "Personal Training Outdoor" },
+  { id: 5, name: "Linda H.", city: "omgeving Den Bosch", rating: 5, text: "Na 6 maanden training ben ik 8 kilo kwijt en beweeg ik weer pijnloos. Jitan begrijpt wat je nodig hebt.", service: "Personal Training" },
 ];
 
 export default function ReviewsSection() {
@@ -59,7 +59,7 @@ export default function ReviewsSection() {
             <div>
               <p className="font-bold text-white text-lg">{review.name}</p>
               <div className="flex items-center justify-center gap-2 text-white/60 text-sm mt-1 flex-wrap">
-                <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5" />{review.city || 'Den Haag'}</span>
+                <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5" />{review.city || 'omgeving Den Bosch'}</span>
                 <span>·</span>
                 <span>{review.service}</span>
               </div>

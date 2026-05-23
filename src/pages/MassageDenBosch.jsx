@@ -10,21 +10,21 @@ const HERO_IMG = 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=12
 const SCHEMA = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "name": "JitanSports – Massage Den Haag",
-  "description": "Professionele massage in Den Haag. Deep Tissue Massage en ontspanningsmassage aan huis of op locatie. Direct boeken!",
+  "name": "JitanSports – Massage omgeving Den Bosch",
+  "description": "Professionele massage in omgeving Den Bosch. Deep Tissue Massage en ontspanningsmassage aan huis of op locatie. Direct boeken!",
   "telephone": "+31682272680",
-  "address": { "@type": "PostalAddress", "addressLocality": "Den Haag", "addressCountry": "NL" },
+  "address": { "@type": "PostalAddress", "addressLocality": "Den Bosch", "addressCountry": "NL" },
   "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "31" }
 };
 
 const FAQS = [
-  { question: "Welke massages zijn beschikbaar in Den Haag?", answer: "JitanSports biedt Deep Tissue Massage en Ontspanningsmassage aan in Den Haag. Beide zijn beschikbaar aan huis of op locatie." },
+  { question: "Welke massages zijn beschikbaar in omgeving Den Bosch?", answer: "JitanSports biedt Deep Tissue Massage en Ontspanningsmassage aan in omgeving Den Bosch. Beide zijn beschikbaar aan huis of op locatie." },
   { question: "Hoe lang duurt een massage?", answer: "Massages zijn beschikbaar in 60 of 90 minuten. We raden 90 minuten aan voor chronische klachten." },
-  { question: "Komt de masseur aan huis?", answer: "Ja! JitanSports komt naar u toe in Den Haag en omgeving. Geen reiskosten voor locaties in het werkgebied." },
+  { question: "Komt de masseur aan huis?", answer: "Ja! JitanSports komt naar u toe in omgeving Den Bosch. Geen reiskosten voor locaties in het werkgebied." },
   { question: "Helpt massage bij rugklachten?", answer: "Deep Tissue Massage is bijzonder effectief bij chronische rug-, nek- en schouderklachten. Veel klanten voelen al na de eerste sessie verlichting." },
 ];
 
-export default function MassageDenHaag() {
+export default function MassageDenBosch() {
   useEffect(() => {
     const script = document.createElement('script');
     script.type = 'application/ld+json';
@@ -44,9 +44,9 @@ export default function MassageDenHaag() {
             {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-primary text-primary" />)}
             <span className="text-white/60 text-sm ml-2">5.0 · 31+ tevreden klanten</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">Massage Den Haag</h1>
+          <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">Massage omgeving Den Bosch</h1>
           <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
-            Professionele massage aan huis of op locatie in Den Haag. Verminder pijn, verminder stress en herstel sneller. Direct boeken!
+            Professionele massage aan huis of op locatie in omgeving Den Bosch. Verminder pijn, verminder stress en herstel sneller. Direct boeken!
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link to="/booking">
@@ -62,15 +62,15 @@ export default function MassageDenHaag() {
       <section className="py-16 px-4">
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
           <div>
-            <h2 className="text-2xl font-display font-bold text-secondary mb-4">Massage aan huis in Den Haag</h2>
+            <h2 className="text-2xl font-display font-bold text-secondary mb-4">Massage aan huis in omgeving Den Bosch</h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              JitanSports biedt professionele massagediensten aan huis in Den Haag. Geen gedoe met rijden naar een massagepraktijk – ik kom naar jou toe.
+              JitanSports biedt professionele massagediensten aan huis in omgeving Den Bosch. Geen gedoe met rijden naar een massagepraktijk – ik kom naar jou toe.
             </p>
             <p className="text-muted-foreground leading-relaxed mb-5">
               Of je nu chronische rugklachten hebt, last van stress of gewoon wil ontspannen na een drukke werkweek – wij hebben de behandeling die bij jou past.
             </p>
             <div className="space-y-2">
-              {['Massage aan huis in heel Den Haag', 'Deep Tissue en ontspanningsmassage', '60 of 90 minuten sessies', 'Gecertificeerde massagetherapeut', 'Ook voor chronische pijnklachten', 'Snel te boeken via de website'].map(f => (
+              {['Massage aan huis in omgeving Den Bosch', 'Deep Tissue en ontspanningsmassage', '60 of 90 minuten sessies', 'Gecertificeerde massagetherapeut', 'Ook voor chronische pijnklachten', 'Snel te boeken via de website'].map(f => (
                 <div key={f} className="flex items-center gap-2">
                   <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
                   <span className="text-sm">{f}</span>
@@ -101,12 +101,12 @@ export default function MassageDenHaag() {
 
       <section className="py-12 px-4 bg-muted/30">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-xl font-display font-bold text-secondary mb-6 text-center">Veelgestelde vragen – Massage Den Haag</h2>
+          <h2 className="text-xl font-display font-bold text-secondary mb-6 text-center">Veelgestelde vragen – Massage omgeving Den Bosch</h2>
           <FAQAccordion items={FAQS} />
         </div>
       </section>
 
-      <CTASection title="Boek een massage in Den Haag" subtitle="Snel geboekt, professioneel uitgevoerd. Aan huis in Den Haag." />
+      <CTASection title="Boek een massage in omgeving Den Bosch" subtitle="Snel geboekt, professioneel uitgevoerd. Aan huis in omgeving Den Bosch." />
     </div>
   );
 }
