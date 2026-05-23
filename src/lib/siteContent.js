@@ -15,7 +15,7 @@ export const DEFAULT_SITE_CONTENT = Object.freeze({
   whatsapp_number: '31682272680',
   whatsapp_message:
     'Hallo JitanSports, ik wil graag een gratis proefles aanvragen.',
-  email: 'info@jitansports.com',
+  email: 'info@jitan-sports.nl',
   region: 'omgeving Den Bosch',
   address_label: 'Omgeving Den Bosch',
   instagram_url: 'https://instagram.com',

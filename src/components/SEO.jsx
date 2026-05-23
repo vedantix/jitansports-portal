@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { DEFAULT_SITE_CONTENT } from '@/lib/siteContent';
 
-export const SITE_URL = 'https://www.jitansports.com';
+export const SITE_URL = 'https://jitan-sports.nl';
 export const DEFAULT_IMAGE = DEFAULT_SITE_CONTENT.seo_image;
 
 export const ROUTE_SEO = {

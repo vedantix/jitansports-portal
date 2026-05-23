@@ -12,7 +12,7 @@ const SCHEMA = {
   "@type": "LocalBusiness",
   "name": "JitanSports – Personal Trainer omgeving Den Bosch",
   "description": "Personal trainer in omgeving Den Bosch voor gewichtsverlies, krachttraining en voedingsbegeleiding. 10+ jaar ervaring. Gratis proefles.",
-  "url": "https://www.jitansports.com/personal-trainer-den-bosch",
+  "url": "https://jitan-sports.nl/personal-trainer-den-bosch",
   "telephone": "+31682272680",
   "address": { "@type": "PostalAddress", "addressLocality": "Den Bosch", "addressCountry": "NL" },
   "priceRange": "€€",

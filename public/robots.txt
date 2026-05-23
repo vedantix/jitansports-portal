@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.jitansports.com/sitemap.xml
+Sitemap: https://jitan-sports.nl/sitemap.xml
