@@ -31,7 +31,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand */}
           <div>
-            <Logo tone="dark" className="mb-4 [&_span:first-child]:bg-white/10 [&_span:first-child]:text-primary" />
+            <Logo tone="dark" className="mb-4" />
             <p className="text-white/60 text-sm leading-relaxed mb-5">
               Personal Training, Deep Tissue Massage en voedingsbegeleiding in {content.region}.
             </p>

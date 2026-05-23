@@ -79,7 +79,7 @@ export default function AdminLayout() {
 
       <aside className={`fixed top-0 left-0 h-full w-64 bg-secondary text-white z-30 flex flex-col transform transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}>
         <div className="p-6 border-b border-white/10">
-          <Logo tone="dark" className="[&_span:first-child]:bg-white/10 [&_span:first-child]:text-primary" />
+          <Logo tone="dark" />
           <p className="text-white/50 text-xs mt-3">Admin paneel</p>
         </div>
 
