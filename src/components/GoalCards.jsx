@@ -8,7 +8,6 @@ const GOALS = [
     text: "Bereik een gezond gewicht zonder crashdiëten. Duurzaam, veilig en met blijvend resultaat.",
     cta: "Start nu",
     link: "/get-fit",
-    color: "bg-amber-50 border-amber-200 hover:border-amber-400",
   },
   {
     icon: Zap,
@@ -16,7 +15,6 @@ const GOALS = [
     text: "Voel je fitter en energieker gedurende de dag. Stop met uitgeput wakker worden.",
     cta: "Ontdek meer",
     link: "/personal-training",
-    color: "bg-sky-50 border-sky-200 hover:border-sky-400",
   },
   {
     icon: Shield,
@@ -24,7 +22,6 @@ const GOALS = [
     text: "Verminder rug-, nek- en schouderklachten door de kracht van massage en gerichte training.",
     cta: "Meer info",
     link: "/massage",
-    color: "bg-green-50 border-green-200 hover:border-green-400",
   },
   {
     icon: Dumbbell,
@@ -32,7 +29,6 @@ const GOALS = [
     text: "Verbeter kracht, conditie en zelfvertrouwen. Ontdek wat jouw lichaam echt kan.",
     cta: "Plan proefles",
     link: "/booking",
-    color: "bg-violet-50 border-violet-200 hover:border-violet-400",
   },
 ];
 
@@ -49,7 +45,7 @@ export default function GoalCards() {
             <Link
               key={goal.title}
               to={goal.link}
-              className={`group relative rounded-2xl border-2 p-6 transition-all duration-300 ${goal.color}`}
+              className="group relative rounded-2xl border-2 border-border bg-white hover:border-primary hover:shadow-md p-6 transition-all duration-300"
             >
               <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-4 shadow-sm">
                 <goal.icon className="w-6 h-6 text-primary" />

@@ -30,7 +30,7 @@ export default function Footer() {
           <div>
             <h3 className="font-display font-bold text-2xl text-primary mb-3">JitanSports</h3>
             <p className="text-white/60 text-sm leading-relaxed mb-5">
-              Personal Training, Deep Tissue Massage en voedingsbegeleiding in Den Haag en omgeving.
+              Personal Training, Deep Tissue Massage en voedingsbegeleiding in de regio Den Bosch.
             </p>
             <div className="flex gap-3">
               {[
@@ -78,12 +78,12 @@ export default function Footer() {
             <h4 className="font-semibold text-white mb-4">Werkgebied</h4>
             <ul className="space-y-2">
               {[
-                ['Personal Trainer Den Haag', '/personal-trainer-den-haag'],
-                ['Personal Trainer Wassenaar', '/personal-trainer-wassenaar'],
-                ['Personal Trainer Voorburg', '/personal-trainer-voorburg'],
-                ['Personal Trainer Leidschendam', '/personal-trainer-leidschendam'],
-                ['Massage Den Haag', '/massage-den-haag'],
-                ['Deep Tissue Massage Den Haag', '/deep-tissue-massage-den-haag'],
+                ['Personal Trainer Den Bosch', '/personal-training'],
+                ['Personal Trainer Vught', '/personal-training'],
+                ['Personal Trainer Rosmalen', '/personal-training'],
+                ['Personal Trainer Oss', '/personal-training'],
+                ['Massage Den Bosch', '/massage'],
+                ['Deep Tissue Massage Den Bosch', '/massage'],
               ].map(([label, path]) => (
                 <li key={path}>
                   <Link to={path} className="text-white/60 hover:text-primary text-sm transition-colors">
@@ -106,13 +106,8 @@ export default function Footer() {
               </a>
               <div className="flex items-start gap-2 text-white/60 text-sm">
                 <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5" />
-                <span>Den Haag, Wassenaar, Voorburg, Leidschendam</span>
+                <span>Regio Den Bosch</span>
               </div>
-            </div>
-            <div>
-              <p className="text-xs font-semibold text-white/30 uppercase tracking-wider mb-2">Openingstijden</p>
-              <p className="text-white/50 text-xs">Ma – Vr: 07:00 – 20:00</p>
-              <p className="text-white/50 text-xs">Za: 09:00 – 17:00</p>
             </div>
           </div>
         </div>
