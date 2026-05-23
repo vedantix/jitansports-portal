@@ -1,14 +1,16 @@
 import { MessageCircle } from 'lucide-react';
-
-const WHATSAPP_URL = "https://wa.me/31682272680?text=Hallo%20JitanSports%2C%20ik%20wil%20graag%20een%20gratis%20proefles%20aanvragen.";
+import { useSiteContent } from '@/hooks/useSiteContent';
+import { createWhatsAppUrl } from '@/lib/siteContent';
 
 export default function WhatsAppButton() {
+  const { content } = useSiteContent();
+
   return (
     <a
-      href={WHATSAPP_URL}
+      href={createWhatsAppUrl(content)}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-2xl transition-all duration-300 hover:scale-110 group"
+      className="fixed bottom-5 right-5 z-50 rounded-full bg-green-500 p-4 text-white shadow-2xl transition-all duration-300 hover:scale-105 hover:bg-green-600 group"
       aria-label="WhatsApp Contact"
     >
       <MessageCircle className="w-7 h-7" />

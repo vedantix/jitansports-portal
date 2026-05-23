@@ -37,7 +37,7 @@ export default function GoalCards() {
     <section className="py-14 px-4 bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10">
-          <p className="text-primary font-semibold uppercase tracking-wider text-sm mb-2">Jouw doel, ons resultaat</p>
+          <p className="text-amber-700 font-semibold uppercase tracking-wider text-sm mb-2">Jouw doel, ons resultaat</p>
           <h2 className="text-3xl md:text-4xl font-display font-bold text-secondary">Wat wil jij bereiken?</h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -48,11 +48,11 @@ export default function GoalCards() {
               className="group relative rounded-2xl border-2 border-border bg-white hover:border-primary hover:shadow-md p-6 transition-all duration-300"
             >
               <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-4 shadow-sm">
-                <goal.icon className="w-6 h-6 text-primary" />
+                <goal.icon className="w-6 h-6 text-amber-700" />
               </div>
               <h3 className="text-xl font-bold text-secondary mb-2">{goal.title}</h3>
               <p className="text-muted-foreground text-sm leading-relaxed mb-5">{goal.text}</p>
-              <span className="inline-flex items-center gap-1 text-sm font-semibold text-primary group-hover:gap-2 transition-all">
+              <span className="inline-flex items-center gap-1 text-sm font-semibold text-amber-700 group-hover:gap-2 transition-all">
                 {goal.cta} <ArrowRight className="w-4 h-4" />
               </span>
             </Link>

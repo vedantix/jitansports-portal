@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin, Instagram, Facebook, Linkedin, Star, Users, Clock } from 'lucide-react';
+import Logo from '@/components/Logo';
+import { useSiteContent } from '@/hooks/useSiteContent';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const { content } = useSiteContent();
 
   return (
     <footer className="bg-secondary text-white">
@@ -28,15 +31,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand */}
           <div>
-            <h3 className="font-display font-bold text-2xl text-primary mb-3">JitanSports</h3>
+            <Logo tone="dark" className="mb-4 [&_span:first-child]:bg-white/10 [&_span:first-child]:text-primary" />
             <p className="text-white/60 text-sm leading-relaxed mb-5">
-              Personal Training, Deep Tissue Massage en voedingsbegeleiding in de regio Den Bosch.
+              Personal Training, Deep Tissue Massage en voedingsbegeleiding in {content.region}.
             </p>
             <div className="flex gap-3">
               {[
-                { icon: Instagram, href: 'https://instagram.com', label: 'Instagram' },
-                { icon: Facebook, href: 'https://facebook.com', label: 'Facebook' },
-                { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
+                { icon: Instagram, href: content.instagram_url, label: 'Instagram' },
+                { icon: Facebook, href: content.facebook_url, label: 'Facebook' },
+                { icon: Linkedin, href: content.linkedin_url, label: 'LinkedIn' },
               ].map(social => (
                 <a
                   key={social.label}
@@ -78,12 +81,12 @@ export default function Footer() {
             <h4 className="font-semibold text-white mb-4">Werkgebied</h4>
             <ul className="space-y-2">
               {[
-                ['Personal Trainer Den Bosch', '/personal-training'],
-                ['Personal Trainer Vught', '/personal-training'],
-                ['Personal Trainer Rosmalen', '/personal-training'],
-                ['Personal Trainer Oss', '/personal-training'],
-                ['Massage Den Bosch', '/massage'],
-                ['Deep Tissue Massage Den Bosch', '/massage'],
+                ['Personal Trainer Den Haag', '/personal-trainer-den-haag'],
+                ['Personal Trainer Wassenaar', '/personal-trainer-wassenaar'],
+                ['Personal Trainer Voorburg', '/personal-trainer-voorburg'],
+                ['Personal Trainer Leidschendam', '/personal-trainer-leidschendam'],
+                ['Massage Den Haag', '/massage-den-haag'],
+                ['Deep Tissue Massage Den Haag', '/deep-tissue-massage-den-haag'],
               ].map(([label, path]) => (
                 <li key={path}>
                   <Link to={path} className="text-white/60 hover:text-primary text-sm transition-colors">
@@ -98,15 +101,15 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold text-white mb-4">Contact</h4>
             <div className="space-y-3 mb-5">
-              <a href="tel:+31682272680" className="flex items-center gap-2 text-white/60 hover:text-primary text-sm transition-colors">
-                <Phone className="w-4 h-4 flex-shrink-0" /> 06 8227 2680
+              <a href={`tel:${content.phone_href}`} className="flex items-center gap-2 text-white/60 hover:text-primary text-sm transition-colors">
+                <Phone className="w-4 h-4 flex-shrink-0" /> {content.phone_display}
               </a>
-              <a href="mailto:info@jitansports.nl" className="flex items-center gap-2 text-white/60 hover:text-primary text-sm transition-colors">
-                <Mail className="w-4 h-4 flex-shrink-0" /> info@jitansports.nl
+              <a href={`mailto:${content.email}`} className="flex items-center gap-2 text-white/60 hover:text-primary text-sm transition-colors">
+                <Mail className="w-4 h-4 flex-shrink-0" /> {content.email}
               </a>
               <div className="flex items-start gap-2 text-white/60 text-sm">
                 <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5" />
-                <span>Regio Den Bosch</span>
+                <span>{content.address_label}</span>
               </div>
             </div>
           </div>
@@ -115,15 +118,16 @@ export default function Footer() {
 
       {/* Bottom */}
       <div className="border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-white/35">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-white/60">
           <p>© {currentYear} JitanSports. Alle rechten voorbehouden.</p>
           <div className="flex items-center gap-4 flex-wrap justify-center">
             <Link to="/over-ons" className="hover:text-white transition-colors">Over ons</Link>
+            <Link to="/faq" className="hover:text-white transition-colors">FAQ</Link>
             <Link to="/contact" className="hover:text-white transition-colors">Contact</Link>
             <a
               href="https://vedantix.nl"
               target="_blank"
-              rel="dofollow noopener noreferrer"
+              rel="noopener"
               className="hover:text-primary transition-colors"
             >
               Website door Vedantix

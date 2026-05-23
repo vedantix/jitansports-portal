@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, ArrowRight, Star, Shield } from 'lucide-react';
+import { ArrowRight, Star, Shield } from 'lucide-react';
 import FAQAccordion from '../components/FAQAccordion';
 import CTASection from '../components/CTASection';
 

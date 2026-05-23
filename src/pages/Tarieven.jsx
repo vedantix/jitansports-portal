@@ -46,6 +46,29 @@ const MORE = [
 ];
 
 export default function Tarieven() {
+  const [plans, setPlans] = useState(DEFAULT_PLANS);
+
+  useEffect(() => {
+    base44.entities.PricingPlan.list('order')
+      .then((data) => {
+        if (data?.length) {
+          setPlans(
+            data.map((plan) => ({
+              name: plan.name,
+              price: plan.price,
+              highlight: !!plan.highlight,
+              cta_text: plan.cta_text,
+              sub: plan.description,
+              features: plan.features
+                ? plan.features.split('\n').filter(Boolean)
+                : [],
+            }))
+          );
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   return (
     <div>
       {/* Hero */}
@@ -64,7 +87,7 @@ export default function Tarieven() {
       {/* Pricing cards */}
       <section className="py-20 px-4 -mt-1">
         <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {DEFAULT_PLANS.map((plan, i) => (
+          {plans.map((plan, i) => (
             <motion.div
               key={plan.name}
               initial={{ opacity: 0, y: 20 }}
@@ -95,7 +118,7 @@ export default function Tarieven() {
               </div>
               <Link to="/booking">
                 <Button className={`w-full gap-2 ${plan.highlight ? 'bg-primary hover:bg-primary/90 text-primary-foreground' : ''}`} variant={plan.highlight ? 'default' : 'outline'}>
-                  Plan Afspraak <ArrowRight className="w-4 h-4" />
+                  {plan.cta_text || 'Plan Afspraak'} <ArrowRight className="w-4 h-4" />
                 </Button>
               </Link>
             </motion.div>

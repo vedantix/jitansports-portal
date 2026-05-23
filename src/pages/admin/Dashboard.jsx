@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
-import { Calendar, Star, FileText, Clock, Image, HelpCircle, DollarSign } from 'lucide-react';
+import { Calendar, Star, FileText, Clock, Image, HelpCircle, DollarSign, PanelsTopLeft } from 'lucide-react';
 
 export default function Dashboard() {
   const [stats, setStats] = useState({ upcoming: 0, newRequests: 0, reviews: 0, blogs: 0 });
@@ -42,6 +42,7 @@ export default function Dashboard() {
   ];
 
   const QUICK_LINKS = [
+    { title: 'Website content', desc: 'Pas teksten, CTA en SEO aan', link: '/admin/content', icon: PanelsTopLeft },
     { title: 'Beschikbaarheid', desc: 'Beheer werktijden en vakanties', link: '/admin/availability', icon: Clock },
     { title: 'Tarieven', desc: 'Pas prijzen en pakketten aan', link: '/admin/pricing', icon: DollarSign },
     { title: 'FAQ', desc: 'Beheer veelgestelde vragen', link: '/admin/faq', icon: HelpCircle },

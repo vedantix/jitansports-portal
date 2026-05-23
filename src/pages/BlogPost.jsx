@@ -4,8 +4,15 @@ import { base44 } from '@/api/base44Client';
 import ReactMarkdown from 'react-markdown';
 import { Calendar, ArrowLeft, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import moment from 'moment';
 import CTASection from '../components/CTASection';
+import SEO, { buildArticleSchema } from '@/components/SEO';
+
+const formatDate = (date) =>
+  new Intl.DateTimeFormat('nl-NL', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(new Date(date));
 
 export default function BlogPost() {
   const { slug } = useParams();
@@ -37,6 +44,14 @@ export default function BlogPost() {
 
   return (
     <div>
+      <SEO
+        title={`${post.title} | JitanSports`}
+        description={post.meta_description || post.excerpt}
+        path={`/blog/${post.slug}`}
+        image={post.featured_image}
+        type="article"
+        jsonLd={buildArticleSchema(post)}
+      />
       {/* Header */}
       {post.featured_image && (
         <div className="relative h-[40vh] min-h-[300px]">
@@ -55,7 +70,7 @@ export default function BlogPost() {
         )}
         <h1 className="text-3xl md:text-4xl font-display font-bold text-secondary mt-2 mb-4">{post.title}</h1>
         <div className="flex items-center gap-4 text-sm text-muted-foreground mb-10">
-          <span className="flex items-center gap-1"><Calendar className="w-4 h-4" /> {moment(post.created_date).format('D MMMM YYYY')}</span>
+          <span className="flex items-center gap-1"><Calendar className="w-4 h-4" /> {formatDate(post.created_date)}</span>
           {post.author && <span>Door {post.author}</span>}
         </div>
 

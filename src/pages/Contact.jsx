@@ -7,10 +7,11 @@ import { Phone, Mail, MapPin, Clock, MessageCircle, Send, CheckCircle } from 'lu
 import { motion } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
-
-const WA_URL = "https://wa.me/31682272680?text=Hallo%20JitanSports%2C%20ik%20wil%20graag%20meer%20informatie.";
+import { useSiteContent } from '@/hooks/useSiteContent';
+import { createWhatsAppUrl } from '@/lib/siteContent';
 
 export default function Contact() {
+  const { content } = useSiteContent();
   const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
@@ -82,22 +83,22 @@ export default function Contact() {
           <div>
             <h2 className="text-2xl font-display font-bold text-secondary mb-6">Contactgegevens</h2>
             <div className="space-y-6 mb-10">
-              <a href="tel:+31682272680" className="flex items-start gap-4 group">
+              <a href={`tel:${content.phone_href}`} className="flex items-start gap-4 group">
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                   <Phone className="w-5 h-5 text-primary" />
                 </div>
                 <div>
                   <p className="font-semibold text-secondary group-hover:text-primary transition-colors">Telefoon</p>
-                  <p className="text-muted-foreground">06 82 27 26 80</p>
+                  <p className="text-muted-foreground">{content.phone_display}</p>
                 </div>
               </a>
-              <a href="mailto:info@jitansports.com" className="flex items-start gap-4 group">
+              <a href={`mailto:${content.email}`} className="flex items-start gap-4 group">
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                   <Mail className="w-5 h-5 text-primary" />
                 </div>
                 <div>
                   <p className="font-semibold text-secondary group-hover:text-primary transition-colors">E-mail</p>
-                  <p className="text-muted-foreground">info@jitansports.com</p>
+                  <p className="text-muted-foreground">{content.email}</p>
                 </div>
               </a>
               <div className="flex items-start gap-4">
@@ -106,7 +107,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="font-semibold text-secondary">Locatie</p>
-                  <p className="text-muted-foreground">{"Regio Den Haag & omstreken"}</p>
+                  <p className="text-muted-foreground">{content.region}</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -121,7 +122,7 @@ export default function Contact() {
               </div>
             </div>
 
-            <a href={WA_URL} target="_blank" rel="noopener noreferrer">
+            <a href={createWhatsAppUrl(content, 'Hallo JitanSports, ik wil graag meer informatie.')} target="_blank" rel="noopener noreferrer">
               <Button size="lg" className="bg-green-500 hover:bg-green-600 text-white gap-2 w-full">
                 <MessageCircle className="w-5 h-5" /> Direct WhatsApp Contact
               </Button>
@@ -133,7 +134,7 @@ export default function Contact() {
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
-                allowFullScreen=""
+                allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 title="Google Maps"

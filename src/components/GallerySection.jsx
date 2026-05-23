@@ -3,12 +3,12 @@ import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
 const FALLBACK_IMAGES = [
-  { id: 1, image_url: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&q=80', title: 'Personal Training' },
-  { id: 2, image_url: 'https://images.unsplash.com/photo-1544033527-b192daee1f5b?w=600&q=80', title: 'Outdoor Training' },
-  { id: 3, image_url: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80', title: 'Krachttraining' },
-  { id: 4, image_url: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&q=80', title: 'Fitness' },
-  { id: 5, image_url: 'https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&q=80', title: 'Massage' },
-  { id: 6, image_url: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80', title: 'Training sessie' },
+  { id: 1, image_url: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=600&q=75', title: 'Personal Training' },
+  { id: 2, image_url: 'https://images.unsplash.com/photo-1544033527-b192daee1f5b?auto=format&fit=crop&w=600&q=75', title: 'Outdoor Training' },
+  { id: 3, image_url: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=75', title: 'Krachttraining' },
+  { id: 4, image_url: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=600&q=75', title: 'Fitness' },
+  { id: 5, image_url: 'https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=600&q=75', title: 'Massage' },
+  { id: 6, image_url: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=75', title: 'Training sessie' },
 ];
 
 export default function GallerySection() {
@@ -39,7 +39,7 @@ export default function GallerySection() {
     <section className="py-16 px-4 bg-muted/30">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10">
-          <p className="text-primary font-semibold uppercase tracking-wider text-sm mb-2">Galerij</p>
+          <p className="text-amber-700 font-semibold uppercase tracking-wider text-sm mb-2">Galerij</p>
           <h2 className="text-3xl md:text-4xl font-display font-bold text-secondary">Trainingen in de praktijk</h2>
         </div>
         <div className="columns-2 md:columns-3 gap-3">

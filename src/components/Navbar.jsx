@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import Logo from '@/components/Logo';
 
 const NAV_ITEMS = [
   { label: 'Home', path: '/' },
@@ -11,6 +12,7 @@ const NAV_ITEMS = [
   { label: 'Tarieven', path: '/tarieven' },
   { label: 'Over Ons', path: '/over-ons' },
   { label: 'Blog', path: '/blog' },
+  { label: 'FAQ', path: '/faq' },
   { label: 'Contact', path: '/contact' },
 ];
 
@@ -19,14 +21,10 @@ export default function Navbar() {
   const location = useLocation();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-b border-border/50">
+    <nav className="fixed top-0 left-0 right-0 z-40 border-b border-border/60 bg-white/95 shadow-sm backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16 md:h-20">
-          <Link to="/" className="flex items-center gap-2" onClick={() => setOpen(false)}>
-            <span className="text-2xl font-display font-bold text-secondary">
-              Jitan<span className="text-primary">Sports</span>
-            </span>
-          </Link>
+          <Logo onClick={() => setOpen(false)} />
 
           {/* Desktop nav */}
           <div className="hidden lg:flex items-center gap-1">
@@ -34,9 +32,9 @@ export default function Navbar() {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                className={`px-3 py-2 text-sm font-semibold rounded-lg transition-colors ${
                   location.pathname === item.path
-                    ? 'text-primary bg-primary/10'
+                    ? 'text-amber-700 bg-primary/10'
                     : 'text-foreground/70 hover:text-foreground hover:bg-muted'
                 }`}
               >
@@ -54,6 +52,8 @@ export default function Navbar() {
           <button
             onClick={() => setOpen(!open)}
             className="lg:hidden p-2 rounded-lg hover:bg-muted transition-colors"
+            aria-label={open ? 'Menu sluiten' : 'Menu openen'}
+            aria-expanded={open}
           >
             {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -62,7 +62,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="lg:hidden bg-white border-b border-border animate-in slide-in-from-top-2">
+        <div className="lg:hidden bg-white border-b border-border shadow-lg animate-in slide-in-from-top-2">
           <div className="px-4 py-4 space-y-1">
             {NAV_ITEMS.map(item => (
               <Link
@@ -71,7 +71,7 @@ export default function Navbar() {
                 onClick={() => setOpen(false)}
                 className={`block px-4 py-3 rounded-lg text-base font-medium transition-colors ${
                   location.pathname === item.path
-                    ? 'text-primary bg-primary/10'
+                    ? 'text-amber-700 bg-primary/10'
                     : 'text-foreground/70 hover:bg-muted'
                 }`}
               >

@@ -12,7 +12,7 @@ const SCHEMA = {
   "@type": "LocalBusiness",
   "name": "JitanSports – Personal Trainer Den Haag",
   "description": "Personal trainer in Den Haag voor gewichtsverlies, krachttraining en voedingsbegeleiding. 10+ jaar ervaring. Gratis proefles.",
-  "url": "https://jitansports.nl/personal-trainer-den-haag",
+  "url": "https://www.jitansports.com/personal-trainer-den-haag",
   "telephone": "+31682272680",
   "address": { "@type": "PostalAddress", "addressLocality": "Den Haag", "addressCountry": "NL" },
   "priceRange": "€€",

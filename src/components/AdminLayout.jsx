@@ -3,13 +3,17 @@ import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import {
   Calendar, Star, FileText, DollarSign, HelpCircle, Image,
-  Clock, LayoutDashboard, Menu, X, LogOut
+  Clock, LayoutDashboard, Menu, X, LogOut, PanelsTopLeft, LockKeyhole
 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import Logo from '@/components/Logo';
+import SEO from '@/components/SEO';
 
 const NAV_LINKS = [
   { path: '/admin', label: 'Dashboard', icon: LayoutDashboard, exact: true },
   { path: '/admin/appointments', label: 'Afspraken', icon: Calendar },
   { path: '/admin/availability', label: 'Beschikbaarheid', icon: Clock },
+  { path: '/admin/content', label: 'Website content', icon: PanelsTopLeft },
   { path: '/admin/reviews', label: 'Reviews', icon: Star },
   { path: '/admin/blog', label: 'Blog', icon: FileText },
   { path: '/admin/pricing', label: 'Tarieven', icon: DollarSign },
@@ -38,26 +42,45 @@ export default function AdminLayout() {
   if (!user || user.role !== 'admin') {
     return (
       <div className="flex flex-col items-center justify-center h-screen gap-4 text-center px-4">
-        <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-2">
-          <X className="w-8 h-8 text-red-500" />
+        <Logo />
+        <div className="w-16 h-16 bg-primary/15 rounded-lg flex items-center justify-center mb-2 text-primary">
+          <LockKeyhole className="w-8 h-8" />
         </div>
-        <h1 className="text-2xl font-bold text-secondary">Geen toegang</h1>
-        <p className="text-muted-foreground">Je hebt geen beheerdersrechten om deze pagina te bekijken.</p>
-        <Link to="/" className="text-primary hover:underline font-medium">← Terug naar website</Link>
+        <h1 className="text-2xl font-bold text-secondary">{user ? 'Geen toegang' : 'Admin login vereist'}</h1>
+        <p className="max-w-sm text-muted-foreground">
+          {user
+            ? 'Je account heeft geen beheerdersrechten om deze pagina te bekijken.'
+            : 'Log in met een adminaccount om afspraken, content, afbeeldingen en beschikbaarheid te beheren.'}
+        </p>
+        {!user && (
+          <Button
+            onClick={() => base44.auth.redirectToLogin(`${window.location.origin}/admin`)}
+            className="bg-secondary text-white hover:bg-secondary/90"
+          >
+            Inloggen als admin
+          </Button>
+        )}
+        <Link to="/" className="text-primary hover:underline font-medium">Terug naar website</Link>
       </div>
     );
   }
 
   return (
     <div className="flex min-h-screen bg-gray-50">
+      <SEO
+        title="Admin Paneel | JitanSports"
+        description="Beheerpaneel voor JitanSports."
+        path={location.pathname}
+        noindex
+      />
       {sidebarOpen && (
         <div className="fixed inset-0 bg-black/50 z-20 lg:hidden" onClick={() => setSidebarOpen(false)} />
       )}
 
       <aside className={`fixed top-0 left-0 h-full w-64 bg-secondary text-white z-30 flex flex-col transform transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}>
         <div className="p-6 border-b border-white/10">
-          <h1 className="font-display font-bold text-xl text-primary">JitanSports</h1>
-          <p className="text-white/50 text-xs mt-1">Admin Paneel</p>
+          <Logo tone="dark" className="[&_span:first-child]:bg-white/10 [&_span:first-child]:text-primary" />
+          <p className="text-white/50 text-xs mt-3">Admin paneel</p>
         </div>
 
         <nav className="flex-1 p-4 space-y-1 overflow-y-auto">

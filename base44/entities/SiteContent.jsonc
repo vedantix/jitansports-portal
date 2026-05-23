@@ -1,0 +1,36 @@
+{
+  "name": "SiteContent",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "title": "Sleutel"
+    },
+    "label": {
+      "type": "string",
+      "title": "Label"
+    },
+    "group": {
+      "type": "string",
+      "title": "Groep"
+    },
+    "type": {
+      "type": "string",
+      "title": "Veldtype",
+      "enum": ["text", "textarea", "url", "email", "tel", "image_url"]
+    },
+    "value": {
+      "type": "string",
+      "title": "Waarde"
+    },
+    "description": {
+      "type": "string",
+      "title": "Omschrijving"
+    },
+    "order": {
+      "type": "number",
+      "title": "Volgorde"
+    }
+  },
+  "required": ["key", "label", "type"]
+}

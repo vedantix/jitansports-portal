@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 import { CheckCircle, Calendar, Clock, ChevronLeft, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useSiteContent } from '@/hooks/useSiteContent';
 
 const SERVICES = [
   { id: 'pt-outdoor', name: 'Personal Training Outdoor', duration: '60 min', price: 'Gratis proefles', desc: 'Training in de buitenlucht, op jouw locatie' },
@@ -39,6 +40,7 @@ const STEPS = [
 ];
 
 export default function Booking() {
+  const { content } = useSiteContent();
   const [step, setStep] = useState(1);
   const [form, setForm] = useState({ service: '', date: '', time: '', name: '', email: '', phone: '', message: '' });
   const [availability, setAvailability] = useState([]);
@@ -73,23 +75,26 @@ export default function Booking() {
 
   const handleSubmit = async () => {
     setLoading(true);
-    await base44.entities.Appointment.create({
-      name: form.name,
-      email: form.email,
-      phone: form.phone,
-      service: form.service,
-      date: form.date,
-      time: form.time,
-      message: form.message,
-      status: 'nieuw',
-    });
-    base44.integrations.Core.SendEmail({
-      to: form.email,
-      subject: 'Afspraakverzoek ontvangen – JitanSports',
-      body: `Beste ${form.name},\n\nBedankt voor uw afspraakverzoek!\n\nDienst: ${form.service}\nDatum: ${form.date}\nTijd: ${form.time}\n\nWe nemen zo snel mogelijk contact met u op ter bevestiging.\n\nMet vriendelijke groet,\nJitanSports\n06 8227 2680\ninfo@jitansports.nl`,
-    }).catch(() => {});
-    setLoading(false);
-    setSubmitted(true);
+    try {
+      await base44.entities.Appointment.create({
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        service: form.service,
+        date: form.date,
+        time: form.time,
+        message: form.message,
+        status: 'nieuw',
+      });
+      base44.integrations.Core.SendEmail({
+        to: form.email,
+        subject: 'Afspraakverzoek ontvangen - JitanSports',
+        body: `Beste ${form.name},\n\nBedankt voor uw afspraakverzoek!\n\nDienst: ${form.service}\nDatum: ${form.date}\nTijd: ${form.time}\n\nWe nemen zo snel mogelijk contact met u op ter bevestiging.\n\nMet vriendelijke groet,\nJitanSports\n${content.phone_display}\n${content.email}`,
+      }).catch(() => {});
+      setSubmitted(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const resetForm = () => {
@@ -134,7 +139,7 @@ export default function Booking() {
       </section>
 
       {/* Progress bar */}
-      <div className="bg-white border-b border-border sticky top-0 md:top-20 z-10">
+      <div className="bg-white border-b border-border sticky top-16 md:top-20 z-10">
         <div className="max-w-2xl mx-auto flex">
           {STEPS.map(s => (
             <div

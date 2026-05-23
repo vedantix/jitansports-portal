@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
 import { Calendar, ArrowRight } from 'lucide-react';
-import moment from 'moment';
 
 const FALLBACK_POSTS = [
   { id: "1", title: "Voordelen van Massage en Personal Training", slug: "voordelen-van-massage-en-personal-training", excerpt: "Wil jij je meer ontspannen voelen, fitter en met een sterker lichaam? Dan is de combinatie van massage en personal training het gouden duo!", featured_image: "https://media.base44.com/images/public/6a115e447a3ac96774309014/f2afe8ff0_generated_c71cfae0.png", category: "Lifestyle", created_date: "2025-01-15" },
@@ -13,6 +12,13 @@ const FALLBACK_POSTS = [
   { id: "5", title: "Get in shape op anderhalve meter", slug: "get-in-shape-op-anderhalve-meter", excerpt: "JitanSports biedt trainingen op anderhalve meter. Juist nu is het belangrijk om fit te blijven.", featured_image: "https://media.base44.com/images/public/6a115e447a3ac96774309014/77461c012_generated_cb61b25a.png", category: "Personal Training", created_date: "2020-06-01" },
   { id: "6", title: "Welkom bij JitanSports!", slug: "welkom-bij-jitansports", excerpt: "Met trots presenteren wij ons bedrijf. Wil jij graag fitter worden, gespierder of strakker in je vel?", featured_image: "https://media.base44.com/images/public/6a115e447a3ac96774309014/115f006bd_generated_a407f042.png", category: "Nieuws", created_date: "2020-02-01" },
 ];
+
+const formatDate = (date) =>
+  new Intl.DateTimeFormat('nl-NL', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(new Date(date));
 
 export default function Blog() {
   const [posts, setPosts] = useState([]);
@@ -66,7 +72,7 @@ export default function Blog() {
                       <p className="text-muted-foreground text-sm line-clamp-2 mb-4">{post.excerpt}</p>
                       <div className="flex items-center justify-between">
                         <span className="text-xs text-muted-foreground flex items-center gap-1">
-                          <Calendar className="w-3 h-3" /> {moment(post.created_date).format('D MMMM YYYY')}
+                          <Calendar className="w-3 h-3" /> {formatDate(post.created_date)}
                         </span>
                         <span className="text-primary text-sm font-medium flex items-center gap-1">
                           Lees meer <ArrowRight className="w-3 h-3" />
