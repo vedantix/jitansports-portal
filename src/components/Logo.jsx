@@ -7,26 +7,17 @@ export default function Logo({ to = '/', className = '', compact = false, onClic
   return (
     <Link to={to} onClick={onClick} className={`inline-flex items-center gap-2.5 ${className}`}>
       <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-secondary text-primary ring-1 ring-primary/20">
-        <svg viewBox="0 0 64 64" aria-hidden="true" className="h-8 w-8">
-          <circle cx="40.5" cy="15.5" r="5" fill="currentColor" />
+        <svg viewBox="0 0 64 64" aria-hidden="true" className="h-9 w-9">
           <path
-            d="M35.4 24C29.1 28.3 25.6 34.8 23.8 43.6"
+            d="M9 29H20L24.8 18L32.7 42.5L39.4 27H55"
             fill="none"
             stroke="currentColor"
-            strokeWidth="5"
+            strokeWidth="4.6"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
           <path
-            d="M31 30.2C38.6 31.2 44.6 35.2 49.8 41.5"
-            fill="none"
-            stroke="white"
-            strokeWidth="4.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M14 45.8C20.1 38.2 29.2 37.6 36.1 43.9C40.9 48.3 46.6 48.2 51.5 42.1"
+            d="M10.5 45C18 36.8 29 36.4 36.8 43.2C42.4 48 49.2 46.7 54 39.8"
             fill="none"
             stroke="white"
             strokeWidth="4.2"
@@ -34,10 +25,10 @@ export default function Logo({ to = '/', className = '', compact = false, onClic
             strokeLinejoin="round"
           />
           <path
-            d="M18.5 51C25.3 47.3 34.5 47.4 41.2 51"
+            d="M17 51C26 47.8 37 47.9 45 51"
             fill="none"
             stroke="currentColor"
-            strokeWidth="3.2"
+            strokeWidth="3"
             strokeLinecap="round"
           />
         </svg>

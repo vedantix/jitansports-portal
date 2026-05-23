@@ -1,26 +1,18 @@
 <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect width="64" height="64" rx="15" fill="#172033"/>
-  <circle cx="40.5" cy="15.5" r="5" fill="#F8B81F"/>
   <path
-    d="M35.4 24C29.1 28.3 25.6 34.8 23.8 43.6"
+    d="M9 29H20L24.8 18L32.7 42.5L39.4 27H55"
     stroke="#F8B81F"
-    stroke-width="5"
+    stroke-width="4.6"
     stroke-linecap="round"
     stroke-linejoin="round"
   />
   <path
-    d="M31 30.2C38.6 31.2 44.6 35.2 49.8 41.5"
-    stroke="#FFFFFF"
-    stroke-width="4.5"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  />
-  <path
-    d="M14 45.8C20.1 38.2 29.2 37.6 36.1 43.9C40.9 48.3 46.6 48.2 51.5 42.1"
+    d="M10.5 45C18 36.8 29 36.4 36.8 43.2C42.4 48 49.2 46.7 54 39.8"
     stroke="#FFFFFF"
     stroke-width="4.2"
     stroke-linecap="round"
     stroke-linejoin="round"
   />
-  <path d="M18.5 51C25.3 47.3 34.5 47.4 41.2 51" stroke="#F8B81F" stroke-width="3.2" stroke-linecap="round"/>
+  <path d="M17 51C26 47.8 37 47.9 45 51" stroke="#F8B81F" stroke-width="3" stroke-linecap="round"/>
 </svg>
