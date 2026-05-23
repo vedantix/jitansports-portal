@@ -1,8 +1,19 @@
 <svg width="220" height="56" viewBox="0 0 220 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="56" height="56" rx="12" fill="#172033"/>
-  <path d="M35.7 10.9C28.3 12 23.6 17.1 22.6 24.8L21.6 33C21.1 37.6 18.9 40.3 14.6 41.6" stroke="#F8B81F" stroke-width="4.4" stroke-linecap="round"/>
-  <path d="M21 25H38.8C43.4 25 46.5 27.8 46.5 32C46.5 36.3 43.4 39.1 38.6 39.1H31.7" stroke="#F8B81F" stroke-width="4.4" stroke-linecap="round"/>
-  <path d="M9.5 42.2H21M34.1 10.9H45.6" stroke="#F8B81F" stroke-width="4.4" stroke-linecap="round"/>
+  <rect width="56" height="56" rx="10" fill="#172033"/>
+  <path
+    d="M24.1 9.8C22.7 19 21.7 27.1 19.4 34.8C17.7 40.4 14.4 45.8 9.2 45.8C6.2 45.8 5.2 43.1 7.3 41.2C10.3 38.5 16.4 40 20.6 35.5C24.5 31.3 26.2 23.5 28.9 12.9"
+    stroke="#F8B81F"
+    stroke-width="2.9"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M35.8 10.2C31.6 10.8 29.4 13.7 29.8 16.4C30.4 19.7 37.2 20.1 36.9 24.6C36.5 30.1 27.3 32.1 24.7 27.2"
+    stroke="#F8B81F"
+    stroke-width="2.9"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
   <text x="70" y="29" fill="#172033" font-family="Inter, Arial, sans-serif" font-size="23" font-weight="800" letter-spacing="-0.02em">JitanSports</text>
   <text x="71" y="44" fill="#64748B" font-family="Inter, Arial, sans-serif" font-size="9" font-weight="700" letter-spacing="0.22em">TRAINING &amp; MASSAGE</text>
 </svg>

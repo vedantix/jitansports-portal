@@ -7,27 +7,22 @@ export default function Logo({ to = '/', className = '', compact = false, onClic
   return (
     <Link to={to} onClick={onClick} className={`inline-flex items-center gap-2.5 ${className}`}>
       <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-secondary text-primary ring-1 ring-primary/20">
-        <svg viewBox="0 0 40 40" aria-hidden="true" className="h-7 w-7">
+        <svg viewBox="0 0 64 64" aria-hidden="true" className="h-8 w-8">
           <path
-            d="M25.8 7.5c-5.2.8-8.5 4.4-9.2 9.8l-.7 5.8c-.4 3.3-1.9 5.2-4.9 6.1"
+            d="M27.5 11.2C25.9 21.8 24.7 31 22.1 39.8C20.2 46.2 16.4 52.3 10.5 52.3C7.1 52.3 5.9 49.2 8.3 47.1C11.8 44 18.7 45.7 23.5 40.6C28 35.8 29.9 26.8 33 14.7"
             fill="none"
             stroke="currentColor"
-            strokeWidth="3.1"
+            strokeWidth="3.2"
             strokeLinecap="round"
+            strokeLinejoin="round"
           />
           <path
-            d="M15.1 17.5h12.6c3.2 0 5.4 2 5.4 5s-2.2 5.1-5.6 5.1h-4.9"
+            d="M40.9 11.7C36.1 12.4 33.6 15.7 34.1 18.7C34.7 22.5 42.5 22.9 42.2 28.1C41.8 34.4 31.2 36.7 28.2 31.1"
             fill="none"
             stroke="currentColor"
-            strokeWidth="3.1"
+            strokeWidth="3.2"
             strokeLinecap="round"
-          />
-          <path
-            d="M7.4 29.6h8.1M24.5 7.5h8.1"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="3.1"
-            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </svg>
       </span>
