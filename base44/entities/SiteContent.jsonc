@@ -16,21 +16,19 @@
     },
     "type": {
       "type": "string",
-      "title": "Veldtype",
-      "enum": ["text", "textarea", "url", "email", "tel", "image_url"]
+      "title": "Type"
     },
     "value": {
       "type": "string",
       "title": "Waarde"
-    },
-    "description": {
-      "type": "string",
-      "title": "Omschrijving"
     },
     "order": {
       "type": "number",
       "title": "Volgorde"
     }
   },
-  "required": ["key", "label", "type"]
+  "required": [
+    "key",
+    "value"
+  ]
 }
