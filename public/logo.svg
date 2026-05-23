@@ -1,20 +1,42 @@
 <svg width="220" height="56" viewBox="0 0 220 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="56" height="56" rx="12" fill="#172033"/>
+  <rect width="56" height="56" rx="12" fill="#FFF9EF"/>
+  <rect x="0.5" y="0.5" width="55" height="55" rx="11.5" stroke="#F4BA52" stroke-opacity="0.35"/>
   <path
-    d="M8.5 25.8H17.5L21.7 16.2L28.6 37.2L34.5 23.8H47.5"
-    stroke="#F8B81F"
-    stroke-width="4"
+    d="M7.4 38.5C6.8 22.3 20 8.4 35.3 8.4C45.6 8.4 50.8 15.6 50.8 27.1"
+    stroke="#F4BA52"
+    stroke-width="2.6"
+    stroke-linecap="round"
+  />
+  <circle cx="36.3" cy="16.2" r="5" stroke="#F4BA52" stroke-width="2.6"/>
+  <path
+    d="M32.4 21.9C26.8 25.4 24.8 30.6 22.1 38.5"
+    stroke="#F4BA52"
+    stroke-width="2.7"
     stroke-linecap="round"
     stroke-linejoin="round"
   />
   <path
-    d="M10 39.4C16.5 32.4 26.2 32 33.1 38C38 42.4 43.8 41.2 48 35.2"
-    stroke="#FFFFFF"
-    stroke-width="3.7"
+    d="M28.7 29.7C31.5 33.3 35.9 35.2 41.2 35"
+    stroke="#F4BA52"
+    stroke-width="2.7"
     stroke-linecap="round"
     stroke-linejoin="round"
   />
-  <path d="M15 44.8C22.8 42 32.5 42.1 39.5 44.8" stroke="#F8B81F" stroke-width="2.6" stroke-linecap="round"/>
+  <path
+    d="M5.7 41.1C14.9 40.7 22.5 36.2 31.5 37C39.9 37.7 45 42.4 51.6 34.8"
+    stroke="#557A4C"
+    stroke-width="2.8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M6.1 46.4C15.7 47.2 23.6 43.2 31.5 43.5C40.5 43.9 44.2 49.9 51.8 46.1"
+    stroke="#557A4C"
+    stroke-width="2.8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path d="M13.1 49.9C24.1 50.9 37.8 50.6 47.3 45.6" stroke="#557A4C" stroke-width="2.4" stroke-linecap="round"/>
   <text x="70" y="29" fill="#172033" font-family="Inter, Arial, sans-serif" font-size="23" font-weight="800">JitanSports</text>
   <text x="71" y="44" fill="#64748B" font-family="Inter, Arial, sans-serif" font-size="9" font-weight="700">TRAINING &amp; MASSAGE</text>
 </svg>
