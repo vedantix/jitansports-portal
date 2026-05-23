@@ -1,0 +1,34 @@
+{
+  "name": "Review",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Naam"
+    },
+    "rating": {
+      "type": "number",
+      "title": "Beoordeling",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "text": {
+      "type": "string",
+      "title": "Review tekst"
+    },
+    "service": {
+      "type": "string",
+      "title": "Dienst"
+    },
+    "visible": {
+      "type": "boolean",
+      "title": "Zichtbaar",
+      "default": true
+    }
+  },
+  "required": [
+    "name",
+    "rating",
+    "text"
+  ]
+}

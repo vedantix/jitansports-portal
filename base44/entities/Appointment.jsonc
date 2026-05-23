@@ -1,0 +1,62 @@
+{
+  "name": "Appointment",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Naam"
+    },
+    "email": {
+      "type": "string",
+      "title": "E-mail"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Telefoon"
+    },
+    "service": {
+      "type": "string",
+      "title": "Dienst",
+      "enum": [
+        "Personal Training Outdoor",
+        "Personal Training @Home",
+        "Deep Tissue Massage",
+        "Ontspanningsmassage",
+        "Get Fit Pakket",
+        "Gratis Proefles"
+      ]
+    },
+    "date": {
+      "type": "string",
+      "title": "Datum",
+      "format": "date"
+    },
+    "time": {
+      "type": "string",
+      "title": "Tijd"
+    },
+    "message": {
+      "type": "string",
+      "title": "Bericht"
+    },
+    "status": {
+      "type": "string",
+      "title": "Status",
+      "enum": [
+        "nieuw",
+        "bevestigd",
+        "geannuleerd",
+        "afgerond"
+      ],
+      "default": "nieuw"
+    }
+  },
+  "required": [
+    "name",
+    "email",
+    "phone",
+    "service",
+    "date",
+    "time"
+  ]
+}

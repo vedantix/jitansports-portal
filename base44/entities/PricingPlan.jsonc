@@ -1,0 +1,40 @@
+{
+  "name": "PricingPlan",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Naam"
+    },
+    "price": {
+      "type": "string",
+      "title": "Prijs"
+    },
+    "description": {
+      "type": "string",
+      "title": "Beschrijving"
+    },
+    "features": {
+      "type": "string",
+      "title": "Kenmerken (\u00e9\u00e9n per regel)"
+    },
+    "highlight": {
+      "type": "boolean",
+      "title": "Uitgelicht",
+      "default": false
+    },
+    "order": {
+      "type": "number",
+      "title": "Volgorde"
+    },
+    "cta_text": {
+      "type": "string",
+      "title": "CTA tekst",
+      "default": "Plan Gratis Proefles"
+    }
+  },
+  "required": [
+    "name",
+    "price"
+  ]
+}

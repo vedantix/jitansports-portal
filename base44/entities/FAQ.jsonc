@@ -1,0 +1,34 @@
+{
+  "name": "FAQ",
+  "type": "object",
+  "properties": {
+    "question": {
+      "type": "string",
+      "title": "Vraag"
+    },
+    "answer": {
+      "type": "string",
+      "title": "Antwoord"
+    },
+    "category": {
+      "type": "string",
+      "title": "Categorie",
+      "enum": [
+        "Algemeen",
+        "Personal Training",
+        "Massage",
+        "Voeding",
+        "Get Fit",
+        "Tarieven"
+      ]
+    },
+    "order": {
+      "type": "number",
+      "title": "Volgorde"
+    }
+  },
+  "required": [
+    "question",
+    "answer"
+  ]
+}

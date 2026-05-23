@@ -1,0 +1,40 @@
+{
+  "name": "ContactRequest",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Naam"
+    },
+    "email": {
+      "type": "string",
+      "title": "E-mail"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Telefoon"
+    },
+    "subject": {
+      "type": "string",
+      "title": "Onderwerp"
+    },
+    "message": {
+      "type": "string",
+      "title": "Bericht"
+    },
+    "status": {
+      "type": "string",
+      "title": "Status",
+      "enum": [
+        "nieuw",
+        "behandeld"
+      ],
+      "default": "nieuw"
+    }
+  },
+  "required": [
+    "name",
+    "email",
+    "message"
+  ]
+}

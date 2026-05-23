@@ -1,0 +1,64 @@
+{
+  "name": "Blog",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "title": "Titel"
+    },
+    "slug": {
+      "type": "string",
+      "title": "Slug"
+    },
+    "excerpt": {
+      "type": "string",
+      "title": "Samenvatting"
+    },
+    "content": {
+      "type": "string",
+      "title": "Inhoud"
+    },
+    "featured_image": {
+      "type": "string",
+      "title": "Uitgelichte afbeelding"
+    },
+    "category": {
+      "type": "string",
+      "title": "Categorie",
+      "enum": [
+        "Personal Training",
+        "Massage",
+        "Voeding",
+        "Lifestyle",
+        "Nieuws"
+      ]
+    },
+    "tags": {
+      "type": "string",
+      "title": "Tags"
+    },
+    "meta_description": {
+      "type": "string",
+      "title": "Meta beschrijving"
+    },
+    "status": {
+      "type": "string",
+      "title": "Status",
+      "enum": [
+        "concept",
+        "gepubliceerd"
+      ],
+      "default": "concept"
+    },
+    "author": {
+      "type": "string",
+      "title": "Auteur"
+    }
+  },
+  "required": [
+    "title",
+    "slug",
+    "content",
+    "status"
+  ]
+}

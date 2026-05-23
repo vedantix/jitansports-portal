@@ -1,0 +1,127 @@
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { ArrowRight, CheckCircle, Star } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { base44 } from '@/api/base44Client';
+import CTASection from '../components/CTASection';
+
+const DEFAULT_PLANS = [
+  {
+    name: "Personal Training Outdoor",
+    price: "€35,00",
+    sub: "per uur (was €50,00)",
+    features: ["Training buiten in de natuur", "Alle materialen inbegrepen", "Gratis proefles", "Duo training mogelijk (+€10 p.p.)"],
+    highlight: false,
+  },
+  {
+    name: "Personal Training @Home",
+    price: "€37,50",
+    sub: "per uur (was €55,00)",
+    features: ["Training bij jou thuis", "Alle materialen inbegrepen", "Gratis proefles", "Duo training mogelijk (+€10 p.p.)"],
+    highlight: false,
+  },
+  {
+    name: "Deep Tissue Massage",
+    price: "€75,00",
+    sub: "full body – 1 uur",
+    features: ["Vastzittend bindweefsel losmaken", "Blokkades verhelpen", "Massage aan huis", "Chronische klachten verminderen"],
+    highlight: true,
+  },
+  {
+    name: "Get Fit Pakket",
+    price: "€1.750,00",
+    sub: "12 weken compleet",
+    features: ["2x per week personal training", "Voedingsschema's op maat", "Weegmomenten met analyse", "Deep Tissue Massage", "Mental coaching", "24/7 support"],
+    highlight: false,
+  },
+];
+
+const MORE = [
+  { name: "Ontspanningsmassage", price: "€60,00", desc: "Full body – 1 uur" },
+  { name: "Stoelmassage", price: "vanaf €25,00", desc: "20 min (€25) / 30 min (€37,50)" },
+  { name: "Voedingsschema", price: "€45,00", desc: "Op maat, voor 1-1,5 maand" },
+  { name: "Lichaamsanalyse", price: "€15,00", desc: "Inclusief digitaal rapport" },
+  { name: "VIP Behandeling", price: "€190,00", desc: "1 uur training + 1 uur massage" },
+];
+
+export default function Tarieven() {
+  return (
+    <div>
+      {/* Hero */}
+      <section className="py-20 px-4 bg-secondary text-secondary-foreground">
+        <div className="max-w-7xl mx-auto text-center">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+            <p className="text-primary font-semibold mb-3 uppercase tracking-wider text-sm">Tarieven</p>
+            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">Investeer in jezelf</h1>
+            <p className="text-secondary-foreground/70 text-lg max-w-2xl mx-auto">
+              Transparante prijzen, geen verborgen kosten. Eerste proefles altijd gratis.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Pricing cards */}
+      <section className="py-20 px-4 -mt-1">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {DEFAULT_PLANS.map((plan, i) => (
+            <motion.div
+              key={plan.name}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className={`relative rounded-2xl p-8 flex flex-col ${
+                plan.highlight
+                  ? 'bg-secondary text-secondary-foreground border-2 border-primary shadow-2xl'
+                  : 'bg-white border border-border/50 shadow-sm'
+              }`}
+            >
+              {plan.highlight && (
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-xs font-bold px-4 py-1 rounded-full flex items-center gap-1">
+                  <Star className="w-3 h-3" /> Populair
+                </div>
+              )}
+              <h3 className={`font-bold text-lg mb-1 ${plan.highlight ? '' : 'text-secondary'}`}>{plan.name}</h3>
+              <p className={`text-3xl font-bold mb-1 ${plan.highlight ? 'text-primary' : 'text-foreground'}`}>{plan.price}</p>
+              <p className={`text-sm mb-6 ${plan.highlight ? 'text-secondary-foreground/60' : 'text-muted-foreground'}`}>{plan.sub}</p>
+              <div className="space-y-3 flex-1 mb-8">
+                {plan.features.map(f => (
+                  <div key={f} className="flex items-start gap-2">
+                    <CheckCircle className={`w-4 h-4 shrink-0 mt-0.5 ${plan.highlight ? 'text-primary' : 'text-primary'}`} />
+                    <span className="text-sm">{f}</span>
+                  </div>
+                ))}
+              </div>
+              <Link to="/booking">
+                <Button className={`w-full gap-2 ${plan.highlight ? 'bg-primary hover:bg-primary/90 text-primary-foreground' : ''}`} variant={plan.highlight ? 'default' : 'outline'}>
+                  Plan Afspraak <ArrowRight className="w-4 h-4" />
+                </Button>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* More services */}
+      <section className="py-20 px-4 bg-muted/50">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-display font-bold text-secondary mb-10 text-center">Overige Diensten</h2>
+          <div className="space-y-4">
+            {MORE.map(s => (
+              <div key={s.name} className="flex flex-col sm:flex-row sm:items-center justify-between p-5 bg-white rounded-xl border border-border/50 gap-2">
+                <div>
+                  <h3 className="font-semibold text-secondary">{s.name}</h3>
+                  <p className="text-sm text-muted-foreground">{s.desc}</p>
+                </div>
+                <span className="text-lg font-bold text-primary whitespace-nowrap">{s.price}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <CTASection dark title="Klaar om te starten?" subtitle="Plan vandaag nog jouw gratis proefles en ervaar het verschil." />
+    </div>
+  );
+}
