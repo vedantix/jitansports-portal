@@ -9,21 +9,29 @@ export default function Logo({ to = '/', className = '', compact = false, onClic
       <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-secondary text-primary ring-1 ring-primary/20">
         <svg viewBox="0 0 64 64" aria-hidden="true" className="h-8 w-8">
           <path
-            d="M27.5 11.2C25.9 21.8 24.7 31 22.1 39.8C20.2 46.2 16.4 52.3 10.5 52.3C7.1 52.3 5.9 49.2 8.3 47.1C11.8 44 18.7 45.7 23.5 40.6C28 35.8 29.9 26.8 33 14.7"
+            d="M17 42.5C21.2 48.8 32.3 50.7 42.5 44.4C52.6 38.1 54.5 26.1 47.7 19.9C41.4 14.2 30.7 14.1 22.6 20.2"
             fill="none"
             stroke="currentColor"
-            strokeWidth="3.2"
+            strokeWidth="4.2"
+            strokeLinecap="round"
+          />
+          <path
+            d="M32 15V38.8C32 45.3 28.1 49 21.7 49C18.5 49 15.8 48 13.8 46.1"
+            fill="none"
+            stroke="white"
+            strokeWidth="4.8"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
           <path
-            d="M40.9 11.7C36.1 12.4 33.6 15.7 34.1 18.7C34.7 22.5 42.5 22.9 42.2 28.1C41.8 34.4 31.2 36.7 28.2 31.1"
+            d="M35.5 24.2C38.4 20.7 45.7 21 47.1 26C48.3 30.5 42.9 32.4 38.5 34.2C34.2 36 31.8 38.4 34.1 41.8C36.1 44.9 43.1 45.4 47.7 41.5"
             fill="none"
-            stroke="currentColor"
-            strokeWidth="3.2"
+            stroke="white"
+            strokeWidth="4.8"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
+          <circle cx="32" cy="12" r="3.2" fill="currentColor" />
         </svg>
       </span>
       {!compact && (
