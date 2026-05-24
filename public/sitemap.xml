@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://jitan-sports.nl/</loc><priority>1.0</priority></url>
-  <url><loc>https://jitan-sports.nl/personal-training</loc><priority>0.9</priority></url>
-  <url><loc>https://jitan-sports.nl/massage</loc><priority>0.9</priority></url>
-  <url><loc>https://jitan-sports.nl/get-fit</loc><priority>0.8</priority></url>
-  <url><loc>https://jitan-sports.nl/tarieven</loc><priority>0.8</priority></url>
-  <url><loc>https://jitan-sports.nl/faq</loc><priority>0.7</priority></url>
-  <url><loc>https://jitan-sports.nl/blog</loc><priority>0.7</priority></url>
-  <url><loc>https://jitan-sports.nl/contact</loc><priority>0.7</priority></url>
-  <url><loc>https://jitan-sports.nl/booking</loc><priority>0.8</priority></url>
-  <url><loc>https://jitan-sports.nl/personal-trainer-den-bosch</loc><priority>0.8</priority></url>
-  <url><loc>https://jitan-sports.nl/massage-den-bosch</loc><priority>0.8</priority></url>
-  <url><loc>https://jitan-sports.nl/deep-tissue-massage-den-bosch</loc><priority>0.8</priority></url>
+  <url><loc>https://jitansports.nl/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://jitansports.nl/personal-training</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://jitansports.nl/massage</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://jitansports.nl/voeding</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://jitansports.nl/get-fit</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://jitansports.nl/vip-treatment</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://jitansports.nl/bedrijven</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://jitansports.nl/tarieven</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://jitansports.nl/referenties</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://jitansports.nl/over-ons</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://jitansports.nl/faq</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://jitansports.nl/blog</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://jitansports.nl/contact</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://jitansports.nl/booking</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://jitansports.nl/personal-trainer-den-bosch</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://jitansports.nl/personal-trainer-rosmalen</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://jitansports.nl/personal-trainer-vught</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://jitansports.nl/personal-trainer-oss</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://jitansports.nl/massage-den-bosch</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://jitansports.nl/deep-tissue-massage-den-bosch</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://jitansports.nl/sportmassage-den-bosch</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 </urlset>

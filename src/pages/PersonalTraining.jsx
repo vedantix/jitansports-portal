@@ -1,123 +1,258 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, CheckCircle, Users, Clock, MapPin, Dumbbell } from 'lucide-react';
+import { ArrowRight, CheckCircle, Users, Clock, Dumbbell, Home, TreePine, Trophy, Heart } from 'lucide-react';
+import { motion } from 'framer-motion';
 import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
-import { useSiteContent } from '@/hooks/useSiteContent';
-import { contentLines } from '@/lib/siteContent';
-import ResponsiveImage from '@/components/ResponsiveImage';
-import SEO, { ROUTE_SEO } from '@/components/SEO';
+import SEO from '@/components/SEO';
+
+const HERO_IMG = 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1200&q=75';
+const OUTDOOR_IMG = 'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=800&q=75';
+const HOME_IMG = 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=75';
+
+const BENEFITS = [
+  'Volledig persoonlijk trainingsschema op maat',
+  'Training aan huis of outdoor in omgeving Den Bosch',
+  'Voedingsbegeleiding inbegrepen bij elk pakket',
+  'Maandelijkse lichaamsanalyse en voortgangsmeting',
+  "Flexibele tijden – ook 's avonds en in het weekend",
+  'Geen reiskosten in het werkgebied Den Bosch',
+  'Gratis kennismakingsgesprek en proefles',
+  'Ondersteuning via WhatsApp tussen sessies',
+];
+
+const TARGETS = [
+  { icon: Dumbbell, title: 'Spieropbouw', desc: 'Opbouwen van spiermassa met een wetenschappelijk onderbouwd krachtprogramma en de juiste voeding.' },
+  { icon: Heart, title: 'Afvallen', desc: 'Duurzaam gewichtsverlies zonder crashdiëten. Combinatie van training en voedingsbegeleiding.' },
+  { icon: Trophy, title: 'Conditieverbetering', desc: 'Beter uithoudingsvermogen, meer energie en een betere cardiovasculaire gezondheid.' },
+  { icon: Users, title: 'Blessure herstel', desc: 'Veilig en progressief terugkeren naar sport na een blessure, onder professionele begeleiding.' },
+  { icon: Clock, title: '40+ fit blijven', desc: 'Specifiek op leeftijd afgestemd programma voor spierbehoud, mobiliteit en vitaliteit.' },
+  { icon: Home, title: 'Zwangerschapstraining', desc: 'Veilig trainen voor, tijdens en na de zwangerschap met een gecertificeerde trainer.' },
+];
+
+const FAQS = [
+  { question: 'Wat kost een personal trainer bij JitanSports?', answer: 'Je start altijd met een gratis proefles. Daarna bieden we verschillende pakketten aan. Een losse sessie kost €75. Pakketten van 5, 10 of 20 sessies zijn beschikbaar met korting. Bekijk onze tarievenpagina voor actuele prijzen.' },
+  { question: 'Moet ik eigen materiaal hebben voor training thuis?', answer: 'Nee. JitanSports brengt al het benodigde materiaal mee naar jou toe. Van resistance bands en kettlebells tot springtouwen en mat. Jij hoeft niets te regelen.' },
+  { question: 'Hoe snel zie ik resultaat met personal training?', answer: 'De meeste klanten voelen al na 4-6 weken merkbaar verschil in energie, kracht en conditie. Zichtbare verandering in lichaamsvorm is doorgaans na 8-12 weken zichtbaar, afhankelijk van frequentie en consistentie.' },
+  { question: 'Kan ik trainen als ik een blessure heb?', answer: 'Ja. We stellen het programma altijd aan op jouw situatie. Bij blessures werken we met een zorgvuldig opgebouwd revalidatieprogramma in overleg met jouw arts of fysiotherapeut.' },
+  { question: 'Biedt JitanSports ook duo-training aan?', answer: 'Ja. Je kunt samen met een partner, vriend of familielid trainen. Duo-training biedt de extra motivatie van samen sporten tegen een aantrekkelijker tarief per persoon.' },
+  { question: 'Welke gebieden bedient JitanSports?', answer: 'JitanSports is actief in heel omgeving Den Bosch: Den Bosch, Rosmalen, Vught, Oss, Sint-Michielsgestel, Boxtel en omliggende gemeenten. Geen reiskosten binnen het standaard werkgebied.' },
+];
 
 export default function PersonalTraining() {
-  const { content } = useSiteContent();
-  const benefits = contentLines(content, 'pt_benefits');
-  const paragraphs = contentLines(content, 'pt_main_text');
-  const nutritionParagraphs = contentLines(content, 'pt_nutrition_text');
-  const featureIcons = [Users, Clock, MapPin, Dumbbell];
-  const features = featureIcons.map((icon, index) => {
-    const number = index + 1;
-    return {
-      icon,
-      title: content[`pt_feature_${number}_title`],
-      text: content[`pt_feature_${number}_text`],
-    };
-  });
-  const faqs = [1, 2, 3, 4].map((number) => ({
-    question: content[`pt_faq_${number}_question`],
-    answer: content[`pt_faq_${number}_answer`],
-  }));
-
   return (
     <div>
       <SEO
-        {...ROUTE_SEO['/personal-training']}
-        title={content.seo_personal_training_title || ROUTE_SEO['/personal-training'].title}
-        description={content.seo_personal_training_description || ROUTE_SEO['/personal-training'].description}
-        image={content.seo_image}
+        title="Personal Trainer Den Bosch – Aan Huis en Outdoor | JitanSports"
+        description="Personal trainer in Den Bosch, Rosmalen, Vught en Oss. 1-op-1 training aan huis of outdoor. Voedingsbegeleiding inbegrepen. Gratis proefles. Plan vandaag bij JitanSports."
+        path="/personal-training"
       />
-      <section className="relative h-[50vh] min-h-[400px] flex items-center overflow-hidden">
+
+      {/* Hero */}
+      <section className="relative h-[55vh] min-h-[420px] flex items-center overflow-hidden">
         <div className="absolute inset-0">
-          <ResponsiveImage src={content.pt_hero_image} alt="Personal Training Outdoor" className="w-full h-full object-cover" sizes="100vw" loading="eager" fetchPriority="high" />
-          <div className="absolute inset-0 bg-gradient-to-r from-secondary/85 to-secondary/40" />
+          <img src={HERO_IMG} alt="Personal Training Den Bosch" className="w-full h-full object-cover" loading="eager" fetchPriority="high" decoding="async" />
+          <div className="absolute inset-0 bg-gradient-to-r from-secondary/90 to-secondary/40" />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
           <div className="max-w-xl">
-            <p className="text-primary font-semibold mb-3 uppercase tracking-wider text-sm">{content.pt_hero_eyebrow}</p>
+            <p className="text-primary font-semibold mb-3 uppercase tracking-wider text-sm">Personal Training</p>
             <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
-              {content.pt_hero_title}
+              Personal Trainer in omgeving Den Bosch
             </h1>
-            <p className="text-white/80 text-lg">{content.pt_hero_subtitle}</p>
+            <p className="text-white/80 text-lg mb-8">
+              1-op-1 begeleiding aan huis of outdoor. Jouw doelen, jouw tempo, jouw resultaat. Met voedingsbegeleiding inbegrepen.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Link to="/booking"><Button size="lg" className="bg-primary hover:bg-primary/90 text-secondary font-bold gap-2">Plan Gratis Proefles <ArrowRight className="w-5 h-5" /></Button></Link>
+              <Link to="/tarieven"><Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10">Bekijk tarieven</Button></Link>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="py-6 px-4 bg-primary/10">
+      {/* Banner */}
+      <section className="py-5 px-4 bg-primary/10">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-secondary font-semibold">{content.pt_banner_text}</p>
-          <Link to="/booking"><Button className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2">{content.pt_banner_button} <ArrowRight className="w-4 h-4" /></Button></Link>
+          <p className="text-secondary font-semibold">Gratis proefles · Training aan huis · Voeding inbegrepen</p>
+          <Link to="/booking"><Button className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2">Direct Boeken <ArrowRight className="w-4 h-4" /></Button></Link>
         </div>
       </section>
 
-      <section className="py-20 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            <div>
-              <h2 className="text-3xl font-display font-bold text-secondary mb-6">{content.pt_main_title}</h2>
-              {paragraphs.map((paragraph, index) => (
-                <p key={paragraph} className={`text-muted-foreground leading-relaxed ${index === paragraphs.length - 1 ? 'mb-8' : 'mb-4'}`}>
-                  {paragraph}
-                </p>
-              ))}
-              <div className="space-y-3">
-                {benefits.map(b => (
-                  <div key={b} className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                    <span className="text-foreground">{b}</span>
-                  </div>
-                ))}
-              </div>
+      {/* Intro + benefits */}
+      <section className="py-16 px-4">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          <div>
+            <h2 className="text-3xl font-display font-bold text-secondary mb-6">Wat is personal training bij JitanSports?</h2>
+            <div className="space-y-4 text-muted-foreground leading-relaxed mb-8">
+              <p>
+                Personal training bij JitanSports is anders dan wat je gewend bent van een sportschool. Er is geen afleiding, geen wachttijden en geen generieke programma's. Jij staat centraal – van de eerste intake tot de laatste meter.
+              </p>
+              <p>
+                We beginnen altijd met een uitgebreid intakegesprek. Ik wil jou leren kennen: jouw doelen, jouw huidige fitnessniveau, eventuele blessures, jouw dagritme en jouw voedingspatroon. Op basis daarvan stel ik een volledig persoonlijk trainingsplan samen.
+              </p>
+              <p>
+                Elke sessie begeleid ik jou door de training, corrigeer ik de techniek, pas ik de intensiteit aan en motiveer ik jou wanneer het zwaar wordt. Na de sessie ontvang jij feedback en tips voor herstel en voeding.
+              </p>
+              <p>
+                Maandelijks voeren we een lichaamsanalyse uit. Zo meten we niet alleen gewicht maar ook vetpercentage en spiermassa – de echte indicatoren van vooruitgang.
+              </p>
             </div>
-
-            <div className="space-y-6">
-              {features.map((item) => (
-                <div
-                  key={item.title}
-                  className="p-6 rounded-2xl bg-muted/50 border border-border/50"
-                >
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                      <item.icon className="w-5 h-5 text-primary" />
-                    </div>
-                    <h3 className="font-bold text-secondary">{item.title}</h3>
-                  </div>
-                  <p className="text-muted-foreground text-sm leading-relaxed">{item.text}</p>
+            <div className="space-y-3">
+              {BENEFITS.map(b => (
+                <div key={b} className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                  <span className="text-foreground text-sm">{b}</span>
                 </div>
               ))}
             </div>
           </div>
+
+          <div className="space-y-5">
+            {[
+              { icon: Home, title: 'Training aan huis', desc: 'JitanSports komt naar jou toe met alle benodigde materialen. In omgeving Den Bosch, Rosmalen, Vught, Oss en omstreken. Geen reiskosten.', color: 'bg-primary/10' },
+              { icon: TreePine, title: 'Outdoor training', desc: 'Training in het park, bos of op een andere buitenlocatie. De natuur zorgt voor extra motivatie en een gevarieerde trainingsomgeving.', color: 'bg-secondary/5' },
+              { icon: Users, title: 'Duo-training', desc: 'Train samen met een vriend, partner of familielid. Gezelligheid en motivatie – voor een aantrekkelijk tarief per persoon.', color: 'bg-primary/5' },
+            ].map((item, i) => (
+              <motion.div key={item.title} initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className={`p-6 rounded-2xl border border-border ${item.color}`}>
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center shadow-sm">
+                    <item.icon className="w-5 h-5 text-primary" />
+                  </div>
+                  <h3 className="font-bold text-secondary">{item.title}</h3>
+                </div>
+                <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="py-20 px-4 bg-muted/50">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl font-display font-bold text-secondary mb-6">{content.pt_nutrition_title}</h2>
-          {nutritionParagraphs.map((paragraph, index) => (
-            <p key={paragraph} className={`text-muted-foreground leading-relaxed ${index === nutritionParagraphs.length - 1 ? 'mb-8' : 'mb-4'}`}>
-              {paragraph}
+      {/* Voor wie */}
+      <section className="py-16 px-4 bg-muted/30">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-amber-700 font-semibold uppercase tracking-wider text-sm mb-2">Voor iedereen</p>
+            <h2 className="text-3xl font-display font-bold text-secondary">Voor wie is personal training geschikt?</h2>
+            <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
+              Personal training bij JitanSports is niet alleen voor fanatieke sporters. Het is voor iedereen die doelgericht aan zijn of haar gezondheid wil werken.
             </p>
-          ))}
-          <Link to="/contact"><Button variant="outline" className="gap-2">{content.pt_nutrition_button} <ArrowRight className="w-4 h-4" /></Button></Link>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {TARGETS.map((item, i) => (
+              <motion.div key={item.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }} className="p-6 rounded-2xl bg-white border border-border hover:shadow-md transition-shadow">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+                  <item.icon className="w-5 h-5 text-primary" />
+                </div>
+                <h3 className="font-bold text-secondary mb-2">{item.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="py-20 px-4">
+      {/* Training aan huis */}
+      <section className="py-16 px-4 bg-white">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="rounded-2xl overflow-hidden h-80">
+            <img src={HOME_IMG} alt="Personal Training aan huis Den Bosch" className="w-full h-full object-cover" loading="lazy" decoding="async" />
+          </div>
+          <div className="space-y-4 text-muted-foreground leading-relaxed">
+            <h2 className="text-3xl font-display font-bold text-secondary">Training aan huis in Den Bosch</h2>
+            <p>
+              Training aan huis is de meest comfortabele en efficiënte manier om te sporten. JitanSports komt naar jou toe – met alle benodigde materialen. Jij hoeft niets voor te bereiden.
+            </p>
+            <p>
+              De voordelen zijn aanzienlijk: geen reistijd naar een sportschool, geen parkeerkosten, geen wachttijden op apparatuur en geen intimiderende omgeving. Je traint in je eigen vertrouwde omgeving, op het moment dat het jou het beste uitkomt.
+            </p>
+            <p>
+              Dit maakt het voor veel mensen veel makkelijker om consistent te blijven. En consistentie is het geheime wapen van elke succesvolle transformatie.
+            </p>
+            <p>
+              JitanSports biedt training aan huis in heel omgeving Den Bosch: in Den Bosch zelf, maar ook in Rosmalen, Vught, Oss, Sint-Michielsgestel, Boxtel en omliggende gemeenten.
+            </p>
+            <Link to="/booking"><Button className="bg-secondary hover:bg-secondary/90 text-white gap-2 mt-2">Plan Proefles Aan Huis <ArrowRight className="w-4 h-4" /></Button></Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Outdoor */}
+      <section className="py-16 px-4 bg-muted/30">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="space-y-4 text-muted-foreground leading-relaxed">
+            <h2 className="text-3xl font-display font-bold text-secondary">Outdoor training in omgeving Den Bosch</h2>
+            <p>
+              Den Bosch en omstreken bieden prachtige locaties voor outdoor training. Parken, bossen en open velden zijn de trainingslocatie van veel JitanSports-klanten.
+            </p>
+            <p>
+              Outdoor trainen heeft unieke voordelen: frisse lucht, daglicht en de natuur dragen bij aan een betere stemming, hogere motivatie en een dieper ontspannen gevoel na de training. Wetenschappelijk onderzoek bevestigt dat trainen in de natuur beter is voor mentale gezondheid dan trainen in een sportschool.
+            </p>
+            <p>
+              We trainen bij elk type weer – ook in de winter biedt outdoor training uitdagende en gevarieerde sessies. Bij extreme omstandigheden schakelen we soepel over naar training aan huis.
+            </p>
+          </div>
+          <div className="rounded-2xl overflow-hidden h-80">
+            <img src={OUTDOOR_IMG} alt="Outdoor Personal Training Den Bosch" className="w-full h-full object-cover" loading="lazy" decoding="async" />
+          </div>
+        </div>
+      </section>
+
+      {/* Werkwijze */}
+      <section className="py-16 px-4 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-display font-bold text-secondary">Werkwijze</h2>
+            <p className="text-muted-foreground mt-3">Van eerste contact tot blijvend resultaat</p>
+          </div>
+          <div className="space-y-6">
+            {[
+              { step: '01', title: 'Gratis intake en kennismaking', desc: 'We bespreken jouw doelen, fitnesshistorie, eventuele blessures en wensen. Geheel vrijblijvend en kosteloos.' },
+              { step: '02', title: 'Persoonlijk plan op maat', desc: 'Op basis van de intake stel ik een trainingsschema, voedingsplan en doelstellingen op, volledig afgestemd op jouw lichaam en situatie.' },
+              { step: '03', title: 'Training en begeleiding', desc: 'We starten met de eerste sessies. Ik begeleid jou door elke training, zorg voor correcte techniek en pas de intensiteit progressief aan.' },
+              { step: '04', title: 'Maandelijkse meting en evaluatie', desc: 'Elke maand meten we jouw voortgang met een lichaamsanalyse. We evalueren het plan en sturen bij waar nodig.' },
+              { step: '05', title: 'Duurzaam resultaat en zelfstandigheid', desc: 'Het doel is niet alleen dat je resultaat bereikt, maar ook dat je leert hoe je dit zelf kunt onderhouden. Kennis en zelfvertrouwen zijn onderdeel van het programma.' },
+            ].map((step) => (
+              <div key={step.step} className="flex gap-5 items-start">
+                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary text-primary-foreground font-bold flex items-center justify-center text-sm">{step.step}</div>
+                <div>
+                  <h3 className="font-bold text-secondary mb-1">{step.title}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{step.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Local SEO links */}
+      <section className="py-12 px-4 bg-muted/30">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-2xl font-display font-bold text-secondary mb-6">Personal trainer in jouw gemeente</h2>
+          <div className="flex flex-wrap justify-center gap-3">
+            {[
+              ['Personal Trainer Den Bosch', '/personal-trainer-den-bosch'],
+              ['Personal Trainer Rosmalen', '/personal-trainer-rosmalen'],
+              ['Personal Trainer Vught', '/personal-trainer-vught'],
+              ['Personal Trainer Oss', '/personal-trainer-oss'],
+            ].map(([label, path]) => (
+              <Link key={path} to={path}>
+                <Button variant="outline" size="sm" className="gap-1">{label} <ArrowRight className="w-3 h-3" /></Button>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-16 px-4 bg-white">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-display font-bold text-secondary mb-8 text-center">{content.pt_faq_title}</h2>
-          <FAQAccordion items={faqs} />
+          <h2 className="text-3xl font-display font-bold text-secondary mb-8 text-center">Veelgestelde vragen</h2>
+          <FAQAccordion items={FAQS} />
         </div>
       </section>
 
-      <CTASection />
+      <CTASection title="Klaar om te starten?" subtitle="Plan vandaag nog je gratis proefles. Geen verplichtingen, geen kosten." />
     </div>
   );
 }
