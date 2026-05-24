@@ -3,6 +3,8 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
 import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { AuthProvider, useAuth } from '@/lib/AuthContext';
+import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 
 const Layout = lazy(() => import('./components/Layout'));
 const Home = lazy(() => import('./pages/Home'));
@@ -17,8 +19,16 @@ const FAQ = lazy(() => import('./pages/FAQ'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Booking = lazy(() => import('./pages/Booking'));
 const PersonalTrainerDenBosch = lazy(() => import('./pages/PersonalTrainerDenBosch'));
+const PersonalTrainerRosmalen = lazy(() => import('./pages/PersonalTrainerRosmalen'));
+const PersonalTrainerVught = lazy(() => import('./pages/PersonalTrainerVught'));
+const PersonalTrainerOss = lazy(() => import('./pages/PersonalTrainerOss'));
 const MassageDenBosch = lazy(() => import('./pages/MassageDenBosch'));
 const DeepTissueMassageDenBosch = lazy(() => import('./pages/DeepTissueMassageDenBosch'));
+const SportmassageDenBosch = lazy(() => import('./pages/SportmassageDenBosch'));
+const Voeding = lazy(() => import('./pages/Voeding'));
+const VipTreatment = lazy(() => import('./pages/VipTreatment'));
+const Bedrijven = lazy(() => import('./pages/Bedrijven'));
+const Referenties = lazy(() => import('./pages/Referenties'));
 const PageNotFound = lazy(() => import('./lib/PageNotFound'));
 const AdminLayout = lazy(() => import('./components/AdminLayout'));
 const AdminLogin = lazy(() => import('./pages/admin/AdminLogin'));
@@ -41,6 +51,21 @@ function RouteFallback() {
 }
 
 const AppRoutes = () => {
+  const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
+
+  if (isLoadingPublicSettings || isLoadingAuth) {
+    return <RouteFallback />;
+  }
+
+  if (authError) {
+    if (authError.type === 'user_not_registered') {
+      return <UserNotRegisteredError />;
+    } else if (authError.type === 'auth_required') {
+      navigateToLogin();
+      return null;
+    }
+  }
+
   return (
     <Suspense fallback={<RouteFallback />}>
       <Routes>
@@ -56,9 +81,17 @@ const AppRoutes = () => {
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/booking" element={<Booking />} />
+          <Route path="/voeding" element={<Voeding />} />
+          <Route path="/vip-treatment" element={<VipTreatment />} />
+          <Route path="/bedrijven" element={<Bedrijven />} />
+          <Route path="/referenties" element={<Referenties />} />
           <Route path="/personal-trainer-den-bosch" element={<PersonalTrainerDenBosch />} />
+          <Route path="/personal-trainer-rosmalen" element={<PersonalTrainerRosmalen />} />
+          <Route path="/personal-trainer-vught" element={<PersonalTrainerVught />} />
+          <Route path="/personal-trainer-oss" element={<PersonalTrainerOss />} />
           <Route path="/massage-den-bosch" element={<MassageDenBosch />} />
           <Route path="/deep-tissue-massage-den-bosch" element={<DeepTissueMassageDenBosch />} />
+          <Route path="/sportmassage-den-bosch" element={<SportmassageDenBosch />} />
         </Route>
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={<AdminLayout />}>
@@ -78,17 +111,17 @@ const AppRoutes = () => {
   );
 };
 
-
 function App() {
-
   return (
-    <QueryClientProvider client={queryClientInstance}>
-      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-        <AppRoutes />
-      </Router>
-      <Toaster />
-    </QueryClientProvider>
-  )
+    <AuthProvider>
+      <QueryClientProvider client={queryClientInstance}>
+        <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+          <AppRoutes />
+        </Router>
+        <Toaster />
+      </QueryClientProvider>
+    </AuthProvider>
+  );
 }
 
 export default App

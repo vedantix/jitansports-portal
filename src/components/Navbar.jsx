@@ -8,11 +8,11 @@ const NAV_ITEMS = [
   { label: 'Home', path: '/' },
   { label: 'Personal Training', path: '/personal-training' },
   { label: 'Massage', path: '/massage' },
+  { label: 'Voeding', path: '/voeding' },
   { label: 'Get Fit', path: '/get-fit' },
   { label: 'Tarieven', path: '/tarieven' },
   { label: 'Over Ons', path: '/over-ons' },
-  { label: 'Blog', path: '/blog' },
-  { label: 'FAQ', path: '/faq' },
+  { label: 'Referenties', path: '/referenties' },
   { label: 'Contact', path: '/contact' },
 ];
 

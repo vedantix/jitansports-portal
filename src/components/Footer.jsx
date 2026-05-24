@@ -61,11 +61,13 @@ export default function Footer() {
             <ul className="space-y-2">
               {[
                 ['Personal Training', '/personal-training'],
-                ['Deep Tissue Massage', '/massage'],
+                ['Massage', '/massage'],
+                ['Voedingsbegeleiding', '/voeding'],
                 ['Get Fit Programma', '/get-fit'],
+                ['VIP Treatment', '/vip-treatment'],
+                ['Bedrijven', '/bedrijven'],
                 ['Tarieven', '/tarieven'],
-                ['Gratis Proefles', '/booking'],
-                ['Blog', '/blog'],
+                ['Referenties', '/referenties'],
               ].map(([label, path]) => (
                 <li key={path}>
                   <Link to={path} className="text-white/60 hover:text-primary text-sm transition-colors">
@@ -81,12 +83,13 @@ export default function Footer() {
             <p className="font-semibold text-white mb-4">Werkgebied</p>
             <ul className="space-y-2">
               {[
-                ['Personal Trainer omgeving Den Bosch', '/personal-trainer-den-bosch'],
-                ['Outdoor Training omgeving Den Bosch', '/personal-training'],
-                ['Training aan huis omgeving Den Bosch', '/personal-training'],
-                ['Get Fit omgeving Den Bosch', '/get-fit'],
-                ['Massage omgeving Den Bosch', '/massage-den-bosch'],
-                ['Deep Tissue Massage omgeving Den Bosch', '/deep-tissue-massage-den-bosch'],
+                ['Personal Trainer Den Bosch', '/personal-trainer-den-bosch'],
+                ['Personal Trainer Rosmalen', '/personal-trainer-rosmalen'],
+                ['Personal Trainer Vught', '/personal-trainer-vught'],
+                ['Personal Trainer Oss', '/personal-trainer-oss'],
+                ['Sportmassage Den Bosch', '/sportmassage-den-bosch'],
+                ['Massage Den Bosch', '/massage-den-bosch'],
+                ['Deep Tissue Massage Den Bosch', '/deep-tissue-massage-den-bosch'],
               ].map(([label, path]) => (
                 <li key={path}>
                   <Link to={path} className="text-white/60 hover:text-primary text-sm transition-colors">

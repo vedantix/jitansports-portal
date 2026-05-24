@@ -8,6 +8,9 @@ import { contentLines, createWhatsAppUrl } from '@/lib/siteContent';
 import SEO, { ROUTE_SEO, buildFAQSchema, buildLocalBusinessSchema } from '@/components/SEO';
 import ResponsiveImage from '@/components/ResponsiveImage';
 import GoalCards from '../components/GoalCards';
+import WhyChooseUs from '../components/WhyChooseUs';
+import HowItWorks from '../components/HowItWorks';
+import ForWhom from '../components/ForWhom';
 import ReviewsSection from '../components/ReviewsSection';
 import TrustStats from '../components/TrustStats';
 import GallerySection from '../components/GallerySection';
@@ -112,8 +115,14 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Why Choose – after hero */}
+      <WhyChooseUs />
+
       {/* Goal Cards – Priority 1 */}
       <GoalCards />
+
+      {/* How it works */}
+      <HowItWorks />
 
       {/* Services */}
       <section className="py-16 px-4 bg-muted/30">
@@ -182,6 +191,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* For whom */}
+      <ForWhom />
 
       {/* Gallery – Priority 4 */}
       <GallerySection />
