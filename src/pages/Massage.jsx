@@ -1,285 +1,288 @@
 import { Link } from 'react-router-dom';
+import { ArrowRight, CheckCircle, Heart, Home, Shield, Sparkles, Star, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, CheckCircle, Heart, Shield, Zap, Home, Star } from 'lucide-react';
-
 import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
-import SEO from '@/components/SEO';
-
-const HERO_IMG = 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200&q=75';
-const DTM_IMG = 'https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=800&q=75';
-const RELAX_IMG = 'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=800&q=75';
+import ResponsiveImage from '@/components/ResponsiveImage';
+import SEO, { buildFAQSchema } from '@/components/SEO';
 
 const MASSAGE_TYPES = [
   {
     icon: Zap,
-    tag: 'Populairste keuze',
+    tag: 'Krachtig herstel',
     title: 'Deep Tissue Massage',
-    subtitle: 'Gericht op diepe spierlagen en bindweefsel',
-    desc: 'Deep Tissue Massage is onze meest gevraagde behandeling. Met gerichte, stevige technieken bereiken we de diepste lagen van spieren en bindweefsel. Ideaal bij chronische spierspanning, rug- en nekklachten, sportblessures en overbelasting.',
+    desc:
+      'Een stevige behandeling waarbij opgebouwd bindweefsel en diepe spierspanning laag voor laag worden losgemaakt. Dit helpt blokkades verminderen en ondersteunt een betere bloedcirculatie.',
     details: [
-      'Behandelt chronische rug-, nek- en schouderklachten',
-      'Losmaken van triggerpoints en verklevingen',
-      'Verbetert doorbloeding en zuurstoftransport',
-      'Versnelt herstel na sportblessures',
-      'Vermindert spierspanning en stijfheid',
+      'Gericht op rug-, nek- en schouderklachten',
+      'Maakt vastzittend bindweefsel los',
+      'Helpt bij triggerpoints en blokkades',
+      'Ondersteunt herstel na training',
+      'Geschikt bij langdurige spierspanning',
     ],
-    price: '€75 / 60 min · €95 / 90 min',
-    forWho: 'Sporters, kantoorwerkers met veel zitwerk, mensen met chronische klachten',
-    img: DTM_IMG,
+    price: '€75 / 60 min',
+    link: '/deep-tissue-massage-den-bosch',
   },
   {
     icon: Heart,
-    tag: 'Diepe ontspanning',
+    tag: 'Rust en herstel',
     title: 'Ontspanningsmassage',
-    subtitle: 'Rust voor lichaam en geest',
-    desc: 'De ontspanningsmassage richt zich op het volledig tot rust brengen van lichaam en geest. Met zachte, ritmische bewegingen en effleurage-technieken wordt de spanning in de spieren losgelaten en het zenuwstelsel gekalmeerd.',
+    desc:
+      'Een rustige massage die lichaam en geest tot ontspanning brengt. Ideaal bij stress, vermoeidheid en behoefte aan een moment waarin niets hoeft.',
     details: [
-      'Vermindert stress en mentale vermoeidheid',
-      'Verbetert slaapkwaliteit',
-      'Verlaagt bloeddruk en hartslag',
-      'Versterkt het immuunsysteem',
-      'Geeft een diep gevoel van welbevinden',
+      'Brengt lichaam en hoofd tot rust',
+      'Helpt bij stress en mentale spanning',
+      'Ondersteunt betere slaap',
+      'Zachte en vloeiende technieken',
+      'Ook aan huis mogelijk',
     ],
-    price: '€60 / 60 min · €80 / 90 min',
-    forWho: 'Iedereen die ontspanning zoekt, mensen met stress, burn-out preventie',
-    img: RELAX_IMG,
+    price: '€60 / 60 min',
+    link: '/booking',
   },
   {
     icon: Shield,
-    tag: 'Voor sporters',
+    tag: 'Voor actieve lichamen',
     title: 'Sportmassage',
-    subtitle: 'Prestaties verbeteren, herstel versnellen',
-    desc: 'Sportmassage is specifiek gericht op sporters en actieve mensen. De behandeling kombineert verschillende technieken om spieren voor te bereiden op inspanning, de belastbaarheid te verhogen en het herstel na training te versnellen.',
+    desc:
+      'Voor sporters en actieve mensen die sneller willen herstellen, minder spierpijn willen ervaren en beter willen blijven bewegen.',
     details: [
-      'Voor- of natraining ter voorbereiding en herstel',
-      'Preventie van sportblessures',
-      'Sneller herstel door verbetering van circulatie',
-      'Vermindering van DOMS (spierpijn na training)',
-      'Verhoogde beweeglijkheid en flexibiliteit',
+      'Sneller herstel na inspanning',
+      'Minder spierpijn en stijfheid',
+      'Preventie van overbelasting',
+      'Gericht op zwaar belaste spiergroepen',
+      'Beschikbaar aan huis',
     ],
-    price: '€65 / 60 min · €85 / 90 min',
-    forWho: 'Recreatieve sporters, triathleten, hardlopers, fitnessliefhebbers',
-    img: null,
+    price: '€65 / 60 min',
+    link: '/sportmassage-den-bosch',
   },
 ];
 
 const FAQS = [
-  { question: 'Hoe lang duurt een massagesessie?', answer: 'Massages zijn beschikbaar in 60 of 90 minuten. Voor chronische klachten en sporters raden we 90 minuten aan voor een uitgebreidere behandeling.' },
-  { question: 'Komt de masseur aan huis in Den Bosch?', answer: 'Ja. JitanSports komt met een professionele massagetafel naar jou toe. Geen reiskosten voor locaties in omgeving Den Bosch, Rosmalen, Vught en Oss.' },
-  { question: 'Hoe vaak moet ik een massage laten doen?', answer: 'Dit hangt af van jouw klachten en doelen. Bij acute klachten adviseren we wekelijks; voor onderhoud en welzijn maandelijks of tweemaandelijks.' },
-  { question: 'Kan ik een massage combineren met personal training?', answer: 'Absoluut. De VIP Treatment combineert 1 uur personal training met 1 uur Deep Tissue Massage. Dit is de meest complete herstel- en trainingsSessione die we aanbieden.' },
-  { question: 'Is Deep Tissue Massage pijnlijk?', answer: 'Deep Tissue Massage kan intensief aanvoelen op gespannen gebieden. We stemmen altijd de druk af op jouw comfortniveau. Na de behandeling is lichte spierpijn normaal – vergelijkbaar met de dag na een training.' },
-  { question: 'Welke klachten behandelt Deep Tissue Massage?', answer: 'Deep Tissue Massage is effectief bij rug-, nek- en schouderklachten, spierspanning, triggerpoints, sportblessures, slechte houding en RSI-gerelateerde klachten.' },
+  {
+    question: 'Komt JitanSports aan huis voor massage?',
+    answer:
+      'Ja. Ik kom met een professionele massagetafel en materialen naar je toe in omgeving Den Bosch. Zo blijft ontspanning ook na de behandeling ontspanning.',
+  },
+  {
+    question: 'Wat is het verschil tussen Deep Tissue en ontspanningsmassage?',
+    answer:
+      'Deep Tissue is steviger en gericht op diepe spierlagen, bindweefsel en klachten. Ontspanningsmassage is rustiger en vooral gericht op ontspanning van lichaam en geest.',
+  },
+  {
+    question: 'Is Deep Tissue Massage geschikt bij rugklachten?',
+    answer:
+      'Vaak wel. Deep Tissue Massage wordt veel geboekt bij rug-, nek- en schouderklachten, verkrampte spieren en vastzittende gebieden. Bij twijfel bespreken we eerst je klachten.',
+  },
+  {
+    question: 'Hoe vaak moet ik een massage boeken?',
+    answer:
+      'Bij hardnekkige klachten kan een korte reeks nodig zijn. Voor onderhoud en ontspanning is eens per maand voor veel klanten voldoende.',
+  },
+  {
+    question: 'Kan ik massage combineren met personal training?',
+    answer:
+      'Ja, dat is juist een van de sterke punten van JitanSports. De VIP Treatment combineert 1 uur training met 1 uur massage.',
+  },
 ];
 
 export default function Massage() {
   return (
     <div>
       <SEO
-        title="Massage Den Bosch – Deep Tissue, Sportmassage & Ontspanning | JitanSports"
-        description="Professionele massage aan huis in omgeving Den Bosch. Deep Tissue Massage, Sportmassage en Ontspanningsmassage. Gecertificeerd therapeut. Boek vandaag bij JitanSports."
+        title="Massage Den Bosch - Deep Tissue, Sportmassage & Aan Huis | JitanSports"
+        description="Professionele massage aan huis in omgeving Den Bosch. Deep Tissue Massage, ontspanningsmassage en sportmassage voor herstel, minder pijn en ontspanning."
         path="/massage"
+        image="/images/optimized/page-massage-hero-960.jpg"
+        jsonLd={buildFAQSchema(FAQS)}
       />
 
-      {/* Hero */}
-      <section className="relative h-[55vh] min-h-[420px] flex items-center overflow-hidden">
+      <section className="relative flex min-h-[68svh] items-center overflow-hidden px-4 py-20 text-white">
         <div className="absolute inset-0">
-          <img src={HERO_IMG} alt="Massage Den Bosch" className="w-full h-full object-cover" loading="eager" fetchPriority="high" decoding="async" />
-          <div className="absolute inset-0 bg-gradient-to-r from-secondary/90 to-secondary/40" />
+          <ResponsiveImage
+            src="/images/optimized/page-massage-hero-960.jpg"
+            alt=""
+            className="h-full w-full object-cover"
+            sizes="100vw"
+            loading="eager"
+            fetchPriority="high"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-secondary/94 via-secondary/78 to-secondary/25" />
         </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="max-w-xl">
-            <p className="text-primary font-semibold mb-3 uppercase tracking-wider text-sm">Massagetherapie</p>
-            <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
-              Massage aan huis in omgeving Den Bosch
-            </h1>
-            <p className="text-white/80 text-lg mb-8">
-              Professionele Deep Tissue Massage, Sportmassage en Ontspanningsmassage. Gecertificeerd therapeut. Aan huis of op locatie.
+        <div className="relative z-10 mx-auto max-w-7xl">
+          <div className="max-w-2xl">
+            <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary">Massage aan huis</p>
+            <h1 className="mb-5 text-4xl font-display font-bold leading-tight md:text-6xl">Massage in omgeving Den Bosch</h1>
+            <p className="mb-7 text-lg leading-relaxed text-white/82">
+              Deep Tissue Massage, ontspanningsmassage en sportmassage. Professioneel aan huis, zodat echte ontspanning ook echt ontspanning blijft.
             </p>
-            <div className="flex flex-wrap gap-3">
-              <Link to="/booking"><Button size="lg" className="bg-primary hover:bg-primary/90 text-secondary font-bold gap-2">Boek Een Massage <ArrowRight className="w-5 h-5" /></Button></Link>
-              <Link to="/tarieven"><Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10">Tarieven bekijken</Button></Link>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Link to="/booking">
+                <Button size="lg" className="w-full gap-2 bg-primary text-primary-foreground hover:bg-primary/90 sm:w-auto">
+                  Boek een massage <ArrowRight className="h-5 w-5" />
+                </Button>
+              </Link>
+              <Link to="/vip-treatment">
+                <Button size="lg" variant="outline" className="w-full border-white/30 text-white hover:bg-white/10 sm:w-auto">
+                  Bekijk VIP Treatment
+                </Button>
+              </Link>
             </div>
-            <div className="flex items-center gap-2 mt-6">
-              {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-primary text-primary" />)}
-              <span className="text-white/80 text-sm ml-1">5.0 · Meer dan 30 massagereviews</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Banner */}
-      <section className="py-5 px-4 bg-primary/10">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-secondary font-semibold">✓ Aan huis in Den Bosch · ✓ Geen reiskosten · ✓ Professionele massagetafel</p>
-          <Link to="/booking"><Button className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2">Direct Boeken <ArrowRight className="w-4 h-4" /></Button></Link>
-        </div>
-      </section>
-
-      {/* Intro */}
-      <section className="py-16 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-display font-bold text-secondary mb-6">Massagetherapie in omgeving Den Bosch</h2>
-          <div className="space-y-4 text-muted-foreground leading-relaxed text-lg">
-            <p>
-              JitanSports biedt professionele massagetherapie aan huis in omgeving Den Bosch. Als gecertificeerd massagetherapeut met specialisatie in Deep Tissue Massage en sportmassage help ik mensen van chronische pijn, spierspanning en sportklachten af.
-            </p>
-            <p>
-              Mijn massages zijn resultaatgericht. Of je nu last hebt van een stijve nek na werkdagen achter de computer, spierpijn na intensieve trainingen of jarenlange rugklachten – ik ga naar de kern van het probleem.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Massage types */}
-      <section className="py-8 px-4 bg-muted/30">
-        <div className="max-w-7xl mx-auto space-y-6">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-display font-bold text-secondary">Onze massagebehandelingen</h2>
-          </div>
-          {MASSAGE_TYPES.map((type, i) => (
-            <div
-              key={type.title}
-              className="rounded-2xl bg-white border border-border overflow-hidden"
-            >
-              <div className={`grid grid-cols-1 ${type.img ? 'lg:grid-cols-2' : ''} gap-0`}>
-                {type.img && (
-                  <div className={`h-64 lg:h-auto ${i % 2 === 1 ? 'lg:order-2' : ''}`}>
-                    <img src={type.img} alt={type.title} className="w-full h-full object-cover" loading="lazy" decoding="async" />
-                  </div>
-                )}
-                <div className={`p-8 ${i % 2 === 1 && type.img ? 'lg:order-1' : ''}`}>
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                      <type.icon className="w-5 h-5 text-primary" />
-                    </div>
-                    <span className="text-sm font-semibold text-amber-700 bg-primary/10 px-3 py-1 rounded-full">{type.tag}</span>
-                  </div>
-                  <h3 className="text-2xl font-bold text-secondary mb-1">{type.title}</h3>
-                  <p className="text-muted-foreground text-sm mb-4">{type.subtitle}</p>
-                  <p className="text-muted-foreground leading-relaxed mb-5">{type.desc}</p>
-                  <div className="space-y-2 mb-5">
-                    {type.details.map(d => (
-                      <div key={d} className="flex items-start gap-2">
-                        <CheckCircle className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                        <span className="text-sm text-foreground">{d}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="pt-4 border-t border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-                    <div>
-                      <p className="text-primary font-bold">{type.price}</p>
-                      <p className="text-xs text-muted-foreground mt-0.5">Voor wie: {type.forWho}</p>
-                    </div>
-                    <Link to="/booking"><Button className="bg-secondary hover:bg-secondary/90 text-white gap-2 shrink-0">Boek {type.title} <ArrowRight className="w-4 h-4" /></Button></Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Aan huis */}
-      <section className="py-16 px-4 bg-white">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                <Home className="w-5 h-5 text-primary" />
-              </div>
-              <span className="text-amber-700 font-semibold text-sm uppercase tracking-wider">Massage aan huis</span>
-            </div>
-            <h2 className="text-3xl font-display font-bold text-secondary mb-5">Massage aan huis in omgeving Den Bosch</h2>
-            <div className="space-y-4 text-muted-foreground leading-relaxed">
-              <p>
-                Een van de grootste voordelen van JitanSports is dat we naar jou toe komen. We brengen onze professionele massagetafel, lakens en alle benodigde materialen mee. Jij hoeft niets te doen dan te ontspannen.
-              </p>
-              <p>
-                Massage aan huis heeft duidelijke voordelen ten opzichte van een massagepraktijk. Je hoeft na de behandeling niet meer in de auto te stappen. Je kunt direct na de massage rusten in jouw eigen comfortabele omgeving – wat het hersteleffect significant vergroot.
-              </p>
-              <p>
-                We bieden massage aan huis aan in heel omgeving Den Bosch: Den Bosch, Rosmalen, Vught, Oss, Sint-Michielsgestel, Boxtel en omstreken. Geen reiskosten voor locaties in het standaard werkgebied.
-              </p>
-            </div>
-          </div>
-          <div className="p-8 rounded-2xl bg-secondary text-white">
-            <h3 className="text-xl font-bold mb-5">VIP Treatment</h3>
-            <p className="text-white/70 mb-6 leading-relaxed">
-              De ultieme combinatie: 1 uur personal training direct gevolgd door 1 uur Deep Tissue Massage. De complete reset voor lichaam en geest.
-            </p>
-            <div className="flex items-center justify-between mb-6 pb-6 border-b border-white/10">
-              <span className="text-white/70">1 uur Personal Training + 1 uur Massage</span>
-              <span className="text-primary font-bold text-xl">€190</span>
-            </div>
-            <div className="space-y-2 mb-6">
-              {['Aan huis of op locatie', 'Geen extra kosten', 'Complete reset in 2 uur', 'Ideaal cadeau'].map(item => (
-                <div key={item} className="flex items-center gap-2 text-sm text-white/80">
-                  <CheckCircle className="w-4 h-4 text-primary shrink-0" />
-                  <span>{item}</span>
-                </div>
+            <div className="mt-6 flex items-center gap-2">
+              {[...Array(5)].map((_, index) => (
+                <Star key={index} className="h-4 w-4 fill-primary text-primary" />
               ))}
+              <span className="text-sm text-white/78">5.0 · gespecialiseerd in Deep Tissue Massage</span>
             </div>
-            <Link to="/vip-treatment"><Button className="w-full bg-primary hover:bg-primary/90 text-secondary font-bold gap-2">Bekijk VIP Treatment <ArrowRight className="w-4 h-4" /></Button></Link>
           </div>
         </div>
       </section>
 
-      {/* Klachten sectie */}
-      <section className="py-16 px-4 bg-muted/30">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-display font-bold text-secondary">Massagetherapie voor jouw klachten</h2>
-            <p className="text-muted-foreground mt-3">Herken jij één van deze klachten? Massage kan helpen.</p>
+      <section className="bg-primary/10 px-4 py-5">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="font-semibold text-secondary">Aan huis · Professionele massagetafel · Geen reistijd na je behandeling</p>
+          <Link to="/massage-aan-huis-den-bosch">
+            <Button variant="outline" className="gap-2">
+              Massage aan huis Den Bosch <ArrowRight className="h-4 w-4" />
+            </Button>
+          </Link>
+        </div>
+      </section>
+
+      <section className="px-4 py-16">
+        <div className="mx-auto max-w-4xl text-center">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-amber-700">Probleem</p>
+          <h2 className="mb-5 text-3xl font-display font-bold text-secondary">Naast intensief sporten is ontspanning geen luxe</h2>
+          <div className="space-y-4 text-lg leading-relaxed text-muted-foreground">
+            <p>Vastzittende schouders, een stijve rug, hoofdpijn door spanning of spieren die niet goed herstellen: je lichaam geeft vaak duidelijk aan dat het aandacht nodig heeft.</p>
+            <p>JitanSports combineert kennis van training, houding en herstel. Daardoor kijken we niet alleen naar ontspanning, maar ook naar wat je lichaam nodig heeft om beter te blijven bewegen.</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {[
-              'Chronische rugpijn',
-              'Stijve nek en schouders',
-              'Hoofdpijn door spierspanning',
-              'RSI en repetitieve overbelasting',
-              'Spierpijn na training',
-              'Stress en burnout preventie',
-              'Slechte houding',
-              'Blessure herstel',
-              'Whiplash gevolgen',
-              'Herstellen na operatie',
-            ].map(klacht => (
-              <div key={klacht} className="flex items-center gap-3 p-3 rounded-lg bg-white border border-border">
-                <CheckCircle className="w-5 h-5 text-primary shrink-0" />
-                <span className="text-sm text-foreground">{klacht}</span>
+        </div>
+      </section>
+
+      <section className="bg-muted/30 px-4 py-16">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10 text-center">
+            <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-amber-700">Behandelingen</p>
+            <h2 className="text-3xl font-display font-bold text-secondary">Welke massage past bij jou?</h2>
+          </div>
+          <div className="grid gap-6 lg:grid-cols-3">
+            {MASSAGE_TYPES.map((type) => (
+              <div key={type.title} className="flex flex-col rounded-2xl border border-border bg-white p-6">
+                <div className="mb-4 flex items-center gap-3">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10">
+                    <type.icon className="h-5 w-5 text-primary" />
+                  </div>
+                  <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-amber-700">{type.tag}</span>
+                </div>
+                <h3 className="mb-3 text-xl font-bold text-secondary">{type.title}</h3>
+                <p className="mb-5 text-sm leading-relaxed text-muted-foreground">{type.desc}</p>
+                <div className="mb-6 space-y-2">
+                  {type.details.map((detail) => (
+                    <div key={detail} className="flex items-start gap-2 text-sm text-foreground">
+                      <CheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                      <span>{detail}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-auto border-t border-border pt-5">
+                  <p className="mb-4 font-bold text-primary">{type.price}</p>
+                  <Link to={type.link}>
+                    <Button className="w-full gap-2 bg-secondary text-white hover:bg-secondary/90">
+                      Meer informatie <ArrowRight className="h-4 w-4" />
+                    </Button>
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="py-16 px-4 bg-white">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-display font-bold text-secondary mb-8 text-center">Veelgestelde vragen over massage</h2>
+      <section className="px-4 py-16">
+        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:items-center">
+          <div>
+            <div className="mb-4 flex items-center gap-3">
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10">
+                <Home className="h-5 w-5 text-primary" />
+              </div>
+              <span className="text-sm font-semibold uppercase tracking-wider text-amber-700">Massage aan huis</span>
+            </div>
+            <h2 className="mb-5 text-3xl font-display font-bold text-secondary">Wij komen naar jou toe</h2>
+            <div className="space-y-4 leading-relaxed text-muted-foreground">
+              <p>Wij komen met een professionele massagetafel bij jou thuis. Dat heeft een dubbel voordeel: je hebt geen reistijd naar een praktijk en je kunt na de behandeling direct in je eigen omgeving ontspannen.</p>
+              <p>Daardoor kun je meer genieten van het effect van de massage en geef je lichaam en geest de ruimte om beter te herstellen.</p>
+              <p>Massage aan huis is beschikbaar in omgeving Den Bosch, Rosmalen, Vught, Oss, Sint-Michielsgestel, Boxtel en omliggende plaatsen.</p>
+            </div>
+          </div>
+          <div className="rounded-2xl bg-secondary p-8 text-white">
+            <Sparkles className="mb-4 h-10 w-10 text-primary" />
+            <h3 className="mb-3 text-2xl font-bold">VIP Treatment</h3>
+            <p className="mb-6 text-white/72">
+              De exclusieve combinatie van 1 uur personal training en 1 uur massage. Eerst inspanning, daarna ontspanning. Een complete reset in twee uur.
+            </p>
+            <Link to="/vip-treatment">
+              <Button className="w-full gap-2 bg-primary text-primary-foreground hover:bg-primary/90">
+                Bekijk VIP Treatment <ArrowRight className="h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-muted/30 px-4 py-16">
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-10 text-center">
+            <h2 className="text-3xl font-display font-bold text-secondary">Werkwijze</h2>
+            <p className="mt-3 text-muted-foreground">Rustig, professioneel en afgestemd op jouw lichaam.</p>
+          </div>
+          <div className="grid gap-5 md:grid-cols-3">
+            {[
+              ['01', 'Intake', 'We bespreken je klachten, wensen en eventuele aandachtspunten.'],
+              ['02', 'Behandeling', 'Ik stem druk, techniek en focusgebieden af op jouw lichaam.'],
+              ['03', 'Hersteladvies', 'Je krijgt praktische tips voor rust, beweging en vervolgbehandeling.'],
+            ].map(([step, title, text]) => (
+              <div key={step} className="rounded-2xl border border-border bg-white p-6">
+                <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground">{step}</div>
+                <h3 className="mb-2 font-bold text-secondary">{title}</h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">{text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-4 py-16">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="mb-8 text-center text-3xl font-display font-bold text-secondary">Veelgestelde vragen over massage</h2>
           <FAQAccordion items={FAQS} />
         </div>
       </section>
 
-      {/* Local SEO */}
-      <section className="py-10 px-4 bg-muted/30">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-xl font-display font-bold text-secondary mb-5">Massage in jouw omgeving</h2>
+      <section className="bg-muted/30 px-4 py-10">
+        <div className="mx-auto max-w-4xl text-center">
+          <h2 className="mb-5 text-xl font-display font-bold text-secondary">Massage in jouw omgeving</h2>
           <div className="flex flex-wrap justify-center gap-3">
             {[
+              ['Massage aan huis Den Bosch', '/massage-aan-huis-den-bosch'],
               ['Sportmassage Den Bosch', '/sportmassage-den-bosch'],
               ['Deep Tissue Massage Den Bosch', '/deep-tissue-massage-den-bosch'],
               ['Massage Den Bosch', '/massage-den-bosch'],
             ].map(([label, path]) => (
-              <Link key={path} to={path}><Button variant="outline" size="sm" className="gap-1">{label} <ArrowRight className="w-3 h-3" /></Button></Link>
+              <Link key={path} to={path}>
+                <Button variant="outline" size="sm" className="gap-1">
+                  {label} <ArrowRight className="h-3 w-3" />
+                </Button>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      <CTASection dark title="Boek jouw massage in omgeving Den Bosch" subtitle="Aan huis. Professioneel. Geen reiskosten. Snel geboekt." />
+      <CTASection
+        dark
+        title="Boek jouw massage aan huis"
+        subtitle="Professioneel, persoonlijk en in je eigen omgeving. Plan direct een massage of vraag advies."
+      />
     </div>
   );
 }

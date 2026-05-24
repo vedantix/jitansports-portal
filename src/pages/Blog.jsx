@@ -5,15 +5,7 @@ import { Calendar, ArrowRight } from 'lucide-react';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import ResponsiveImage from '@/components/ResponsiveImage';
 import SEO, { ROUTE_SEO } from '@/components/SEO';
-
-const FALLBACK_POSTS = [
-  { id: "1", title: "Voordelen van Massage en Personal Training", slug: "voordelen-van-massage-en-personal-training", excerpt: "Wil jij je meer ontspannen voelen, fitter en met een sterker lichaam? Dan is de combinatie van massage en personal training het gouden duo!", featured_image: "/images/optimized/page-massage-hero-960.jpg", category: "Lifestyle", created_date: "2025-01-15" },
-  { id: "2", title: "Sportscholen open", slug: "sportscholen-open", excerpt: "Gelukkig mogen sportscholen weer open gaan. Maar buitentrainen blijft geweldig!", featured_image: "/images/optimized/page-training-hero-960.jpg", category: "Nieuws", created_date: "2022-01-14" },
-  { id: "3", title: "Sportscholen gesloten, maar buiten sporten kan wel", slug: "sportscholen-gesloten", excerpt: "Sportscholen gesloten? Geen probleem! Buiten sporten kan altijd en is super effectief.", featured_image: "/images/optimized/page-training-hero-960.jpg", category: "Personal Training", created_date: "2021-12-01" },
-  { id: "4", title: "Sporten in coronatijd", slug: "sporten-in-coronatijd", excerpt: "Zelf sporten in coronatijd is lastig. JitanSports helpt je graag verder, coronaproof.", featured_image: "/images/optimized/page-training-hero-960.jpg", category: "Personal Training", created_date: "2021-02-01" },
-  { id: "5", title: "Get in shape op anderhalve meter", slug: "get-in-shape-op-anderhalve-meter", excerpt: "JitanSports biedt trainingen op anderhalve meter. Juist nu is het belangrijk om fit te blijven.", featured_image: "/images/optimized/page-training-hero-960.jpg", category: "Personal Training", created_date: "2020-06-01" },
-  { id: "6", title: "Welkom bij JitanSports!", slug: "welkom-bij-jitansports", excerpt: "Met trots presenteren wij ons bedrijf. Wil jij graag fitter worden, gespierder of strakker in je vel?", featured_image: "/images/optimized/page-getfit-hero-960.jpg", category: "Nieuws", created_date: "2020-02-01" },
-];
+import { FALLBACK_POSTS } from '@/lib/blogContent';
 
 const formatDate = (date) =>
   new Intl.DateTimeFormat('nl-NL', {
@@ -29,7 +21,10 @@ export default function Blog() {
 
   useEffect(() => {
     base44.entities.Blog.filter({ status: 'gepubliceerd' }, '-created_date').then(data => {
-      setPosts(data?.length ? data : FALLBACK_POSTS);
+      const published = data?.length ? data : [];
+      const publishedSlugs = new Set(published.map((post) => post.slug));
+      const mergedFallbacks = FALLBACK_POSTS.filter((post) => !publishedSlugs.has(post.slug));
+      setPosts([...published, ...mergedFallbacks]);
     }).catch(() => setPosts(FALLBACK_POSTS)).finally(() => setLoading(false));
   }, []);
 

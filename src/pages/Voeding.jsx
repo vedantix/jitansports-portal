@@ -1,67 +1,65 @@
 import { Link } from 'react-router-dom';
+import { ArrowRight, BarChart3, CheckCircle, ClipboardList, HeartPulse, Salad, Scale, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, CheckCircle, Salad, Scale, BarChart2, Brain } from 'lucide-react';
-
 import CTASection from '../components/CTASection';
-import SEO from '@/components/SEO';
-
-const HERO_IMG = 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1200&q=75';
-const CONTENT_IMG = 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=800&q=75';
+import FAQAccordion from '../components/FAQAccordion';
+import ResponsiveImage from '@/components/ResponsiveImage';
+import SEO, { buildFAQSchema } from '@/components/SEO';
 
 const BENEFITS = [
-  'Persoonlijk voedingsschema op maat',
-  'Geen crashdieten – duurzame aanpak',
-  'Afvallen én spiermassa opbouwen',
-  'Maandelijkse lichaamsanalyse',
-  'Koelkast-check en boodschappenlijst',
-  '24/7 bereikbaar voor vragen',
-  'Combineerbaar met personal training',
-  'Aanpasbaar aan jouw voedingsvoorkeuren',
+  'Voedingsschema op maat voor afvallen, aankomen of spieropbouw',
+  'Geen crashdieet, maar een plan dat je echt volhoudt',
+  'Lichaamsanalyse met gewicht, vetpercentage, spiermassa en vochtbalans',
+  'Digitaal weegrapport met duidelijke uitleg',
+  'Voortgangsmetingen om gericht bij te sturen',
+  'Praktische tips voor boodschappen, voorbereiding en normale dagen',
+  'Ondersteuning en motivatie wanneer het even lastig wordt',
+  'Perfect te combineren met personal training en Get Fit',
 ];
 
 const SERVICES = [
   {
     icon: Salad,
     title: 'Voedingsschema op maat',
-    desc: 'Op basis van jouw doelen, voorkeur en leefstijl stel ik een volledig persoonlijk voedingsschema samen. Geen standaard dieet, maar een plan dat bij jou past.',
-    price: '€45 per schema',
+    text: 'We maken een schema dat past bij jouw lichaam, doel, smaak en dagelijkse ritme. Praktisch, haalbaar en zonder killerdieet.',
   },
   {
     icon: Scale,
-    title: 'Lichaamsanalyse en meting',
-    desc: 'Met professionele apparatuur meten we lichaamsvet, spiermassa en BMI. Inclusief digitaal rapport zodat je je voortgang kunt bijhouden.',
-    price: '€15 per meting',
+    title: 'Wegen en lichaamsanalyse',
+    text: 'Meer dan een getal op de weegschaal. We meten lichaamssamenstelling en leggen uit wat de cijfers betekenen.',
   },
   {
-    icon: BarChart2,
-    title: 'Maandelijkse voortgangscheck',
-    desc: 'Iedere 4 weken evalueren we je voortgang en stellen we het plan bij waar nodig. Zo blijven we op koers naar jouw doel.',
-    price: 'Inbegrepen bij pakket',
+    icon: BarChart3,
+    title: 'Digitaal rapport',
+    text: 'Je ontvangt een overzichtelijk digitaal rapport, zodat je ziet waar je staat en waar we gericht aan werken.',
   },
   {
-    icon: Brain,
-    title: 'Mental coaching en leefstijl',
-    desc: 'Gezond eten is voor 80% mentaal. We werken ook aan gewoontes, triggers en een gezonde relatie met voeding.',
-    price: 'Inbegrepen bij Get Fit',
+    icon: ClipboardList,
+    title: 'Voortgangsplan',
+    text: 'Iedere meting gebruiken we om je voeding, training en gewoontes slim bij te sturen.',
   },
 ];
 
 const FAQS = [
   {
-    question: 'Moet ik calorieën tellen?',
-    answer: 'Niet per se. We kijken naar wat bij jou past. Sommige mensen werken goed met calorieën, anderen liever met portiegroottes en voedingskeuzes.',
+    question: 'Voor welke doelen kan ik voedingsbegeleiding krijgen?',
+    answer:
+      'Voor afvallen, aankomen, spieropbouw, meer energie en gezonder eten. Het schema wordt aangepast op jouw lichaam en levensstijl.',
   },
   {
-    question: 'Kan ik vegetarisch of veganistisch voedingsadvies krijgen?',
-    answer: 'Ja. Het voedingsplan wordt volledig aangepast aan jouw voedingsvoorkeur of dieetwens.',
+    question: 'Wat meet een lichaamsanalyse?',
+    answer:
+      'We meten onder andere gewicht, vetpercentage, spiermassa en vochtbalans. Daarna ontvang je een digitaal rapport met toelichting.',
   },
   {
-    question: 'Hoe snel zie ik resultaat met voedingsbegeleiding?',
-    answer: 'De meeste klanten merken al binnen 2-4 weken verschil in energie en welzijn. Zichtbaar gewichtsverlies varieert per persoon.',
+    question: 'Moet ik alles afwegen en calorieën tellen?',
+    answer:
+      'Alleen als dat bij jou past. Sommige klanten werken graag exact, anderen beter met porties en praktische keuzes. We kiezen de methode die jij volhoudt.',
   },
   {
-    question: 'Kan ik voedingsbegeleiding combineren met personal training?',
-    answer: 'Absoluut, en dit is juist de krachtigste combinatie. Training en voeding versterken elkaar enorm.',
+    question: 'Kan dit zonder personal training?',
+    answer:
+      'Ja, voedingsbegeleiding kan los. De combinatie met training werkt vaak sterker, omdat voeding en beweging elkaar direct versterken.',
   },
 ];
 
@@ -69,117 +67,167 @@ export default function Voeding() {
   return (
     <div>
       <SEO
-        title="Voedingscoach Den Bosch – Voedingsschema op Maat | JitanSports"
-        description="Professionele voedingsbegeleiding in omgeving Den Bosch. Persoonlijk voedingsschema, lichaamsanalyse en coaching voor afvallen, spieropbouw en een gezondere leefstijl."
+        title="Voedingscoach Den Bosch - Voeding & Wegen | JitanSports"
+        description="Voedingscoach in omgeving Den Bosch voor voedingsschema's op maat, afvallen, aankomen, spieropbouw, lichaamsanalyse, digitaal weegrapport en voortgangsmetingen."
         path="/voeding"
+        image="/images/optimized/page-getfit-hero-960.jpg"
+        jsonLd={buildFAQSchema(FAQS)}
       />
 
-      <section className="relative h-[50vh] min-h-[400px] flex items-center overflow-hidden">
+      <section className="relative flex min-h-[64svh] items-center overflow-hidden px-4 py-20 text-white">
         <div className="absolute inset-0">
-          <img src={HERO_IMG} alt="Voedingsbegeleiding Den Bosch" className="w-full h-full object-cover" loading="eager" fetchPriority="high" decoding="async" />
-          <div className="absolute inset-0 bg-gradient-to-r from-secondary/90 to-secondary/40" />
+          <ResponsiveImage
+            src="/images/optimized/page-getfit-hero-960.jpg"
+            alt=""
+            className="h-full w-full object-cover"
+            sizes="100vw"
+            loading="eager"
+            fetchPriority="high"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-secondary/94 via-secondary/78 to-secondary/25" />
         </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="max-w-xl">
-            <p className="text-primary font-semibold mb-3 uppercase tracking-wider text-sm">Voedingsbegeleiding</p>
-            <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
-              Voedingscoach in omgeving Den Bosch
-            </h1>
-            <p className="text-white/80 text-lg">
-              Persoonlijk voedingsadvies en schema op maat. Geen crashdieet, maar een leefstijl die werkt.
+        <div className="relative z-10 mx-auto max-w-7xl">
+          <div className="max-w-2xl">
+            <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary">Voeding & Wegen</p>
+            <h1 className="mb-5 text-4xl font-display font-bold leading-tight md:text-6xl">Voedingscoach Den Bosch</h1>
+            <p className="mb-7 text-lg leading-relaxed text-white/82">
+              Neem zelf het heft in handen met een persoonlijk voedingsschema, professionele lichaamsanalyse en duidelijke voortgangsmetingen.
             </p>
+            <Link to="/booking">
+              <Button size="lg" className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90">
+                Plan gratis intake <ArrowRight className="h-5 w-5" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
 
-      <section className="py-5 px-4 bg-primary/10">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-secondary font-semibold">Gratis intake – ontdek welk voedingsplan bij jou past</p>
-          <Link to="/booking"><Button className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2">Plan Intake <ArrowRight className="w-4 h-4" /></Button></Link>
+      <section className="bg-primary/10 px-4 py-5">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="font-semibold text-secondary">Afvallen, aankomen, spieropbouw of meer energie? We maken het concreet.</p>
+          <Link to="/voedingscoach-den-bosch">
+            <Button variant="outline" className="gap-2">
+              Voedingscoach Den Bosch <ArrowRight className="h-4 w-4" />
+            </Button>
+          </Link>
         </div>
       </section>
 
-      <section className="py-16 px-4">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
+      <section className="px-4 py-16">
+        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:items-center">
           <div>
-            <h2 className="text-3xl font-display font-bold text-secondary mb-6">Waarom voedingsbegeleiding?</h2>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              Trainen is belangrijk, maar voeding bepaalt voor 70-80% jouw resultaat. Of je nu wilt afvallen, spiermassa wilt opbouwen of gewoon meer energie wilt hebben — de juiste voeding maakt het verschil.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              Als voedingscoach in omgeving Den Bosch werk ik met realistische plannen. Geen extreme diëten die je twee weken volhoudt, maar een aanpak die past bij jouw leven, smaak en routine.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mb-8">
-              We starten altijd met een uitgebreid intakegesprek: jouw doelen, eetgewoontes, allergieën en voorkeur. Op basis daarvan stel ik een volledig persoonlijk voedingsschema samen.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {BENEFITS.map(b => (
-                <div key={b} className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                  <span className="text-foreground text-sm">{b}</span>
+            <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-amber-700">Probleem</p>
+            <h2 className="mb-5 text-3xl font-display font-bold text-secondary">Je kunt pas sturen als je weet waar je staat</h2>
+            <div className="space-y-4 leading-relaxed text-muted-foreground">
+              <p>Juiste voeding geeft energie en helpt je jouw doelen te behalen. Maar veel mensen eten op gevoel, proberen losse tips of starten met een dieet dat niet bij hun leven past.</p>
+              <p>Wanneer je start met een voedingsschema is het fijn om eerlijk te zien waar je staat. Daarom combineren we voedingsadvies met wegen en lichaamsanalyse.</p>
+              <p>We kijken niet alleen naar gewicht, maar naar wat er in je lichaam verandert. Zo wordt afvallen, aankomen of spieropbouw veel duidelijker en minder frustrerend.</p>
+            </div>
+          </div>
+          <div className="overflow-hidden rounded-2xl">
+            <ResponsiveImage
+              src="/images/optimized/service-getfit-card-720.jpg"
+              alt="Voeding en lichaamsanalyse bij JitanSports"
+              className="h-full min-h-80 w-full object-cover"
+              sizes="(min-width: 1024px) 50vw, 100vw"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-muted/30 px-4 py-16">
+        <div className="mx-auto max-w-7xl">
+          <div className="mx-auto mb-12 max-w-2xl text-center">
+            <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-amber-700">Oplossing</p>
+            <h2 className="text-3xl font-display font-bold text-secondary">Wat je krijgt</h2>
+            <p className="mt-3 text-muted-foreground">Praktisch advies, meetbaar inzicht en begeleiding die past bij je gewone leven.</p>
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {SERVICES.map((service) => (
+              <div key={service.title} className="rounded-2xl border border-border bg-white p-6">
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
+                  <service.icon className="h-6 w-6 text-primary" />
+                </div>
+                <h3 className="mb-2 font-bold text-secondary">{service.title}</h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">{service.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-4 py-16">
+        <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+          <div>
+            <h2 className="mb-5 text-3xl font-display font-bold text-secondary">Voedingsschema's op maat</h2>
+            <div className="space-y-4 leading-relaxed text-muted-foreground">
+              <p>Bij JitanSports geloven we dat de juiste voeding de sleutel is tot een fit en energiek leven. Of je nu wilt afvallen, aankomen of gewoon gezonder wilt eten: er is altijd een passend schema.</p>
+              <p>Mijn adviezen zijn praktisch en gebaseerd op normale producten. Denk aan voldoende groente, fruit, eiwitten en vezels, maar ook aan balans. Genieten mag onderdeel blijven van een gezonde lifestyle.</p>
+              <p>Het blijft een plan dat voor jou vol te houden moet zijn. Want een schema dat alleen op papier mooi is, brengt je niet verder.</p>
+            </div>
+            <div className="mt-7 grid gap-3 sm:grid-cols-2">
+              {BENEFITS.map((benefit) => (
+                <div key={benefit} className="flex items-start gap-2 text-sm text-foreground">
+                  <CheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                  <span>{benefit}</span>
                 </div>
               ))}
             </div>
           </div>
-          <div className="rounded-2xl overflow-hidden h-80 lg:h-auto">
-            <img src={CONTENT_IMG} alt="Voedingsschema Den Bosch" className="w-full h-full object-cover" loading="lazy" decoding="async" />
+          <div className="rounded-2xl bg-secondary p-7 text-white">
+            <HeartPulse className="mb-4 h-10 w-10 text-primary" />
+            <h3 className="mb-3 text-xl font-bold">Jouw gezonde levensstijl begint hier</h3>
+            <p className="mb-5 text-sm leading-relaxed text-white/72">
+              Met persoonlijke voedingsschema's en professionele lichaamsanalyse krijg je de tools om gericht aan je doel te werken. Stap voor stap, zonder extreme regels.
+            </p>
+            <Link to="/booking">
+              <Button className="w-full gap-2 bg-primary text-primary-foreground hover:bg-primary/90">
+                Intake plannen <ArrowRight className="h-4 w-4" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
 
-      <section className="py-16 px-4 bg-muted/30">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-display font-bold text-secondary">Wat bieden we aan?</h2>
+      <section className="bg-muted/30 px-4 py-16">
+        <div className="mx-auto max-w-4xl">
+          <div className="mb-10 text-center">
+            <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-amber-700">Werkwijze</p>
+            <h2 className="text-3xl font-display font-bold text-secondary">Van intake naar meetbare voortgang</h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {SERVICES.map((item) => (
-              <div key={item.title} className="p-6 rounded-2xl bg-white border border-border">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                    <item.icon className="w-5 h-5 text-primary" />
-                  </div>
-                  <h3 className="font-bold text-secondary">{item.title}</h3>
+          <div className="space-y-5">
+            {[
+              ['01', 'Intake', 'We bespreken jouw doel, huidige voedingspatroon, voorkeuren, allergieën en valkuilen.'],
+              ['02', 'Meting', 'We voeren een lichaamsanalyse uit en leggen de waarden duidelijk uit.'],
+              ['03', 'Plan op maat', 'Je krijgt een voedingsschema en praktische adviezen die passen bij jouw ritme.'],
+              ['04', 'Voortgang', 'We meten opnieuw, bespreken het digitale rapport en sturen bij waar nodig.'],
+            ].map(([step, title, text]) => (
+              <div key={step} className="flex gap-5 rounded-2xl border border-border bg-white p-5">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground">{step}</div>
+                <div>
+                  <h3 className="mb-1 font-bold text-secondary">{title}</h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground">{text}</p>
                 </div>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-3">{item.desc}</p>
-                <p className="text-primary font-semibold text-sm">{item.price}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-16 px-4 bg-white">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-display font-bold text-secondary mb-6">Afvallen in omgeving Den Bosch</h2>
-          <p className="text-muted-foreground leading-relaxed mb-4">
-            Afvallen gaat niet alleen over minder eten. Het gaat over de juiste keuzes maken, op het juiste moment. Als voedingscoach in omgeving Den Bosch help ik je begrijpen hoe jouw lichaam werkt.
-          </p>
-          <p className="text-muted-foreground leading-relaxed mb-8">
-            Met een goed voedingsschema en de juiste training van JitanSports behalen klanten gemiddeld 2-4 kg gewichtsverlies per maand op een veilige en duurzame manier.
-          </p>
-          <h2 className="text-3xl font-display font-bold text-secondary mb-6">Spieropbouw en voeding</h2>
-          <p className="text-muted-foreground leading-relaxed">
-            Wil je spieren opbouwen? Dan is voldoende eiwitinname cruciaal. Gecombineerd met personal training van JitanSports zul je sneller en effectiever resultaat bereiken.
-          </p>
-        </div>
-      </section>
-
-      <section className="py-16 px-4 bg-muted/30">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-display font-bold text-secondary mb-8 text-center">Veelgestelde vragen</h2>
-          <div className="space-y-4">
-            {FAQS.map((faq) => (
-              <div key={faq.question} className="p-5 rounded-xl bg-white border border-border">
-                <h3 className="font-bold text-secondary mb-2">{faq.question}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{faq.answer}</p>
-              </div>
-            ))}
+      <section className="px-4 py-16">
+        <div className="mx-auto max-w-3xl">
+          <div className="mb-8 text-center">
+            <Sparkles className="mx-auto mb-4 h-9 w-9 text-primary" />
+            <h2 className="text-3xl font-display font-bold text-secondary">Veelgestelde vragen</h2>
           </div>
+          <FAQAccordion items={FAQS} />
         </div>
       </section>
 
-      <CTASection title="Klaar voor een persoonlijk voedingsplan?" subtitle="Plan een gratis intake en ontdek hoe voeding jouw doelen sneller laat bereiken." />
+      <CTASection
+        title="Wil je weten waar jij staat?"
+        subtitle="Plan een gratis intake en ontdek welk voedingsplan bij jouw lichaam, doel en leefstijl past."
+      />
     </div>
   );
 }

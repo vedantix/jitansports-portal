@@ -4,10 +4,11 @@ import { ArrowRight, CheckCircle, Users, Clock, Dumbbell, Home, TreePine, Trophy
 import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
 import SEO from '@/components/SEO';
+import ResponsiveImage from '@/components/ResponsiveImage';
 
-const HERO_IMG = 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1200&q=75';
-const OUTDOOR_IMG = 'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=800&q=75';
-const HOME_IMG = 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=75';
+const HERO_IMG = '/images/optimized/page-training-hero-960.jpg';
+const OUTDOOR_IMG = '/images/optimized/gallery-outdoor-thumb-640.jpg';
+const HOME_IMG = '/images/optimized/service-training-card-720.jpg';
 
 const BENEFITS = [
   'Volledig persoonlijk trainingsschema op maat',
@@ -50,7 +51,7 @@ export default function PersonalTraining() {
       {/* Hero */}
       <section className="relative h-[55vh] min-h-[420px] flex items-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src={HERO_IMG} alt="Personal Training Den Bosch" className="w-full h-full object-cover" loading="eager" decoding="async" />
+          <ResponsiveImage src={HERO_IMG} alt="" className="w-full h-full object-cover" loading="eager" fetchPriority="high" />
           <div className="absolute inset-0 bg-gradient-to-r from-secondary/90 to-secondary/40" />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
@@ -155,7 +156,7 @@ export default function PersonalTraining() {
       <section className="py-16 px-4 bg-white">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="rounded-2xl overflow-hidden h-80">
-            <img src={HOME_IMG} alt="Personal Training aan huis Den Bosch" className="w-full h-full object-cover" loading="lazy" decoding="async" />
+            <ResponsiveImage src={HOME_IMG} alt="Personal Training aan huis Den Bosch" className="w-full h-full object-cover" sizes="(min-width: 1024px) 50vw, 100vw" />
           </div>
           <div className="space-y-4 text-muted-foreground leading-relaxed">
             <h2 className="text-3xl font-display font-bold text-secondary">Training aan huis in Den Bosch</h2>
@@ -189,7 +190,7 @@ export default function PersonalTraining() {
             </p>
           </div>
           <div className="rounded-2xl overflow-hidden h-80">
-            <img src={OUTDOOR_IMG} alt="Outdoor Personal Training Den Bosch" className="w-full h-full object-cover" loading="lazy" decoding="async" />
+            <ResponsiveImage src={OUTDOOR_IMG} alt="Outdoor Personal Training Den Bosch" className="w-full h-full object-cover" sizes="(min-width: 1024px) 50vw, 100vw" />
           </div>
         </div>
       </section>

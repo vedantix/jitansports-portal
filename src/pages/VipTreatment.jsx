@@ -1,30 +1,40 @@
 import { Link } from 'react-router-dom';
+import { ArrowRight, CheckCircle, Crown, Dumbbell, Gift, Heart, Moon, Sparkles, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, CheckCircle, Crown, Dumbbell, Zap, Star } from 'lucide-react';
 import CTASection from '../components/CTASection';
-import SEO from '@/components/SEO';
-
-const HERO_IMG = 'https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=1200&q=75';
+import FAQAccordion from '../components/FAQAccordion';
+import ResponsiveImage from '@/components/ResponsiveImage';
+import SEO, { buildFAQSchema } from '@/components/SEO';
 
 const INCLUDES = [
-  '1 uur personal training op maat',
-  '1 uur Deep Tissue Massage',
-  'Volledig op jouw locatie',
-  'Uitgebreid intakegesprek',
-  'Voedings- en hersteltips',
-  'Geen extra kosten',
+  '1 uur doelgerichte personal training',
+  '1 uur professionele massage',
+  'Aan huis of op locatie',
+  'Training op jouw niveau en doel',
+  'Herstel, ontspanning en stressverlichting',
+  'Ook geschikt als cadeau',
 ];
 
-const REVIEWS = [
+const FAQS = [
   {
-    name: 'Linda V.',
-    city: 'Rosmalen',
-    text: 'De VIP Treatment is precies wat ik nodig had na maanden van stress. Training gevolgd door massage – het was een complete reset. Ik voelde me als herboren.',
+    question: 'Wat houdt de VIP Treatment precies in?',
+    answer:
+      'De VIP Treatment bestaat uit 1 uur personal training en aansluitend 1 uur massage. Eerst inspanning, daarna herstel en ontspanning.',
   },
   {
-    name: 'Mark T.',
-    city: 'Den Bosch',
-    text: 'Had dit eerder moeten doen. Jitan combineert training en massage naadloos. Na 2 uur was ik zowel uitgedaagd als volledig ontspannen.',
+    question: 'Is de massage altijd Deep Tissue?',
+    answer:
+      'We stemmen de massage af op jouw lichaam. Vaak is dat Deep Tissue of een combinatie met ontspanningsmassage, afhankelijk van je belasting en wensen.',
+  },
+  {
+    question: 'Kan de VIP Treatment aan huis?',
+    answer:
+      'Ja. JitanSports komt naar je toe met trainingsmateriaal en professionele massagetafel. Je hoeft zelf niets te regelen.',
+  },
+  {
+    question: 'Voor wie is dit geschikt?',
+    answer:
+      'Voor iedereen die een premium reset wil: sportief, druk in het hoofd, veel spanning in het lichaam of simpelweg toe aan een krachtige combinatie van actie en rust.',
   },
 ];
 
@@ -32,117 +42,160 @@ export default function VipTreatment() {
   return (
     <div>
       <SEO
-        title="VIP Treatment – 1 uur Training en 1 uur Massage | JitanSports"
-        description="De ultieme reset: 1 uur personal training gevolgd door 1 uur Deep Tissue Massage. Premium dienst van JitanSports in omgeving Den Bosch."
+        title="VIP Treatment Den Bosch - 1 uur Training + 1 uur Massage | JitanSports"
+        description="Exclusieve VIP behandeling aan huis: 1 uur personal training gevolgd door 1 uur massage. Premium inspanning en ontspanning in omgeving Den Bosch."
         path="/vip-treatment"
+        image="/images/optimized/page-massage-hero-960.jpg"
+        jsonLd={buildFAQSchema(FAQS)}
       />
 
-      <section className="relative h-[60vh] min-h-[450px] flex items-center overflow-hidden">
+      <section className="relative flex min-h-[72svh] items-center overflow-hidden px-4 py-20 text-white">
         <div className="absolute inset-0">
-          <img src={HERO_IMG} alt="VIP Treatment JitanSports" className="w-full h-full object-cover" loading="eager" fetchPriority="high" decoding="async" />
-          <div className="absolute inset-0 bg-gradient-to-r from-secondary/95 via-secondary/80 to-secondary/30" />
+          <ResponsiveImage
+            src="/images/optimized/page-massage-hero-960.jpg"
+            alt=""
+            className="h-full w-full object-cover"
+            sizes="100vw"
+            loading="eager"
+            fetchPriority="high"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-secondary/95 via-secondary/80 to-secondary/25" />
         </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="max-w-xl">
-            <div className="inline-flex items-center gap-2 bg-primary text-primary-foreground text-sm font-bold px-4 py-1.5 rounded-full mb-5">
-              <Crown className="w-4 h-4" /> Premium Dienst
+        <div className="relative z-10 mx-auto max-w-7xl">
+          <div className="max-w-2xl">
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-bold text-primary-foreground">
+              <Crown className="h-4 w-4" /> Exclusieve dienst
             </div>
-            <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">VIP Treatment</h1>
-            <p className="text-white/80 text-lg mb-6">
-              De complete reset voor lichaam en geest. 1 uur personal training direct gevolgd door 1 uur Deep Tissue Massage.
+            <h1 className="mb-5 text-4xl font-display font-bold leading-tight md:text-6xl">VIP Treatment</h1>
+            <p className="mb-7 text-lg leading-relaxed text-white/82">
+              Voel je als VIP in je eigen huis. Eerst een uur doelgerichte krachttraining, daarna een uur massage voor spierherstel, ontspanning en stressverlichting.
             </p>
-            <Link to="/booking">
-              <Button size="lg" className="bg-primary hover:bg-primary/90 text-secondary font-bold gap-2">
-                Boek VIP Treatment <ArrowRight className="w-5 h-5" />
-              </Button>
-            </Link>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Link to="/booking">
+                <Button size="lg" className="w-full gap-2 bg-primary text-primary-foreground hover:bg-primary/90 sm:w-auto">
+                  Boek VIP Treatment <ArrowRight className="h-5 w-5" />
+                </Button>
+              </Link>
+              <Link to="/tarieven">
+                <Button size="lg" variant="outline" className="w-full border-white/30 text-white hover:bg-white/10 sm:w-auto">
+                  Bekijk tarieven
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="py-6 px-4 bg-primary">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-primary-foreground">
+      <section className="bg-primary px-4 py-6 text-primary-foreground">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="font-bold text-xl">VIP Treatment – €190</p>
-            <p className="text-sm opacity-80">2 uur training en massage · Aan huis of op locatie</p>
+            <p className="text-xl font-bold">VIP Treatment - €190</p>
+            <p className="text-sm opacity-80">2 uur premium begeleiding · inspanning en ontspanning · aan huis of op locatie</p>
           </div>
           <Link to="/booking">
-            <Button variant="secondary" className="gap-2 font-semibold">Direct Boeken <ArrowRight className="w-4 h-4" /></Button>
+            <Button variant="secondary" className="gap-2 font-semibold">
+              Direct boeken <ArrowRight className="h-4 w-4" />
+            </Button>
           </Link>
         </div>
       </section>
 
-      <section className="py-16 px-4">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <section className="px-4 py-16">
+        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:items-center">
           <div>
-            <h2 className="text-3xl font-display font-bold text-secondary mb-6">Wat is de VIP Treatment?</h2>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              De VIP Treatment is de meest complete dienst van JitanSports. In twee uur tijd word je zowel fysiek uitgedaagd als volledig ontspannen. De perfecte combinatie voor topprestaties én herstel.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              We beginnen met een uur intensieve personal training, volledig afgestemd op jouw doelen. Daarna volgt een uur Deep Tissue Massage voor spierherstel, stressreductie en ontspanning.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mb-8">
-              Ideaal als je een complete reset wilt, als beloning voor jezelf, of als je merkt dat training en massage samen veel effectiever zijn dan apart.
-            </p>
-            <div className="space-y-3">
-              {INCLUDES.map(item => (
-                <div key={item} className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-primary shrink-0" />
-                  <span className="text-foreground">{item}</span>
+            <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-amber-700">Waarom VIP?</p>
+            <h2 className="mb-5 text-3xl font-display font-bold text-secondary">Een complete ervaring voor lichaam en hoofd</h2>
+            <div className="space-y-4 leading-relaxed text-muted-foreground">
+              <p>De VIP Treatment is voor wie het beste uit twee werelden wil: actief werken aan je lichaam en daarna bewust herstellen.</p>
+              <p>Het eerste uur staat in het teken van een training die aansluit op jouw doel. Spieropbouw, afvallen, conditie, sterker worden of gewoon weer lekker bewegen: we kiezen wat jouw lichaam nodig heeft.</p>
+              <p>Daarna volgt een massage die je getrainde spieren tot rust brengt, de doorbloeding stimuleert en opgebouwde spanning loslaat. Je stapt niet vermoeid de deur uit, maar blijft thuis in je eigen omgeving.</p>
+            </div>
+            <div className="mt-7 grid gap-3 sm:grid-cols-2">
+              {INCLUDES.map((item) => (
+                <div key={item} className="flex items-start gap-2 text-sm text-foreground">
+                  <CheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                  <span>{item}</span>
                 </div>
               ))}
             </div>
           </div>
           <div className="space-y-5">
-            <div className="p-8 rounded-2xl bg-secondary text-white">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
-                  <Dumbbell className="w-6 h-6 text-primary" />
+            <div className="rounded-2xl bg-secondary p-7 text-white">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/20">
+                  <Dumbbell className="h-6 w-6 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg">Uur 1: Personal Training</h3>
-                  <p className="text-white/60 text-sm">0:00 – 1:00 uur</p>
+                  <h3 className="font-bold">Uur 1: intensieve krachttraining</h3>
+                  <p className="text-sm text-white/55">Doelgericht, veilig en op jouw niveau</p>
                 </div>
               </div>
-              <p className="text-white/70 text-sm leading-relaxed">Intensieve 1-op-1 training op jouw niveau en doelen. Kracht, conditie of revalidatie – volledig afgestemd op jou.</p>
+              <p className="text-sm leading-relaxed text-white/72">
+                We belasten je lichaam op een goede manier: genoeg uitdaging voor resultaat, met techniek en begeleiding om blessures te voorkomen.
+              </p>
             </div>
-            <div className="p-8 rounded-2xl bg-primary/10 border border-primary/20">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
-                  <Zap className="w-6 h-6 text-primary" />
+            <div className="rounded-2xl border border-primary/20 bg-primary/10 p-7">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/20">
+                  <Heart className="h-6 w-6 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg text-secondary">Uur 2: Deep Tissue Massage</h3>
-                  <p className="text-muted-foreground text-sm">1:00 – 2:00 uur</p>
+                  <h3 className="font-bold text-secondary">Uur 2: massage en herstel</h3>
+                  <p className="text-sm text-muted-foreground">Pure ontspanning met herstelwaarde</p>
                 </div>
               </div>
-              <p className="text-muted-foreground text-sm leading-relaxed">Diepgaande massage van getrainde spiergroepen. Stimuleert herstel, vermindert spierspanning en geeft diepe ontspanning.</p>
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                Met massage maken we spanning los, stimuleren we herstel en brengen we je lichaam en geest tot rust.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-16 px-4 bg-muted/30">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-display font-bold text-secondary mb-10 text-center">Wat klanten zeggen</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {REVIEWS.map((review) => (
-              <div key={review.name} className="p-6 rounded-2xl bg-white border border-border">
-                <div className="flex gap-0.5 mb-3">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-primary text-primary" />
-                  ))}
-                </div>
-                <p className="text-foreground text-sm leading-relaxed mb-4 italic">"{review.text}"</p>
-                <p className="font-semibold text-secondary text-sm">{review.name} · {review.city}</p>
+      <section className="bg-muted/30 px-4 py-16">
+        <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-3">
+          {[
+            { icon: Sparkles, title: 'Premium reset', text: 'Een compleet moment voor jezelf waarin training, herstel en ontspanning logisch op elkaar aansluiten.' },
+            { icon: Moon, title: 'Dieper herstel', text: 'Massage na inspanning helpt je spieren ontspannen en geeft je zenuwstelsel rust.' },
+            { icon: Gift, title: 'Ook als cadeau', text: 'Een sterke ervaring om iemand te geven die ontspanning en nieuwe energie verdient.' },
+          ].map((item) => (
+            <div key={item.title} className="rounded-2xl border border-border bg-white p-6">
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
+                <item.icon className="h-6 w-6 text-primary" />
               </div>
+              <h2 className="mb-2 text-xl font-bold text-secondary">{item.title}</h2>
+              <p className="text-sm leading-relaxed text-muted-foreground">{item.text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="px-4 py-16">
+        <div className="mx-auto max-w-4xl text-center">
+          <div className="mb-5 flex justify-center gap-0.5">
+            {[...Array(5)].map((_, index) => (
+              <Star key={index} className="h-5 w-5 fill-primary text-primary" />
             ))}
           </div>
+          <blockquote className="text-xl font-display italic leading-relaxed text-secondary md:text-2xl">
+            "Training gevolgd door massage voelt als een complete reset. Je lichaam heeft gewerkt, daarna mag het direct loslaten."
+          </blockquote>
+          <p className="mt-5 text-sm font-semibold text-amber-700">JitanSports VIP Treatment</p>
         </div>
       </section>
 
-      <CTASection dark title="Klaar voor jouw complete reset?" subtitle="Boek de VIP Treatment en ervaar training en massage in één ultieme sessie." />
+      <section className="bg-muted/30 px-4 py-16">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="mb-8 text-center text-3xl font-display font-bold text-secondary">Veelgestelde vragen</h2>
+          <FAQAccordion items={FAQS} />
+        </div>
+      </section>
+
+      <CTASection
+        dark
+        title="Gun jezelf de VIP Treatment"
+        subtitle="Boek 2 uur volledige aandacht: training, massage en herstel in je eigen omgeving."
+      />
     </div>
   );
 }

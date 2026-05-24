@@ -9,6 +9,7 @@ const NAV_ITEMS = [
   { label: 'Personal Training', path: '/personal-training' },
   { label: 'Massage', path: '/massage' },
   { label: 'Voeding', path: '/voeding' },
+  { label: 'VIP', path: '/vip-treatment' },
   { label: 'Get Fit', path: '/get-fit' },
   { label: 'Tarieven', path: '/tarieven' },
   { label: 'Over Ons', path: '/over-ons' },

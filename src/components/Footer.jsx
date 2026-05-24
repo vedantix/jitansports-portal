@@ -63,6 +63,7 @@ export default function Footer() {
                 ['Personal Training', '/personal-training'],
                 ['Massage', '/massage'],
                 ['Voedingsbegeleiding', '/voeding'],
+                ['Voedingscoach Den Bosch', '/voedingscoach-den-bosch'],
                 ['Get Fit Programma', '/get-fit'],
                 ['VIP Treatment', '/vip-treatment'],
                 ['Bedrijven', '/bedrijven'],
@@ -88,6 +89,7 @@ export default function Footer() {
                 ['Personal Trainer Vught', '/personal-trainer-vught'],
                 ['Personal Trainer Oss', '/personal-trainer-oss'],
                 ['Sportmassage Den Bosch', '/sportmassage-den-bosch'],
+                ['Massage aan huis Den Bosch', '/massage-aan-huis-den-bosch'],
                 ['Massage Den Bosch', '/massage-den-bosch'],
                 ['Deep Tissue Massage Den Bosch', '/deep-tissue-massage-den-bosch'],
               ].map(([label, path]) => (

@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import CTASection from '../components/CTASection';
 import SEO, { buildArticleSchema } from '@/components/SEO';
 import ResponsiveImage from '@/components/ResponsiveImage';
+import { findFallbackPost } from '@/lib/blogContent';
 
 const formatDate = (date) =>
   new Intl.DateTimeFormat('nl-NL', {
@@ -22,8 +23,10 @@ export default function BlogPost() {
 
   useEffect(() => {
     base44.entities.Blog.filter({ slug, status: 'gepubliceerd' }).then(data => {
-      if (data?.length) setPost(data[0]);
-    }).catch(() => {}).finally(() => setLoading(false));
+      setPost(data?.length ? data[0] : findFallbackPost(slug));
+    }).catch(() => {
+      setPost(findFallbackPost(slug));
+    }).finally(() => setLoading(false));
   }, [slug]);
 
   if (loading) {

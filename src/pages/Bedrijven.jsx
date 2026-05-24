@@ -3,14 +3,15 @@ import { Button } from '@/components/ui/button';
 import { Building2, Users, Armchair, Zap, CheckCircle, Send } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import SEO from '@/components/SEO';
+import ResponsiveImage from '@/components/ResponsiveImage';
 
-const HERO_IMG = 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=75';
+const HERO_IMG = '/images/optimized/page-training-hero-960.jpg';
 
 const SERVICES = [
   {
     icon: Armchair,
     title: 'Stoelmassage',
-    desc: 'Een stoelmassage van 20 of 30 minuten per medewerker. Geen omkleedruimte nodig – gewoon op kantoor. Ideaal voor teamdagen of vitaliteitsdagen.',
+    desc: 'Een stoelmassage van 15, 20 of 30 minuten per medewerker. Geen omkleedruimte nodig, gewoon op kantoor. Gericht op nek, schouders en rug.',
     price: 'Vanaf €25 per persoon',
   },
   {
@@ -70,7 +71,7 @@ export default function Bedrijven() {
 
       <section className="relative h-[50vh] min-h-[400px] flex items-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src={HERO_IMG} alt="Bedrijfsfitness Den Bosch" className="w-full h-full object-cover" loading="eager" fetchPriority="high" decoding="async" />
+          <ResponsiveImage src={HERO_IMG} alt="" className="w-full h-full object-cover" loading="eager" fetchPriority="high" />
           <div className="absolute inset-0 bg-gradient-to-r from-secondary/90 to-secondary/40" />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
@@ -82,6 +83,18 @@ export default function Bedrijven() {
             <p className="text-white/80 text-lg">
               Investeer in de vitaliteit van je team. Van stoelmassage op kantoor tot complete vitaliteitsdagen.
             </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="px-4 py-16">
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="text-amber-700 font-semibold uppercase tracking-wider text-sm mb-3">Vitaliteit op de werkvloer</p>
+          <h2 className="text-3xl font-display font-bold text-secondary mb-6">Breng verzuim terug tot een minimum</h2>
+          <div className="space-y-4 text-muted-foreground leading-relaxed text-lg">
+            <p>Stress, rugklachten en RSI drukken zwaar op ziekteverzuim. Met de juiste zorg voor medewerkers kun je klachten verminderen, voorkomen en teams meer energie geven.</p>
+            <p>Stoelmassages helpen bij nek-, schouder- en rugklachten en bieden ontspanning tijdens een drukke werkdag. Medewerkers voelen zich gewaardeerd en kunnen zich daarna vaak beter concentreren.</p>
+            <p>Naast stoelmassage verzorgt JitanSports groepstrainingen en vitaliteitsdagen. Samen sporten kan een sterk teambuildingmoment zijn én bijdragen aan fittere medewerkers.</p>
           </div>
         </div>
       </section>

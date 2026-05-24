@@ -25,6 +25,8 @@ const PersonalTrainerOss = lazy(() => import('./pages/PersonalTrainerOss'));
 const MassageDenBosch = lazy(() => import('./pages/MassageDenBosch'));
 const DeepTissueMassageDenBosch = lazy(() => import('./pages/DeepTissueMassageDenBosch'));
 const SportmassageDenBosch = lazy(() => import('./pages/SportmassageDenBosch'));
+const MassageAanHuisDenBosch = lazy(() => import('./pages/MassageAanHuisDenBosch'));
+const VoedingscoachDenBosch = lazy(() => import('./pages/VoedingscoachDenBosch'));
 const Voeding = lazy(() => import('./pages/Voeding'));
 const VipTreatment = lazy(() => import('./pages/VipTreatment'));
 const Bedrijven = lazy(() => import('./pages/Bedrijven'));
@@ -92,6 +94,8 @@ const AppRoutes = () => {
           <Route path="/massage-den-bosch" element={<MassageDenBosch />} />
           <Route path="/deep-tissue-massage-den-bosch" element={<DeepTissueMassageDenBosch />} />
           <Route path="/sportmassage-den-bosch" element={<SportmassageDenBosch />} />
+          <Route path="/massage-aan-huis-den-bosch" element={<MassageAanHuisDenBosch />} />
+          <Route path="/voedingscoach-den-bosch" element={<VoedingscoachDenBosch />} />
         </Route>
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={<AdminLayout />}>

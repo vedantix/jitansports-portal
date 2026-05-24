@@ -84,6 +84,24 @@ export const ROUTE_SEO = {
       'Deep tissue massage in omgeving Den Bosch voor rugklachten, nek- en schouderpijn, spierherstel en sportblessures.',
     path: '/deep-tissue-massage-den-bosch',
   },
+  '/sportmassage-den-bosch': {
+    title: 'Sportmassage omgeving Den Bosch | JitanSports',
+    description:
+      'Professionele sportmassage in omgeving Den Bosch. Sneller herstel, minder spierpijn en betere prestaties. Aan huis beschikbaar.',
+    path: '/sportmassage-den-bosch',
+  },
+  '/massage-aan-huis-den-bosch': {
+    title: 'Massage Aan Huis omgeving Den Bosch | JitanSports',
+    description:
+      'Massage aan huis in omgeving Den Bosch. Deep Tissue Massage, sportmassage en ontspanningsmassage met professionele massagetafel.',
+    path: '/massage-aan-huis-den-bosch',
+  },
+  '/voedingscoach-den-bosch': {
+    title: 'Voedingscoach omgeving Den Bosch | JitanSports',
+    description:
+      "Voedingscoach in omgeving Den Bosch voor voedingsschema's op maat, afvallen, spieropbouw, lichaamsanalyse en digitaal rapport.",
+    path: '/voedingscoach-den-bosch',
+  },
 };
 
 export function absoluteUrl(path = '/') {

@@ -4,8 +4,9 @@ import { ArrowRight, CheckCircle, Star, Zap } from 'lucide-react';
 import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
 import SEO from '@/components/SEO';
+import ResponsiveImage from '@/components/ResponsiveImage';
 
-const HERO_IMG = 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200&q=75';
+const HERO_IMG = '/images/optimized/page-massage-hero-960.jpg';
 
 const BENEFITS = [
   'Sneller herstel na training',
@@ -34,7 +35,7 @@ export default function SportmassageDenBosch() {
       />
       <section className="relative h-[50vh] min-h-[400px] flex items-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src={HERO_IMG} alt="Sportmassage Den Bosch" className="w-full h-full object-cover" loading="eager" fetchPriority="high" decoding="async" />
+          <ResponsiveImage src={HERO_IMG} alt="" className="w-full h-full object-cover" loading="eager" fetchPriority="high" />
           <div className="absolute inset-0 bg-gradient-to-r from-secondary/90 to-secondary/40" />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, MessageCircle, CheckCircle, Phone } from 'lucide-react';
+import { ArrowRight, MessageCircle, CheckCircle, Phone, Crown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
 import { useSiteContent } from '@/hooks/useSiteContent';
@@ -76,7 +76,7 @@ export default function Home() {
       <section className="relative flex min-h-[82svh] items-center overflow-hidden md:min-h-[86vh]">
         <div id="hero-bg-shell" className="absolute inset-0">
           <img
-            src={content.hero_image || 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1400&q=75'}
+            src={content.hero_image || '/images/optimized/hero-desktop-1344.jpg'}
             alt=""
             className="w-full h-full object-cover"
             loading="eager"
@@ -91,7 +91,7 @@ export default function Home() {
               {content.hero_eyebrow}
             </p>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white leading-tight mb-4">
-              {content.hero_title}<br />
+              {content.hero_title}<br />{' '}
               <span className="text-primary">{content.hero_highlight}</span>
             </h1>
             <p className="text-white/80 text-base md:text-lg mb-8 leading-relaxed">
@@ -168,6 +168,28 @@ export default function Home() {
                 </Link>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Trust Stats – Priority 3 */}
+      <section className="py-14 px-4 bg-white">
+        <div className="max-w-7xl mx-auto rounded-2xl bg-secondary px-6 py-8 text-white md:px-10">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-[1fr_auto] md:items-center">
+            <div>
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-primary/15 px-3 py-1 text-sm font-semibold text-primary">
+                <Crown className="h-4 w-4" /> Exclusieve combinatie
+              </div>
+              <h2 className="mb-3 text-2xl font-display font-bold md:text-3xl">VIP Treatment: 1 uur training + 1 uur massage</h2>
+              <p className="max-w-2xl text-white/72">
+                Een complete reset aan huis: eerst doelgerichte personal training, daarna massage voor herstel en ontspanning.
+              </p>
+            </div>
+            <Link to="/vip-treatment">
+              <Button className="w-full gap-2 bg-primary text-primary-foreground hover:bg-primary/90 md:w-auto">
+                Bekijk VIP Treatment <ArrowRight className="h-4 w-4" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

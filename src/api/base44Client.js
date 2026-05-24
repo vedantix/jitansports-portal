@@ -4,6 +4,7 @@ const { appId, token, functionsVersion, appBaseUrl } = appParams;
 const apiServerUrl = (appBaseUrl || 'https://base44.app').replace(/\/$/, '');
 const authBaseUrl = (appBaseUrl || apiServerUrl).replace(/\/$/, '');
 const apiBaseUrl = `${apiServerUrl}/api`;
+export const hasBase44App = Boolean(appId && appId !== 'null' && appId !== 'undefined');
 
 const LIST_METHODS = new Set(['list', 'filter']);
 const entityCache = new WeakMap();
@@ -51,11 +52,15 @@ function withParams(path, params) {
 }
 
 export async function base44Request(path, { method = 'GET', body, headers = {} } = {}) {
+  if (!hasBase44App) {
+    throw new Base44HttpError('Base44 app id is not configured', 0, null);
+  }
+
   const requestHeaders = new Headers({
     Accept: 'application/json',
-    'X-App-Id': String(appId),
     ...headers,
   });
+  requestHeaders.set('X-App-Id', String(appId));
 
   const authToken = getAuthToken();
   if (authToken) {
@@ -100,9 +105,11 @@ function createEntityHandler(entityName) {
 
   return {
     async list(sort, limit, skip, fields) {
+      if (!hasBase44App) return [];
       return normalizeEntityList(await base44Request(withParams(basePath, { sort, limit, skip, fields })));
     },
     async filter(query, sort, limit, skip, fields) {
+      if (!hasBase44App) return [];
       return normalizeEntityList(await base44Request(withParams(basePath, {
         q: JSON.stringify(query || {}),
         sort,

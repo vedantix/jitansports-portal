@@ -3,21 +3,22 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle, Award, Heart, Target, Zap, Star } from 'lucide-react';
 import CTASection from '../components/CTASection';
 import SEO from '@/components/SEO';
+import ResponsiveImage from '@/components/ResponsiveImage';
 
-const HERO_IMG = 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&q=75';
-const PROFILE_IMG = 'https://images.unsplash.com/photo-1567013127542-490d757e51cd?w=800&q=75';
-const ACTION_IMG = 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=75';
-const MASSAGE_IMG = 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=75';
+const HERO_IMG = '/images/optimized/page-about-hero-960.jpg';
+const PROFILE_IMG = '/images/optimized/page-about-hero-960.jpg';
+const ACTION_IMG = '/images/optimized/page-training-hero-960.jpg';
+const MASSAGE_IMG = '/images/optimized/page-massage-hero-960.jpg';
 
 const VALUES = [
-  { icon: Heart, title: 'Persoonlijke betrokkenheid', text: 'Iedereen verdient een trainer die echt luistert. Ik leer jou kennen als persoon – jouw doelen, uitdagingen en motivatie. Geen standaard aanpak, maar echte aandacht.' },
-  { icon: Target, title: 'Resultaat als drijfveer', text: 'Ik geloof alleen in methodes die werken. Elke sessie, elk voedingsplan en elke massage is ontworpen om jou dichter bij jouw doel te brengen. Efficiënt en effectief.' },
-  { icon: Award, title: 'Vakkennis en ervaring', text: 'Met meer dan 10 jaar ervaring in personal training, massage en voedingsbegeleiding beschik ik over de kennis om met elke situatie om te gaan – van beginner tot sporter, van herstel tot topprestatie.' },
-  { icon: Zap, title: 'Holistische aanpak', text: 'Training, voeding en herstel zijn onlosmakelijk met elkaar verbonden. Ik begeleid jou op alle drie de vlakken voor maximale en duurzame resultaten.' },
+  { icon: Heart, title: 'Luisterend oor', text: 'Ik wil eerst weten wie jij bent. Je doel, je situatie, je twijfels en je ritme bepalen hoe we starten.' },
+  { icon: Target, title: 'Stap voor stap', text: 'Niets moet in één keer. We bouwen rustig op, houden het haalbaar en sturen bij waar nodig.' },
+  { icon: Award, title: 'Vintage krachttraining', text: 'Duidelijke basisoefeningen, goede techniek en progressie. Geen trucjes, wel sterker worden.' },
+  { icon: Zap, title: 'Training en Deep Tissue', text: 'JitanSports onderscheidt zich door de combinatie van Vintage Krachttraining en Deep Tissue Massage.' },
 ];
 
 const CERTS = [
-  'Gecertificeerd Personal Trainer', 'Sport- en Fitnesskunde',
+  'Gecertificeerd Personal Trainer', 'Vintage Krachttraining',
   'Deep Tissue Massage Specialist', 'Voedings- en Dieetleer',
   'Sportmassage', 'EHBO Gecertificeerd',
   'Zwangerschapstraining', 'Revalidatietraining',
@@ -42,7 +43,7 @@ export default function About() {
       {/* Hero */}
       <section className="relative h-[50vh] min-h-[400px] flex items-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src={HERO_IMG} alt="Over JitanSports" className="w-full h-full object-cover" loading="eager" decoding="async" />
+          <ResponsiveImage src={HERO_IMG} alt="" className="w-full h-full object-cover" loading="eager" fetchPriority="high" />
           <div className="absolute inset-0 bg-gradient-to-r from-secondary/90 to-secondary/40" />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
@@ -52,7 +53,7 @@ export default function About() {
               Ontmoet Jitan – jouw persoonlijke coach
             </h1>
             <p className="text-white/80 text-lg">
-              Personal trainer, massagetherapeut en voedingscoach in omgeving Den Bosch. Meer dan 10 jaar ervaring, honderden tevreden klanten.
+              Persoonlijke begeleiding voor wie sterker, fitter en vrijer wil bewegen. Met vintage krachttraining, voeding en Deep Tissue Massage.
             </p>
           </div>
         </div>
@@ -74,20 +75,19 @@ export default function About() {
       <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           <div className="space-y-5 text-muted-foreground leading-relaxed">
-            <h2 className="text-3xl font-display font-bold text-secondary">Mijn verhaal begint met een keuze</h2>
-            <p>Sport heeft altijd een centrale plek in mijn leven ingenomen. Al van jongs af aan was beweging voor mij niet zomaar een hobby – het was een manier om mijzelf te ontwikkelen, grenzen te verleggen en het beste uit mezelf te halen. Die passie heeft me uiteindelijk geleid naar het prachtige vak van personal trainer.</p>
-            <p>Mijn weg naar dit vak begon niet altijd in rechte lijn. Ik kende de frustratie van onsamenhangende trainingsschema's, tegenstrijdige voedingsadviezen en de overweldigende hoeveelheid informatie op het internet. Ik wist uit eigen ervaring hoe verwarrend en demotiverend dat kon zijn. Die ervaring heeft me gevormd tot de trainer die ik vandaag ben.</p>
-            <p>Na mijn opleidingen in Sport- en Fitnesskunde, voedingsleer en massagetherapie werkte ik samen met klanten van uiteenlopende achtergronden – van jonge sporters die wilden presteren tot mensen van boven de vijftig die gewoon fitter door het leven wilden gaan. Van atleten die herstelden van een serieuze blessure tot drukke ondernemers die moeite hadden tijd vrij te maken voor hun gezondheid.</p>
-            <p>Wat ik leerde in al die jaren? Dat ieder mens uniek is. Er bestaat geen standaard trainingsschema of dieet dat voor iedereen werkt. Echt resultaat bereik je alleen met een aanpak die volledig is afgestemd op jouw lichaam, jouw leven en jouw doelen.</p>
-            <h3 className="text-xl font-bold text-secondary mt-6">Waarom ik aan huis train</h3>
-            <p>In 2015 maakte ik een bewuste keuze: geen vaste sportschool meer, maar training aan huis en outdoor. Die keuze was niet toevallig. Ik zag hoe klanten floreerden wanneer ze in een vertrouwde omgeving trainden – meer ontspannen, meer gemotiveerd en meer consistent.</p>
-            <p>Training aan huis elimineert alle drempels: geen reistijd, geen parkeerkosten, geen intimiderende sportschoolsfeer. Jij traint in jouw eigen tempo, in jouw eigen omgeving, met een trainer die volledig voor jou beschikbaar is. Dat is waar ik in geloof.</p>
-            <p>Daarmee bedien ik klanten in heel omgeving Den Bosch – van Rosmalen en Vught tot Oss en Sint-Michielsgestel. Ik rijd naar jou toe, zodat jij je volledig kunt focussen op jouw training.</p>
+            <h2 className="text-3xl font-display font-bold text-secondary">JitanSports is ontstaan vanuit ervaring</h2>
+            <p>Ervaring in het er na je 40e nog steeds goed uit kunnen zien én jezelf goed voelen. Je kunt nog steeds ongelofelijke prestaties behalen en jezelf energieker, vitaler, gelukkiger en zelfverzekerder voelen.</p>
+            <p>Ik weet hoe groot de stap kan voelen als je wilt veranderen. Je wilt fitter worden, gezonder leven of eindelijk van die terugkerende klachten af. Maar je wilt ook iemand naast je die luistert, meedenkt en je niet in een standaard schema duwt.</p>
+            <p>JitanSports onderscheidt zich door de combinatie van Vintage Krachttraining en Deep Tissue Massage. Dat is geen losse verzameling diensten, maar één aanpak: sterker worden, beter herstellen en stap voor stap bouwen aan een gezonde lifestyle.</p>
+            <p>Met jarenlange ervaring en opleidingen in fitness, personal training, voeding en massage help ik je verder. Niet door te schreeuwen vanaf de zijlijn, maar door rustig, duidelijk en persoonlijk met je mee te lopen.</p>
+            <h3 className="text-xl font-bold text-secondary mt-6">Jouw guide naar een gezonde lifestyle</h3>
+            <p>Met een luisterend oor en empathie voor jouw doel en situatie gaan we voor resultaat. Stap voor stap, op jouw eigen tempo. Niets moet. We gaan ervoor.</p>
+            <p>Ik train aan huis en outdoor in omgeving Den Bosch, zodat de drempel laag blijft en jij kunt starten op een plek waar jij je prettig voelt.</p>
           </div>
 
           <div className="space-y-6">
             <div className="rounded-2xl overflow-hidden h-[420px]">
-              <img src={PROFILE_IMG} alt="Jitan – Personal Trainer Den Bosch" className="w-full h-full object-cover" loading="lazy" decoding="async" />
+              <ResponsiveImage src={PROFILE_IMG} alt="JitanSports personal training en massage" className="w-full h-full object-cover" sizes="(min-width: 1024px) 50vw, 100vw" />
             </div>
             <div className="p-6 rounded-2xl bg-secondary text-white">
               <p className="text-primary font-semibold text-sm uppercase tracking-wider mb-3">Mijn certificeringen</p>
@@ -108,15 +108,15 @@ export default function About() {
       <section className="py-20 px-4 bg-muted/30">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="rounded-2xl overflow-hidden h-80 order-2 lg:order-1">
-            <img src={MASSAGE_IMG} alt="Deep Tissue Massage Den Bosch" className="w-full h-full object-cover" loading="lazy" decoding="async" />
+            <ResponsiveImage src={MASSAGE_IMG} alt="Deep Tissue Massage Den Bosch" className="w-full h-full object-cover" sizes="(min-width: 1024px) 50vw, 100vw" />
           </div>
           <div className="order-1 lg:order-2">
             <p className="text-amber-700 font-semibold uppercase tracking-wider text-sm mb-3">Massage en Herstel</p>
             <h2 className="text-3xl font-display font-bold text-secondary mb-5">Specialist in Deep Tissue Massage</h2>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
-              <p>Naast personal training ben ik gecertificeerd massagetherapeut met specialisatie in Deep Tissue Massage en sportmassage. Massage is voor mij niet een aanvulling op training – het is een volwaardig onderdeel van een complete gezondheidsaanpak.</p>
-              <p>Veel van mijn klanten ontdekken de kracht van de combinatie: trainen én massages ontvangen. Spieren herstellen sneller, blessures worden voorkomen en de algehele belastbaarheid neemt toe.</p>
-              <p>Mijn massages voer ik aan huis uit in omgeving Den Bosch. Ik breng mijn professionele massagetafel mee zodat jij volledig kunt ontspannen in jouw vertrouwde omgeving.</p>
+              <p>Deep Tissue Massage is voor mij een volwaardig onderdeel van begeleiding. Vastzittend bindweefsel, blokkades en chronische spanning kunnen je training en dagelijks leven flink beperken.</p>
+              <p>Door massage en krachttraining te combineren, werken we niet alleen aan verlichting, maar ook aan belastbaarheid. Je lichaam moet niet alleen losser voelen, het moet ook sterker worden.</p>
+              <p>Ik kom aan huis met een professionele massagetafel, zodat ontspanning na de behandeling niet meteen wordt onderbroken door reistijd.</p>
             </div>
             <Link to="/massage" className="mt-6 inline-block">
               <Button variant="outline" className="gap-2">Bekijk massagediensten <ArrowRight className="w-4 h-4" /></Button>
@@ -142,7 +142,7 @@ export default function About() {
             </Link>
           </div>
           <div className="rounded-2xl overflow-hidden h-80">
-            <img src={ACTION_IMG} alt="Personal Training Den Bosch" className="w-full h-full object-cover" loading="lazy" decoding="async" />
+            <ResponsiveImage src={ACTION_IMG} alt="Personal Training Den Bosch" className="w-full h-full object-cover" sizes="(min-width: 1024px) 50vw, 100vw" />
           </div>
         </div>
       </section>
