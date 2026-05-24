@@ -1,0 +1,151 @@
+name: Deploy website
+
+on:
+  workflow_dispatch:
+    inputs:
+      bucket:
+        description: "S3 bucket"
+        required: true
+        type: string
+      distribution_id:
+        description: "CloudFront distribution id"
+        required: true
+        type: string
+      mode:
+        description: "deploy or rollback"
+        required: false
+        default: "deploy"
+        type: string
+      target_ref:
+        description: "rollback git ref"
+        required: false
+        default: ""
+        type: string
+      ga_measurement_id:
+        description: "Google Analytics Measurement ID"
+        required: false
+        default: ""
+        type: string
+      clarity_project_id:
+        description: "Microsoft Clarity Project ID"
+        required: false
+        default: ""
+        type: string
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  AWS_REGION: eu-west-1
+  AWS_ROLE_ARN: arn:aws:iam::381492205513:role/vedantix-github-role
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout current ref
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout rollback ref if requested
+        if: ${{ inputs.mode == 'rollback' && inputs.target_ref != '' }}
+        run: |
+          git fetch --all --tags --prune
+          git checkout "${{ inputs.target_ref }}"
+
+      - name: Setup Node
+        if: ${{ hashFiles('package.json') != '' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        if: ${{ hashFiles('package.json') != '' }}
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
+
+      - name: Build project
+        env:
+          VITE_GA_MEASUREMENT_ID: ${{ inputs.ga_measurement_id }}
+          NEXT_PUBLIC_GA_MEASUREMENT_ID: ${{ inputs.ga_measurement_id }}
+          VITE_CLARITY_PROJECT_ID: ${{ inputs.clarity_project_id }}
+          NEXT_PUBLIC_CLARITY_PROJECT_ID: ${{ inputs.clarity_project_id }}
+        run: |
+          rm -rf dist
+          if [ -f package.json ] && node -e "const p=require('./package.json'); process.exit(p.scripts && p.scripts.build ? 0 : 1)"; then
+            npm run build
+          else
+            mkdir -p dist
+            cp index.html dist/index.html
+          fi
+
+      - name: Inject analytics tags
+        env:
+          GA_MEASUREMENT_ID: ${{ inputs.ga_measurement_id }}
+          CLARITY_PROJECT_ID: ${{ inputs.clarity_project_id }}
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const file = 'dist/index.html';
+          if (!fs.existsSync(file)) {
+            process.exit(0);
+          }
+
+          const ga = (process.env.GA_MEASUREMENT_ID || '').trim();
+          const clarity = (process.env.CLARITY_PROJECT_ID || '').trim();
+          if (!ga && !clarity) {
+            process.exit(0);
+          }
+
+          let html = fs.readFileSync(file, 'utf8');
+          const tags = [];
+
+          if (ga && !html.includes(`googletagmanager.com/gtag/js?id=${ga}`)) {
+            tags.push(`<script async src="https://www.googletagmanager.com/gtag/js?id=${ga}"></script>`);
+            tags.push(`<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${ga}');</script>`);
+          }
+
+          if (clarity && !html.includes(`clarity.ms/tag/${clarity}`)) {
+            tags.push(`<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","${clarity}");</script>`);
+          }
+
+          if (tags.length) {
+            const block = `\n<!-- Vedantix analytics -->\n${tags.join('\n')}\n`;
+            html = html.includes('</head>')
+              ? html.replace('</head>', `${block}</head>`)
+              : `${block}${html}`;
+            fs.writeFileSync(file, html);
+          }
+          NODE
+
+      - name: Ensure dist exists
+        run: |
+          test -d dist || (echo "dist folder not found" && exit 1)
+          test -f dist/index.html || (echo "dist/index.html not found" && exit 1)
+          if [ -d dist/.git ] || [ -f dist/package.json ]; then
+            echo "Build output looks like the repository root instead of a production build"
+            exit 1
+          fi
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Upload to S3
+        run: |
+          aws s3 sync dist/ "s3://${{ inputs.bucket }}/" --delete
+
+      - name: Invalidate CloudFront
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "${{ inputs.distribution_id }}" \
+            --paths "/*"
