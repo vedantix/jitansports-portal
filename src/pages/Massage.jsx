@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle, Heart, Shield, Zap, Home, Star } from 'lucide-react';
-import { motion } from 'framer-motion';
+
 import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
 import SEO from '@/components/SEO';
@@ -138,13 +138,9 @@ export default function Massage() {
           <div className="text-center mb-10">
             <h2 className="text-3xl font-display font-bold text-secondary">Onze massagebehandelingen</h2>
           </div>
-          {MASSAGE_TYPES.map((type, i) => (
-            <motion.div
+          {MASSAGE_TYPES.map((type) => (
+            <div
               key={type.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
               className="rounded-2xl bg-white border border-border overflow-hidden"
             >
               <div className={`grid grid-cols-1 ${type.img ? 'lg:grid-cols-2' : ''} gap-0`}>
@@ -180,7 +176,7 @@ export default function Massage() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </section>

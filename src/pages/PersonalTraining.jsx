@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle, Users, Clock, Dumbbell, Home, TreePine, Trophy, Heart } from 'lucide-react';
-import { motion } from 'framer-motion';
 import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
 import SEO from '@/components/SEO';
@@ -51,7 +50,7 @@ export default function PersonalTraining() {
       {/* Hero */}
       <section className="relative h-[55vh] min-h-[420px] flex items-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src={HERO_IMG} alt="Personal Training Den Bosch" className="w-full h-full object-cover" loading="eager" fetchPriority="high" decoding="async" />
+          <img src={HERO_IMG} alt="Personal Training Den Bosch" className="w-full h-full object-cover" loading="eager" decoding="async" />
           <div className="absolute inset-0 bg-gradient-to-r from-secondary/90 to-secondary/40" />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
@@ -113,8 +112,8 @@ export default function PersonalTraining() {
               { icon: Home, title: 'Training aan huis', desc: 'JitanSports komt naar jou toe met alle benodigde materialen. In omgeving Den Bosch, Rosmalen, Vught, Oss en omstreken. Geen reiskosten.', color: 'bg-primary/10' },
               { icon: TreePine, title: 'Outdoor training', desc: 'Training in het park, bos of op een andere buitenlocatie. De natuur zorgt voor extra motivatie en een gevarieerde trainingsomgeving.', color: 'bg-secondary/5' },
               { icon: Users, title: 'Duo-training', desc: 'Train samen met een vriend, partner of familielid. Gezelligheid en motivatie – voor een aantrekkelijk tarief per persoon.', color: 'bg-primary/5' },
-            ].map((item, i) => (
-              <motion.div key={item.title} initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className={`p-6 rounded-2xl border border-border ${item.color}`}>
+            ].map((item) => (
+              <div key={item.title} className={`p-6 rounded-2xl border border-border ${item.color}`}>
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center shadow-sm">
                     <item.icon className="w-5 h-5 text-primary" />
@@ -122,7 +121,7 @@ export default function PersonalTraining() {
                   <h3 className="font-bold text-secondary">{item.title}</h3>
                 </div>
                 <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -139,14 +138,14 @@ export default function PersonalTraining() {
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {TARGETS.map((item, i) => (
-              <motion.div key={item.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }} className="p-6 rounded-2xl bg-white border border-border hover:shadow-md transition-shadow">
+            {TARGETS.map((item) => (
+              <div key={item.title} className="p-6 rounded-2xl bg-white border border-border hover:shadow-md transition-shadow">
                 <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
                   <item.icon className="w-5 h-5 text-primary" />
                 </div>
                 <h3 className="font-bold text-secondary mb-2">{item.title}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -167,9 +166,6 @@ export default function PersonalTraining() {
               De voordelen zijn aanzienlijk: geen reistijd naar een sportschool, geen parkeerkosten, geen wachttijden op apparatuur en geen intimiderende omgeving. Je traint in je eigen vertrouwde omgeving, op het moment dat het jou het beste uitkomt.
             </p>
             <p>
-              Dit maakt het voor veel mensen veel makkelijker om consistent te blijven. En consistentie is het geheime wapen van elke succesvolle transformatie.
-            </p>
-            <p>
               JitanSports biedt training aan huis in heel omgeving Den Bosch: in Den Bosch zelf, maar ook in Rosmalen, Vught, Oss, Sint-Michielsgestel, Boxtel en omliggende gemeenten.
             </p>
             <Link to="/booking"><Button className="bg-secondary hover:bg-secondary/90 text-white gap-2 mt-2">Plan Proefles Aan Huis <ArrowRight className="w-4 h-4" /></Button></Link>
@@ -186,10 +182,10 @@ export default function PersonalTraining() {
               Den Bosch en omstreken bieden prachtige locaties voor outdoor training. Parken, bossen en open velden zijn de trainingslocatie van veel JitanSports-klanten.
             </p>
             <p>
-              Outdoor trainen heeft unieke voordelen: frisse lucht, daglicht en de natuur dragen bij aan een betere stemming, hogere motivatie en een dieper ontspannen gevoel na de training. Wetenschappelijk onderzoek bevestigt dat trainen in de natuur beter is voor mentale gezondheid dan trainen in een sportschool.
+              Outdoor trainen heeft unieke voordelen: frisse lucht, daglicht en de natuur dragen bij aan een betere stemming, hogere motivatie en een dieper ontspannen gevoel na de training.
             </p>
             <p>
-              We trainen bij elk type weer – ook in de winter biedt outdoor training uitdagende en gevarieerde sessies. Bij extreme omstandigheden schakelen we soepel over naar training aan huis.
+              We trainen bij elk type weer. Bij extreme omstandigheden schakelen we soepel over naar training aan huis.
             </p>
           </div>
           <div className="rounded-2xl overflow-hidden h-80">
@@ -211,7 +207,7 @@ export default function PersonalTraining() {
               { step: '02', title: 'Persoonlijk plan op maat', desc: 'Op basis van de intake stel ik een trainingsschema, voedingsplan en doelstellingen op, volledig afgestemd op jouw lichaam en situatie.' },
               { step: '03', title: 'Training en begeleiding', desc: 'We starten met de eerste sessies. Ik begeleid jou door elke training, zorg voor correcte techniek en pas de intensiteit progressief aan.' },
               { step: '04', title: 'Maandelijkse meting en evaluatie', desc: 'Elke maand meten we jouw voortgang met een lichaamsanalyse. We evalueren het plan en sturen bij waar nodig.' },
-              { step: '05', title: 'Duurzaam resultaat en zelfstandigheid', desc: 'Het doel is niet alleen dat je resultaat bereikt, maar ook dat je leert hoe je dit zelf kunt onderhouden. Kennis en zelfvertrouwen zijn onderdeel van het programma.' },
+              { step: '05', title: 'Duurzaam resultaat en zelfstandigheid', desc: 'Het doel is niet alleen dat je resultaat bereikt, maar ook dat je leert hoe je dit zelf kunt onderhouden.' },
             ].map((step) => (
               <div key={step.step} className="flex gap-5 items-start">
                 <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary text-primary-foreground font-bold flex items-center justify-center text-sm">{step.step}</div>

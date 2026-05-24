@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle, Dumbbell, Salad, Heart, Brain, Phone, Scale, Star, Trophy } from 'lucide-react';
-import { motion } from 'framer-motion';
+
 import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
 import SEO from '@/components/SEO';
@@ -114,13 +114,9 @@ export default function GetFit() {
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {INCLUSIONS.map((item, i) => (
-              <motion.div
+            {INCLUSIONS.map((item) => (
+              <div
                 key={item.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
                 className="p-6 rounded-2xl bg-white border border-border hover:shadow-md transition-shadow"
               >
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
@@ -128,7 +124,7 @@ export default function GetFit() {
                 </div>
                 <h3 className="font-bold text-secondary mb-2">{item.title}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

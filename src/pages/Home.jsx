@@ -74,7 +74,15 @@ export default function Home() {
       />
       {/* Hero */}
       <section className="relative flex min-h-[82svh] items-center overflow-hidden md:min-h-[86vh]">
-        <div className="absolute inset-0">
+        <div id="hero-bg-shell" className="absolute inset-0">
+          <img
+            src={content.hero_image || 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1400&q=75'}
+            alt=""
+            className="w-full h-full object-cover"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-secondary/95 via-secondary/82 to-secondary/25 md:bg-gradient-to-r md:from-secondary/94 md:via-secondary/76 md:to-secondary/20" />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-16 md:py-20">
