@@ -6,14 +6,23 @@ import { fileURLToPath } from 'node:url'
 const rootDir = path.dirname(fileURLToPath(import.meta.url))
 
 // https://vite.dev/config/
-export default defineConfig({
-  logLevel: 'error', // Suppress warnings, only show errors
-  resolve: {
-    alias: {
-      '@': path.resolve(rootDir, 'src'),
-    },
-  },
-  plugins: [
+export default defineConfig(async ({ command }) => {
+  const plugins = [];
+
+  if (command === 'serve') {
+    const { default: base44 } = await import('@base44/vite-plugin');
+    plugins.push(
+      base44({
+        legacySDKImports: false,
+        hmrNotifier: true,
+        navigationNotifier: true,
+        analyticsTracker: true,
+        visualEditAgent: true,
+      })
+    );
+  }
+
+  plugins.push(
     react(),
     {
       name: 'optimize-critical-render-path',
@@ -25,5 +34,21 @@ export default defineConfig({
         );
       },
     },
-  ]
+  );
+
+  return {
+    logLevel: 'error', // Suppress warnings, only show errors
+    resolve: {
+      alias: {
+        '@': path.resolve(rootDir, 'src'),
+      },
+    },
+    server: {
+      allowedHosts: ['.base44.app', '.base44.com', '.modal.host'],
+    },
+    preview: {
+      allowedHosts: ['.base44.app', '.base44.com', '.modal.host'],
+    },
+    plugins,
+  };
 });
