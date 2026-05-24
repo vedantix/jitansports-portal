@@ -73,53 +73,59 @@ export default function Home() {
         jsonLd={[buildLocalBusinessSchema(content), buildFAQSchema(visibleFaqs)].filter(Boolean)}
       />
       {/* Hero */}
-      <section className="relative flex min-h-[82svh] items-center overflow-hidden md:min-h-[86vh]">
-        <div id="hero-bg-shell" className="absolute inset-0">
+      <section className="relative overflow-hidden bg-secondary min-h-[88svh] md:min-h-[90vh] flex flex-col md:flex-row">
+        {/* Left: Content column */}
+        <div className="relative z-10 flex flex-col justify-center px-6 py-16 md:px-12 lg:px-16 xl:px-20 md:w-[42%] lg:w-[40%] flex-shrink-0">
+          <p className="text-primary font-semibold uppercase tracking-widest text-xs mb-6">
+            Personal Training&nbsp;•&nbsp;Deep Tissue Massage&nbsp;•&nbsp;Den Bosch
+          </p>
+          <h1 className="text-4xl md:text-5xl lg:text-[3.25rem] font-display font-bold text-white leading-[1.1] mb-6">
+            Word fitter,<br />sterker en<br />pijnvrij
+          </h1>
+          <p className="text-primary font-medium text-base md:text-lg mb-3 leading-snug">
+            Personal training, deep tissue massage en voedingsbegeleiding in Den Bosch
+          </p>
+          <p className="text-white/60 text-sm md:text-base leading-relaxed mb-10 max-w-sm">
+            Een complete aanpak voor lichaam en geest. Bij JitanSports combineren we training, voeding en herstel om jou te helpen blijvend resultaat te behalen.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 mb-10">
+            <Link to="/booking">
+              <Button size="lg" className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-secondary font-bold px-7 text-base gap-2">
+                Plan gratis proefles <ArrowRight className="w-5 h-5" />
+              </Button>
+            </Link>
+            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+              <Button size="lg" variant="outline" className="w-full sm:w-auto border-white/20 text-white hover:bg-white/10 gap-2 text-base">
+                <MessageCircle className="w-5 h-5" /> WhatsApp direct
+              </Button>
+            </a>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-0.5">
+              {[...Array(5)].map((_, i) => (
+                <svg key={i} className="w-4 h-4" fill="hsl(var(--primary))" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+              ))}
+            </div>
+            <p className="text-white/60 text-sm">
+              <span className="text-white font-semibold">{content.home_review_proof}</span>
+            </p>
+          </div>
+        </div>
+
+        {/* Right: Image column */}
+        <div id="hero-bg-shell" className="relative flex-1 min-h-[55vw] md:min-h-0 overflow-hidden">
           <img
             src={content.hero_image || '/images/optimized/hero-desktop-1344.jpg'}
-            alt=""
-            className="w-full h-full object-cover"
+            alt="Personal trainer JitanSports Den Bosch"
+            className="absolute inset-0 w-full h-full object-cover object-center"
             loading="eager"
             decoding="async"
             fetchPriority="high"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-secondary/95 via-secondary/82 to-secondary/25 md:bg-gradient-to-r md:from-secondary/94 md:via-secondary/76 md:to-secondary/20" />
-        </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-16 md:py-20">
-          <div className="max-w-xl">
-            <p className="text-primary font-semibold mb-3 uppercase tracking-wider text-sm">
-              {content.hero_eyebrow}
-            </p>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white leading-tight mb-4">
-              {content.hero_title}<br />{' '}
-              <span className="text-primary">{content.hero_highlight}</span>
-            </h1>
-            <p className="text-white/80 text-base md:text-lg mb-8 leading-relaxed">
-              {content.hero_subtitle}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Link to="/booking">
-                <Button size="lg" className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-secondary font-bold px-7 text-base gap-2">
-                  {content.primary_cta_text} <ArrowRight className="w-5 h-5" />
-                </Button>
-              </Link>
-              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto border-white/30 text-white hover:bg-white/10 gap-2 text-base">
-                  <MessageCircle className="w-5 h-5" /> {content.secondary_cta_text}
-                </Button>
-              </a>
-            </div>
-            <div className="flex items-center gap-3 mt-8">
-              <div className="flex items-center gap-0.5">
-                {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="w-4 h-4" fill="hsl(var(--primary))" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                ))}
-              </div>
-              <p className="text-white/70 text-sm">
-                <span className="text-white font-semibold">{content.home_review_proof}</span>
-              </p>
-            </div>
-          </div>
+          {/* Subtle left-edge fade to blend with content column on desktop */}
+          <div className="absolute inset-0 bg-gradient-to-r from-secondary/60 via-secondary/10 to-transparent md:from-secondary/50 md:via-secondary/10" />
+          {/* Bottom fade for mobile */}
+          <div className="absolute inset-0 bg-gradient-to-t from-secondary/50 via-transparent to-transparent md:hidden" />
         </div>
       </section>
 
