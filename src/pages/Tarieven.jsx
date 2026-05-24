@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle, Star } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 import CTASection from '../components/CTASection';
 import { useSiteContent } from '@/hooks/useSiteContent';
+import SEO, { ROUTE_SEO } from '@/components/SEO';
 
 const DEFAULT_PLANS = [
   {
@@ -70,29 +70,31 @@ export default function Tarieven() {
 
   return (
     <div>
+      <SEO
+        {...ROUTE_SEO['/tarieven']}
+        title={content.seo_pricing_title || ROUTE_SEO['/tarieven'].title}
+        description={content.seo_pricing_description || ROUTE_SEO['/tarieven'].description}
+        image={content.seo_image}
+      />
       {/* Hero */}
       <section className="py-20 px-4 bg-secondary text-secondary-foreground">
         <div className="max-w-7xl mx-auto text-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+          <div>
             <p className="text-primary font-semibold mb-3 uppercase tracking-wider text-sm">{content.pricing_eyebrow}</p>
             <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">{content.pricing_title}</h1>
             <p className="text-secondary-foreground/70 text-lg max-w-2xl mx-auto">
               {content.pricing_subtitle}
             </p>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Pricing cards */}
       <section className="py-20 px-4 -mt-1">
         <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {plans.map((plan, i) => (
-            <motion.div
+          {plans.map((plan) => (
+            <div
               key={plan.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
               className={`relative rounded-2xl p-8 flex flex-col ${
                 plan.highlight
                   ? 'bg-secondary text-secondary-foreground border-2 border-primary shadow-2xl'
@@ -120,7 +122,7 @@ export default function Tarieven() {
                   {plan.cta_text || 'Plan Afspraak'} <ArrowRight className="w-4 h-4" />
                 </Button>
               </Link>
-            </motion.div>
+            </div>
           ))}
         </div>
       </section>

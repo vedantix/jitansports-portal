@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { ArrowRight, MessageCircle, CheckCircle, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import { contentLines, createWhatsAppUrl } from '@/lib/siteContent';
 import SEO, { ROUTE_SEO, buildFAQSchema, buildLocalBusinessSchema } from '@/components/SEO';
+import ResponsiveImage from '@/components/ResponsiveImage';
 import GoalCards from '../components/GoalCards';
 import ReviewsSection from '../components/ReviewsSection';
 import TrustStats from '../components/TrustStats';
@@ -47,6 +47,17 @@ export default function Home() {
       .catch(() => {});
   }, []);
 
+  useEffect(() => {
+    const shell = document.getElementById('hero-bg-shell');
+    const image = shell?.querySelector('img');
+    if (!image || !content.hero_image || content.hero_image.startsWith('/images/optimized/hero-')) return;
+
+    shell.querySelectorAll('source').forEach((source) => source.remove());
+    image.removeAttribute('srcset');
+    image.removeAttribute('sizes');
+    image.src = content.hero_image;
+  }, [content.hero_image]);
+
   const whatsappUrl = createWhatsAppUrl(content);
 
   return (
@@ -61,23 +72,10 @@ export default function Home() {
       {/* Hero */}
       <section className="relative flex min-h-[82svh] items-center overflow-hidden md:min-h-[86vh]">
         <div className="absolute inset-0">
-          <img
-            src={content.hero_image}
-            alt="JitanSports Personal Trainer omgeving Den Bosch"
-            className="w-full h-full object-cover"
-            loading="eager"
-            fetchPriority="high"
-            decoding="async"
-          />
           <div className="absolute inset-0 bg-gradient-to-t from-secondary/95 via-secondary/82 to-secondary/25 md:bg-gradient-to-r md:from-secondary/94 md:via-secondary/76 md:to-secondary/20" />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-16 md:py-20">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="max-w-xl"
-          >
+          <div className="max-w-xl">
             <p className="text-primary font-semibold mb-3 uppercase tracking-wider text-sm">
               {content.hero_eyebrow}
             </p>
@@ -110,7 +108,7 @@ export default function Home() {
                 <span className="text-white font-semibold">{content.home_review_proof}</span>
               </p>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -125,25 +123,22 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-display font-bold text-secondary">{content.home_services_title}</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {services.map((service, i) => (
-              <motion.div
+            {services.map((service) => (
+              <div
                 key={service.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
               >
                 <Link
                   to={service.link}
                   className="group block rounded-2xl overflow-hidden border border-border bg-white hover:shadow-xl transition-all duration-300"
                 >
                   <div className="h-52 overflow-hidden">
-                    <img
+                    <ResponsiveImage
                       src={service.img}
                       alt={service.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
                       decoding="async"
+                      sizes="(min-width: 768px) 33vw, 100vw"
                     />
                   </div>
                   <div className="p-5">
@@ -154,7 +149,7 @@ export default function Home() {
                     </span>
                   </div>
                 </Link>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -170,9 +165,9 @@ export default function Home() {
       <section className="py-14 px-4 bg-white">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl font-display font-bold text-secondary mb-3">{content.home_mid_cta_title}</h2>
-            <p className="text-muted-foreground mb-7 text-base">
-              {content.home_mid_cta_text}
-            </p>
+          <p className="text-muted-foreground mb-7 text-base">
+            {content.home_mid_cta_text}
+          </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link to="/booking">
               <Button size="lg" className="w-full sm:w-auto bg-secondary hover:bg-secondary/90 text-white font-bold gap-2">
@@ -194,20 +189,16 @@ export default function Home() {
       {/* About */}
       <section className="py-16 px-4 bg-white">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="rounded-2xl overflow-hidden h-[420px]"
-          >
-            <img
+          <div className="rounded-2xl overflow-hidden h-[420px]">
+            <ResponsiveImage
               src={content.home_about_image}
               alt="Jitan – Personal Trainer omgeving Den Bosch"
               className="w-full h-full object-cover"
               loading="lazy"
               decoding="async"
+              sizes="(min-width: 1024px) 50vw, 100vw"
             />
-          </motion.div>
+          </div>
           <div>
             <p className="text-amber-700 font-semibold uppercase tracking-wider text-sm mb-3">{content.home_about_eyebrow}</p>
             <h2 className="text-3xl font-display font-bold text-secondary mb-5">

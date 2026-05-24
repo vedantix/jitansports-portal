@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 import { CheckCircle, Calendar, Clock, ChevronLeft, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useSiteContent } from '@/hooks/useSiteContent';
+import SEO, { ROUTE_SEO } from '@/components/SEO';
 
 const DEFAULT_SLOTS = ['09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
 
@@ -104,11 +104,7 @@ export default function Booking() {
   if (submitted) {
     return (
       <div className="min-h-screen bg-muted/30 flex items-center justify-center px-4 py-16">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="bg-white rounded-3xl p-8 md:p-10 text-center max-w-md w-full shadow-xl"
-        >
+        <div className="bg-white rounded-3xl p-8 md:p-10 text-center max-w-md w-full shadow-xl">
           <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-5">
             <CheckCircle className="w-8 h-8 text-green-500" />
           </div>
@@ -120,7 +116,7 @@ export default function Booking() {
             <p className="text-sm text-muted-foreground">{form.name} · {form.email}</p>
           </div>
           <Button onClick={resetForm} variant="outline" className="w-full">{content.booking_new_button}</Button>
-        </motion.div>
+        </div>
       </div>
     );
   }
@@ -130,6 +126,12 @@ export default function Booking() {
 
   return (
     <div className="min-h-screen bg-muted/30">
+      <SEO
+        {...ROUTE_SEO['/booking']}
+        title={content.seo_booking_title || ROUTE_SEO['/booking'].title}
+        description={content.seo_booking_description || ROUTE_SEO['/booking'].description}
+        image={content.seo_image}
+      />
       {/* Header */}
       <section className="bg-secondary py-12 px-4 text-center">
         <h1 className="text-3xl md:text-4xl font-display font-bold text-white mb-2">{content.booking_title}</h1>
@@ -162,16 +164,17 @@ export default function Booking() {
       </div>
 
       <div className="max-w-2xl mx-auto px-4 py-8 pb-16">
-        <AnimatePresence mode="wait">
+        <div>
           {/* Step 1 – Service */}
           {step === 1 && (
-            <motion.div key="s1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+            <div>
               <h2 className="text-xl font-bold text-secondary mb-5">{content.booking_service_title}</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
                 {services.map(s => (
                   <button
                     key={s.id}
                     onClick={() => setForm(p => ({ ...p, service: s.name }))}
+                    aria-pressed={form.service === s.name}
                     className={`text-left p-5 rounded-2xl border-2 transition-all ${
                       form.service === s.name
                         ? 'border-primary bg-primary/5 shadow-sm'
@@ -194,22 +197,24 @@ export default function Booking() {
               >
                 Volgende: Datum kiezen <ArrowRight className="w-5 h-5" />
               </Button>
-            </motion.div>
+            </div>
           )}
 
           {/* Step 2 – Date & Time */}
           {step === 2 && (
-            <motion.div key="s2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+            <div>
               <button onClick={() => setStep(1)} className="flex items-center gap-1 text-muted-foreground hover:text-foreground text-sm mb-5 transition-colors">
                 <ChevronLeft className="w-4 h-4" /> Terug
               </button>
               <h2 className="text-xl font-bold text-secondary mb-5">Kies datum en tijd</h2>
 
               <div className="bg-white rounded-2xl p-5 border border-border mb-4">
-                <label className="block text-sm font-medium text-secondary mb-2 flex items-center gap-2">
+                <label htmlFor="booking-date" className="block text-sm font-medium text-secondary mb-2 flex items-center gap-2">
                   <Calendar className="w-4 h-4 text-primary" /> Datum
                 </label>
                 <input
+                  id="booking-date"
+                  name="date"
                   type="date"
                   min={today}
                   value={form.date}
@@ -238,6 +243,7 @@ export default function Booking() {
                         <button
                           key={slot}
                           onClick={() => setForm(p => ({ ...p, time: slot }))}
+                          aria-pressed={form.time === slot}
                           className={`py-3 px-2 rounded-xl text-sm font-semibold transition-all ${
                             form.time === slot
                               ? 'bg-primary text-secondary shadow-sm'
@@ -259,12 +265,12 @@ export default function Booking() {
               >
                 Volgende: Uw gegevens <ArrowRight className="w-5 h-5" />
               </Button>
-            </motion.div>
+            </div>
           )}
 
           {/* Step 3 – Personal Details */}
           {step === 3 && (
-            <motion.div key="s3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+            <div>
               <button onClick={() => setStep(2)} className="flex items-center gap-1 text-muted-foreground hover:text-foreground text-sm mb-5 transition-colors">
                 <ChevronLeft className="w-4 h-4" /> Terug
               </button>
@@ -284,11 +290,15 @@ export default function Booking() {
                   { key: 'phone', label: 'Telefoonnummer', placeholder: '06 1234 5678', type: 'tel', required: true },
                 ].map(field => (
                   <div key={field.key}>
-                    <label className="block text-sm font-medium text-secondary mb-1">
+                    <label htmlFor={`booking-${field.key}`} className="block text-sm font-medium text-secondary mb-1">
                       {field.label} {field.required && <span className="text-primary">*</span>}
                     </label>
                     <input
+                      id={`booking-${field.key}`}
+                      name={field.key}
                       type={field.type}
+                      required={field.required}
+                      autoComplete={field.key === 'name' ? 'name' : field.key === 'email' ? 'email' : 'tel'}
                       value={form[field.key]}
                       onChange={e => setForm(p => ({ ...p, [field.key]: e.target.value }))}
                       placeholder={field.placeholder}
@@ -297,8 +307,10 @@ export default function Booking() {
                   </div>
                 ))}
                 <div>
-                  <label className="block text-sm font-medium text-secondary mb-1">Bericht (optioneel)</label>
+                  <label htmlFor="booking-message" className="block text-sm font-medium text-secondary mb-1">Bericht (optioneel)</label>
                   <textarea
+                    id="booking-message"
+                    name="message"
                     value={form.message}
                     onChange={e => setForm(p => ({ ...p, message: e.target.value }))}
                     placeholder="Bijzonderheden, vragen of blessures..."
@@ -319,9 +331,9 @@ export default function Booking() {
               <p className="text-xs text-muted-foreground text-center mt-3">
                 We nemen binnen 24 uur contact op ter bevestiging. Geen verplichtingen.
               </p>
-            </motion.div>
+            </div>
           )}
-        </AnimatePresence>
+        </div>
       </div>
     </div>
   );

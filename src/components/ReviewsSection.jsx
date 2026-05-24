@@ -69,7 +69,8 @@ export default function ReviewsSection() {
           <div className="flex justify-center items-center gap-4 mt-6">
             <button
               onClick={() => navigate(-1)}
-              className="p-2 rounded-full border border-white/20 hover:bg-white/10 transition-colors"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 hover:bg-white/10 transition-colors"
+              aria-label="Vorige review"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -78,13 +79,16 @@ export default function ReviewsSection() {
                 <button
                   key={i}
                   onClick={() => { setPaused(true); setCurrent(i); }}
-                  className={`rounded-full transition-all ${i === current ? 'bg-primary w-6 h-2' : 'bg-white/30 w-2 h-2'}`}
+                  className={`h-5 rounded-full transition-all ${i === current ? 'bg-primary w-6' : 'bg-white/30 w-5'}`}
+                  aria-label={`Ga naar review ${i + 1}`}
+                  aria-current={i === current ? 'true' : undefined}
                 />
               ))}
             </div>
             <button
               onClick={() => navigate(1)}
-              className="p-2 rounded-full border border-white/20 hover:bg-white/10 transition-colors"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 hover:bg-white/10 transition-colors"
+              aria-label="Volgende review"
             >
               <ChevronRight className="w-5 h-5" />
             </button>

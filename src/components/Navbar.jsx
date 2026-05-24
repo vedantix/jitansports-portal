@@ -21,7 +21,7 @@ export default function Navbar() {
   const location = useLocation();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-40 border-b border-border/60 bg-white/95 shadow-sm backdrop-blur-md">
+    <nav className="fixed top-0 left-0 right-0 z-40 border-b border-border/60 bg-white/95 shadow-sm backdrop-blur-md" aria-label="Hoofdnavigatie">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16 md:h-20">
           <Logo onClick={() => setOpen(false)} />
@@ -41,19 +41,20 @@ export default function Navbar() {
                 {item.label}
               </Link>
             ))}
-            <Link to="/booking">
-              <Button className="ml-3 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold">
+            <Button asChild className="ml-3 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold">
+              <Link to="/booking">
                 Plan Proefles
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
 
           {/* Mobile toggle */}
           <button
             onClick={() => setOpen(!open)}
-            className="lg:hidden p-2 rounded-lg hover:bg-muted transition-colors"
+            className="lg:hidden flex h-11 w-11 items-center justify-center rounded-lg hover:bg-muted transition-colors"
             aria-label={open ? 'Menu sluiten' : 'Menu openen'}
             aria-expanded={open}
+            aria-controls="mobile-navigation"
           >
             {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -63,7 +64,7 @@ export default function Navbar() {
       {/* Mobile menu */}
       {open && (
         <div className="lg:hidden bg-white border-b border-border shadow-lg animate-in slide-in-from-top-2">
-          <div className="px-4 py-4 space-y-1">
+          <div id="mobile-navigation" className="px-4 py-4 space-y-1">
             {NAV_ITEMS.map(item => (
               <Link
                 key={item.path}
@@ -78,11 +79,11 @@ export default function Navbar() {
                 {item.label}
               </Link>
             ))}
-            <Link to="/booking" onClick={() => setOpen(false)}>
-              <Button className="w-full mt-3 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold">
+            <Button asChild className="w-full mt-3 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold">
+              <Link to="/booking" onClick={() => setOpen(false)}>
                 Plan Gratis Proefles
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
         </div>
       )}

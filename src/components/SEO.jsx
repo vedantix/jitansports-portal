@@ -1,7 +1,5 @@
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import { DEFAULT_SITE_CONTENT } from '@/lib/siteContent';
-import { useSiteContent } from '@/hooks/useSiteContent';
 
 export const SITE_URL = 'https://jitan-sports.nl';
 export const DEFAULT_IMAGE = DEFAULT_SITE_CONTENT.seo_image;
@@ -86,22 +84,6 @@ export const ROUTE_SEO = {
       'Deep tissue massage in omgeving Den Bosch voor rugklachten, nek- en schouderpijn, spierherstel en sportblessures.',
     path: '/deep-tissue-massage-den-bosch',
   },
-};
-
-const ROUTE_CONTENT_KEYS = {
-  '/': 'home',
-  '/personal-training': 'personal_training',
-  '/massage': 'massage',
-  '/get-fit': 'get_fit',
-  '/over-ons': 'about',
-  '/tarieven': 'pricing',
-  '/blog': 'blog',
-  '/faq': 'faq',
-  '/contact': 'contact',
-  '/booking': 'booking',
-  '/personal-trainer-den-bosch': 'trainer_den_bosch',
-  '/massage-den-bosch': 'massage_den_bosch',
-  '/deep-tissue-massage-den-bosch': 'deep_tissue_den_bosch',
 };
 
 export function absoluteUrl(path = '/') {
@@ -251,27 +233,4 @@ export default function SEO({
   }, [description, image, jsonLd, noindex, path, title, type]);
 
   return null;
-}
-
-export function RouteSEO() {
-  const location = useLocation();
-  const { content } = useSiteContent();
-  const routeKey = ROUTE_CONTENT_KEYS[location.pathname];
-  const baseSeo = ROUTE_SEO[location.pathname] || {
-    title: DEFAULT_SITE_CONTENT.seo_title,
-    description: DEFAULT_SITE_CONTENT.seo_description,
-    path: location.pathname,
-  };
-  const seo = {
-    ...baseSeo,
-    title: routeKey ? content[`seo_${routeKey}_title`] || baseSeo.title : content.seo_title || baseSeo.title,
-    description: routeKey
-      ? content[`seo_${routeKey}_description`] || baseSeo.description
-      : content.seo_description || baseSeo.description,
-    image: content.seo_image || DEFAULT_IMAGE,
-  };
-
-  const schema = seo.localBusiness ? buildLocalBusinessSchema(content) : null;
-
-  return <SEO {...seo} jsonLd={schema} />;
 }

@@ -3,11 +3,8 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
 import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import PageNotFound from './lib/PageNotFound';
-import Layout from './components/Layout';
-import { RouteSEO } from '@/components/SEO';
-import AdminLayout from './components/AdminLayout';
 
+const Layout = lazy(() => import('./components/Layout'));
 const Home = lazy(() => import('./pages/Home'));
 const PersonalTraining = lazy(() => import('./pages/PersonalTraining'));
 const Massage = lazy(() => import('./pages/Massage'));
@@ -22,6 +19,8 @@ const Booking = lazy(() => import('./pages/Booking'));
 const PersonalTrainerDenBosch = lazy(() => import('./pages/PersonalTrainerDenBosch'));
 const MassageDenBosch = lazy(() => import('./pages/MassageDenBosch'));
 const DeepTissueMassageDenBosch = lazy(() => import('./pages/DeepTissueMassageDenBosch'));
+const PageNotFound = lazy(() => import('./lib/PageNotFound'));
+const AdminLayout = lazy(() => import('./components/AdminLayout'));
 const AdminLogin = lazy(() => import('./pages/admin/AdminLogin'));
 const AdminDashboard = lazy(() => import('./pages/admin/Dashboard'));
 const ManageAppointments = lazy(() => import('./pages/admin/ManageAppointments'));
@@ -43,42 +42,39 @@ function RouteFallback() {
 
 const AppRoutes = () => {
   return (
-    <>
-      <RouteSEO />
-      <Suspense fallback={<RouteFallback />}>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/personal-training" element={<PersonalTraining />} />
-            <Route path="/massage" element={<Massage />} />
-            <Route path="/get-fit" element={<GetFit />} />
-            <Route path="/over-ons" element={<About />} />
-            <Route path="/tarieven" element={<Tarieven />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:slug" element={<BlogPost />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/booking" element={<Booking />} />
-            <Route path="/personal-trainer-den-bosch" element={<PersonalTrainerDenBosch />} />
-            <Route path="/massage-den-bosch" element={<MassageDenBosch />} />
-            <Route path="/deep-tissue-massage-den-bosch" element={<DeepTissueMassageDenBosch />} />
-          </Route>
-          <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin" element={<AdminLayout />}>
-            <Route index element={<AdminDashboard />} />
-            <Route path="appointments" element={<ManageAppointments />} />
-            <Route path="availability" element={<ManageAvailability />} />
-            <Route path="reviews" element={<ManageReviews />} />
-            <Route path="blog" element={<ManageBlog />} />
-            <Route path="pricing" element={<ManagePricing />} />
-            <Route path="faq" element={<ManageFAQ />} />
-            <Route path="gallery" element={<ManageGallery />} />
-            <Route path="content" element={<ManageContent />} />
-          </Route>
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </Suspense>
-    </>
+    <Suspense fallback={<RouteFallback />}>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/personal-training" element={<PersonalTraining />} />
+          <Route path="/massage" element={<Massage />} />
+          <Route path="/get-fit" element={<GetFit />} />
+          <Route path="/over-ons" element={<About />} />
+          <Route path="/tarieven" element={<Tarieven />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/booking" element={<Booking />} />
+          <Route path="/personal-trainer-den-bosch" element={<PersonalTrainerDenBosch />} />
+          <Route path="/massage-den-bosch" element={<MassageDenBosch />} />
+          <Route path="/deep-tissue-massage-den-bosch" element={<DeepTissueMassageDenBosch />} />
+        </Route>
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminDashboard />} />
+          <Route path="appointments" element={<ManageAppointments />} />
+          <Route path="availability" element={<ManageAvailability />} />
+          <Route path="reviews" element={<ManageReviews />} />
+          <Route path="blog" element={<ManageBlog />} />
+          <Route path="pricing" element={<ManagePricing />} />
+          <Route path="faq" element={<ManageFAQ />} />
+          <Route path="gallery" element={<ManageGallery />} />
+          <Route path="content" element={<ManageContent />} />
+        </Route>
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+    </Suspense>
   );
 };
 
@@ -87,7 +83,7 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClientInstance}>
-      <Router>
+      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <AppRoutes />
       </Router>
       <Toaster />

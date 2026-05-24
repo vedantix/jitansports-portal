@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Star, Shield } from 'lucide-react';
@@ -6,6 +5,8 @@ import FAQAccordion from '../components/FAQAccordion';
 import CTASection from '../components/CTASection';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import { contentLines } from '@/lib/siteContent';
+import ResponsiveImage from '@/components/ResponsiveImage';
+import SEO, { ROUTE_SEO } from '@/components/SEO';
 
 const SCHEMA = {
   "@context": "https://schema.org",
@@ -26,19 +27,25 @@ export default function DeepTissueMassageDenBosch() {
     answer: content[`deep_db_faq_${number}_answer`],
   }));
 
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.text = JSON.stringify(SCHEMA);
-    document.head.appendChild(script);
-    return () => { if (document.head.contains(script)) document.head.removeChild(script); };
-  }, []);
-
   return (
     <div>
+      <SEO
+        {...ROUTE_SEO['/deep-tissue-massage-den-bosch']}
+        title={content.seo_deep_tissue_den_bosch_title || ROUTE_SEO['/deep-tissue-massage-den-bosch'].title}
+        description={content.seo_deep_tissue_den_bosch_description || ROUTE_SEO['/deep-tissue-massage-den-bosch'].description}
+        image={content.seo_image}
+        jsonLd={SCHEMA}
+      />
       <section className="relative py-20 px-4 bg-secondary overflow-hidden">
         <div className="absolute inset-0 opacity-15">
-          <img src={content.deep_db_hero_image} alt="" className="w-full h-full object-cover" />
+          <ResponsiveImage
+            src={content.deep_db_hero_image}
+            alt=""
+            className="w-full h-full object-cover"
+            sizes="100vw"
+            loading="eager"
+            fetchPriority="high"
+          />
         </div>
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <div className="flex items-center justify-center gap-1 mb-4">

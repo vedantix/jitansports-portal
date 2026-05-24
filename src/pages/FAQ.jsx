@@ -106,6 +106,7 @@ export default function FAQ() {
                     ? 'bg-secondary text-white'
                     : 'border border-border bg-white text-muted-foreground hover:text-secondary'
                 }`}
+                aria-pressed={activeCategory === category}
               >
                 {category}
               </button>

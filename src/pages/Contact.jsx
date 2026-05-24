@@ -4,11 +4,11 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Phone, Mail, MapPin, Clock, MessageCircle, Send, CheckCircle } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import { createWhatsAppUrl } from '@/lib/siteContent';
+import SEO, { ROUTE_SEO } from '@/components/SEO';
 
 export default function Contact() {
   const { content } = useSiteContent();
@@ -27,13 +27,19 @@ export default function Contact() {
 
   return (
     <div>
+      <SEO
+        {...ROUTE_SEO['/contact']}
+        title={content.seo_contact_title || ROUTE_SEO['/contact'].title}
+        description={content.seo_contact_description || ROUTE_SEO['/contact'].description}
+        image={content.seo_image}
+      />
       <section className="py-20 px-4 bg-secondary text-secondary-foreground">
         <div className="max-w-7xl mx-auto text-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+          <div>
             <p className="text-primary font-semibold mb-3 uppercase tracking-wider text-sm">{content.contact_eyebrow}</p>
             <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">{content.contact_title}</h1>
             <p className="text-secondary-foreground/70 text-lg">{content.contact_subtitle}</p>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -51,27 +57,27 @@ export default function Contact() {
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <Label>Naam *</Label>
-                    <Input required value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} placeholder="Jouw naam" className="mt-1.5" />
+                    <Label htmlFor="contact-name">Naam *</Label>
+                    <Input id="contact-name" name="name" required autoComplete="name" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} placeholder="Jouw naam" className="mt-1.5" />
                   </div>
                   <div>
-                    <Label>E-mail *</Label>
-                    <Input required type="email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} placeholder="jouw@email.nl" className="mt-1.5" />
+                    <Label htmlFor="contact-email">E-mail *</Label>
+                    <Input id="contact-email" name="email" required type="email" autoComplete="email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} placeholder="jouw@email.nl" className="mt-1.5" />
                   </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <Label>Telefoon</Label>
-                    <Input value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} placeholder="06-12345678" className="mt-1.5" />
+                    <Label htmlFor="contact-phone">Telefoon</Label>
+                    <Input id="contact-phone" name="phone" type="tel" autoComplete="tel" value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} placeholder="06-12345678" className="mt-1.5" />
                   </div>
                   <div>
-                    <Label>Onderwerp</Label>
-                    <Input value={form.subject} onChange={e => setForm(f => ({ ...f, subject: e.target.value }))} placeholder="Waar gaat het over?" className="mt-1.5" />
+                    <Label htmlFor="contact-subject">Onderwerp</Label>
+                    <Input id="contact-subject" name="subject" value={form.subject} onChange={e => setForm(f => ({ ...f, subject: e.target.value }))} placeholder="Waar gaat het over?" className="mt-1.5" />
                   </div>
                 </div>
                 <div>
-                  <Label>Bericht *</Label>
-                  <Textarea required value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))} placeholder="Vertel ons meer..." rows={5} className="mt-1.5" />
+                  <Label htmlFor="contact-message">Bericht *</Label>
+                  <Textarea id="contact-message" name="message" required value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))} placeholder="Vertel ons meer..." rows={5} className="mt-1.5" />
                 </div>
                 <Button type="submit" disabled={sending} className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2 w-full sm:w-auto">
                   {sending ? 'Verzenden...' : <><Send className="w-4 h-4" /> Verstuur Bericht</>}

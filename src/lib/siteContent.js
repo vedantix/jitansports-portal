@@ -1,16 +1,17 @@
 const HOME_SERVICE_IMAGES = [
-  'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=600&q=75',
-  'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=600&q=75',
-  'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=600&q=75',
+  '/images/optimized/service-training-card-720.jpg',
+  '/images/optimized/service-massage-card-720.jpg',
+  '/images/optimized/service-getfit-card-720.jpg',
 ];
 
 const PAGE_IMAGES = {
-  personalTraining: 'https://media.base44.com/images/public/6a115e447a3ac96774309014/77461c012_generated_cb61b25a.png',
-  massage: 'https://media.base44.com/images/public/6a115e447a3ac96774309014/f2afe8ff0_generated_c71cfae0.png',
-  getFit: 'https://media.base44.com/images/public/6a115e447a3ac96774309014/115f006bd_generated_a407f042.png',
-  about: 'https://media.base44.com/images/public/6a115e447a3ac96774309014/b6edaf9c7_generated_18c500fb.png',
-  trainerDenBosch: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1200',
-  massageDenBosch: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200',
+  hero: '/images/optimized/hero-desktop-1344.jpg',
+  personalTraining: '/images/optimized/page-training-hero-960.jpg',
+  massage: '/images/optimized/page-massage-hero-960.jpg',
+  getFit: '/images/optimized/page-getfit-hero-960.jpg',
+  about: '/images/optimized/page-about-hero-960.jpg',
+  trainerDenBosch: '/images/optimized/service-training-card-960.jpg',
+  massageDenBosch: '/images/optimized/service-massage-card-960.jpg',
 };
 
 export const DEFAULT_SITE_CONTENT = Object.freeze({
@@ -19,7 +20,7 @@ export const DEFAULT_SITE_CONTENT = Object.freeze({
   hero_highlight: 'Fit, sterk en vrij van pijn.',
   hero_subtitle:
     'JitanSports helpt je met personal training, deep tissue massage en voedingsbegeleiding in omgeving Den Bosch.',
-  hero_image: '/images/jitansports-hero.jpg',
+  hero_image: PAGE_IMAGES.hero,
   primary_cta_text: 'Plan gratis proefles',
   secondary_cta_text: 'WhatsApp direct',
   cta_title: 'Klaar om jouw doelen serieus aan te pakken?',
@@ -38,7 +39,7 @@ export const DEFAULT_SITE_CONTENT = Object.freeze({
   seo_title: 'JitanSports - Personal Trainer & Massage omgeving Den Bosch',
   seo_description:
     'Personal training, deep tissue massage en voedingsbegeleiding in omgeving Den Bosch. Plan gratis een proefles bij JitanSports.',
-  seo_image: '/images/jitansports-hero.jpg',
+  seo_image: PAGE_IMAGES.hero,
   seo_home_title: 'JitanSports - Personal Trainer & Massage omgeving Den Bosch',
   seo_home_description: 'Personal training, deep tissue massage en voedingsbegeleiding in omgeving Den Bosch. Plan gratis een proefles.',
   seo_personal_training_title: 'Personal Training omgeving Den Bosch - Outdoor & Aan Huis | JitanSports',
@@ -103,7 +104,7 @@ export const DEFAULT_SITE_CONTENT = Object.freeze({
   home_about_title: 'Jouw persoonlijke gids naar een gezonde lifestyle',
   home_about_text:
     'JitanSports is ontstaan vanuit eigen ervaring. Ervaring in het er na je 40ste nog steeds goed uit kunnen zien en jezelf goed voelen. Met meer dan 10 jaar ervaring help ik klanten in omgeving Den Bosch hun doelen te bereiken.',
-  home_about_image: '/images/jitansports-hero.jpg',
+  home_about_image: PAGE_IMAGES.hero,
   home_about_usps:
     'Personal Training specialist\n10+ jaar ervaring\nDeep Tissue Massage\nVoedingsadvies\nOutdoor & aan huis\nGratis proefles',
   home_about_button: 'Meer over Jitan',

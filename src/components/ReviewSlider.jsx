@@ -43,7 +43,7 @@ export default function ReviewSlider() {
       <p className="text-sm text-muted-foreground">{review.service}</p>
 
       <div className="flex justify-center gap-3 mt-6">
-        <button onClick={prev} className="p-2 rounded-full border border-border hover:bg-muted transition-colors">
+        <button onClick={prev} className="flex h-11 w-11 items-center justify-center rounded-full border border-border hover:bg-muted transition-colors" aria-label="Vorige review">
           <ChevronLeft className="w-5 h-5" />
         </button>
         <div className="flex items-center gap-2">
@@ -51,11 +51,13 @@ export default function ReviewSlider() {
             <button
               key={i}
               onClick={() => setCurrent(i)}
-              className={`w-2 h-2 rounded-full transition-all ${i === current ? 'bg-primary w-6' : 'bg-border'}`}
+              className={`h-5 rounded-full transition-all ${i === current ? 'bg-primary w-6' : 'bg-border w-5'}`}
+              aria-label={`Ga naar review ${i + 1}`}
+              aria-current={i === current ? 'true' : undefined}
             />
           ))}
         </div>
-        <button onClick={next} className="p-2 rounded-full border border-border hover:bg-muted transition-colors">
+        <button onClick={next} className="flex h-11 w-11 items-center justify-center rounded-full border border-border hover:bg-muted transition-colors" aria-label="Volgende review">
           <ChevronRight className="w-5 h-5" />
         </button>
       </div>

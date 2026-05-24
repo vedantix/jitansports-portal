@@ -6,6 +6,7 @@ import { Calendar, ArrowLeft, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import CTASection from '../components/CTASection';
 import SEO, { buildArticleSchema } from '@/components/SEO';
+import ResponsiveImage from '@/components/ResponsiveImage';
 
 const formatDate = (date) =>
   new Intl.DateTimeFormat('nl-NL', {
@@ -55,7 +56,14 @@ export default function BlogPost() {
       {/* Header */}
       {post.featured_image && (
         <div className="relative h-[40vh] min-h-[300px]">
-          <img src={post.featured_image} alt={post.title} className="w-full h-full object-cover" />
+          <ResponsiveImage
+            src={post.featured_image}
+            alt={post.title}
+            className="w-full h-full object-cover"
+            sizes="100vw"
+            loading="eager"
+            fetchPriority="high"
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 to-transparent" />
         </div>
       )}
@@ -82,7 +90,8 @@ export default function BlogPost() {
           <span className="text-sm text-muted-foreground">Deel dit artikel:</span>
           <button
             onClick={() => navigator.share?.({ title: post.title, url: window.location.href }).catch(() => {})}
-            className="p-2 rounded-lg hover:bg-muted transition-colors"
+            className="flex h-11 w-11 items-center justify-center rounded-lg hover:bg-muted transition-colors"
+            aria-label="Artikel delen"
           >
             <Share2 className="w-5 h-5 text-muted-foreground" />
           </button>

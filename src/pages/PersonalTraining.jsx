@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle, Users, Clock, MapPin, Dumbbell } from 'lucide-react';
-import { motion } from 'framer-motion';
 import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import { contentLines } from '@/lib/siteContent';
+import ResponsiveImage from '@/components/ResponsiveImage';
+import SEO, { ROUTE_SEO } from '@/components/SEO';
 
 export default function PersonalTraining() {
   const { content } = useSiteContent();
@@ -28,19 +29,25 @@ export default function PersonalTraining() {
 
   return (
     <div>
+      <SEO
+        {...ROUTE_SEO['/personal-training']}
+        title={content.seo_personal_training_title || ROUTE_SEO['/personal-training'].title}
+        description={content.seo_personal_training_description || ROUTE_SEO['/personal-training'].description}
+        image={content.seo_image}
+      />
       <section className="relative h-[50vh] min-h-[400px] flex items-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src={content.pt_hero_image} alt="Personal Training Outdoor" className="w-full h-full object-cover" />
+          <ResponsiveImage src={content.pt_hero_image} alt="Personal Training Outdoor" className="w-full h-full object-cover" sizes="100vw" loading="eager" fetchPriority="high" />
           <div className="absolute inset-0 bg-gradient-to-r from-secondary/85 to-secondary/40" />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-xl">
+          <div className="max-w-xl">
             <p className="text-primary font-semibold mb-3 uppercase tracking-wider text-sm">{content.pt_hero_eyebrow}</p>
             <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
               {content.pt_hero_title}
             </h1>
             <p className="text-white/80 text-lg">{content.pt_hero_subtitle}</p>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -72,13 +79,9 @@ export default function PersonalTraining() {
             </div>
 
             <div className="space-y-6">
-              {features.map((item, i) => (
-                <motion.div
+              {features.map((item) => (
+                <div
                   key={item.title}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
                   className="p-6 rounded-2xl bg-muted/50 border border-border/50"
                 >
                   <div className="flex items-center gap-3 mb-3">
@@ -88,7 +91,7 @@ export default function PersonalTraining() {
                     <h3 className="font-bold text-secondary">{item.title}</h3>
                   </div>
                   <p className="text-muted-foreground text-sm leading-relaxed">{item.text}</p>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>

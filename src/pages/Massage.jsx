@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle, Heart, Shield, Zap } from 'lucide-react';
-import { motion } from 'framer-motion';
 import CTASection from '../components/CTASection';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import { contentLines } from '@/lib/siteContent';
+import ResponsiveImage from '@/components/ResponsiveImage';
+import SEO, { ROUTE_SEO } from '@/components/SEO';
 
 export default function Massage() {
   const { content } = useSiteContent();
@@ -22,19 +23,25 @@ export default function Massage() {
 
   return (
     <div>
+      <SEO
+        {...ROUTE_SEO['/massage']}
+        title={content.seo_massage_title || ROUTE_SEO['/massage'].title}
+        description={content.seo_massage_description || ROUTE_SEO['/massage'].description}
+        image={content.seo_image}
+      />
       <section className="relative h-[50vh] min-h-[400px] flex items-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src={content.massage_hero_image} alt="Massage" className="w-full h-full object-cover" />
+          <ResponsiveImage src={content.massage_hero_image} alt="Massage" className="w-full h-full object-cover" sizes="100vw" loading="eager" fetchPriority="high" />
           <div className="absolute inset-0 bg-gradient-to-r from-secondary/85 to-secondary/40" />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-xl">
+          <div className="max-w-xl">
             <p className="text-primary font-semibold mb-3 uppercase tracking-wider text-sm">{content.massage_hero_eyebrow}</p>
             <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
               {content.massage_hero_title}
             </h1>
             <p className="text-white/80 text-lg">{content.massage_hero_subtitle}</p>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -69,13 +76,9 @@ export default function Massage() {
           </div>
 
           <div className="space-y-6">
-            {cards.map((item, i) => (
-              <motion.div
+            {cards.map((item) => (
+              <div
                 key={item.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.15 }}
                 className="p-8 rounded-2xl bg-muted/50 border border-border/50"
               >
                 <div className="flex items-center gap-3 mb-3">
@@ -86,7 +89,7 @@ export default function Massage() {
                 </div>
                 <p className="text-muted-foreground text-sm leading-relaxed mb-3">{item.desc}</p>
                 <p className="font-semibold text-primary">{item.price}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

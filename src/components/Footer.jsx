@@ -57,7 +57,7 @@ export default function Footer() {
 
           {/* Diensten */}
           <div>
-            <h4 className="font-semibold text-white mb-4">Diensten</h4>
+            <p className="font-semibold text-white mb-4">Diensten</p>
             <ul className="space-y-2">
               {[
                 ['Personal Training', '/personal-training'],
@@ -78,7 +78,7 @@ export default function Footer() {
 
           {/* Werkgebied */}
           <div>
-            <h4 className="font-semibold text-white mb-4">Werkgebied</h4>
+            <p className="font-semibold text-white mb-4">Werkgebied</p>
             <ul className="space-y-2">
               {[
                 ['Personal Trainer omgeving Den Bosch', '/personal-trainer-den-bosch'],
@@ -99,7 +99,7 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="font-semibold text-white mb-4">Contact</h4>
+            <p className="font-semibold text-white mb-4">Contact</p>
             <div className="space-y-3 mb-5">
               <a href={`tel:${content.phone_href}`} className="flex items-center gap-2 text-white/60 hover:text-primary text-sm transition-colors">
                 <Phone className="w-4 h-4 flex-shrink-0" /> {content.phone_display}
