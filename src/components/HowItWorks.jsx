@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 
@@ -45,13 +44,9 @@ export default function HowItWorks() {
           {/* Connector line */}
           <div className="hidden lg:block absolute top-8 left-0 right-0 h-0.5 bg-white/10" style={{ top: '2rem', left: '10%', right: '10%' }} />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-            {STEPS.map((step, i) => (
-              <motion.div
+            {STEPS.map((step) => (
+              <div
                 key={step.step}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
                 className="text-center relative"
               >
                 <div className="w-16 h-16 rounded-full bg-primary text-primary-foreground font-bold text-xl flex items-center justify-center mx-auto mb-4 relative z-10">
@@ -59,7 +54,7 @@ export default function HowItWorks() {
                 </div>
                 <h3 className="font-bold text-white mb-2 text-sm">{step.title}</h3>
                 <p className="text-white/60 text-xs leading-relaxed">{step.desc}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

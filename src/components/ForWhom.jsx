@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Scale, Dumbbell, Zap, Flame, Heart, Clock } from 'lucide-react';
 
@@ -53,14 +52,8 @@ export default function ForWhom() {
           </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {TARGETS.map((item, i) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
-            >
+          {TARGETS.map((item) => (
+            <div key={item.title}>
               <Link
                 to={item.link}
                 className="group block p-6 rounded-2xl bg-white border border-border hover:shadow-lg hover:border-primary/20 transition-all"
@@ -71,7 +64,7 @@ export default function ForWhom() {
                 <h3 className="font-bold text-secondary mb-2">{item.title}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
               </Link>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

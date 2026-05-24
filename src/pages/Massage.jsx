@@ -138,7 +138,7 @@ export default function Massage() {
           <div className="text-center mb-10">
             <h2 className="text-3xl font-display font-bold text-secondary">Onze massagebehandelingen</h2>
           </div>
-          {MASSAGE_TYPES.map((type) => (
+          {MASSAGE_TYPES.map((type, i) => (
             <div
               key={type.title}
               className="rounded-2xl bg-white border border-border overflow-hidden"
