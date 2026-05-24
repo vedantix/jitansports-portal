@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Building2, Users, Armchair, Zap, CheckCircle, Send } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Building2, Users, Armchair, Zap, CheckCircle, Send } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import SEO from '@/components/SEO';
 
@@ -96,8 +95,8 @@ export default function Bedrijven() {
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {SERVICES.map((item, i) => (
-              <motion.div key={item.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="p-6 rounded-2xl bg-white border border-border hover:shadow-md transition-shadow">
+            {SERVICES.map((item) => (
+              <div key={item.title} className="p-6 rounded-2xl bg-white border border-border hover:shadow-md transition-shadow">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
                     <item.icon className="w-5 h-5 text-primary" />
@@ -106,7 +105,7 @@ export default function Bedrijven() {
                 </div>
                 <p className="text-muted-foreground text-sm leading-relaxed mb-3">{item.desc}</p>
                 <p className="text-primary font-semibold text-sm">{item.price}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

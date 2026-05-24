@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Star, Quote } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 import CTASection from '../components/CTASection';
 import SEO from '@/components/SEO';
@@ -143,12 +142,8 @@ export default function Referenties() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {reviews.map((review, i) => (
-              <motion.div
+              <div
                 key={review.name + i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: (i % 6) * 0.08 }}
                 className="p-6 rounded-2xl bg-white border border-border hover:shadow-md transition-shadow flex flex-col"
               >
                 <div className="flex items-start justify-between mb-4">
@@ -171,7 +166,7 @@ export default function Referenties() {
                     </span>
                   </div>
                 )}
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
