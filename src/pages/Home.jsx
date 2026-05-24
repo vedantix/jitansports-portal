@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, MessageCircle, CheckCircle, Phone, Crown } from 'lucide-react';
+import { ArrowRight, MessageCircle, CheckCircle, Phone, Crown, CalendarCheck, Users, Star, Activity } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
 import { useSiteContent } from '@/hooks/useSiteContent';
@@ -73,59 +73,78 @@ export default function Home() {
         jsonLd={[buildLocalBusinessSchema(content), buildFAQSchema(visibleFaqs)].filter(Boolean)}
       />
       {/* Hero */}
-      <section className="relative overflow-hidden bg-secondary min-h-[88svh] md:min-h-[90vh] flex flex-col md:flex-row">
-        {/* Left: Content column */}
-        <div className="relative z-10 flex flex-col justify-center px-6 py-16 md:px-12 lg:px-16 xl:px-20 md:w-[42%] lg:w-[40%] flex-shrink-0">
-          <p className="text-primary font-semibold uppercase tracking-widest text-xs mb-6">
-            Personal Training&nbsp;•&nbsp;Deep Tissue Massage&nbsp;•&nbsp;Den Bosch
-          </p>
-          <h1 className="text-4xl md:text-5xl lg:text-[3.25rem] font-display font-bold text-white leading-[1.1] mb-6">
-            Word fitter,<br />sterker en<br />pijnvrij
-          </h1>
-          <p className="text-primary font-medium text-base md:text-lg mb-3 leading-snug">
-            Personal training, deep tissue massage en voedingsbegeleiding in Den Bosch
-          </p>
-          <p className="text-white/60 text-sm md:text-base leading-relaxed mb-10 max-w-sm">
-            Een complete aanpak voor lichaam en geest. Bij JitanSports combineren we training, voeding en herstel om jou te helpen blijvend resultaat te behalen.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 mb-10">
-            <Link to="/booking">
-              <Button size="lg" className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-secondary font-bold px-7 text-base gap-2">
-                Plan gratis proefles <ArrowRight className="w-5 h-5" />
-              </Button>
-            </Link>
-            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-              <Button size="lg" variant="outline" className="w-full sm:w-auto border-white/20 text-white hover:bg-white/10 gap-2 text-base">
-                <MessageCircle className="w-5 h-5" /> WhatsApp direct
-              </Button>
-            </a>
-          </div>
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-0.5">
-              {[...Array(5)].map((_, i) => (
-                <svg key={i} className="w-4 h-4" fill="hsl(var(--primary))" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-              ))}
-            </div>
-            <p className="text-white/60 text-sm">
-              <span className="text-white font-semibold">{content.home_review_proof}</span>
-            </p>
-          </div>
-        </div>
-
-        {/* Right: Image column */}
-        <div id="hero-bg-shell" className="relative flex-1 min-h-[55vw] md:min-h-0 overflow-hidden">
+      <section className="relative flex min-h-[88svh] md:min-h-[92vh] items-stretch overflow-hidden bg-secondary">
+        {/* Full-bleed background image */}
+        <div id="hero-bg-shell" className="absolute inset-0">
           <img
             src={content.hero_image || '/images/optimized/hero-desktop-1344.jpg'}
             alt="Personal trainer JitanSports Den Bosch"
-            className="absolute inset-0 w-full h-full object-cover object-center"
+            className="w-full h-full object-cover object-center"
             loading="eager"
             decoding="async"
             fetchPriority="high"
           />
-          {/* Subtle left-edge fade to blend with content column on desktop */}
-          <div className="absolute inset-0 bg-gradient-to-r from-secondary/60 via-secondary/10 to-transparent md:from-secondary/50 md:via-secondary/10" />
-          {/* Bottom fade for mobile */}
-          <div className="absolute inset-0 bg-gradient-to-t from-secondary/50 via-transparent to-transparent md:hidden" />
+          {/* Gradient: strong dark left, fades to transparent right */}
+          <div className="absolute inset-0 bg-gradient-to-r from-secondary/95 via-secondary/80 to-secondary/25 md:from-secondary/92 md:via-secondary/70 md:to-secondary/10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-secondary/60 via-transparent to-transparent" />
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 flex flex-col justify-center max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-16 md:py-20 w-full">
+          <div className="max-w-[560px]">
+            {/* Eyebrow */}
+            <p className="text-primary font-semibold uppercase tracking-widest text-xs mb-5">
+              Personal Training&nbsp;•&nbsp;Deep Tissue Massage&nbsp;•&nbsp;Voedingsbegeleiding
+            </p>
+
+            {/* Main headline */}
+            <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-display font-bold text-white leading-[1.08] mb-2">
+              Word fitter,<br />sterker en pijnvrij
+            </h1>
+
+            {/* Italic accent line */}
+            <p className="text-primary text-2xl sm:text-3xl lg:text-4xl font-display italic font-semibold mb-6 leading-snug">
+              met een complete aanpak
+            </p>
+
+            {/* Body */}
+            <p className="text-white/75 text-base leading-relaxed mb-8 max-w-[460px]">
+              Bij JitanSports combinenen we personal training, deep tissue massage en voedingsbegeleiding voor blijvend resultaat. Persoonlijke aandacht. Gericht op jouw doelen. Voor lichaam én geest.
+            </p>
+
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-3 mb-10">
+              <Link to="/booking">
+                <Button size="lg" className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-secondary font-bold px-7 text-base gap-2">
+                  <CalendarCheck className="w-5 h-5" /> Plan gratis proefles
+                </Button>
+              </Link>
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                <Button size="lg" variant="outline" className="w-full sm:w-auto border-white/25 text-white hover:bg-white/10 gap-2 text-base">
+                  <MessageCircle className="w-5 h-5" /> WhatsApp direct
+                </Button>
+              </a>
+            </div>
+
+            {/* Trust badges */}
+            <div className="flex flex-wrap gap-5">
+              {[
+                { icon: Users, label: '100+', sub: 'Tevreden klanten' },
+                { icon: Star, label: 'Persoonlijke', sub: 'begeleiding' },
+                { icon: Activity, label: 'Training, voeding', sub: 'en herstel in balans' },
+              ].map(({ icon: Icon, label, sub }) => (
+                <div key={label} className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full border border-white/20 bg-white/10 flex items-center justify-center shrink-0">
+                    <Icon className="w-4 h-4 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-white font-semibold text-sm leading-none mb-0.5">{label}</p>
+                    <p className="text-white/55 text-xs">{sub}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
