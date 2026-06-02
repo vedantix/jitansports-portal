@@ -8,8 +8,8 @@
       content="Personal training, deep tissue massage en voedingsbegeleiding in omgeving Den Bosch. Plan gratis een proefles bij JitanSports."
     />
     <meta name="theme-color" content="#172033" />
-    <link rel="icon" href="https://media.base44.com/images/public/6a115e447a3ac96774309014/f4d0860f3_Logo2.png" />
-    <link rel="apple-touch-icon" href="https://media.base44.com/images/public/6a115e447a3ac96774309014/f4d0860f3_Logo2.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
     <link rel="manifest" href="/site.webmanifest" />
     <link
       rel="preload"
@@ -42,9 +42,11 @@
       .shell{min-height:100vh;background:transparent}
       .shell-nav{position:fixed;inset:0 0 auto;z-index:10;height:64px;background:rgba(255,255,255,.96);border-bottom:1px solid rgba(24,34,52,.12);box-shadow:0 1px 8px rgba(24,34,52,.08)}
       .shell-nav-inner{height:100%;max-width:1280px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-      .shell-logo{display:inline-flex;flex-direction:column;text-decoration:none;color:var(--shell-secondary);font-weight:800;line-height:1}
-      .shell-logo span:first-child{font-size:23px;letter-spacing:0}
-      .shell-logo span:last-child{margin-top:8px;font-size:11px;font-weight:700;color:#667085;text-transform:uppercase}
+      .shell-logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none;line-height:1}
+      .shell-logo img{height:44px;width:auto;display:block}
+      .shell-logo-text{display:flex;flex-direction:column}
+      .shell-logo-text span:first-child{font-size:21px;font-weight:800;color:var(--shell-secondary);letter-spacing:-0.01em}
+      .shell-logo-text span:last-child{font-size:10px;font-weight:700;color:#b07d00;text-transform:uppercase;letter-spacing:.13em;margin-top:2px}
       .shell-links{display:flex;align-items:center;gap:16px}
       .shell-links a{color:rgba(24,34,52,.78);font-size:14px;font-weight:700;text-decoration:none}
       .shell-links .shell-cta{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 20px;border-radius:8px;background:var(--shell-primary);color:var(--shell-secondary);box-shadow:0 8px 20px rgba(249,185,40,.22)}
@@ -81,8 +83,11 @@
         <header class="shell-nav">
           <div class="shell-nav-inner">
             <a class="shell-logo" href="/">
-              <span>JitanSports</span>
-              <span>Training &amp; Massage</span>
+              <img src="/favicon.svg" alt="JS" />
+              <div class="shell-logo-text">
+                <span>JitanSports</span>
+                <span>Training &amp; Massage</span>
+              </div>
             </a>
             <nav class="shell-links" aria-label="Hoofdnavigatie">
               <a href="/personal-training">Personal Training</a>
