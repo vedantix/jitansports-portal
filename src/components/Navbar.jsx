@@ -31,6 +31,9 @@ const NAV_ITEMS = [
   { label: 'Contact', path: '/contact' },
 ];
 
+const HOME_ITEM = NAV_ITEMS.find((item) => item.path === '/');
+const SECONDARY_NAV_ITEMS = NAV_ITEMS.filter((item) => item.path !== '/');
+
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
@@ -65,6 +68,18 @@ export default function Navbar() {
 
           {/* Desktop nav */}
           <div className="hidden min-w-0 items-center justify-end gap-1 xl:flex">
+            {HOME_ITEM && (
+              <Link
+                to={HOME_ITEM.path}
+                className={`rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${
+                  location.pathname === HOME_ITEM.path
+                    ? 'text-amber-700 bg-primary/10'
+                    : 'text-foreground/70 hover:text-foreground hover:bg-muted'
+                }`}
+              >
+                {HOME_ITEM.label}
+              </Link>
+            )}
             <DropdownMenu>
               <DropdownMenuTrigger
                 className={`inline-flex h-11 items-center gap-1 rounded-lg px-3 text-sm font-semibold transition-colors ${
@@ -115,7 +130,7 @@ export default function Navbar() {
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
-            {NAV_ITEMS.map(item => (
+            {SECONDARY_NAV_ITEMS.map(item => (
               <Link
                 key={item.path}
                 to={item.path}
@@ -176,6 +191,20 @@ export default function Navbar() {
               </button>
             </div>
             <div className="flex-1 overflow-y-auto px-4 py-5">
+              {HOME_ITEM && (
+                <div className="mb-5 space-y-1">
+                  <Link
+                    to={HOME_ITEM.path}
+                    className={`block rounded-lg px-4 py-3 text-base font-medium transition-colors ${
+                      location.pathname === HOME_ITEM.path
+                        ? 'text-amber-700 bg-primary/10'
+                        : 'text-foreground/70 hover:bg-muted'
+                    }`}
+                  >
+                    {HOME_ITEM.label}
+                  </Link>
+                </div>
+              )}
               <p className="mb-2 px-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">Diensten</p>
               <div className="space-y-1">
                 {SERVICE_ITEMS.map(item => (
@@ -210,7 +239,7 @@ export default function Navbar() {
               </div>
               <p className="mb-2 mt-6 px-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">Website</p>
               <div className="space-y-1">
-                {NAV_ITEMS.map(item => (
+                {SECONDARY_NAV_ITEMS.map(item => (
                   <Link
                     key={item.path}
                     to={item.path}
