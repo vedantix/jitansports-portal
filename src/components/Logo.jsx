@@ -10,8 +10,8 @@ export default function Logo({ to = '/', className = '', compact = false, onClic
       <img
         src={LOGO_URL}
         alt="JitanSports"
-        height={compact ? 44 : 64}
-        className={compact ? 'h-11 w-auto' : 'h-16 w-auto'}
+        height={compact ? 64 : 128}
+        className={compact ? 'h-16 w-auto' : 'h-32 w-auto'}
         style={isDark ? { filter: 'brightness(0) invert(1)' } : {}}
       />
     </Link>
