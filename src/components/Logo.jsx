@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const LOGO_URL = "https://media.base44.com/images/public/6a115e447a3ac96774309014/6212df634_Logo3.png";
+const LOGO_URL = "https://media.base44.com/images/public/6a115e447a3ac96774309014/a956ddf90_Logo4.png";
 
 export default function Logo({ to = '/', className = '', compact = false, onClick = undefined, tone = 'light' }) {
   const isDark = tone === 'dark';
