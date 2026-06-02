@@ -130,12 +130,7 @@ export default function Footer() {
                 <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5" />
                 <span>{content.address_label}</span>
               </div>
-              <div className="flex items-center gap-2 text-white/60 text-sm">
-                <span className="flex h-4 w-4 flex-shrink-0 items-center justify-center text-[10px] font-bold text-primary">
-                  KvK
-                </span>
-                <span>KvK: 76804593</span>
-              </div>
+
             </div>
           </div>
 
