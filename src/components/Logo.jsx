@@ -1,21 +1,15 @@
 import { Link } from 'react-router-dom';
 
 export default function Logo({ to = '/', className = '', compact = false, onClick = undefined, tone = 'light' }) {
-  const titleClass = tone === 'dark' ? 'text-white' : 'text-secondary';
-  const subtitleClass = tone === 'dark' ? 'text-white/50' : 'text-muted-foreground';
+  const height = compact ? 'h-10' : 'h-12';
 
   return (
     <Link to={to} onClick={onClick} className={`inline-flex items-center ${className}`}>
-      <span className="leading-none">
-        <span className={`block font-display ${compact ? 'text-lg' : 'text-xl'} font-extrabold ${titleClass}`}>
-          JitanSports
-        </span>
-        {!compact && (
-          <span className={`mt-1 block text-[0.68rem] font-semibold uppercase ${subtitleClass}`}>
-            Training & Massage
-          </span>
-        )}
-      </span>
+      <img 
+        src="https://media.base44.com/images/public/6a115e447a3ac96774309014/18c549b66_Logo.png" 
+        alt="JitanSports" 
+        className={`${height} w-auto object-contain`}
+      />
     </Link>
   );
 }
