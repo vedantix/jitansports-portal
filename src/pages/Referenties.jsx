@@ -3,6 +3,7 @@ import { Star, Quote } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import CTASection from '../components/CTASection';
 import SEO from '@/components/SEO';
+import PageHero from '@/components/PageHero';
 
 const FALLBACK_REVIEWS = [
   {
@@ -118,27 +119,23 @@ export default function Referenties() {
         path="/referenties"
       />
 
-      {/* Hero */}
-      <section className="bg-secondary px-4 py-16 text-white md:py-20">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-primary font-semibold mb-3 uppercase tracking-wider text-sm">Klantverhalen</p>
-          <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">
-            Wat onze klanten zeggen
-          </h1>
-          <p className="text-white/70 text-lg max-w-2xl mx-auto">
-            Meer dan 100 mensen in omgeving Den Bosch zijn je al voorgegaan. Lees hun verhalen en resultaten.
-          </p>
-          <div className="flex items-center justify-center gap-2 mt-6">
-            {[...Array(5)].map((_, i) => (
-              <Star key={i} className="w-6 h-6 fill-primary text-primary" />
-            ))}
-            <span className="text-white font-semibold ml-2">5.0 · 100+ beoordelingen</span>
-          </div>
+      <PageHero
+        align="center"
+        eyebrow="Klantverhalen"
+        title="Wat onze klanten zeggen"
+        subtitle="Meer dan 100 mensen in omgeving Den Bosch zijn je al voorgegaan. Lees hun verhalen en resultaten."
+        titleClassName="md:text-5xl lg:text-5xl"
+      >
+        <div className="mt-6 flex items-center justify-center gap-2">
+          {[...Array(5)].map((_, i) => (
+            <Star key={i} className="h-6 w-6 fill-primary text-primary" />
+          ))}
+          <span className="ml-2 font-semibold text-white">5.0 · 100+ beoordelingen</span>
         </div>
-      </section>
+      </PageHero>
 
       {/* Reviews grid */}
-      <section className="py-16 px-4">
+      <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {reviews.map((review, i) => (

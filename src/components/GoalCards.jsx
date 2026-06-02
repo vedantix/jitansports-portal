@@ -18,7 +18,7 @@ export default function GoalCards() {
   });
 
   return (
-    <section className="py-14 px-4 bg-white">
+    <section className="px-4 py-16 md:py-20 lg:py-24 bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10">
           <p className="text-amber-700 font-semibold uppercase tracking-wider text-sm mb-2">{content.goal_eyebrow}</p>

@@ -39,7 +39,7 @@ export default function GallerySection() {
   }, [lightbox]);
 
   return (
-    <section className="py-16 px-4 bg-muted/30">
+    <section className="px-4 py-16 md:py-20 lg:py-24 bg-muted/30">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10">
           <p className="text-amber-700 font-semibold uppercase tracking-wider text-sm mb-2">{content.gallery_eyebrow}</p>

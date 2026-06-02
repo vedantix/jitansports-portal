@@ -5,6 +5,8 @@ import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
 import SEO from '@/components/SEO';
 import ResponsiveImage from '@/components/ResponsiveImage';
+import PageHero from '@/components/PageHero';
+import ServiceReviews from '@/components/ServiceReviews';
 
 const HERO_IMG = '/images/optimized/page-training-hero-960.jpg';
 const OUTDOOR_IMG = '/images/optimized/gallery-outdoor-thumb-640.jpg';
@@ -48,28 +50,27 @@ export default function PersonalTraining() {
         path="/personal-training"
       />
 
-      {/* Hero */}
-      <section className="relative h-[55vh] min-h-[420px] flex items-center overflow-hidden">
-        <div className="absolute inset-0">
-          <ResponsiveImage src={HERO_IMG} alt="" className="w-full h-full object-cover" loading="eager" fetchPriority="high" />
-          <div className="absolute inset-0 bg-gradient-to-r from-secondary/90 to-secondary/40" />
+      <PageHero
+        image={HERO_IMG}
+        eyebrow="Personal Training"
+        title="Personal Training in Den Bosch"
+        subtitle="Word fitter, sterker, energieker en zelfverzekerder met 1-op-1 begeleiding aan huis of outdoor. Op jouw tempo, met een plan dat bij jou past."
+        contentClassName="max-w-xl"
+        overlayClassName="bg-gradient-to-r from-secondary/90 to-secondary/40"
+      >
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <Link to="/booking">
+            <Button size="lg" className="w-full gap-2 bg-primary font-bold text-secondary hover:bg-primary/90 sm:w-auto">
+              Plan Gratis Proefles <ArrowRight className="h-5 w-5" />
+            </Button>
+          </Link>
+          <Link to="/tarieven">
+            <Button size="lg" variant="outline" className="w-full border-white/30 text-white hover:bg-white/10 sm:w-auto">
+              Bekijk tarieven
+            </Button>
+          </Link>
         </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="max-w-xl">
-            <p className="text-primary font-semibold mb-3 uppercase tracking-wider text-sm">Personal Training</p>
-            <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
-              Personal Trainer in omgeving Den Bosch
-            </h1>
-            <p className="text-white/80 text-lg mb-8">
-              1-op-1 begeleiding aan huis of outdoor. Jouw doelen, jouw tempo, jouw resultaat. Met voedingsbegeleiding inbegrepen.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <Link to="/booking"><Button size="lg" className="bg-primary hover:bg-primary/90 text-secondary font-bold gap-2">Plan Gratis Proefles <ArrowRight className="w-5 h-5" /></Button></Link>
-              <Link to="/tarieven"><Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10">Bekijk tarieven</Button></Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      </PageHero>
 
       {/* Banner */}
       <section className="py-5 px-4 bg-primary/10">
@@ -80,7 +81,7 @@ export default function PersonalTraining() {
       </section>
 
       {/* Intro + benefits */}
-      <section className="py-16 px-4">
+      <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           <div>
             <h2 className="text-3xl font-display font-bold text-secondary mb-6">Wat is personal training bij JitanSports?</h2>
@@ -129,7 +130,7 @@ export default function PersonalTraining() {
       </section>
 
       {/* Voor wie */}
-      <section className="py-16 px-4 bg-muted/30">
+      <section className="px-4 py-16 md:py-20 lg:py-24 bg-muted/30">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-amber-700 font-semibold uppercase tracking-wider text-sm mb-2">Voor iedereen</p>
@@ -153,9 +154,9 @@ export default function PersonalTraining() {
       </section>
 
       {/* Training aan huis */}
-      <section className="py-16 px-4 bg-white">
+      <section className="px-4 py-16 md:py-20 lg:py-24 bg-white">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="rounded-2xl overflow-hidden h-80">
+          <div className="aspect-[4/3] overflow-hidden rounded-2xl lg:aspect-[16/10]">
             <ResponsiveImage src={HOME_IMG} alt="Personal Training aan huis Den Bosch" className="w-full h-full object-cover" sizes="(min-width: 1024px) 50vw, 100vw" />
           </div>
           <div className="space-y-4 text-muted-foreground leading-relaxed">
@@ -175,7 +176,7 @@ export default function PersonalTraining() {
       </section>
 
       {/* Outdoor */}
-      <section className="py-16 px-4 bg-muted/30">
+      <section className="px-4 py-16 md:py-20 lg:py-24 bg-muted/30">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-4 text-muted-foreground leading-relaxed">
             <h2 className="text-3xl font-display font-bold text-secondary">Outdoor training in omgeving Den Bosch</h2>
@@ -189,14 +190,14 @@ export default function PersonalTraining() {
               We trainen bij elk type weer. Bij extreme omstandigheden schakelen we soepel over naar training aan huis.
             </p>
           </div>
-          <div className="rounded-2xl overflow-hidden h-80">
+          <div className="aspect-[4/3] overflow-hidden rounded-2xl lg:aspect-[16/10]">
             <ResponsiveImage src={OUTDOOR_IMG} alt="Outdoor Personal Training Den Bosch" className="w-full h-full object-cover" sizes="(min-width: 1024px) 50vw, 100vw" />
           </div>
         </div>
       </section>
 
       {/* Werkwijze */}
-      <section className="py-16 px-4 bg-white">
+      <section className="px-4 py-16 md:py-20 lg:py-24 bg-white">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-display font-bold text-secondary">Werkwijze</h2>
@@ -242,14 +243,16 @@ export default function PersonalTraining() {
       </section>
 
       {/* FAQ */}
-      <section className="py-16 px-4 bg-white">
+      <section className="px-4 py-16 md:py-20 lg:py-24 bg-white">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-display font-bold text-secondary mb-8 text-center">Veelgestelde vragen</h2>
           <FAQAccordion items={FAQS} />
         </div>
       </section>
 
-      <CTASection title="Klaar om te starten?" subtitle="Plan vandaag nog je gratis proefles. Geen verplichtingen, geen kosten." />
+      <ServiceReviews title="Resultaten met personal training op jouw tempo" />
+
+      <CTASection title="Klaar om fitter, sterker en energieker te worden?" subtitle="Plan vandaag nog jouw gratis proefles. Geen verplichtingen, geen kosten." />
     </div>
   );
 }

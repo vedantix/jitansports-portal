@@ -7,6 +7,7 @@ import FAQAccordion from '@/components/FAQAccordion';
 import CTASection from '@/components/CTASection';
 import SEO, { ROUTE_SEO, buildFAQSchema } from '@/components/SEO';
 import { useSiteContent } from '@/hooks/useSiteContent';
+import PageHero from '@/components/PageHero';
 
 const FALLBACK_FAQS = [
   {
@@ -81,20 +82,20 @@ export default function FAQ() {
         image={content.seo_image}
         jsonLd={buildFAQSchema(faqs)}
       />
-      <section className="bg-secondary px-4 py-16 text-secondary-foreground md:py-20">
-        <div className="mx-auto max-w-4xl text-center">
+      <PageHero
+        align="center"
+        eyebrow={content.faq_eyebrow}
+        title={content.faq_title}
+        subtitle={content.faq_subtitle}
+        titleClassName="md:text-5xl lg:text-5xl"
+        badge={(
           <div className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/15 text-primary">
             <HelpCircle className="h-6 w-6" />
           </div>
-          <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary">{content.faq_eyebrow}</p>
-          <h1 className="font-display text-4xl font-bold md:text-5xl">{content.faq_title}</h1>
-          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-secondary-foreground/70 md:text-lg">
-            {content.faq_subtitle}
-          </p>
-        </div>
-      </section>
+        )}
+      />
 
-      <section className="px-4 py-14 md:py-16">
+      <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="mx-auto max-w-3xl">
           <div className="mb-6 flex gap-2 overflow-x-auto pb-2">
             {categories.map((category) => (

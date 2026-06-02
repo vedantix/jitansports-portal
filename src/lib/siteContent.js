@@ -15,17 +15,17 @@ const PAGE_IMAGES = {
 };
 
 export const DEFAULT_SITE_CONTENT = Object.freeze({
-  hero_eyebrow: 'Personal Trainer omgeving Den Bosch',
-  hero_title: 'Personal training en massage aan huis',
-  hero_highlight: 'Fit, sterk en vrij van pijn.',
+  hero_eyebrow: 'YOUR HEALTH IS OUR GOAL',
+  hero_title: 'Word fitter, sterker en pijnvrij',
+  hero_highlight: 'met persoonlijke begeleiding op jouw tempo',
   hero_subtitle:
-    'JitanSports helpt je met personal training, deep tissue massage en voedingsbegeleiding in omgeving Den Bosch.',
+    'Personal training, deep tissue massage en voedingsbegeleiding in Den Bosch, Rosmalen, Vught en omgeving.',
   hero_image: PAGE_IMAGES.hero,
   primary_cta_text: 'Plan gratis proefles',
   secondary_cta_text: 'WhatsApp direct',
-  cta_title: 'Klaar om jouw doelen serieus aan te pakken?',
+  cta_title: 'Klaar om fitter, sterker en energieker te worden?',
   cta_subtitle:
-    'Plan een gratis proefles of massage-intake en ontdek welke aanpak bij jouw lichaam, agenda en doel past.',
+    'Plan vandaag nog jouw gratis proefles en ontdek welke aanpak bij jouw lichaam, agenda en doel past.',
   phone_display: '06 82 27 26 80',
   phone_href: '+31682272680',
   whatsapp_number: '31682272680',
@@ -40,8 +40,8 @@ export const DEFAULT_SITE_CONTENT = Object.freeze({
   seo_description:
     'Personal training, deep tissue massage en voedingsbegeleiding in omgeving Den Bosch. Plan gratis een proefles bij JitanSports.',
   seo_image: PAGE_IMAGES.hero,
-  seo_home_title: 'JitanSports - Personal Trainer & Massage omgeving Den Bosch',
-  seo_home_description: 'Personal training, deep tissue massage en voedingsbegeleiding in omgeving Den Bosch. Plan gratis een proefles.',
+  seo_home_title: 'Personal Trainer Den Bosch, Massage & Voeding | JitanSports',
+  seo_home_description: 'Personal training, Deep Tissue Massage en voedingsbegeleiding in Den Bosch, Rosmalen, Vught en omgeving. Plan gratis een proefles.',
   seo_personal_training_title: 'Personal Training omgeving Den Bosch - Outdoor & Aan Huis | JitanSports',
   seo_personal_training_description:
     '1-op-1 personal training in omgeving Den Bosch. Outdoor, aan huis, duo-training en voedingsadvies. Start met een gratis proefles.',
@@ -101,12 +101,12 @@ export const DEFAULT_SITE_CONTENT = Object.freeze({
   home_mid_cta_text: 'Plan vandaag nog je gratis proefles en ontdek wat JitanSports voor jou kan betekenen.',
   home_mid_cta_button: 'Start Vandaag',
   home_about_eyebrow: 'Over JitanSports',
-  home_about_title: 'Jouw persoonlijke gids naar een gezonde lifestyle',
+  home_about_title: 'Ontmoet Jitan - jouw persoonlijke coach',
   home_about_text:
-    'JitanSports is ontstaan vanuit eigen ervaring. Ervaring in het er na je 40ste nog steeds goed uit kunnen zien en jezelf goed voelen. Met meer dan 10 jaar ervaring help ik klanten in omgeving Den Bosch hun doelen te bereiken.',
+    'JitanSports is ontstaan vanuit ervaring. Ook na je veertigste kun je nog steeds fit, energiek en zelfverzekerd zijn. Met jarenlange ervaring in personal training, voeding en massage helpt Jitan klanten stap voor stap naar een gezondere lifestyle.',
   home_about_image: PAGE_IMAGES.hero,
   home_about_usps:
-    'Personal Training specialist\n10+ jaar ervaring\nDeep Tissue Massage\nVoedingsadvies\nOutdoor & aan huis\nGratis proefles',
+    'Jarenlange ervaring\nVintage Krachttraining\nDeep Tissue Massage specialist\nVoedingsbegeleiding\nLuisterend oor\nStap voor stap begeleiding',
   home_about_button: 'Meer over Jitan',
   home_faq_title: 'Veelgestelde vragen',
   home_faq_1_question: 'Waar trainen we?',

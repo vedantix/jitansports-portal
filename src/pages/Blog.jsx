@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { Calendar, ArrowRight } from 'lucide-react';
@@ -6,6 +6,8 @@ import { useSiteContent } from '@/hooks/useSiteContent';
 import ResponsiveImage from '@/components/ResponsiveImage';
 import SEO, { ROUTE_SEO } from '@/components/SEO';
 import { FALLBACK_POSTS } from '@/lib/blogContent';
+import PageHero from '@/components/PageHero';
+import CTASection from '@/components/CTASection';
 
 const formatDate = (date) =>
   new Intl.DateTimeFormat('nl-NL', {
@@ -14,10 +16,23 @@ const formatDate = (date) =>
     year: 'numeric',
   }).format(new Date(date));
 
+const BLOG_CATEGORIES = ['Alle', 'Personal Training', 'Massage', 'Voeding', 'Lifestyle', 'Resultaten'];
+
+const normalizeCategory = (category = '') => {
+  const value = category.toLowerCase();
+  if (value.includes('massage') || value.includes('herstel')) return 'Massage';
+  if (value.includes('voeding')) return 'Voeding';
+  if (value.includes('result')) return 'Resultaten';
+  if (value.includes('training')) return 'Personal Training';
+  if (value.includes('40') || value.includes('lifestyle')) return 'Lifestyle';
+  return category || 'Lifestyle';
+};
+
 export default function Blog() {
   const { content } = useSiteContent();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [activeCategory, setActiveCategory] = useState('Alle');
 
   useEffect(() => {
     base44.entities.Blog.filter({ status: 'gepubliceerd' }, '-created_date').then(data => {
@@ -29,6 +44,12 @@ export default function Blog() {
   }, []);
 
   const displayPosts = posts.length ? posts : FALLBACK_POSTS;
+  const filteredPosts = useMemo(
+    () => activeCategory === 'Alle'
+      ? displayPosts
+      : displayPosts.filter((post) => normalizeCategory(post.category) === activeCategory),
+    [activeCategory, displayPosts]
+  );
 
   return (
     <div>
@@ -38,25 +59,40 @@ export default function Blog() {
         description={content.seo_blog_description || ROUTE_SEO['/blog'].description}
         image={content.seo_image}
       />
-      <section className="py-20 px-4 bg-secondary text-secondary-foreground">
-        <div className="max-w-7xl mx-auto text-center">
-          <div>
-            <p className="text-primary font-semibold mb-3 uppercase tracking-wider text-sm">{content.blog_eyebrow}</p>
-            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">{content.blog_title}</h1>
-            <p className="text-secondary-foreground/70 text-lg">{content.blog_subtitle}</p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        align="center"
+        eyebrow={content.blog_eyebrow}
+        title={content.blog_title}
+        subtitle={content.blog_subtitle}
+        titleClassName="md:text-5xl lg:text-5xl"
+      />
 
-      <section className="py-20 px-4">
+      <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="max-w-7xl mx-auto">
+          <div className="mb-8 flex gap-2 overflow-x-auto pb-2">
+            {BLOG_CATEGORIES.map((category) => (
+              <button
+                key={category}
+                type="button"
+                onClick={() => setActiveCategory(category)}
+                className={`whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold transition ${
+                  activeCategory === category
+                    ? 'bg-secondary text-white'
+                    : 'border border-border bg-white text-muted-foreground hover:text-secondary'
+                }`}
+                aria-pressed={activeCategory === category}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
           {loading ? (
             <div className="flex justify-center py-20">
               <div className="w-8 h-8 border-4 border-border border-t-primary rounded-full animate-spin" />
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {displayPosts.map((post) => (
+              {filteredPosts.map((post) => (
                 <div key={post.id}>
                   <Link to={`/blog/${post.slug}`} className="group block rounded-2xl overflow-hidden bg-white border border-border/50 hover:shadow-xl transition-all duration-300">
                     <div className="aspect-[3/2] overflow-hidden">
@@ -71,7 +107,7 @@ export default function Blog() {
                     </div>
                     <div className="p-6">
                       {post.category && (
-                        <span className="text-xs font-semibold text-primary uppercase tracking-wider">{post.category}</span>
+                        <span className="text-xs font-semibold text-primary uppercase tracking-wider">{normalizeCategory(post.category)}</span>
                       )}
                       <h2 className="text-lg font-bold text-secondary mt-2 mb-2 group-hover:text-primary transition-colors">{post.title}</h2>
                       <p className="text-muted-foreground text-sm line-clamp-2 mb-4">{post.excerpt}</p>
@@ -91,6 +127,8 @@ export default function Blog() {
           )}
         </div>
       </section>
+
+      <CTASection title="Klaar om fitter, sterker en energieker te worden?" subtitle="Plan vandaag nog jouw gratis proefles en zet de eerste stap." />
     </div>
   );
 }

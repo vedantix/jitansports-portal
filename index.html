@@ -8,8 +8,8 @@
       content="Personal training, deep tissue massage en voedingsbegeleiding in omgeving Den Bosch. Plan gratis een proefles bij JitanSports."
     />
     <meta name="theme-color" content="#172033" />
-    <link rel="icon" type="image/png" href="https://media.base44.com/images/public/6a115e447a3ac96774309014/d299fe16a_Favicon.png" />
-    <link rel="apple-touch-icon" href="https://media.base44.com/images/public/6a115e447a3ac96774309014/ba3ee1a0d_Logo5.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
     <link rel="manifest" href="/site.webmanifest" />
     <link
       rel="preload"
@@ -36,18 +36,19 @@
       :root{--shell-primary:#f9b928;--shell-secondary:#182234;--shell-white:#fff}
       *{box-sizing:border-box}
       body{margin:0;background:#fff;color:var(--shell-secondary);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-      #hero-bg-shell{position:absolute;inset:0 0 auto;height:86vh;min-height:700px;z-index:0;overflow:hidden;background:var(--shell-secondary)}
-      #hero-bg-shell picture,#hero-bg-shell img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+      #static-hero-media{position:absolute;inset:0 0 auto;height:calc(80px + clamp(480px,75svh,760px));z-index:0;overflow:hidden;background:var(--shell-secondary)}
+      #static-hero-media picture,#static-hero-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
       #root{position:relative;z-index:1}
       .shell{min-height:100vh;background:transparent}
-      .shell-nav{position:fixed;inset:0 0 auto;z-index:10;height:68px;background:rgba(255,255,255,.97);border-bottom:1px solid rgba(0,0,0,.09);box-shadow:0 1px 6px rgba(0,0,0,.06)}
+      .shell-nav{position:fixed;inset:0 0 auto;z-index:10;height:80px;background:rgba(255,255,255,.96);border-bottom:1px solid rgba(24,34,52,.12);box-shadow:0 1px 8px rgba(24,34,52,.08)}
       .shell-nav-inner{height:100%;max-width:1280px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-      .shell-logo{display:inline-flex;align-items:center;text-decoration:none;line-height:1}
-      .shell-logo img{height:44px;width:auto;display:block}
+      .shell-logo{display:inline-flex;flex-direction:column;text-decoration:none;color:var(--shell-secondary);font-weight:800;line-height:1}
+      .shell-logo span:first-child{font-size:36px;letter-spacing:0}
+      .shell-logo span:last-child{margin-top:8px;font-size:11px;font-weight:700;color:#667085;text-transform:uppercase}
       .shell-links{display:flex;align-items:center;gap:16px}
       .shell-links a{color:rgba(24,34,52,.78);font-size:14px;font-weight:700;text-decoration:none}
       .shell-links .shell-cta{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 20px;border-radius:8px;background:var(--shell-primary);color:var(--shell-secondary);box-shadow:0 8px 20px rgba(249,185,40,.22)}
-      .shell-hero{position:relative;min-height:82svh;padding-top:68px;display:flex;align-items:center;overflow:hidden;background:transparent}
+      .shell-hero{position:relative;min-height:clamp(480px,75svh,760px);padding-top:80px;display:flex;align-items:center;overflow:hidden;background:transparent}
       .shell-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(24,34,52,.95),rgba(24,34,52,.82),rgba(24,34,52,.25))}
       .shell-hero-content{position:relative;z-index:1;width:100%;max-width:1280px;margin:0 auto;padding:56px 24px;color:var(--shell-white)}
       .shell-hero-copy{max-width:620px}
@@ -61,12 +62,12 @@
       .shell-actions a:last-child{border:1px solid rgba(255,255,255,.35);color:var(--shell-white)}
       .shell-proof{margin-top:28px;color:rgba(255,255,255,.82);font-size:14px;font-weight:700}
       .shell-proof span{color:var(--shell-primary);letter-spacing:.08em}
-      @media (min-width:768px){.shell-nav{height:76px}.shell-hero{min-height:86vh;padding-top:76px}.shell-hero::after{background:linear-gradient(to right,rgba(24,34,52,.94),rgba(24,34,52,.76),rgba(24,34,52,.2))}.shell-hero-content{padding:72px 32px}}
-      @media (max-width:1023px){.shell-links a:not(.shell-cta){display:none}.shell-nav-inner{padding:0 16px}.shell-links{gap:0}.shell-links .shell-cta{display:none}.shell-actions{flex-direction:column}.shell-actions a{width:100%}.shell-subtitle{font-size:16px}}
+      @media (min-width:768px){#static-hero-media{height:calc(96px + clamp(480px,75svh,760px))}.shell-nav{height:96px}.shell-hero{padding-top:96px}.shell-hero::after{background:linear-gradient(to right,rgba(24,34,52,.94),rgba(24,34,52,.76),rgba(24,34,52,.2))}.shell-hero-content{padding:72px 32px}.shell-logo span:first-child{font-size:40px}}
+      @media (max-width:1279px){.shell-links a:not(.shell-cta){display:none}.shell-nav-inner{padding:0 16px}.shell-links{gap:0}.shell-links .shell-cta{display:none}.shell-actions{flex-direction:column}.shell-actions a{width:100%}.shell-subtitle{font-size:16px}}
     </style>
   </head>
   <body>
-    <div id="hero-bg-shell" aria-hidden="true">
+    <div id="static-hero-media" aria-hidden="true">
       <picture>
         <source media="(max-width: 767px)" type="image/avif" srcset="/images/optimized/hero-mobile-480.avif 480w, /images/optimized/hero-mobile-560.avif 560w, /images/optimized/hero-mobile-768.avif 768w, /images/optimized/hero-mobile-960.avif 960w" sizes="100vw" />
         <source media="(max-width: 767px)" type="image/webp" srcset="/images/optimized/hero-mobile-480.webp 480w, /images/optimized/hero-mobile-560.webp 560w, /images/optimized/hero-mobile-768.webp 768w, /images/optimized/hero-mobile-960.webp 960w" sizes="100vw" />
@@ -80,12 +81,13 @@
         <header class="shell-nav">
           <div class="shell-nav-inner">
             <a class="shell-logo" href="/">
-              <img src="https://media.base44.com/images/public/6a115e447a3ac96774309014/ba3ee1a0d_Logo5.png" alt="JitanSports" />
+              <span>JitanSports</span>
+              <span>Training &amp; Massage</span>
             </a>
             <nav class="shell-links" aria-label="Hoofdnavigatie">
-              <a href="/">Home</a>
+              <a href="/personal-training">Diensten</a>
               <a href="/tarieven">Tarieven</a>
-              <a href="/over-ons">Over Ons</a>
+              <a href="/over-ons">Over Jitan</a>
               <a href="/contact">Contact</a>
               <a class="shell-cta" href="/booking">Plan Proefles</a>
             </nav>
@@ -95,9 +97,9 @@
           <section class="shell-hero" aria-label="JitanSports personal training en massage">
             <div class="shell-hero-content">
               <div class="shell-hero-copy">
-                <p class="shell-eyebrow">Personal trainer omgeving Den Bosch</p>
-                <h1 class="shell-title">Personal training en massage aan huis <strong>Fit, sterk en vrij van pijn.</strong></h1>
-                <p class="shell-subtitle">JitanSports helpt je met personal training, deep tissue massage en voedingsbegeleiding in omgeving Den Bosch.</p>
+                <p class="shell-eyebrow">YOUR HEALTH IS OUR GOAL</p>
+                <h1 class="shell-title">Word fitter, sterker en pijnvrij <strong>met persoonlijke begeleiding op jouw tempo</strong></h1>
+                <p class="shell-subtitle">Personal training, deep tissue massage en voedingsbegeleiding in Den Bosch, Rosmalen, Vught en omgeving.</p>
                 <div class="shell-actions">
                   <a href="/booking">Plan gratis proefles</a>
                   <a href="https://wa.me/31682272680?text=Hallo%20JitanSports%2C%20ik%20wil%20graag%20een%20gratis%20proefles%20aanvragen.">WhatsApp direct</a>

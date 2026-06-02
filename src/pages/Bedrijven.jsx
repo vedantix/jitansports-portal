@@ -1,9 +1,12 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Building2, Users, Armchair, Zap, CheckCircle, Send } from 'lucide-react';
+import { Building2, Users, Armchair, Zap, CheckCircle, Send, ArrowRight } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import SEO from '@/components/SEO';
-import ResponsiveImage from '@/components/ResponsiveImage';
+import PageHero from '@/components/PageHero';
+import ServiceReviews from '@/components/ServiceReviews';
+import CTASection from '@/components/CTASection';
 
 const HERO_IMG = '/images/optimized/page-training-hero-960.jpg';
 
@@ -69,25 +72,29 @@ export default function Bedrijven() {
         path="/bedrijven"
       />
 
-      <section className="relative h-[50vh] min-h-[400px] flex items-center overflow-hidden">
-        <div className="absolute inset-0">
-          <ResponsiveImage src={HERO_IMG} alt="" className="w-full h-full object-cover" loading="eager" fetchPriority="high" />
-          <div className="absolute inset-0 bg-gradient-to-r from-secondary/90 to-secondary/40" />
+      <PageHero
+        image={HERO_IMG}
+        eyebrow="Voor Bedrijven"
+        title="Bedrijfsfitness en Stoelmassage in omgeving Den Bosch"
+        subtitle="Investeer in de vitaliteit van je team. Van stoelmassage op kantoor tot complete vitaliteitsdagen."
+        contentClassName="max-w-xl"
+        overlayClassName="bg-gradient-to-r from-secondary/90 to-secondary/40"
+      >
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <Link to="/contact">
+            <Button size="lg" className="w-full gap-2 bg-primary font-bold text-primary-foreground hover:bg-primary/90 sm:w-auto">
+              Vraag offerte aan <ArrowRight className="h-5 w-5" />
+            </Button>
+          </Link>
+          <Link to="/booking">
+            <Button size="lg" variant="outline" className="w-full border-white/30 text-white hover:bg-white/10 sm:w-auto">
+              Plan kennismaking
+            </Button>
+          </Link>
         </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="max-w-xl">
-            <p className="text-primary font-semibold mb-3 uppercase tracking-wider text-sm">Voor Bedrijven</p>
-            <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
-              Bedrijfsfitness en Stoelmassage in omgeving Den Bosch
-            </h1>
-            <p className="text-white/80 text-lg">
-              Investeer in de vitaliteit van je team. Van stoelmassage op kantoor tot complete vitaliteitsdagen.
-            </p>
-          </div>
-        </div>
-      </section>
+      </PageHero>
 
-      <section className="px-4 py-16">
+      <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-amber-700 font-semibold uppercase tracking-wider text-sm mb-3">Vitaliteit op de werkvloer</p>
           <h2 className="text-3xl font-display font-bold text-secondary mb-6">Breng verzuim terug tot een minimum</h2>
@@ -99,7 +106,7 @@ export default function Bedrijven() {
         </div>
       </section>
 
-      <section className="py-16 px-4">
+      <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-display font-bold text-secondary">Onze bedrijfsdiensten</h2>
@@ -124,7 +131,7 @@ export default function Bedrijven() {
         </div>
       </section>
 
-      <section className="py-16 px-4 bg-muted/30">
+      <section className="px-4 py-16 md:py-20 lg:py-24 bg-muted/30">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl font-display font-bold text-secondary mb-8">Waarom investeren in vitaliteit?</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
@@ -138,7 +145,7 @@ export default function Bedrijven() {
         </div>
       </section>
 
-      <section className="py-16 px-4">
+      <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="text-3xl font-display font-bold text-secondary">Offerte aanvragen</h2>
@@ -177,6 +184,14 @@ export default function Bedrijven() {
           )}
         </div>
       </section>
+
+      <ServiceReviews title="Teams die vitaler werken met JitanSports" />
+
+      <CTASection
+        dark
+        title="Klaar om je team fitter en energieker te maken?"
+        subtitle="Vraag een offerte aan voor stoelmassages, groepstrainingen of een vitaliteitsdag."
+      />
     </div>
   );
 }

@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, Instagram, Facebook, Linkedin, Star, Users, Clock } from 'lucide-react';
+import { Phone, Mail, MapPin, Instagram, Facebook, Linkedin, Star, Users, Clock, MessageCircle } from 'lucide-react';
 import Logo from '@/components/Logo';
 import { useSiteContent } from '@/hooks/useSiteContent';
+import { createWhatsAppUrl } from '@/lib/siteContent';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -28,7 +29,7 @@ export default function Footer() {
 
       {/* Main footer */}
       <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-5">
           {/* Brand */}
           <div>
             <Logo tone="dark" className="mb-4" />
@@ -62,13 +63,9 @@ export default function Footer() {
               {[
                 ['Personal Training', '/personal-training'],
                 ['Massage', '/massage'],
-                ['Voedingsbegeleiding', '/voeding'],
-                ['Voedingscoach Den Bosch', '/voedingscoach-den-bosch'],
-                ['Get Fit Programma', '/get-fit'],
+                ['Voeding', '/voeding'],
                 ['VIP Treatment', '/vip-treatment'],
-                ['Bedrijven', '/bedrijven'],
-                ['Tarieven', '/tarieven'],
-                ['Referenties', '/referenties'],
+                ['Get Fit Programma', '/get-fit'],
               ].map(([label, path]) => (
                 <li key={path}>
                   <Link to={path} className="text-white/60 hover:text-primary text-sm transition-colors">
@@ -79,19 +76,15 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Werkgebied */}
+          {/* Locaties */}
           <div>
-            <p className="font-semibold text-white mb-4">Werkgebied</p>
+            <p className="font-semibold text-white mb-4">Locaties</p>
             <ul className="space-y-2">
               {[
-                ['Personal Trainer Den Bosch', '/personal-trainer-den-bosch'],
-                ['Personal Trainer Rosmalen', '/personal-trainer-rosmalen'],
-                ['Personal Trainer Vught', '/personal-trainer-vught'],
-                ['Personal Trainer Oss', '/personal-trainer-oss'],
-                ['Sportmassage Den Bosch', '/sportmassage-den-bosch'],
-                ['Massage aan huis Den Bosch', '/massage-aan-huis-den-bosch'],
-                ['Massage Den Bosch', '/massage-den-bosch'],
-                ['Deep Tissue Massage Den Bosch', '/deep-tissue-massage-den-bosch'],
+                ['Den Bosch', '/personal-trainer-den-bosch'],
+                ['Rosmalen', '/personal-trainer-rosmalen'],
+                ['Vught', '/personal-trainer-vught'],
+                ['Oss', '/personal-trainer-oss'],
               ].map(([label, path]) => (
                 <li key={path}>
                   <Link to={path} className="text-white/60 hover:text-primary text-sm transition-colors">
@@ -112,11 +105,33 @@ export default function Footer() {
               <a href={`mailto:${content.email}`} className="flex items-center gap-2 text-white/60 hover:text-primary text-sm transition-colors">
                 <Mail className="w-4 h-4 flex-shrink-0" /> {content.email}
               </a>
+              <a href={createWhatsAppUrl(content)} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white/60 hover:text-primary text-sm transition-colors">
+                <MessageCircle className="w-4 h-4 flex-shrink-0" /> WhatsApp direct
+              </a>
               <div className="flex items-start gap-2 text-white/60 text-sm">
                 <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5" />
                 <span>{content.address_label}</span>
               </div>
             </div>
+          </div>
+
+          {/* Snel naar */}
+          <div>
+            <p className="font-semibold text-white mb-4">Snel naar</p>
+            <ul className="space-y-2">
+              {[
+                ['Tarieven', '/tarieven'],
+                ['Referenties', '/referenties'],
+                ['Blog', '/blog'],
+                ['Gratis Proefles', '/booking'],
+              ].map(([label, path]) => (
+                <li key={path}>
+                  <Link to={path} className="text-white/60 hover:text-primary text-sm transition-colors">
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>

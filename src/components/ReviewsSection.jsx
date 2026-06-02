@@ -35,7 +35,7 @@ export default function ReviewsSection() {
   const review = reviews[current];
 
   return (
-    <section className="py-16 px-4 bg-secondary text-white">
+    <section className="px-4 py-16 md:py-20 lg:py-24 bg-secondary text-white">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <p className="text-primary font-semibold uppercase tracking-wider text-sm mb-2">Klantbeoordelingen</p>

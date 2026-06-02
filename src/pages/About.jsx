@@ -4,6 +4,7 @@ import { ArrowRight, CheckCircle, Award, Heart, Target, Zap, Star } from 'lucide
 import CTASection from '../components/CTASection';
 import SEO from '@/components/SEO';
 import ResponsiveImage from '@/components/ResponsiveImage';
+import PageHero from '@/components/PageHero';
 
 const HERO_IMG = '/images/optimized/page-about-hero-960.jpg';
 const PROFILE_IMG = '/images/optimized/page-about-hero-960.jpg';
@@ -40,24 +41,14 @@ export default function About() {
         path="/over-ons"
       />
 
-      {/* Hero */}
-      <section className="relative h-[50vh] min-h-[400px] flex items-center overflow-hidden">
-        <div className="absolute inset-0">
-          <ResponsiveImage src={HERO_IMG} alt="" className="w-full h-full object-cover" loading="eager" fetchPriority="high" />
-          <div className="absolute inset-0 bg-gradient-to-r from-secondary/90 to-secondary/40" />
-        </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="max-w-xl">
-            <p className="text-primary font-semibold mb-3 uppercase tracking-wider text-sm">Over JitanSports</p>
-            <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
-              Ontmoet Jitan – jouw persoonlijke coach
-            </h1>
-            <p className="text-white/80 text-lg">
-              Persoonlijke begeleiding voor wie sterker, fitter en vrijer wil bewegen. Met vintage krachttraining, voeding en Deep Tissue Massage.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        image={HERO_IMG}
+        eyebrow="Over JitanSports"
+        title="Ontmoet Jitan – jouw persoonlijke coach"
+        subtitle="Persoonlijke begeleiding voor wie sterker, fitter en vrijer wil bewegen. Met vintage krachttraining, voeding en Deep Tissue Massage."
+        contentClassName="max-w-xl"
+        overlayClassName="bg-gradient-to-r from-secondary/90 to-secondary/40"
+      />
 
       {/* Stats bar */}
       <section className="bg-primary">
@@ -72,7 +63,7 @@ export default function About() {
       </section>
 
       {/* Main story */}
-      <section className="py-20 px-4">
+      <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           <div className="space-y-5 text-muted-foreground leading-relaxed">
             <h2 className="text-3xl font-display font-bold text-secondary">JitanSports is ontstaan vanuit ervaring</h2>
@@ -86,7 +77,7 @@ export default function About() {
           </div>
 
           <div className="space-y-6">
-            <div className="rounded-2xl overflow-hidden h-[420px]">
+            <div className="aspect-[4/3] overflow-hidden rounded-2xl lg:aspect-[5/4]">
               <ResponsiveImage src={PROFILE_IMG} alt="JitanSports personal training en massage" className="w-full h-full object-cover" sizes="(min-width: 1024px) 50vw, 100vw" />
             </div>
             <div className="p-6 rounded-2xl bg-secondary text-white">
@@ -105,9 +96,9 @@ export default function About() {
       </section>
 
       {/* Massage expertise */}
-      <section className="py-20 px-4 bg-muted/30">
+      <section className="px-4 py-16 md:py-20 lg:py-24 bg-muted/30">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div className="rounded-2xl overflow-hidden h-80 order-2 lg:order-1">
+          <div className="order-2 aspect-[4/3] overflow-hidden rounded-2xl lg:order-1 lg:aspect-[16/10]">
             <ResponsiveImage src={MASSAGE_IMG} alt="Deep Tissue Massage Den Bosch" className="w-full h-full object-cover" sizes="(min-width: 1024px) 50vw, 100vw" />
           </div>
           <div className="order-1 lg:order-2">
@@ -126,7 +117,7 @@ export default function About() {
       </section>
 
       {/* Voeding */}
-      <section className="py-20 px-4 bg-white">
+      <section className="px-4 py-16 md:py-20 lg:py-24 bg-white">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
             <p className="text-amber-700 font-semibold uppercase tracking-wider text-sm mb-3">Voeding en Leefstijl</p>
@@ -141,14 +132,14 @@ export default function About() {
               <Button variant="outline" className="gap-2">Meer over voedingsbegeleiding <ArrowRight className="w-4 h-4" /></Button>
             </Link>
           </div>
-          <div className="rounded-2xl overflow-hidden h-80">
+          <div className="aspect-[4/3] overflow-hidden rounded-2xl lg:aspect-[16/10]">
             <ResponsiveImage src={ACTION_IMG} alt="Personal Training Den Bosch" className="w-full h-full object-cover" sizes="(min-width: 1024px) 50vw, 100vw" />
           </div>
         </div>
       </section>
 
       {/* Values */}
-      <section className="py-20 px-4 bg-muted/30">
+      <section className="px-4 py-16 md:py-20 lg:py-24 bg-muted/30">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-amber-700 font-semibold uppercase tracking-wider text-sm mb-3">Mijn visie</p>
@@ -169,7 +160,7 @@ export default function About() {
       </section>
 
       {/* Testimonial */}
-      <section className="py-16 px-4 bg-secondary text-white">
+      <section className="px-4 py-16 md:py-20 lg:py-24 bg-secondary text-white">
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex justify-center gap-1 mb-6">
             {[...Array(5)].map((_, i) => <Star key={i} className="w-6 h-6 fill-primary text-primary" />)}

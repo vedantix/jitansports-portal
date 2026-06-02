@@ -5,8 +5,9 @@ import FAQAccordion from '../components/FAQAccordion';
 import CTASection from '../components/CTASection';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import { contentLines } from '@/lib/siteContent';
-import ResponsiveImage from '@/components/ResponsiveImage';
 import SEO, { ROUTE_SEO } from '@/components/SEO';
+import PageHero from '@/components/PageHero';
+import ServiceReviews from '@/components/ServiceReviews';
 
 const SCHEMA = {
   "@context": "https://schema.org",
@@ -36,38 +37,31 @@ export default function DeepTissueMassageDenBosch() {
         image={content.seo_image}
         jsonLd={SCHEMA}
       />
-      <section className="relative py-20 px-4 bg-secondary overflow-hidden">
-        <div className="absolute inset-0 opacity-15">
-          <ResponsiveImage
-            src={content.deep_db_hero_image}
-            alt=""
-            className="w-full h-full object-cover"
-            sizes="100vw"
-            loading="eager"
-            fetchPriority="high"
-          />
-        </div>
-        <div className="relative z-10 max-w-4xl mx-auto text-center">
+      <PageHero
+        image={content.deep_db_hero_image}
+        title={content.deep_db_title}
+        subtitle={content.deep_db_subtitle}
+        align="center"
+        overlayClassName="bg-secondary/85"
+        titleClassName="md:text-5xl lg:text-5xl"
+        badge={(
           <div className="flex items-center justify-center gap-1 mb-4">
             {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-primary text-primary" />)}
             <span className="text-white/60 text-sm ml-2">{content.deep_db_rating_text}</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">{content.deep_db_title}</h1>
-          <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
-            {content.deep_db_subtitle}
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link to="/booking">
-              <Button size="lg" className="bg-primary text-secondary font-bold gap-2">{content.deep_db_primary_button} <ArrowRight className="w-4 h-4" /></Button>
-            </Link>
-            <a href={`tel:${content.phone_href}`}>
-              <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10">{content.phone_display}</Button>
-            </a>
-          </div>
+        )}
+      >
+        <div className="flex flex-col justify-center gap-3 sm:flex-row">
+          <Link to="/booking">
+            <Button size="lg" className="gap-2 bg-primary font-bold text-secondary">{content.deep_db_primary_button} <ArrowRight className="w-4 h-4" /></Button>
+          </Link>
+          <a href={`tel:${content.phone_href}`}>
+            <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10">{content.phone_display}</Button>
+          </a>
         </div>
-      </section>
+      </PageHero>
 
-      <section className="py-16 px-4">
+      <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div>
             <h2 className="text-2xl font-display font-bold text-secondary mb-4">{content.deep_db_section_title}</h2>
@@ -125,7 +119,9 @@ export default function DeepTissueMassageDenBosch() {
         </div>
       </section>
 
-      <CTASection title={content.deep_db_cta_title} subtitle={content.deep_db_cta_subtitle} />
+      <ServiceReviews title="Ervaringen met Deep Tissue Massage" />
+
+      <CTASection title="Klaar om fitter, sterker en energieker te worden?" subtitle={content.deep_db_cta_subtitle} />
     </div>
   );
 }

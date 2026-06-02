@@ -3,8 +3,9 @@ import { ArrowRight, BarChart3, CheckCircle, Salad, Scale } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
-import ResponsiveImage from '@/components/ResponsiveImage';
 import SEO, { buildFAQSchema } from '@/components/SEO';
+import PageHero from '@/components/PageHero';
+import ServiceReviews from '@/components/ServiceReviews';
 
 const FAQS = [
   {
@@ -40,35 +41,21 @@ export default function VoedingscoachDenBosch() {
         jsonLd={buildFAQSchema(FAQS)}
       />
 
-      <section className="relative flex min-h-[62svh] items-center overflow-hidden px-4 py-20 text-white">
-        <div className="absolute inset-0">
-          <ResponsiveImage
-            src="/images/optimized/page-getfit-hero-960.jpg"
-            alt=""
-            className="h-full w-full object-cover"
-            sizes="100vw"
-            loading="eager"
-            fetchPriority="high"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-secondary/94 via-secondary/78 to-secondary/25" />
-        </div>
-        <div className="relative z-10 mx-auto max-w-7xl">
-          <div className="max-w-2xl">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary">Voedingscoach Den Bosch</p>
-            <h1 className="mb-5 text-4xl font-display font-bold leading-tight md:text-6xl">Voedingsschema op maat in Den Bosch</h1>
-            <p className="mb-7 text-lg leading-relaxed text-white/82">
-              Voor afvallen, aankomen, spieropbouw en meer energie. Praktische voedingsbegeleiding met lichaamsanalyse en digitaal rapport.
-            </p>
-            <Link to="/booking">
-              <Button size="lg" className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90">
-                Plan gratis intake <ArrowRight className="h-5 w-5" />
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        image="/images/optimized/page-getfit-hero-960.jpg"
+        eyebrow="Voedingscoach Den Bosch"
+        title="Voedingsschema op maat in Den Bosch"
+        subtitle="Voor afvallen, aankomen, spieropbouw en meer energie. Praktische voedingsbegeleiding met lichaamsanalyse en digitaal rapport."
+        overlayClassName="bg-gradient-to-r from-secondary/94 via-secondary/78 to-secondary/25"
+      >
+        <Link to="/booking">
+          <Button size="lg" className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90">
+            Plan gratis intake <ArrowRight className="h-5 w-5" />
+          </Button>
+        </Link>
+      </PageHero>
 
-      <section className="px-4 py-16">
+      <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:items-start">
           <div>
             <h2 className="mb-5 text-3xl font-display font-bold text-secondary">Voeding die bij jouw leven past</h2>
@@ -97,7 +84,7 @@ export default function VoedingscoachDenBosch() {
         </div>
       </section>
 
-      <section className="bg-muted/30 px-4 py-16">
+      <section className="bg-muted/30 px-4 py-16 md:py-20 lg:py-24">
         <div className="mx-auto max-w-5xl">
           <div className="mb-10 text-center">
             <h2 className="text-3xl font-display font-bold text-secondary">Voor welke doelen?</h2>
@@ -117,17 +104,16 @@ export default function VoedingscoachDenBosch() {
         </div>
       </section>
 
-      <section className="px-4 py-16">
+      <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="mx-auto max-w-3xl">
           <h2 className="mb-8 text-center text-3xl font-display font-bold text-secondary">Veelgestelde vragen</h2>
           <FAQAccordion items={FAQS} />
         </div>
       </section>
 
-      <CTASection
-        title="Start met voeding die werkt"
-        subtitle="Plan een gratis intake voor voedingscoaching, lichaamsanalyse en een plan dat bij jouw lichaam past."
-      />
+      <ServiceReviews title="Resultaten met voedingscoaching" />
+
+      <CTASection title="Klaar om fitter, sterker en energieker te worden?" subtitle="Plan een gratis intake voor voedingscoaching, lichaamsanalyse en een plan dat bij jouw lichaam past." />
     </div>
   );
 }

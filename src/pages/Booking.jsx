@@ -103,7 +103,7 @@ export default function Booking() {
 
   if (submitted) {
     return (
-      <div className="min-h-screen bg-muted/30 flex items-center justify-center px-4 py-16">
+      <div className="min-h-screen bg-muted/30 flex items-center justify-center px-4 py-16 md:py-20 lg:py-24">
         <div className="bg-white rounded-3xl p-8 md:p-10 text-center max-w-md w-full shadow-xl">
           <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-5">
             <CheckCircle className="w-8 h-8 text-green-500" />
@@ -139,7 +139,7 @@ export default function Booking() {
       </section>
 
       {/* Progress bar */}
-      <div className="bg-white border-b border-border sticky top-16 md:top-20 z-10">
+      <div className="bg-white border-b border-border sticky top-20 md:top-24 z-10">
         <div className="max-w-2xl mx-auto flex">
           {STEPS.map(s => (
             <div

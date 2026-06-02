@@ -5,6 +5,8 @@ import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
 import ResponsiveImage from '@/components/ResponsiveImage';
 import SEO, { buildFAQSchema } from '@/components/SEO';
+import PageHero from '@/components/PageHero';
+import ServiceReviews from '@/components/ServiceReviews';
 
 const BENEFITS = [
   'Voedingsschema op maat voor afvallen, aankomen of spieropbouw',
@@ -74,33 +76,26 @@ export default function Voeding() {
         jsonLd={buildFAQSchema(FAQS)}
       />
 
-      <section className="relative flex min-h-[64svh] items-center overflow-hidden px-4 py-20 text-white">
-        <div className="absolute inset-0">
-          <ResponsiveImage
-            src="/images/optimized/page-getfit-hero-960.jpg"
-            alt=""
-            className="h-full w-full object-cover"
-            sizes="100vw"
-            loading="eager"
-            fetchPriority="high"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-secondary/94 via-secondary/78 to-secondary/25" />
+      <PageHero
+        image="/images/optimized/page-getfit-hero-960.jpg"
+        eyebrow="Voedingsbegeleiding Den Bosch"
+        title="Voedingsbegeleiding in Den Bosch"
+        subtitle="Voedingsschema's op maat, aanpassing van eetgewoonten, lichaamsanalyse en praktische begeleiding voor afvallen, spieropbouw, meer energie en een gezonde lifestyle."
+        overlayClassName="bg-gradient-to-r from-secondary/94 via-secondary/78 to-secondary/25"
+      >
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <Link to="/booking">
+            <Button size="lg" className="w-full gap-2 bg-primary text-primary-foreground hover:bg-primary/90 sm:w-auto">
+              Plan gratis intake <ArrowRight className="h-5 w-5" />
+            </Button>
+          </Link>
+          <Link to="/contact">
+            <Button size="lg" variant="outline" className="w-full border-white/30 text-white hover:bg-white/10 sm:w-auto">
+              Stel je vraag
+            </Button>
+          </Link>
         </div>
-        <div className="relative z-10 mx-auto max-w-7xl">
-          <div className="max-w-2xl">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary">Voeding & Wegen</p>
-            <h1 className="mb-5 text-4xl font-display font-bold leading-tight md:text-6xl">Voedingscoach Den Bosch</h1>
-            <p className="mb-7 text-lg leading-relaxed text-white/82">
-              Neem zelf het heft in handen met een persoonlijk voedingsschema, professionele lichaamsanalyse en duidelijke voortgangsmetingen.
-            </p>
-            <Link to="/booking">
-              <Button size="lg" className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90">
-                Plan gratis intake <ArrowRight className="h-5 w-5" />
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
+      </PageHero>
 
       <section className="bg-primary/10 px-4 py-5">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -113,7 +108,7 @@ export default function Voeding() {
         </div>
       </section>
 
-      <section className="px-4 py-16">
+      <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:items-center">
           <div>
             <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-amber-700">Probleem</p>
@@ -124,18 +119,18 @@ export default function Voeding() {
               <p>We kijken niet alleen naar gewicht, maar naar wat er in je lichaam verandert. Zo wordt afvallen, aankomen of spieropbouw veel duidelijker en minder frustrerend.</p>
             </div>
           </div>
-          <div className="overflow-hidden rounded-2xl">
+          <div className="aspect-[4/3] overflow-hidden rounded-2xl lg:aspect-[16/10]">
             <ResponsiveImage
               src="/images/optimized/service-getfit-card-720.jpg"
               alt="Voeding en lichaamsanalyse bij JitanSports"
-              className="h-full min-h-80 w-full object-cover"
+              className="h-full w-full object-cover"
               sizes="(min-width: 1024px) 50vw, 100vw"
             />
           </div>
         </div>
       </section>
 
-      <section className="bg-muted/30 px-4 py-16">
+      <section className="bg-muted/30 px-4 py-16 md:py-20 lg:py-24">
         <div className="mx-auto max-w-7xl">
           <div className="mx-auto mb-12 max-w-2xl text-center">
             <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-amber-700">Oplossing</p>
@@ -156,7 +151,7 @@ export default function Voeding() {
         </div>
       </section>
 
-      <section className="px-4 py-16">
+      <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
           <div>
             <h2 className="mb-5 text-3xl font-display font-bold text-secondary">Voedingsschema's op maat</h2>
@@ -189,7 +184,7 @@ export default function Voeding() {
         </div>
       </section>
 
-      <section className="bg-muted/30 px-4 py-16">
+      <section className="bg-muted/30 px-4 py-16 md:py-20 lg:py-24">
         <div className="mx-auto max-w-4xl">
           <div className="mb-10 text-center">
             <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-amber-700">Werkwijze</p>
@@ -214,7 +209,7 @@ export default function Voeding() {
         </div>
       </section>
 
-      <section className="px-4 py-16">
+      <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="mx-auto max-w-3xl">
           <div className="mb-8 text-center">
             <Sparkles className="mx-auto mb-4 h-9 w-9 text-primary" />
@@ -224,10 +219,9 @@ export default function Voeding() {
         </div>
       </section>
 
-      <CTASection
-        title="Wil je weten waar jij staat?"
-        subtitle="Plan een gratis intake en ontdek welk voedingsplan bij jouw lichaam, doel en leefstijl past."
-      />
+      <ServiceReviews title="Resultaten met voeding, training en begeleiding" />
+
+      <CTASection title="Klaar om fitter, sterker en energieker te worden?" subtitle="Plan vandaag nog jouw gratis proefles en ontdek welk voedingsplan bij jouw lichaam, doel en leefstijl past." />
     </div>
   );
 }

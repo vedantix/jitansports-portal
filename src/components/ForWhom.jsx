@@ -42,7 +42,7 @@ const TARGETS = [
 
 export default function ForWhom() {
   return (
-    <section className="py-16 px-4 bg-muted/30">
+    <section className="px-4 py-16 md:py-20 lg:py-24 bg-muted/30">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <p className="text-amber-700 font-semibold uppercase tracking-wider text-sm mb-2">Voor iedereen</p>

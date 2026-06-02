@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, MessageCircle, CheckCircle, Phone, Crown, CalendarCheck, Users, Star, Activity } from 'lucide-react';
+import { ArrowRight, MessageCircle, CheckCircle, Phone, Crown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
 import { useSiteContent } from '@/hooks/useSiteContent';
@@ -16,6 +16,7 @@ import TrustStats from '../components/TrustStats';
 import GallerySection from '../components/GallerySection';
 import FAQAccordion from '../components/FAQAccordion';
 import CTASection from '../components/CTASection';
+import PageHero from '@/components/PageHero';
 
 export default function Home() {
   const { content } = useSiteContent();
@@ -33,6 +34,14 @@ export default function Home() {
     answer: content[`home_faq_${number}_answer`],
   }));
   const visibleFaqs = faqs.length ? faqs : fallbackFaqs;
+  const heroUsps = [
+    'Gratis proefles',
+    'Training aan huis of outdoor',
+    'Voeding inbegrepen',
+    'Deep Tissue Massage mogelijk',
+    'Persoonlijke begeleiding',
+    'Den Bosch en omgeving',
+  ];
 
   useEffect(() => {
     base44.entities.FAQ.list('order')
@@ -50,17 +59,6 @@ export default function Home() {
       .catch(() => {});
   }, []);
 
-  useEffect(() => {
-    const shell = document.getElementById('hero-bg-shell');
-    const image = shell?.querySelector('img');
-    if (!image || !content.hero_image || content.hero_image.startsWith('/images/optimized/hero-')) return;
-
-    shell.querySelectorAll('source').forEach((source) => source.remove());
-    image.removeAttribute('srcset');
-    image.removeAttribute('sizes');
-    image.src = content.hero_image;
-  }, [content.hero_image]);
-
   const whatsappUrl = createWhatsAppUrl(content);
 
   return (
@@ -72,78 +70,61 @@ export default function Home() {
         image={content.seo_image || content.hero_image}
         jsonLd={[buildLocalBusinessSchema(content), buildFAQSchema(visibleFaqs)].filter(Boolean)}
       />
-      {/* Hero */}
-      <section className="relative flex min-h-[88svh] md:min-h-[92vh] items-stretch overflow-hidden bg-secondary">
-        {/* Full-bleed background image */}
-        <div id="hero-bg-shell" className="absolute inset-0">
-          <img
-            src={content.hero_image || '/images/optimized/hero-desktop-1344.jpg'}
-            alt="Personal trainer JitanSports Den Bosch"
-            className="w-full h-full object-cover object-center"
-            loading="eager"
-            decoding="async"
-            fetchPriority="high"
-          />
-          {/* Gradient: strong dark left, fades to transparent right */}
-          <div className="absolute inset-0 bg-gradient-to-r from-secondary/95 via-secondary/80 to-secondary/25 md:from-secondary/92 md:via-secondary/70 md:to-secondary/10" />
-          <div className="absolute inset-0 bg-gradient-to-t from-secondary/60 via-transparent to-transparent" />
+      <PageHero
+        image={content.hero_image || '/images/optimized/hero-desktop-1344.jpg'}
+        eyebrow={content.hero_eyebrow}
+        title={<>{content.hero_title}<br /> <span className="text-primary">{content.hero_highlight}</span></>}
+        subtitle={content.hero_subtitle}
+        contentClassName="max-w-xl"
+      >
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <Link to="/booking">
+            <Button size="lg" className="w-full gap-2 bg-primary px-7 text-base font-bold text-secondary hover:bg-primary/90 sm:w-auto">
+              {content.primary_cta_text} <ArrowRight className="h-5 w-5" />
+            </Button>
+          </Link>
+          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+            <Button size="lg" variant="outline" className="w-full gap-2 border-white/30 text-base text-white hover:bg-white/10 sm:w-auto">
+              <MessageCircle className="h-5 w-5" /> {content.secondary_cta_text}
+            </Button>
+          </a>
         </div>
+        <div className="mt-8 flex items-center gap-3">
+          <div className="flex items-center gap-0.5">
+            {[...Array(5)].map((_, i) => (
+              <svg key={i} className="h-4 w-4" fill="hsl(var(--primary))" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+            ))}
+          </div>
+          <p className="text-sm text-white/70">
+            <span className="font-semibold text-white">{content.home_review_proof}</span>
+          </p>
+        </div>
+      </PageHero>
 
-        {/* Content */}
-        <div className="relative z-10 flex flex-col justify-center max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-16 md:py-20 w-full">
-          <div className="max-w-[560px]">
-            {/* Eyebrow */}
-            <p className="text-primary font-semibold uppercase tracking-widest text-xs mb-5">
-              Personal Training&nbsp;•&nbsp;Deep Tissue Massage&nbsp;•&nbsp;Voedingsbegeleiding
-            </p>
-
-            {/* Main headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-display font-bold text-white leading-[1.08] mb-2">
-              Word fitter,<br />sterker en pijnvrij
-            </h1>
-
-            {/* Italic accent line */}
-            <p className="text-primary text-2xl sm:text-3xl lg:text-4xl font-display italic font-semibold mb-6 leading-snug">
-              met een complete aanpak
-            </p>
-
-            {/* Body */}
-            <p className="text-white/75 text-base leading-relaxed mb-8 max-w-[460px]">
-              Bij JitanSports combinenen we personal training, deep tissue massage en voedingsbegeleiding voor blijvend resultaat. Persoonlijke aandacht. Gericht op jouw doelen. Voor lichaam én geest.
-            </p>
-
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-3 mb-10">
-              <Link to="/booking">
-                <Button size="lg" className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-secondary font-bold px-7 text-base gap-2">
-                  <CalendarCheck className="w-5 h-5" /> Plan gratis proefles
-                </Button>
-              </Link>
-              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto border-white/25 text-white hover:bg-white/10 gap-2 text-base">
-                  <MessageCircle className="w-5 h-5" /> WhatsApp direct
-                </Button>
-              </a>
+      <section className="border-b border-border bg-white px-4 py-6">
+        <div className="mx-auto grid max-w-7xl gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {heroUsps.map((item) => (
+            <div key={item} className="flex items-center gap-2 rounded-lg bg-muted/50 px-4 py-3 text-sm font-semibold text-secondary">
+              <CheckCircle className="h-4 w-4 shrink-0 text-primary" />
+              <span>{item}</span>
             </div>
+          ))}
+        </div>
+      </section>
 
-            {/* Trust badges */}
-            <div className="flex flex-wrap gap-5">
-              {[
-                { icon: Users, label: '100+', sub: 'Tevreden klanten' },
-                { icon: Star, label: 'Persoonlijke', sub: 'begeleiding' },
-                { icon: Activity, label: 'Training, voeding', sub: 'en herstel in balans' },
-              ].map(({ icon: Icon, label, sub }) => (
-                <div key={label} className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full border border-white/20 bg-white/10 flex items-center justify-center shrink-0">
-                    <Icon className="w-4 h-4 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-white font-semibold text-sm leading-none mb-0.5">{label}</p>
-                    <p className="text-white/55 text-xs">{sub}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+      <section className="bg-secondary px-4 py-16 text-white md:py-20 lg:py-24">
+        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+          <div>
+            <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary">Unieke combinatie</p>
+            <h2 className="font-display text-3xl font-bold md:text-4xl">Vintage Krachttraining, Deep Tissue Massage en voedingsbegeleiding</h2>
+          </div>
+          <div className="space-y-4 text-white/76">
+            <p>
+              JitanSports onderscheidt zich door de unieke combinatie van Vintage Krachttraining, Deep Tissue Massage en voedingsbegeleiding.
+            </p>
+            <p>
+              Daardoor krijg je niet alleen betere resultaten, maar herstel je ook sneller en werk je tegelijkertijd aan een sterk en gezond lichaam.
+            </p>
           </div>
         </div>
       </section>
@@ -158,7 +139,7 @@ export default function Home() {
       <HowItWorks />
 
       {/* Services */}
-      <section className="py-16 px-4 bg-muted/30">
+      <section className="px-4 py-16 md:py-20 lg:py-24 bg-muted/30">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
             <p className="text-amber-700 font-semibold uppercase tracking-wider text-sm mb-2">{content.home_services_eyebrow}</p>
@@ -173,7 +154,7 @@ export default function Home() {
                   to={service.link}
                   className="group block rounded-2xl overflow-hidden border border-border bg-white hover:shadow-xl transition-all duration-300"
                 >
-                  <div className="h-52 overflow-hidden">
+                  <div className="aspect-[4/3] overflow-hidden">
                     <ResponsiveImage
                       src={service.img}
                       alt={service.title}
@@ -198,7 +179,7 @@ export default function Home() {
       </section>
 
       {/* Trust Stats – Priority 3 */}
-      <section className="py-14 px-4 bg-white">
+      <section className="px-4 py-16 md:py-20 lg:py-24 bg-white">
         <div className="max-w-7xl mx-auto rounded-2xl bg-secondary px-6 py-8 text-white md:px-10">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-[1fr_auto] md:items-center">
             <div>
@@ -226,7 +207,7 @@ export default function Home() {
       <ReviewsSection />
 
       {/* Mid CTA */}
-      <section className="py-14 px-4 bg-white">
+      <section className="px-4 py-16 md:py-20 lg:py-24 bg-white">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl font-display font-bold text-secondary mb-3">{content.home_mid_cta_title}</h2>
           <p className="text-muted-foreground mb-7 text-base">
@@ -254,9 +235,9 @@ export default function Home() {
       <GallerySection />
 
       {/* About */}
-      <section className="py-16 px-4 bg-white">
+      <section className="px-4 py-16 md:py-20 lg:py-24 bg-white">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="rounded-2xl overflow-hidden h-[420px]">
+          <div className="aspect-[4/3] overflow-hidden rounded-2xl lg:aspect-[5/4]">
             <ResponsiveImage
               src={content.home_about_image}
               alt="Jitan – Personal Trainer omgeving Den Bosch"
@@ -292,7 +273,7 @@ export default function Home() {
       </section>
 
       {/* FAQ */}
-      <section className="py-16 px-4 bg-muted/30">
+      <section className="px-4 py-16 md:py-20 lg:py-24 bg-muted/30">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="text-3xl font-display font-bold text-secondary">{content.home_faq_title}</h2>

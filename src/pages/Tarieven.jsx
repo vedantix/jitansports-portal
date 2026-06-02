@@ -6,6 +6,7 @@ import { base44 } from '@/api/base44Client';
 import CTASection from '../components/CTASection';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import SEO, { ROUTE_SEO } from '@/components/SEO';
+import PageHero from '@/components/PageHero';
 
 const DEFAULT_PLANS = [
   {
@@ -76,21 +77,16 @@ export default function Tarieven() {
         description={content.seo_pricing_description || ROUTE_SEO['/tarieven'].description}
         image={content.seo_image}
       />
-      {/* Hero */}
-      <section className="py-20 px-4 bg-secondary text-secondary-foreground">
-        <div className="max-w-7xl mx-auto text-center">
-          <div>
-            <p className="text-primary font-semibold mb-3 uppercase tracking-wider text-sm">{content.pricing_eyebrow}</p>
-            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">{content.pricing_title}</h1>
-            <p className="text-secondary-foreground/70 text-lg max-w-2xl mx-auto">
-              {content.pricing_subtitle}
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        align="center"
+        eyebrow={content.pricing_eyebrow}
+        title={content.pricing_title}
+        subtitle={content.pricing_subtitle}
+        titleClassName="md:text-5xl lg:text-5xl"
+      />
 
       {/* Pricing cards */}
-      <section className="py-20 px-4">
+      <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {plans.map((plan) => (
             <div
@@ -128,7 +124,7 @@ export default function Tarieven() {
       </section>
 
       {/* More services */}
-      <section className="py-20 px-4 bg-muted/50">
+      <section className="px-4 py-16 md:py-20 lg:py-24 bg-muted/50">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-display font-bold text-secondary mb-10 text-center">{content.pricing_more_title}</h2>
           <div className="space-y-4">

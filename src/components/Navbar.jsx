@@ -1,252 +1,239 @@
-import { useState, useRef, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ChevronDown, Crown, Dumbbell, Heart, Menu, Salad, Trophy, X } from 'lucide-react';
+import { ChevronDown, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Logo from '@/components/Logo';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
-const DIENSTEN = [
-  { label: 'Personal Training', path: '/personal-training', desc: 'Training aan huis of outdoor', icon: Dumbbell },
-  { label: 'Massage',           path: '/massage',           desc: 'Deep Tissue & Ontspanning',  icon: Heart   },
-  { label: 'Voeding',           path: '/voeding',           desc: 'Schema en lichaamsanalyse',  icon: Salad   },
-  { label: 'VIP Treatment',     path: '/vip-treatment',     desc: 'Training + Massage combi',   icon: Crown   },
-  { label: 'Get Fit',           path: '/get-fit',           desc: '12-weken coaching pakket',   icon: Trophy  },
+const SERVICE_ITEMS = [
+  { label: 'Personal Training', path: '/personal-training' },
+  { label: 'Deep Tissue Massage', path: '/massage' },
+  { label: 'Voedingsbegeleiding', path: '/voeding' },
+  { label: 'VIP Treatment', path: '/vip-treatment' },
+  { label: 'Get Fit Programma', path: '/get-fit' },
+  { label: 'Stoelmassage & Bedrijven', path: '/bedrijven' },
 ];
 
-const DIENSTEN_PATHS = new Set(DIENSTEN.map(d => d.path));
+const ABOUT_ITEMS = [
+  { label: 'Over Ons', path: '/over-ons' },
+  { label: 'Resultaten & Referenties', path: '/referenties' },
+  { label: 'Blog', path: '/blog' },
+];
 
 const NAV_ITEMS = [
-  { label: 'Home',        path: '/'           },
-  { label: 'Tarieven',    path: '/tarieven'   },
-  { label: 'Over Ons',    path: '/over-ons'   },
-  { label: 'Referenties', path: '/referenties'},
-  { label: 'Contact',     path: '/contact'    },
+  { label: 'Home', path: '/' },
+  { label: 'Tarieven', path: '/tarieven' },
+  { label: 'Contact', path: '/contact' },
 ];
 
-/* ─── Desktop nav link ─────────────────────────────────────────── */
-function NavLink({ to, active, children }) {
-  return (
-    <Link
-      to={to}
-      className={`px-4 py-2 text-[13.5px] font-semibold rounded-lg transition-all whitespace-nowrap ${
-        active
-          ? 'text-amber-700 bg-amber-50'
-          : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-      }`}
-    >
-      {children}
-    </Link>
-  );
-}
-
 export default function Navbar() {
-  const [mobileOpen,        setMobileOpen]        = useState(false);
-  const [dienstenOpen,      setDienstenOpen]      = useState(false);
-  const [mobileDienstenOpen,setMobileDienstenOpen]= useState(false);
-  const location    = useLocation();
-  const dropdownRef = useRef(null);
+  const [open, setOpen] = useState(false);
+  const location = useLocation();
+  const servicesActive = SERVICE_ITEMS.some((item) => location.pathname === item.path);
+  const aboutActive = ABOUT_ITEMS.some((item) => location.pathname === item.path);
 
-  const isDienstenActive = DIENSTEN_PATHS.has(location.pathname);
-
-  /* Close dropdown on outside click */
   useEffect(() => {
-    function onOutside(e) {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setDienstenOpen(false);
-      }
-    }
-    document.addEventListener('mousedown', onOutside);
-    return () => document.removeEventListener('mousedown', onOutside);
-  }, []);
-
-  /* Close everything on route change */
-  useEffect(() => {
-    setMobileOpen(false);
-    setDienstenOpen(false);
-    setMobileDienstenOpen(false);
+    setOpen(false);
   }, [location.pathname]);
 
+  useEffect(() => {
+    if (!open) return undefined;
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') setOpen(false);
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [open]);
+
   return (
-    <nav
-      className="fixed top-0 inset-x-0 z-50 bg-white/97 border-b border-slate-200/80 shadow-sm backdrop-blur-sm"
-      aria-label="Hoofdnavigatie"
-    >
-      {/* ── Bar ── */}
-      <div className="max-w-[1320px] mx-auto px-5 lg:px-8">
-        <div className="flex items-center justify-between h-[68px] lg:h-[76px]">
+    <nav className="fixed top-0 left-0 right-0 z-40 border-b border-border/60 bg-white/95 shadow-sm backdrop-blur-md" aria-label="Hoofdnavigatie">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="flex h-20 items-center justify-between gap-5 md:h-24">
+          <Logo onClick={() => setOpen(false)} />
 
-          {/* Logo — fixed width so nav items always start from same position */}
-          <div className="shrink-0 w-[160px] lg:w-[180px]">
-            <Logo compact />
-          </div>
-
-          {/* ── Desktop navigation (≥1024px) ─────────────────────── */}
-          <div className="hidden lg:flex items-center gap-1">
-
-            {/* Home */}
-            <NavLink to="/" active={location.pathname === '/'}>Home</NavLink>
-
-            {/* Diensten dropdown */}
-            <div ref={dropdownRef} className="relative">
-              <button
-                onClick={() => setDienstenOpen(p => !p)}
-                onKeyDown={e => e.key === 'Escape' && setDienstenOpen(false)}
-                aria-haspopup="listbox"
-                aria-expanded={dienstenOpen}
-                className={`flex items-center gap-1.5 px-4 py-2 text-[13.5px] font-semibold rounded-lg transition-all whitespace-nowrap ${
-                  isDienstenActive || dienstenOpen
-                    ? 'text-amber-700 bg-amber-50'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+          {/* Desktop nav */}
+          <div className="hidden min-w-0 items-center justify-end gap-1 xl:flex">
+            <DropdownMenu>
+              <DropdownMenuTrigger
+                className={`inline-flex h-11 items-center gap-1 rounded-lg px-3 text-sm font-semibold transition-colors ${
+                  servicesActive
+                    ? 'text-amber-700 bg-primary/10'
+                    : 'text-foreground/70 hover:text-foreground hover:bg-muted'
                 }`}
               >
-                Diensten
-                <ChevronDown
-                  className={`w-3.5 h-3.5 opacity-60 transition-transform duration-200 ${dienstenOpen ? 'rotate-180' : ''}`}
-                />
-              </button>
-
-              {/* Dropdown panel */}
-              {dienstenOpen && (
-                <div className="absolute top-[calc(100%+8px)] left-1/2 -translate-x-1/2 w-[280px] bg-white rounded-2xl border border-slate-200 shadow-xl shadow-slate-900/10 py-2 z-50">
-                  <p className="px-4 pt-2 pb-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">
-                    Onze diensten
-                  </p>
-                  {DIENSTEN.map(item => (
+                Diensten <ChevronDown className="h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-60 p-2">
+                {SERVICE_ITEMS.map((item) => (
+                  <DropdownMenuItem key={item.path} asChild className="cursor-pointer rounded-md px-3 py-2">
                     <Link
-                      key={item.path}
                       to={item.path}
-                      onClick={() => setDienstenOpen(false)}
-                      className={`flex items-center gap-3.5 px-4 py-3 hover:bg-slate-50 transition-colors group ${
-                        location.pathname === item.path ? 'bg-amber-50/60' : ''
+                      className={`font-medium ${
+                        location.pathname === item.path ? 'text-amber-700' : 'text-foreground'
                       }`}
                     >
-                      <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
-                        <item.icon className="w-4 h-4 text-primary" />
-                      </div>
-                      <div className="min-w-0">
-                        <p className={`text-[13px] font-semibold leading-tight truncate ${
-                          location.pathname === item.path ? 'text-amber-700' : 'text-slate-800'
-                        }`}>
-                          {item.label}
-                        </p>
-                        <p className="text-[11px] text-slate-400 mt-0.5">{item.desc}</p>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Rest of nav */}
-            {NAV_ITEMS.filter(i => i.path !== '/').map(item => (
-              <NavLink key={item.path} to={item.path} active={location.pathname === item.path}>
-                {item.label}
-              </NavLink>
-            ))}
-          </div>
-
-          {/* ── CTA (desktop) ─────────────────────────────────────── */}
-          <div className="hidden lg:flex items-center shrink-0">
-            <Button
-              asChild
-              size="sm"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-5 h-10 shadow-md shadow-primary/20 text-[13px]"
-            >
-              <Link to="/booking">Plan Proefles</Link>
-            </Button>
-          </div>
-
-          {/* ── Hamburger (< 1024px) ─────────────────────────────── */}
-          <button
-            onClick={() => setMobileOpen(p => !p)}
-            className="lg:hidden flex h-10 w-10 items-center justify-center rounded-lg hover:bg-slate-100 transition-colors"
-            aria-label={mobileOpen ? 'Menu sluiten' : 'Menu openen'}
-            aria-expanded={mobileOpen}
-            aria-controls="mobile-nav"
-          >
-            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
-        </div>
-      </div>
-
-      {/* ── Mobile / tablet menu ───────────────────────────────────── */}
-      {mobileOpen && (
-        <div
-          id="mobile-nav"
-          className="lg:hidden bg-white border-t border-slate-100 shadow-lg"
-        >
-          <div className="px-4 py-5 space-y-1 max-h-[80vh] overflow-y-auto">
-
-            {/* Home */}
-            <Link
-              to="/"
-              onClick={() => setMobileOpen(false)}
-              className={`flex items-center px-4 py-3 rounded-xl text-[15px] font-semibold transition-colors ${
-                location.pathname === '/' ? 'text-amber-700 bg-amber-50' : 'text-slate-700 hover:bg-slate-100'
-              }`}
-            >
-              Home
-            </Link>
-
-            {/* Diensten expandable */}
-            <div>
-              <button
-                onClick={() => setMobileDienstenOpen(p => !p)}
-                className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-[15px] font-semibold transition-colors ${
-                  isDienstenActive ? 'text-amber-700 bg-amber-50' : 'text-slate-700 hover:bg-slate-100'
-                }`}
-              >
-                Diensten
-                <ChevronDown className={`w-4 h-4 opacity-60 transition-transform duration-200 ${mobileDienstenOpen ? 'rotate-180' : ''}`} />
-              </button>
-
-              {mobileDienstenOpen && (
-                <div className="mt-1 ml-3 pl-3 border-l-2 border-primary/25 space-y-0.5">
-                  {DIENSTEN.map(item => (
-                    <Link
-                      key={item.path}
-                      to={item.path}
-                      onClick={() => setMobileOpen(false)}
-                      className={`flex items-center gap-3 px-4 py-3 rounded-xl text-[14px] font-medium transition-colors ${
-                        location.pathname === item.path
-                          ? 'text-amber-700 bg-amber-50'
-                          : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
-                      }`}
-                    >
-                      <item.icon className="w-4 h-4 text-primary shrink-0" />
                       {item.label}
                     </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Remaining nav items */}
-            {NAV_ITEMS.filter(i => i.path !== '/').map(item => (
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <DropdownMenu>
+              <DropdownMenuTrigger
+                className={`inline-flex h-11 items-center gap-1 rounded-lg px-3 text-sm font-semibold transition-colors ${
+                  aboutActive
+                    ? 'text-amber-700 bg-primary/10'
+                    : 'text-foreground/70 hover:text-foreground hover:bg-muted'
+                }`}
+              >
+                Over Jitan <ChevronDown className="h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-60 p-2">
+                {ABOUT_ITEMS.map((item) => (
+                  <DropdownMenuItem key={item.path} asChild className="cursor-pointer rounded-md px-3 py-2">
+                    <Link
+                      to={item.path}
+                      className={`font-medium ${
+                        location.pathname === item.path ? 'text-amber-700' : 'text-foreground'
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+            {NAV_ITEMS.map(item => (
               <Link
                 key={item.path}
                 to={item.path}
-                onClick={() => setMobileOpen(false)}
-                className={`flex items-center px-4 py-3 rounded-xl text-[15px] font-semibold transition-colors ${
-                  location.pathname === item.path ? 'text-amber-700 bg-amber-50' : 'text-slate-700 hover:bg-slate-100'
+                className={`rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${
+                  location.pathname === item.path
+                    ? 'text-amber-700 bg-primary/10'
+                    : 'text-foreground/70 hover:text-foreground hover:bg-muted'
                 }`}
               >
                 {item.label}
               </Link>
             ))}
+            <Button asChild className="ml-3 shrink-0 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold">
+              <Link to="/booking">
+                Plan Proefles
+              </Link>
+            </Button>
+          </div>
 
-            {/* CTA */}
-            <div className="pt-4 mt-2 border-t border-slate-100">
-              <Button
-                asChild
-                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-12 text-[15px] shadow-md shadow-primary/20"
+          {/* Mobile toggle */}
+          <button
+            onClick={() => setOpen(!open)}
+            className="flex h-11 w-11 items-center justify-center rounded-lg transition-colors hover:bg-muted xl:hidden"
+            aria-label={open ? 'Menu sluiten' : 'Menu openen'}
+            aria-expanded={open}
+            aria-controls="mobile-navigation"
+          >
+            {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile menu */}
+      {open && (
+        <>
+          <button
+            type="button"
+            className="fixed inset-0 z-40 bg-secondary/45 xl:hidden"
+            aria-label="Menu sluiten"
+            onClick={() => setOpen(false)}
+          />
+          <div
+            id="mobile-navigation"
+            className="fixed bottom-0 right-0 top-0 z-50 flex w-full max-w-sm flex-col bg-white shadow-2xl xl:hidden"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobiele navigatie"
+          >
+            <div className="flex h-20 items-center justify-between border-b border-border px-4 md:h-24">
+              <Logo compact onClick={() => setOpen(false)} />
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="flex h-11 w-11 items-center justify-center rounded-lg transition-colors hover:bg-muted"
+                aria-label="Menu sluiten"
               >
-                <Link to="/booking" onClick={() => setMobileOpen(false)}>
+                <X className="h-6 w-6" />
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto px-4 py-5">
+              <p className="mb-2 px-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">Diensten</p>
+              <div className="space-y-1">
+                {SERVICE_ITEMS.map(item => (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    className={`block rounded-lg px-4 py-3 text-base font-medium transition-colors ${
+                      location.pathname === item.path
+                        ? 'text-amber-700 bg-primary/10'
+                        : 'text-foreground/70 hover:bg-muted'
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+              <p className="mb-2 mt-6 px-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">Over Jitan</p>
+              <div className="space-y-1">
+                {ABOUT_ITEMS.map(item => (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    className={`block rounded-lg px-4 py-3 text-base font-medium transition-colors ${
+                      location.pathname === item.path
+                        ? 'text-amber-700 bg-primary/10'
+                        : 'text-foreground/70 hover:bg-muted'
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+              <p className="mb-2 mt-6 px-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">Website</p>
+              <div className="space-y-1">
+                {NAV_ITEMS.map(item => (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    className={`block rounded-lg px-4 py-3 text-base font-medium transition-colors ${
+                      location.pathname === item.path
+                        ? 'text-amber-700 bg-primary/10'
+                        : 'text-foreground/70 hover:bg-muted'
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+            <div className="border-t border-border p-4">
+              <Button asChild className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold">
+                <Link to="/booking">
                   Plan Gratis Proefles
                 </Link>
               </Button>
             </div>
           </div>
-        </div>
+        </>
       )}
     </nav>
   );

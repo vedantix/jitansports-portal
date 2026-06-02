@@ -1,20 +1,22 @@
 import { resolveImageAsset } from '@/lib/imageAssets';
 
 export default function ResponsiveImage({
-  asset,
-  src,
-  alt,
-  className,
+  asset = undefined,
+  src = '',
+  alt = '',
+  className = '',
   pictureClassName = 'contents',
-  sizes,
+  sizes = undefined,
   loading = 'lazy',
   decoding = 'async',
-  fetchPriority,
-  width,
-  height,
+  fetchPriority = undefined,
+  width = undefined,
+  height = undefined,
   ...props
 }) {
   const resolvedAsset = asset || resolveImageAsset(src);
+  const imageLoading = loading === 'eager' ? 'eager' : 'lazy';
+  const imageDecoding = decoding === 'sync' || decoding === 'auto' ? decoding : 'async';
 
   if (!resolvedAsset) {
     return (
@@ -22,8 +24,8 @@ export default function ResponsiveImage({
         src={src}
         alt={alt}
         className={className}
-        loading={loading}
-        decoding={decoding}
+        loading={imageLoading}
+        decoding={imageDecoding}
         fetchPriority={fetchPriority}
         {...props}
       />
@@ -49,8 +51,8 @@ export default function ResponsiveImage({
         sizes={imageSizes}
         alt={alt}
         className={className}
-        loading={loading}
-        decoding={decoding}
+        loading={imageLoading}
+        decoding={imageDecoding}
         fetchPriority={fetchPriority}
         width={width || resolvedAsset.width}
         height={height || resolvedAsset.height}

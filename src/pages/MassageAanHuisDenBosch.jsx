@@ -3,8 +3,9 @@ import { ArrowRight, CheckCircle, Home, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
-import ResponsiveImage from '@/components/ResponsiveImage';
 import SEO, { buildFAQSchema } from '@/components/SEO';
+import PageHero from '@/components/PageHero';
+import ServiceReviews from '@/components/ServiceReviews';
 
 const FAQS = [
   {
@@ -40,38 +41,26 @@ export default function MassageAanHuisDenBosch() {
         jsonLd={buildFAQSchema(FAQS)}
       />
 
-      <section className="relative flex min-h-[62svh] items-center overflow-hidden px-4 py-20 text-white">
-        <div className="absolute inset-0">
-          <ResponsiveImage
-            src="/images/optimized/page-massage-hero-960.jpg"
-            alt=""
-            className="h-full w-full object-cover"
-            sizes="100vw"
-            loading="eager"
-            fetchPriority="high"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-secondary/94 via-secondary/78 to-secondary/25" />
-        </div>
-        <div className="relative z-10 mx-auto max-w-7xl">
-          <div className="max-w-2xl">
-            <div className="mb-4 flex items-center gap-2 text-primary">
-              <Home className="h-4 w-4" />
-              <span className="text-sm font-semibold uppercase tracking-wider">Aan huis in Den Bosch</span>
-            </div>
-            <h1 className="mb-5 text-4xl font-display font-bold leading-tight md:text-6xl">Massage aan huis Den Bosch</h1>
-            <p className="mb-7 text-lg leading-relaxed text-white/82">
-              Geen reistijd, geen drukte, geen haast. Ik kom naar je toe met een professionele massagetafel, zodat je na de behandeling direct in je eigen omgeving kunt ontspannen.
-            </p>
-            <Link to="/booking">
-              <Button size="lg" className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90">
-                Boek massage aan huis <ArrowRight className="h-5 w-5" />
-              </Button>
-            </Link>
+      <PageHero
+        image="/images/optimized/page-massage-hero-960.jpg"
+        title="Massage aan huis Den Bosch"
+        subtitle="Geen reistijd, geen drukte, geen haast. Ik kom naar je toe met een professionele massagetafel, zodat je na de behandeling direct in je eigen omgeving kunt ontspannen."
+        overlayClassName="bg-gradient-to-r from-secondary/94 via-secondary/78 to-secondary/25"
+        badge={(
+          <div className="mb-4 flex items-center gap-2 text-primary">
+            <Home className="h-4 w-4" />
+            <span className="text-sm font-semibold uppercase tracking-wider">Aan huis in Den Bosch</span>
           </div>
-        </div>
-      </section>
+        )}
+      >
+        <Link to="/booking">
+          <Button size="lg" className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90">
+            Boek massage aan huis <ArrowRight className="h-5 w-5" />
+          </Button>
+        </Link>
+      </PageHero>
 
-      <section className="px-4 py-16">
+      <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:items-start">
           <div>
             <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-amber-700">Waarom aan huis?</p>
@@ -101,7 +90,7 @@ export default function MassageAanHuisDenBosch() {
         </div>
       </section>
 
-      <section className="bg-muted/30 px-4 py-16">
+      <section className="bg-muted/30 px-4 py-16 md:py-20 lg:py-24">
         <div className="mx-auto max-w-5xl">
           <div className="mb-10 text-center">
             <div className="mb-4 flex justify-center gap-0.5">
@@ -127,16 +116,18 @@ export default function MassageAanHuisDenBosch() {
         </div>
       </section>
 
-      <section className="px-4 py-16">
+      <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="mx-auto max-w-3xl">
           <h2 className="mb-8 text-center text-3xl font-display font-bold text-secondary">Veelgestelde vragen</h2>
           <FAQAccordion items={FAQS} />
         </div>
       </section>
 
+      <ServiceReviews title="Klanten over massage aan huis" />
+
       <CTASection
         dark
-        title="Plan jouw massage aan huis"
+        title="Klaar om fitter, sterker en energieker te worden?"
         subtitle="Deep Tissue, sportmassage of ontspanning. Professioneel bij jou thuis in omgeving Den Bosch."
       />
     </div>

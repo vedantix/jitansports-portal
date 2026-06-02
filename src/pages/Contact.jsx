@@ -9,6 +9,8 @@ import { toast } from 'sonner';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import { createWhatsAppUrl } from '@/lib/siteContent';
 import SEO, { ROUTE_SEO } from '@/components/SEO';
+import PageHero from '@/components/PageHero';
+import CTASection from '@/components/CTASection';
 
 export default function Contact() {
   const { content } = useSiteContent();
@@ -33,17 +35,15 @@ export default function Contact() {
         description={content.seo_contact_description || ROUTE_SEO['/contact'].description}
         image={content.seo_image}
       />
-      <section className="py-20 px-4 bg-secondary text-secondary-foreground">
-        <div className="max-w-7xl mx-auto text-center">
-          <div>
-            <p className="text-primary font-semibold mb-3 uppercase tracking-wider text-sm">{content.contact_eyebrow}</p>
-            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">{content.contact_title}</h1>
-            <p className="text-secondary-foreground/70 text-lg">{content.contact_subtitle}</p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        align="center"
+        eyebrow={content.contact_eyebrow}
+        title={content.contact_title}
+        subtitle={content.contact_subtitle}
+        titleClassName="md:text-5xl lg:text-5xl"
+      />
 
-      <section className="py-20 px-4">
+      <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
           <div>
             <h2 className="text-2xl font-display font-bold text-secondary mb-6">{content.contact_form_title}</h2>
@@ -134,7 +134,7 @@ export default function Contact() {
               </Button>
             </a>
 
-            <div className="mt-8 rounded-2xl overflow-hidden border border-border/50 h-64">
+            <div className="mt-8 aspect-[4/3] overflow-hidden rounded-2xl border border-border/50 lg:aspect-[16/10]">
               <iframe
                 src={content.contact_map_url}
                 width="100%"
@@ -149,6 +149,8 @@ export default function Contact() {
           </div>
         </div>
       </section>
+
+      <CTASection dark title="Klaar om fitter, sterker en energieker te worden?" subtitle="Plan vandaag nog jouw gratis proefles of stuur direct een WhatsApp bericht." />
     </div>
   );
 }

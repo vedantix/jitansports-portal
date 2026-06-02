@@ -11,7 +11,7 @@ export default function CTASection({ title = undefined, subtitle = undefined, da
   const whatsappUrl = createWhatsAppUrl(content);
 
   return (
-    <section className={`py-20 px-4 ${dark ? 'bg-secondary text-secondary-foreground' : 'bg-primary/5'}`}>
+    <section className={`px-4 py-16 md:py-20 lg:py-24 ${dark ? 'bg-secondary text-secondary-foreground' : 'bg-primary/5'}`}>
       <div className="max-w-3xl mx-auto text-center">
         <h2 className={`text-3xl md:text-4xl font-display font-bold mb-4 ${dark ? '' : 'text-secondary'}`}>
           {heading}

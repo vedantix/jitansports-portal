@@ -4,7 +4,8 @@ import { ArrowRight, CheckCircle, MapPin, Star } from 'lucide-react';
 import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
 import SEO from '@/components/SEO';
-import ResponsiveImage from '@/components/ResponsiveImage';
+import PageHero from '@/components/PageHero';
+import ServiceReviews from '@/components/ServiceReviews';
 
 const HERO_IMG = '/images/optimized/page-training-hero-960.jpg';
 
@@ -32,25 +33,30 @@ export default function PersonalTrainerVught() {
         description="Personal trainer in Vught voor afvallen, krachttraining en conditie. Training aan huis of outdoor in Vught. Gratis proefles – start vandaag bij JitanSports."
         path="/personal-trainer-vught"
       />
-      <section className="relative h-[50vh] min-h-[380px] flex items-center overflow-hidden">
-        <div className="absolute inset-0">
-          <ResponsiveImage src={HERO_IMG} alt="" className="w-full h-full object-cover" loading="eager" fetchPriority="high" />
-          <div className="absolute inset-0 bg-gradient-to-r from-secondary/90 to-secondary/40" />
-        </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="max-w-xl">
-            <div className="flex items-center gap-2 mb-3"><MapPin className="w-4 h-4 text-primary" /><span className="text-primary font-semibold text-sm uppercase tracking-wider">Vught</span></div>
-            <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">Personal Trainer Vught</h1>
-            <p className="text-white/80 text-lg mb-6">Bereik jouw fitnessdoelen met persoonlijke begeleiding aan huis of outdoor in Vught.</p>
-            <div className="flex items-center gap-2 mb-6">
-              {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-primary text-primary" />)}
-              <span className="text-white/80 text-sm ml-1">5.0 · 47+ beoordelingen</span>
-            </div>
-            <Link to="/booking"><Button size="lg" className="bg-primary hover:bg-primary/90 text-secondary font-bold gap-2">Plan Gratis Proefles <ArrowRight className="w-5 h-5" /></Button></Link>
+      <PageHero
+        image={HERO_IMG}
+        title="Personal Trainer Vught"
+        subtitle="Bereik jouw fitnessdoelen met persoonlijke begeleiding aan huis of outdoor in Vught."
+        contentClassName="max-w-xl"
+        overlayClassName="bg-gradient-to-r from-secondary/90 to-secondary/40"
+        badge={(
+          <div className="mb-3 flex items-center gap-2">
+            <MapPin className="h-4 w-4 text-primary" />
+            <span className="text-sm font-semibold uppercase tracking-wider text-primary">Vught</span>
           </div>
+        )}
+      >
+        <div className="mb-6 flex items-center gap-2">
+          {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-primary text-primary" />)}
+          <span className="ml-1 text-sm text-white/80">5.0 · 47+ beoordelingen</span>
         </div>
-      </section>
-      <section className="py-16 px-4">
+        <Link to="/booking">
+          <Button size="lg" className="gap-2 bg-primary font-bold text-secondary hover:bg-primary/90">
+            Plan Gratis Proefles <ArrowRight className="h-5 w-5" />
+          </Button>
+        </Link>
+      </PageHero>
+      <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-display font-bold text-secondary mb-6">Personal trainer in Vught – JitanSports</h2>
           <p className="text-muted-foreground leading-relaxed mb-4">Als personal trainer in Vught biedt JitanSports volledig persoonlijke begeleiding. We trainen bij jou thuis in Vught of op een prachtige buitenlocatie in de omgeving.</p>
@@ -59,13 +65,15 @@ export default function PersonalTrainerVught() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">{BENEFITS.map(b => (<div key={b} className="flex items-start gap-3"><CheckCircle className="w-5 h-5 text-primary shrink-0 mt-0.5" /><span className="text-foreground text-sm">{b}</span></div>))}</div>
         </div>
       </section>
-      <section className="py-16 px-4 bg-muted/30">
+      <section className="px-4 py-16 md:py-20 lg:py-24 bg-muted/30">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-display font-bold text-secondary mb-8 text-center">Veelgestelde vragen</h2>
           <FAQAccordion items={FAQS} />
         </div>
       </section>
-      <CTASection title="Start vandaag in Vught" subtitle="Gratis proefles – geen verplichtingen. Plan nu bij JitanSports." />
+      <ServiceReviews title="Resultaten met Personal Trainer Vught" />
+
+      <CTASection title="Klaar om fitter, sterker en energieker te worden?" subtitle="Gratis proefles – geen verplichtingen. Plan nu bij JitanSports." />
     </div>
   );
 }

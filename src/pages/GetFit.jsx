@@ -17,8 +17,9 @@ import {
 import { Button } from '@/components/ui/button';
 import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
-import ResponsiveImage from '@/components/ResponsiveImage';
 import SEO, { buildFAQSchema } from '@/components/SEO';
+import PageHero from '@/components/PageHero';
+import ServiceReviews from '@/components/ServiceReviews';
 
 const INCLUSIONS = [
   {
@@ -138,44 +139,30 @@ export default function GetFit() {
         jsonLd={buildFAQSchema(FAQS)}
       />
 
-      <section className="relative flex min-h-[76svh] items-center overflow-hidden px-4 py-20 text-white">
-        <div className="absolute inset-0">
-          <ResponsiveImage
-            src="/images/optimized/page-getfit-hero-960.jpg"
-            alt=""
-            className="h-full w-full object-cover"
-            sizes="100vw"
-            loading="eager"
-            fetchPriority="high"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-secondary/95 via-secondary/82 to-secondary/30" />
-        </div>
-        <div className="relative z-10 mx-auto max-w-7xl">
-          <div className="max-w-2xl">
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-bold text-primary-foreground">
-              <Trophy className="h-4 w-4" /> Premium 12-weken traject
-            </div>
-            <h1 className="mb-5 text-4xl font-display font-bold leading-tight md:text-6xl">
-              Get Fit Pakket Den Bosch
-            </h1>
-            <p className="mb-7 text-lg leading-relaxed text-white/82">
-              Wil je afvallen, spiermassa opbouwen of eindelijk lekkerder in je vel zitten? Dan krijg je in 12 weken alles wat je nodig hebt: training, voeding, herstel, metingen en persoonlijke coaching.
-            </p>
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <Link to="/booking">
-                <Button size="lg" className="w-full gap-2 bg-primary text-primary-foreground hover:bg-primary/90 sm:w-auto">
-                  Plan gratis intake <ArrowRight className="h-5 w-5" />
-                </Button>
-              </Link>
-              <Link to="/contact">
-                <Button size="lg" variant="outline" className="w-full border-white/30 text-white hover:bg-white/10 sm:w-auto">
-                  Stel je vraag
-                </Button>
-              </Link>
-            </div>
+      <PageHero
+        image="/images/optimized/page-getfit-hero-960.jpg"
+        title="Get Fit Programma Den Bosch"
+        subtitle="12 weken begeleiding met 2x per week personal training, wegen, voedingsschema's op maat, koelkast-check, voortgangsboek, Deep Tissue Massage, mental coaching en 24/7 ondersteuning."
+        overlayClassName="bg-gradient-to-r from-secondary/95 via-secondary/82 to-secondary/30"
+        badge={(
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-bold text-primary-foreground">
+            <Trophy className="h-4 w-4" /> Premium 12-weken traject
           </div>
+        )}
+      >
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <Link to="/booking">
+            <Button size="lg" className="w-full gap-2 bg-primary text-primary-foreground hover:bg-primary/90 sm:w-auto">
+              Plan gratis intake <ArrowRight className="h-5 w-5" />
+            </Button>
+          </Link>
+          <Link to="/contact">
+            <Button size="lg" variant="outline" className="w-full border-white/30 text-white hover:bg-white/10 sm:w-auto">
+              Stel je vraag
+            </Button>
+          </Link>
         </div>
-      </section>
+      </PageHero>
 
       <section className="bg-primary px-4 py-6 text-primary-foreground">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -191,7 +178,7 @@ export default function GetFit() {
         </div>
       </section>
 
-      <section className="px-4 py-16">
+      <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <div>
             <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-amber-700">Herkenbaar?</p>
@@ -220,7 +207,7 @@ export default function GetFit() {
         </div>
       </section>
 
-      <section className="bg-muted/30 px-4 py-16">
+      <section className="bg-muted/30 px-4 py-16 md:py-20 lg:py-24">
         <div className="mx-auto max-w-7xl">
           <div className="mx-auto mb-12 max-w-2xl text-center">
             <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-amber-700">Alles inbegrepen</p>
@@ -240,7 +227,7 @@ export default function GetFit() {
         </div>
       </section>
 
-      <section className="px-4 py-16">
+      <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="mx-auto max-w-5xl">
           <div className="mb-12 text-center">
             <h2 className="text-3xl font-display font-bold text-secondary">Hoe werkt het traject?</h2>
@@ -265,7 +252,7 @@ export default function GetFit() {
         </div>
       </section>
 
-      <section className="bg-muted/30 px-4 py-16">
+      <section className="bg-muted/30 px-4 py-16 md:py-20 lg:py-24">
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 text-center">
             <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-amber-700">Resultaten</p>
@@ -290,17 +277,19 @@ export default function GetFit() {
         </div>
       </section>
 
-      <section className="px-4 py-16">
+      <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="mx-auto max-w-3xl">
           <h2 className="mb-8 text-center text-3xl font-display font-bold text-secondary">Veelgestelde vragen</h2>
           <FAQAccordion items={FAQS} />
         </div>
       </section>
 
+      <ServiceReviews title="Resultaten uit het Get Fit Programma" />
+
       <CTASection
         dark
-        title="Ben jij klaar om het beste uit jezelf te halen?"
-        subtitle="Er is beperkt plek voor Get Fit. Plan een gratis intake en ontdek of dit traject bij jou past."
+        title="Klaar om fitter, sterker en energieker te worden?"
+        subtitle="Er is beperkt plek voor Get Fit. Plan vandaag nog jouw gratis proefles of intake."
       />
     </div>
   );

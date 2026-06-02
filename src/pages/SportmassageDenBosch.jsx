@@ -4,7 +4,8 @@ import { ArrowRight, CheckCircle, Star, Zap } from 'lucide-react';
 import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
 import SEO from '@/components/SEO';
-import ResponsiveImage from '@/components/ResponsiveImage';
+import PageHero from '@/components/PageHero';
+import ServiceReviews from '@/components/ServiceReviews';
 
 const HERO_IMG = '/images/optimized/page-massage-hero-960.jpg';
 
@@ -33,31 +34,36 @@ export default function SportmassageDenBosch() {
         description="Professionele sportmassage in omgeving Den Bosch. Sneller herstel, minder spierpijn en betere prestaties. Aan huis beschikbaar. Boek direct bij JitanSports."
         path="/sportmassage-den-bosch"
       />
-      <section className="relative h-[50vh] min-h-[400px] flex items-center overflow-hidden">
-        <div className="absolute inset-0">
-          <ResponsiveImage src={HERO_IMG} alt="" className="w-full h-full object-cover" loading="eager" fetchPriority="high" />
-          <div className="absolute inset-0 bg-gradient-to-r from-secondary/90 to-secondary/40" />
-        </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="max-w-xl">
-            <div className="flex items-center gap-2 mb-3"><Zap className="w-4 h-4 text-primary" /><span className="text-primary font-semibold text-sm uppercase tracking-wider">Sportmassage</span></div>
-            <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">Sportmassage in omgeving Den Bosch</h1>
-            <p className="text-white/80 text-lg mb-6">Professionele sportmassage aan huis in omgeving Den Bosch. Herstel sneller, presteer beter en train zonder blessures.</p>
-            <div className="flex items-center gap-2 mb-6">
-              {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-primary text-primary" />)}
-              <span className="text-white/80 text-sm ml-1">5.0 · 31+ beoordelingen</span>
-            </div>
-            <Link to="/booking"><Button size="lg" className="bg-primary hover:bg-primary/90 text-secondary font-bold gap-2">Boek Sportmassage <ArrowRight className="w-5 h-5" /></Button></Link>
+      <PageHero
+        image={HERO_IMG}
+        title="Sportmassage in omgeving Den Bosch"
+        subtitle="Professionele sportmassage aan huis in omgeving Den Bosch. Herstel sneller, presteer beter en train zonder blessures."
+        contentClassName="max-w-xl"
+        overlayClassName="bg-gradient-to-r from-secondary/90 to-secondary/40"
+        badge={(
+          <div className="mb-3 flex items-center gap-2">
+            <Zap className="h-4 w-4 text-primary" />
+            <span className="text-sm font-semibold uppercase tracking-wider text-primary">Sportmassage</span>
           </div>
+        )}
+      >
+        <div className="mb-6 flex items-center gap-2">
+          {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-primary text-primary" />)}
+          <span className="ml-1 text-sm text-white/80">5.0 · 31+ beoordelingen</span>
         </div>
-      </section>
+        <Link to="/booking">
+          <Button size="lg" className="gap-2 bg-primary font-bold text-secondary hover:bg-primary/90">
+            Boek Sportmassage <ArrowRight className="h-5 w-5" />
+          </Button>
+        </Link>
+      </PageHero>
       <section className="py-6 px-4 bg-primary/10">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-secondary font-semibold">Sportmassage aan huis in omgeving Den Bosch – geen reiskosten!</p>
           <Link to="/booking"><Button className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2">Direct Boeken <ArrowRight className="w-4 h-4" /></Button></Link>
         </div>
       </section>
-      <section className="py-16 px-4">
+      <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
           <div>
             <h2 className="text-3xl font-display font-bold text-secondary mb-6">Sportmassage voor topprestaties en herstel</h2>
@@ -84,13 +90,15 @@ export default function SportmassageDenBosch() {
           </div>
         </div>
       </section>
-      <section className="py-16 px-4 bg-muted/30">
+      <section className="px-4 py-16 md:py-20 lg:py-24 bg-muted/30">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-display font-bold text-secondary mb-8 text-center">Veelgestelde vragen</h2>
           <FAQAccordion items={FAQS} />
         </div>
       </section>
-      <CTASection dark title="Boek sportmassage in omgeving Den Bosch" subtitle="Aan huis. Professioneel. Effectief. Snel geboekt." />
+      <ServiceReviews title="Klanten over sportmassage en herstel" />
+
+      <CTASection dark title="Klaar om fitter, sterker en energieker te worden?" subtitle="Aan huis. Professioneel. Effectief. Snel geboekt." />
     </div>
   );
 }

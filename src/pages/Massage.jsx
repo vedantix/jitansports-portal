@@ -3,8 +3,9 @@ import { ArrowRight, CheckCircle, Heart, Home, Shield, Sparkles, Star, Zap } fro
 import { Button } from '@/components/ui/button';
 import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
-import ResponsiveImage from '@/components/ResponsiveImage';
 import SEO, { buildFAQSchema } from '@/components/SEO';
+import PageHero from '@/components/PageHero';
+import ServiceReviews from '@/components/ServiceReviews';
 
 const MASSAGE_TYPES = [
   {
@@ -96,46 +97,32 @@ export default function Massage() {
         jsonLd={buildFAQSchema(FAQS)}
       />
 
-      <section className="relative flex min-h-[68svh] items-center overflow-hidden px-4 py-20 text-white">
-        <div className="absolute inset-0">
-          <ResponsiveImage
-            src="/images/optimized/page-massage-hero-960.jpg"
-            alt=""
-            className="h-full w-full object-cover"
-            sizes="100vw"
-            loading="eager"
-            fetchPriority="high"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-secondary/94 via-secondary/78 to-secondary/25" />
+      <PageHero
+        image="/images/optimized/page-massage-hero-960.jpg"
+        eyebrow="Deep Tissue Massage Den Bosch"
+        title="Deep Tissue Massage in Den Bosch"
+        subtitle="Professionele Deep Tissue Massage, ontspanningsmassage en massage aan huis. Verminder blokkades, herstel sneller en kom direct tot rust in je eigen omgeving."
+        overlayClassName="bg-gradient-to-r from-secondary/94 via-secondary/78 to-secondary/25"
+      >
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <Link to="/booking">
+            <Button size="lg" className="w-full gap-2 bg-primary text-primary-foreground hover:bg-primary/90 sm:w-auto">
+              Boek een massage <ArrowRight className="h-5 w-5" />
+            </Button>
+          </Link>
+          <Link to="/vip-treatment">
+            <Button size="lg" variant="outline" className="w-full border-white/30 text-white hover:bg-white/10 sm:w-auto">
+              Bekijk VIP Treatment
+            </Button>
+          </Link>
         </div>
-        <div className="relative z-10 mx-auto max-w-7xl">
-          <div className="max-w-2xl">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary">Massage aan huis</p>
-            <h1 className="mb-5 text-4xl font-display font-bold leading-tight md:text-6xl">Massage in omgeving Den Bosch</h1>
-            <p className="mb-7 text-lg leading-relaxed text-white/82">
-              Deep Tissue Massage, ontspanningsmassage en sportmassage. Professioneel aan huis, zodat echte ontspanning ook echt ontspanning blijft.
-            </p>
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <Link to="/booking">
-                <Button size="lg" className="w-full gap-2 bg-primary text-primary-foreground hover:bg-primary/90 sm:w-auto">
-                  Boek een massage <ArrowRight className="h-5 w-5" />
-                </Button>
-              </Link>
-              <Link to="/vip-treatment">
-                <Button size="lg" variant="outline" className="w-full border-white/30 text-white hover:bg-white/10 sm:w-auto">
-                  Bekijk VIP Treatment
-                </Button>
-              </Link>
-            </div>
-            <div className="mt-6 flex items-center gap-2">
-              {[...Array(5)].map((_, index) => (
-                <Star key={index} className="h-4 w-4 fill-primary text-primary" />
-              ))}
-              <span className="text-sm text-white/78">5.0 · gespecialiseerd in Deep Tissue Massage</span>
-            </div>
-          </div>
+        <div className="mt-6 flex items-center gap-2">
+          {[...Array(5)].map((_, index) => (
+            <Star key={index} className="h-4 w-4 fill-primary text-primary" />
+          ))}
+          <span className="text-sm text-white/78">5.0 · gespecialiseerd in Deep Tissue Massage</span>
         </div>
-      </section>
+      </PageHero>
 
       <section className="bg-primary/10 px-4 py-5">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -148,7 +135,7 @@ export default function Massage() {
         </div>
       </section>
 
-      <section className="px-4 py-16">
+      <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="mx-auto max-w-4xl text-center">
           <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-amber-700">Probleem</p>
           <h2 className="mb-5 text-3xl font-display font-bold text-secondary">Naast intensief sporten is ontspanning geen luxe</h2>
@@ -159,7 +146,7 @@ export default function Massage() {
         </div>
       </section>
 
-      <section className="bg-muted/30 px-4 py-16">
+      <section className="bg-muted/30 px-4 py-16 md:py-20 lg:py-24">
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 text-center">
             <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-amber-700">Behandelingen</p>
@@ -198,7 +185,7 @@ export default function Massage() {
         </div>
       </section>
 
-      <section className="px-4 py-16">
+      <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:items-center">
           <div>
             <div className="mb-4 flex items-center gap-3">
@@ -229,7 +216,7 @@ export default function Massage() {
         </div>
       </section>
 
-      <section className="bg-muted/30 px-4 py-16">
+      <section className="bg-muted/30 px-4 py-16 md:py-20 lg:py-24">
         <div className="mx-auto max-w-5xl">
           <div className="mb-10 text-center">
             <h2 className="text-3xl font-display font-bold text-secondary">Werkwijze</h2>
@@ -251,7 +238,7 @@ export default function Massage() {
         </div>
       </section>
 
-      <section className="px-4 py-16">
+      <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="mx-auto max-w-3xl">
           <h2 className="mb-8 text-center text-3xl font-display font-bold text-secondary">Veelgestelde vragen over massage</h2>
           <FAQAccordion items={FAQS} />
@@ -278,10 +265,12 @@ export default function Massage() {
         </div>
       </section>
 
+      <ServiceReviews title="Wat klanten ervaren na massage en herstelbegeleiding" />
+
       <CTASection
         dark
-        title="Boek jouw massage aan huis"
-        subtitle="Professioneel, persoonlijk en in je eigen omgeving. Plan direct een massage of vraag advies."
+        title="Klaar om fitter, sterker en energieker te worden?"
+        subtitle="Plan vandaag nog jouw gratis proefles of boek direct een massage aan huis."
       />
     </div>
   );

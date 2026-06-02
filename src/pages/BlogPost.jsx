@@ -6,8 +6,8 @@ import { Calendar, ArrowLeft, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import CTASection from '../components/CTASection';
 import SEO, { buildArticleSchema } from '@/components/SEO';
-import ResponsiveImage from '@/components/ResponsiveImage';
 import { findFallbackPost } from '@/lib/blogContent';
+import PageHero from '@/components/PageHero';
 
 const formatDate = (date) =>
   new Intl.DateTimeFormat('nl-NL', {
@@ -56,34 +56,30 @@ export default function BlogPost() {
         type="article"
         jsonLd={buildArticleSchema(post)}
       />
-      {/* Header */}
-      {post.featured_image && (
-        <div className="relative h-[40vh] min-h-[300px]">
-          <ResponsiveImage
-            src={post.featured_image}
-            alt={post.title}
-            className="w-full h-full object-cover"
-            sizes="100vw"
-            loading="eager"
-            fetchPriority="high"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 to-transparent" />
-        </div>
-      )}
+      <PageHero
+        image={post.featured_image}
+        align="center"
+        title={post.title}
+        subtitle={post.excerpt}
+        titleClassName="md:text-5xl lg:text-5xl"
+        overlayClassName="bg-gradient-to-t from-secondary/88 via-secondary/70 to-secondary/30"
+        badge={(
+          <div className="mb-4 flex flex-wrap items-center justify-center gap-3 text-sm text-white/75">
+            {post.category && (
+              <span className="font-semibold uppercase tracking-wider text-primary">{post.category}</span>
+            )}
+            <span className="flex items-center gap-1">
+              <Calendar className="h-4 w-4" /> {formatDate(post.created_date)}
+            </span>
+            {post.author && <span>Door {post.author}</span>}
+          </div>
+        )}
+      />
 
       <article className="max-w-3xl mx-auto px-4 py-12">
         <Link to="/blog" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-6">
           <ArrowLeft className="w-4 h-4" /> Terug naar Blog
         </Link>
-
-        {post.category && (
-          <span className="text-xs font-semibold text-primary uppercase tracking-wider">{post.category}</span>
-        )}
-        <h1 className="text-3xl md:text-4xl font-display font-bold text-secondary mt-2 mb-4">{post.title}</h1>
-        <div className="flex items-center gap-4 text-sm text-muted-foreground mb-10">
-          <span className="flex items-center gap-1"><Calendar className="w-4 h-4" /> {formatDate(post.created_date)}</span>
-          {post.author && <span>Door {post.author}</span>}
-        </div>
 
         <div className="prose prose-lg max-w-none prose-headings:font-display prose-headings:text-secondary prose-a:text-primary">
           <ReactMarkdown>{post.content}</ReactMarkdown>

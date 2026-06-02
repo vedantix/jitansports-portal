@@ -1,19 +1,21 @@
 import { Link } from 'react-router-dom';
 
-const LOGO_URL = "https://media.base44.com/images/public/6a115e447a3ac96774309014/ba3ee1a0d_Logo5.png";
-
 export default function Logo({ to = '/', className = '', compact = false, onClick = undefined, tone = 'light' }) {
-  const isDark = tone === 'dark';
+  const titleClass = tone === 'dark' ? 'text-white' : 'text-secondary';
+  const subtitleClass = tone === 'dark' ? 'text-white/50' : 'text-muted-foreground';
 
   return (
-    <Link to={to} onClick={onClick} className={`inline-flex items-center ${className}`}>
-      <img
-        src={LOGO_URL}
-        alt="JitanSports"
-        height={compact ? 44 : 192}
-        className={compact ? 'h-11 w-auto' : 'h-48 w-auto'}
-        style={isDark ? { filter: 'brightness(0) invert(1)' } : {}}
-      />
+    <Link to={to} onClick={onClick} className={`inline-flex shrink-0 items-center ${className}`}>
+      <span className="leading-none">
+        <span className={`block font-display ${compact ? 'text-2xl' : 'text-3xl md:text-4xl'} font-extrabold ${titleClass}`}>
+          JitanSports
+        </span>
+        {!compact && (
+          <span className={`mt-1.5 block text-[0.72rem] font-semibold uppercase ${subtitleClass}`}>
+            Training & Massage
+          </span>
+        )}
+      </span>
     </Link>
   );
 }
