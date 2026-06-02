@@ -18,9 +18,64 @@ import FAQAccordion from '../components/FAQAccordion';
 import CTASection from '../components/CTASection';
 import PageHero from '@/components/PageHero';
 
+const LEGACY_HERO_COPY = {
+  eyebrow: 'YOUR HEALTH IS OUR GOAL',
+  highlight: 'met persoonlijke begeleiding op jouw tempo',
+  subtitle: 'Personal training, deep tissue massage en voedingsbegeleiding in Den Bosch, Rosmalen, Vught en omgeving.',
+};
+
+const UPDATED_HERO_COPY = {
+  eyebrow: 'PERSONAL TRAINING • MASSAGE • VOEDINGSBEGELEIDING',
+  highlight: 'met een complete aanpak',
+  subtitle:
+    'Bij JitanSports combineren we personal training, deep tissue massage en voedingsbegeleiding voor blijvend resultaat. Persoonlijke aandacht. Gericht op jouw doelen. Voor lichaam én geest.',
+};
+
+function normalizeHeroCopy(content) {
+  return {
+    eyebrow:
+      !content.hero_eyebrow || content.hero_eyebrow === LEGACY_HERO_COPY.eyebrow
+        ? UPDATED_HERO_COPY.eyebrow
+        : content.hero_eyebrow,
+    title: content.hero_title || 'Word fitter, sterker en pijnvrij',
+    highlight:
+      !content.hero_highlight || content.hero_highlight === LEGACY_HERO_COPY.highlight
+        ? UPDATED_HERO_COPY.highlight
+        : content.hero_highlight,
+    subtitle:
+      !content.hero_subtitle || content.hero_subtitle === LEGACY_HERO_COPY.subtitle
+        ? UPDATED_HERO_COPY.subtitle
+        : content.hero_subtitle,
+  };
+}
+
+function renderHeroTitle(title, highlight) {
+  const lines = String(title || '')
+    .replace(/,\s+/, ',\n')
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean);
+
+  return (
+    <>
+      {lines.map((line) => (
+        <span key={line} className="block">
+          {line}
+        </span>
+      ))}
+      {highlight && (
+        <span className="mt-3 block text-2xl font-bold leading-tight text-primary md:text-3xl lg:text-4xl">
+          {highlight}
+        </span>
+      )}
+    </>
+  );
+}
+
 export default function Home() {
   const { content } = useSiteContent();
   const [faqs, setFaqs] = useState([]);
+  const hero = normalizeHeroCopy(content);
   const services = [1, 2, 3].map((number) => ({
     title: content[`home_service_${number}_title`],
     desc: content[`home_service_${number}_desc`],
@@ -72,10 +127,12 @@ export default function Home() {
       />
       <PageHero
         image={content.hero_image || '/images/optimized/hero-desktop-1344.jpg'}
-        eyebrow={content.hero_eyebrow}
-        title={<>{content.hero_title}<br /> <span className="text-primary">{content.hero_highlight}</span></>}
-        subtitle={content.hero_subtitle}
-        contentClassName="max-w-xl"
+        eyebrow={hero.eyebrow}
+        title={renderHeroTitle(hero.title, hero.highlight)}
+        subtitle={hero.subtitle}
+        contentClassName="max-w-2xl py-8"
+        titleClassName="mb-6 text-4xl md:text-5xl lg:text-6xl"
+        subtitleClassName="max-w-[62ch] text-base md:text-lg"
       >
         <div className="flex flex-col gap-3 sm:flex-row">
           <Link to="/booking">
@@ -89,14 +146,14 @@ export default function Home() {
             </Button>
           </a>
         </div>
-        <div className="mt-8 flex items-center gap-3">
+        <div className="mt-7 flex items-center gap-3">
           <div className="flex items-center gap-0.5">
             {[...Array(5)].map((_, i) => (
-              <svg key={i} className="h-4 w-4" fill="hsl(var(--primary))" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+              <svg key={i} className="h-3.5 w-3.5" fill="hsl(var(--primary))" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
             ))}
           </div>
-          <p className="text-sm text-white/70">
-            <span className="font-semibold text-white">{content.home_review_proof}</span>
+          <p className="text-xs font-medium text-white/65">
+            {content.home_review_proof}
           </p>
         </div>
       </PageHero>

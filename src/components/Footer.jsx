@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, Instagram, Facebook, Linkedin, Star, Users, Clock, MessageCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, Instagram, Facebook, Linkedin, Star, Users, Clock, MessageCircle, CalendarCheck } from 'lucide-react';
 import Logo from '@/components/Logo';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import { createWhatsAppUrl } from '@/lib/siteContent';
@@ -36,6 +36,24 @@ export default function Footer() {
             <p className="text-white/60 text-sm leading-relaxed mb-5">
               Personal Training, Deep Tissue Massage en voedingsbegeleiding in {content.region}.
             </p>
+            <div className="mb-5 space-y-2">
+              <Link
+                to="/booking"
+                className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 text-sm font-bold text-primary-foreground transition-colors hover:bg-primary/90"
+              >
+                <CalendarCheck className="h-4 w-4" />
+                Plan gratis proefles
+              </Link>
+              <a
+                href={createWhatsAppUrl(content)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg border border-white/20 px-4 text-sm font-semibold text-white transition-colors hover:border-primary hover:text-primary"
+              >
+                <MessageCircle className="h-4 w-4" />
+                WhatsApp Jitan
+              </a>
+            </div>
             <div className="flex gap-3">
               {[
                 { icon: Instagram, href: content.instagram_url, label: 'Instagram' },
@@ -111,6 +129,12 @@ export default function Footer() {
               <div className="flex items-start gap-2 text-white/60 text-sm">
                 <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5" />
                 <span>{content.address_label}</span>
+              </div>
+              <div className="flex items-center gap-2 text-white/60 text-sm">
+                <span className="flex h-4 w-4 flex-shrink-0 items-center justify-center text-[10px] font-bold text-primary">
+                  KvK
+                </span>
+                <span>KvK: 76804593</span>
               </div>
             </div>
           </div>

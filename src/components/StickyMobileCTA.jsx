@@ -8,7 +8,7 @@ export default function StickyMobileCTA() {
   if (location.pathname === '/booking' || location.pathname.startsWith('/admin')) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden pb-safe">
+    <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden pb-safe">
       <div className="bg-white/95 backdrop-blur-sm border-t border-border px-4 py-3 flex gap-3">
         <Link
           to="/booking"

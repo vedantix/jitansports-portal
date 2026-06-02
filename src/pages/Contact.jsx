@@ -128,11 +128,22 @@ export default function Contact() {
               </div>
             </div>
 
-            <a href={createWhatsAppUrl(content, 'Hallo JitanSports, ik wil graag meer informatie.')} target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="bg-green-500 hover:bg-green-600 text-white gap-2 w-full">
-                <MessageCircle className="w-5 h-5" /> {content.contact_whatsapp_button}
-              </Button>
-            </a>
+            <div className="rounded-2xl border border-border bg-muted/30 p-6">
+              <div className="mb-4 flex items-start gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10">
+                  <MessageCircle className="h-5 w-5 text-primary" />
+                </div>
+                <div>
+                  <h3 className="font-display text-xl font-bold text-secondary">{content.contact_whatsapp_title}</h3>
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{content.contact_whatsapp_text}</p>
+                </div>
+              </div>
+              <a href={createWhatsAppUrl(content, 'Hallo JitanSports, ik wil graag meer informatie.')} target="_blank" rel="noopener noreferrer">
+                <Button size="lg" className="w-full gap-2 bg-primary font-bold text-primary-foreground hover:bg-primary/90">
+                  <MessageCircle className="h-5 w-5" /> {content.contact_whatsapp_button}
+                </Button>
+              </a>
+            </div>
 
             <div className="mt-8 aspect-[4/3] overflow-hidden rounded-2xl border border-border/50 lg:aspect-[16/10]">
               <iframe

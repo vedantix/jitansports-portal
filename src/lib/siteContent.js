@@ -15,11 +15,11 @@ const PAGE_IMAGES = {
 };
 
 export const DEFAULT_SITE_CONTENT = Object.freeze({
-  hero_eyebrow: 'YOUR HEALTH IS OUR GOAL',
+  hero_eyebrow: 'PERSONAL TRAINING • MASSAGE • VOEDINGSBEGELEIDING',
   hero_title: 'Word fitter, sterker en pijnvrij',
-  hero_highlight: 'met persoonlijke begeleiding op jouw tempo',
+  hero_highlight: 'met een complete aanpak',
   hero_subtitle:
-    'Personal training, deep tissue massage en voedingsbegeleiding in Den Bosch, Rosmalen, Vught en omgeving.',
+    'Bij JitanSports combineren we personal training, deep tissue massage en voedingsbegeleiding voor blijvend resultaat. Persoonlijke aandacht. Gericht op jouw doelen. Voor lichaam én geest.',
   hero_image: PAGE_IMAGES.hero,
   primary_cta_text: 'Plan gratis proefles',
   secondary_cta_text: 'WhatsApp direct',
@@ -306,7 +306,9 @@ export const DEFAULT_SITE_CONTENT = Object.freeze({
   contact_details_title: 'Contactgegevens',
   contact_opening_hours_1: 'Ma - Za: 07:00 - 21:00',
   contact_opening_hours_2: 'Zo: Op afspraak',
-  contact_whatsapp_button: 'Direct WhatsApp Contact',
+  contact_whatsapp_title: 'Heb je vragen?',
+  contact_whatsapp_text: 'Neem direct contact op via WhatsApp.',
+  contact_whatsapp_button: 'WhatsApp Jitan',
   contact_map_url: 'https://www.google.com/maps?q=Den%20Bosch%2C%20Nederland&output=embed',
   booking_title: 'Maak een Afspraak',
   booking_subtitle: 'Gratis proefles of direct boeken - volledig vrijblijvend',
@@ -688,8 +690,10 @@ export const CONTENT_FIELDS = [
       field('contact_details_title', 'Contactgegevens titel', 'text', 926),
       field('contact_opening_hours_1', 'Openingstijden regel 1', 'text', 927),
       field('contact_opening_hours_2', 'Openingstijden regel 2', 'text', 928),
-      field('contact_whatsapp_button', 'WhatsApp knoptekst', 'text', 929),
-      field('contact_map_url', 'Google Maps embed URL', 'url', 930),
+      field('contact_whatsapp_title', 'WhatsApp blok titel', 'text', 929),
+      field('contact_whatsapp_text', 'WhatsApp blok tekst', 'textarea', 930),
+      field('contact_whatsapp_button', 'WhatsApp knoptekst', 'text', 931),
+      field('contact_map_url', 'Google Maps embed URL', 'url', 932),
       field('booking_title', 'Booking titel', 'text', 940),
       field('booking_subtitle', 'Booking tekst', 'textarea', 941),
       field('booking_service_title', 'Booking dienst-stap titel', 'text', 942),

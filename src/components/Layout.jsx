@@ -2,7 +2,6 @@ import { Outlet } from 'react-router-dom';
 import StickyMobileCTA from './StickyMobileCTA';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import WhatsAppButton from './WhatsAppButton';
 
 export default function Layout() {
   return (
@@ -12,7 +11,6 @@ export default function Layout() {
         <Outlet />
       </main>
       <Footer />
-      <WhatsAppButton />
       <StickyMobileCTA />
     </div>
   );
