@@ -6,31 +6,31 @@ import Logo from '@/components/Logo';
 
 const DIENSTEN = [
   { label: 'Personal Training', path: '/personal-training', desc: 'Training aan huis of outdoor', icon: Dumbbell },
-  { label: 'Massage', path: '/massage', desc: 'Deep Tissue & Ontspanning', icon: Heart },
-  { label: 'Voeding', path: '/voeding', desc: 'Schema en lichaamsanalyse', icon: Salad },
-  { label: 'VIP Treatment', path: '/vip-treatment', desc: 'Training + Massage combinatie', icon: Crown },
-  { label: 'Get Fit', path: '/get-fit', desc: '12-weken coaching pakket', icon: Trophy },
+  { label: 'Massage',           path: '/massage',           desc: 'Deep Tissue & Ontspanning',  icon: Heart   },
+  { label: 'Voeding',           path: '/voeding',           desc: 'Schema en lichaamsanalyse',  icon: Salad   },
+  { label: 'VIP Treatment',     path: '/vip-treatment',     desc: 'Training + Massage combi',   icon: Crown   },
+  { label: 'Get Fit',           path: '/get-fit',           desc: '12-weken coaching pakket',   icon: Trophy  },
 ];
 
 const DIENSTEN_PATHS = new Set(DIENSTEN.map(d => d.path));
 
-const NAV_BEFORE = [{ label: 'Home', path: '/' }];
-const NAV_AFTER = [
-  { label: 'Tarieven', path: '/tarieven' },
-  { label: 'Over Ons', path: '/over-ons' },
-  { label: 'Referenties', path: '/referenties' },
-  { label: 'Contact', path: '/contact' },
+const NAV_ITEMS = [
+  { label: 'Home',        path: '/'           },
+  { label: 'Tarieven',    path: '/tarieven'   },
+  { label: 'Over Ons',    path: '/over-ons'   },
+  { label: 'Referenties', path: '/referenties'},
+  { label: 'Contact',     path: '/contact'    },
 ];
 
-function NavLink({ to, active, children, onClick }) {
+/* ─── Desktop nav link ─────────────────────────────────────────── */
+function NavLink({ to, active, children }) {
   return (
     <Link
       to={to}
-      onClick={onClick}
-      className={`px-3.5 py-2 text-sm font-semibold rounded-lg transition-colors whitespace-nowrap ${
+      className={`px-4 py-2 text-[13.5px] font-semibold rounded-lg transition-all whitespace-nowrap ${
         active
-          ? 'text-amber-700 bg-primary/10'
-          : 'text-foreground/70 hover:text-foreground hover:bg-muted'
+          ? 'text-amber-700 bg-amber-50'
+          : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
       }`}
     >
       {children}
@@ -39,24 +39,26 @@ function NavLink({ to, active, children, onClick }) {
 }
 
 export default function Navbar() {
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [dienstenOpen, setDienstenOpen] = useState(false);
-  const [mobileDienstenOpen, setMobileDienstenOpen] = useState(false);
-  const location = useLocation();
+  const [mobileOpen,        setMobileOpen]        = useState(false);
+  const [dienstenOpen,      setDienstenOpen]      = useState(false);
+  const [mobileDienstenOpen,setMobileDienstenOpen]= useState(false);
+  const location    = useLocation();
   const dropdownRef = useRef(null);
 
   const isDienstenActive = DIENSTEN_PATHS.has(location.pathname);
 
+  /* Close dropdown on outside click */
   useEffect(() => {
-    function handleClickOutside(e) {
+    function onOutside(e) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setDienstenOpen(false);
       }
     }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('mousedown', onOutside);
+    return () => document.removeEventListener('mousedown', onOutside);
   }, []);
 
+  /* Close everything on route change */
   useEffect(() => {
     setMobileOpen(false);
     setDienstenOpen(false);
@@ -65,60 +67,68 @@ export default function Navbar() {
 
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-40 border-b border-border/60 bg-white/96 shadow-sm backdrop-blur-md"
+      className="fixed top-0 inset-x-0 z-50 bg-white/97 border-b border-slate-200/80 shadow-sm backdrop-blur-sm"
       aria-label="Hoofdnavigatie"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
+      {/* ── Bar ── */}
+      <div className="max-w-[1320px] mx-auto px-5 lg:px-8">
+        <div className="flex items-center justify-between h-[68px] lg:h-[76px]">
 
-          {/* Logo */}
-          <Logo compact onClick={() => setMobileOpen(false)} />
+          {/* Logo — fixed width so nav items always start from same position */}
+          <div className="shrink-0 w-[160px] lg:w-[180px]">
+            <Logo compact />
+          </div>
 
-          {/* Desktop nav */}
-          <div className="hidden xl:flex items-center gap-0.5">
-            {NAV_BEFORE.map(item => (
-              <NavLink key={item.path} to={item.path} active={location.pathname === item.path}>
-                {item.label}
-              </NavLink>
-            ))}
+          {/* ── Desktop navigation (≥1024px) ─────────────────────── */}
+          <div className="hidden lg:flex items-center gap-1">
+
+            {/* Home */}
+            <NavLink to="/" active={location.pathname === '/'}>Home</NavLink>
 
             {/* Diensten dropdown */}
             <div ref={dropdownRef} className="relative">
               <button
-                onClick={() => setDienstenOpen(prev => !prev)}
+                onClick={() => setDienstenOpen(p => !p)}
                 onKeyDown={e => e.key === 'Escape' && setDienstenOpen(false)}
-                aria-haspopup="true"
+                aria-haspopup="listbox"
                 aria-expanded={dienstenOpen}
-                className={`flex items-center gap-1.5 px-3.5 py-2 text-sm font-semibold rounded-lg transition-colors whitespace-nowrap ${
+                className={`flex items-center gap-1.5 px-4 py-2 text-[13.5px] font-semibold rounded-lg transition-all whitespace-nowrap ${
                   isDienstenActive || dienstenOpen
-                    ? 'text-amber-700 bg-primary/10'
-                    : 'text-foreground/70 hover:text-foreground hover:bg-muted'
+                    ? 'text-amber-700 bg-amber-50'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                 }`}
               >
                 Diensten
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${dienstenOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown
+                  className={`w-3.5 h-3.5 opacity-60 transition-transform duration-200 ${dienstenOpen ? 'rotate-180' : ''}`}
+                />
               </button>
 
+              {/* Dropdown panel */}
               {dienstenOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 bg-white rounded-2xl border border-border shadow-2xl shadow-secondary/10 py-2 z-50">
-                  <p className="px-4 pt-2 pb-1 text-xs font-bold uppercase tracking-wider text-muted-foreground">Diensten</p>
+                <div className="absolute top-[calc(100%+8px)] left-1/2 -translate-x-1/2 w-[280px] bg-white rounded-2xl border border-slate-200 shadow-xl shadow-slate-900/10 py-2 z-50">
+                  <p className="px-4 pt-2 pb-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                    Onze diensten
+                  </p>
                   {DIENSTEN.map(item => (
                     <Link
                       key={item.path}
                       to={item.path}
                       onClick={() => setDienstenOpen(false)}
-                      className={`flex items-start gap-3 px-4 py-3 hover:bg-muted/60 transition-colors group ${
-                        location.pathname === item.path ? 'bg-primary/5' : ''
+                      className={`flex items-center gap-3.5 px-4 py-3 hover:bg-slate-50 transition-colors group ${
+                        location.pathname === item.path ? 'bg-amber-50/60' : ''
                       }`}
                     >
-                      <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-primary/20 transition-colors">
+                      <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
                         <item.icon className="w-4 h-4 text-primary" />
                       </div>
-                      <div>
-                        <p className={`text-sm font-semibold leading-tight ${location.pathname === item.path ? 'text-amber-700' : 'text-secondary'}`}>
+                      <div className="min-w-0">
+                        <p className={`text-[13px] font-semibold leading-tight truncate ${
+                          location.pathname === item.path ? 'text-amber-700' : 'text-slate-800'
+                        }`}>
                           {item.label}
                         </p>
-                        <p className="text-xs text-muted-foreground mt-0.5">{item.desc}</p>
+                        <p className="text-[11px] text-slate-400 mt-0.5">{item.desc}</p>
                       </div>
                     </Link>
                   ))}
@@ -126,45 +136,52 @@ export default function Navbar() {
               )}
             </div>
 
-            {NAV_AFTER.map(item => (
+            {/* Rest of nav */}
+            {NAV_ITEMS.filter(i => i.path !== '/').map(item => (
               <NavLink key={item.path} to={item.path} active={location.pathname === item.path}>
                 {item.label}
               </NavLink>
             ))}
+          </div>
 
+          {/* ── CTA (desktop) ─────────────────────────────────────── */}
+          <div className="hidden lg:flex items-center shrink-0">
             <Button
               asChild
-              className="ml-5 bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-5 shadow-md shadow-primary/25"
+              size="sm"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-5 h-10 shadow-md shadow-primary/20 text-[13px]"
             >
               <Link to="/booking">Plan Proefles</Link>
             </Button>
           </div>
 
-          {/* Mobile / tablet toggle */}
+          {/* ── Hamburger (< 1024px) ─────────────────────────────── */}
           <button
-            onClick={() => setMobileOpen(prev => !prev)}
-            className="xl:hidden flex h-11 w-11 items-center justify-center rounded-lg hover:bg-muted transition-colors"
+            onClick={() => setMobileOpen(p => !p)}
+            className="lg:hidden flex h-10 w-10 items-center justify-center rounded-lg hover:bg-slate-100 transition-colors"
             aria-label={mobileOpen ? 'Menu sluiten' : 'Menu openen'}
             aria-expanded={mobileOpen}
-            aria-controls="mobile-navigation"
+            aria-controls="mobile-nav"
           >
-            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* ── Mobile / tablet menu ───────────────────────────────────── */}
       {mobileOpen && (
         <div
-          id="mobile-navigation"
-          className="xl:hidden bg-white border-b border-border shadow-lg animate-in slide-in-from-top-2"
+          id="mobile-nav"
+          className="lg:hidden bg-white border-t border-slate-100 shadow-lg"
         >
-          <div className="px-4 py-4 space-y-1 max-h-[80vh] overflow-y-auto">
+          <div className="px-4 py-5 space-y-1 max-h-[80vh] overflow-y-auto">
+
+            {/* Home */}
             <Link
               to="/"
               onClick={() => setMobileOpen(false)}
-              className={`block px-4 py-3 rounded-lg text-base font-medium transition-colors ${
-                location.pathname === '/' ? 'text-amber-700 bg-primary/10' : 'text-foreground/70 hover:bg-muted'
+              className={`flex items-center px-4 py-3 rounded-xl text-[15px] font-semibold transition-colors ${
+                location.pathname === '/' ? 'text-amber-700 bg-amber-50' : 'text-slate-700 hover:bg-slate-100'
               }`}
             >
               Home
@@ -173,25 +190,26 @@ export default function Navbar() {
             {/* Diensten expandable */}
             <div>
               <button
-                onClick={() => setMobileDienstenOpen(prev => !prev)}
-                className={`w-full flex items-center justify-between px-4 py-3 rounded-lg text-base font-medium transition-colors ${
-                  isDienstenActive ? 'text-amber-700 bg-primary/10' : 'text-foreground/70 hover:bg-muted'
+                onClick={() => setMobileDienstenOpen(p => !p)}
+                className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-[15px] font-semibold transition-colors ${
+                  isDienstenActive ? 'text-amber-700 bg-amber-50' : 'text-slate-700 hover:bg-slate-100'
                 }`}
               >
                 Diensten
-                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${mobileDienstenOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown className={`w-4 h-4 opacity-60 transition-transform duration-200 ${mobileDienstenOpen ? 'rotate-180' : ''}`} />
               </button>
+
               {mobileDienstenOpen && (
-                <div className="mt-1 ml-4 space-y-0.5 border-l-2 border-primary/20 pl-2">
+                <div className="mt-1 ml-3 pl-3 border-l-2 border-primary/25 space-y-0.5">
                   {DIENSTEN.map(item => (
                     <Link
                       key={item.path}
                       to={item.path}
                       onClick={() => setMobileOpen(false)}
-                      className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                      className={`flex items-center gap-3 px-4 py-3 rounded-xl text-[14px] font-medium transition-colors ${
                         location.pathname === item.path
-                          ? 'text-amber-700 bg-primary/10'
-                          : 'text-foreground/60 hover:bg-muted hover:text-foreground'
+                          ? 'text-amber-700 bg-amber-50'
+                          : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
                       }`}
                     >
                       <item.icon className="w-4 h-4 text-primary shrink-0" />
@@ -202,23 +220,25 @@ export default function Navbar() {
               )}
             </div>
 
-            {NAV_AFTER.map(item => (
+            {/* Remaining nav items */}
+            {NAV_ITEMS.filter(i => i.path !== '/').map(item => (
               <Link
                 key={item.path}
                 to={item.path}
                 onClick={() => setMobileOpen(false)}
-                className={`block px-4 py-3 rounded-lg text-base font-medium transition-colors ${
-                  location.pathname === item.path ? 'text-amber-700 bg-primary/10' : 'text-foreground/70 hover:bg-muted'
+                className={`flex items-center px-4 py-3 rounded-xl text-[15px] font-semibold transition-colors ${
+                  location.pathname === item.path ? 'text-amber-700 bg-amber-50' : 'text-slate-700 hover:bg-slate-100'
                 }`}
               >
                 {item.label}
               </Link>
             ))}
 
-            <div className="pt-3 mt-2 border-t border-border">
+            {/* CTA */}
+            <div className="pt-4 mt-2 border-t border-slate-100">
               <Button
                 asChild
-                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold"
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-12 text-[15px] shadow-md shadow-primary/20"
               >
                 <Link to="/booking" onClick={() => setMobileOpen(false)}>
                   Plan Gratis Proefles
