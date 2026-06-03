@@ -14,7 +14,6 @@ const GoalCards = lazy(() => import('../components/GoalCards'));
 const WhyChooseUs = lazy(() => import('../components/WhyChooseUs'));
 const HowItWorks = lazy(() => import('../components/HowItWorks'));
 const ForWhom = lazy(() => import('../components/ForWhom'));
-const GoogleReviewsCarousel = lazy(() => import('../components/GoogleReviewsCarousel'));
 const TrustStats = lazy(() => import('../components/TrustStats'));
 const GallerySection = lazy(() => import('../components/GallerySection'));
 const FAQAccordion = lazy(() => import('../components/FAQAccordion'));
@@ -194,10 +193,6 @@ export default function Home() {
           {reviewsConfig.reviewProofText}
         </div>
       </section>
-
-      <DeferredSection>
-        <GoogleReviewsCarousel />
-      </DeferredSection>
 
       <section className="bg-secondary px-4 py-16 text-white md:py-20 lg:py-24">
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
