@@ -2,7 +2,7 @@ import { appParams } from '@/lib/app-params';
 
 const { appId, token, functionsVersion, appBaseUrl } = appParams;
 const apiServerUrl = (appBaseUrl || 'https://base44.app').replace(/\/$/, '');
-const authBaseUrl = (appBaseUrl || apiServerUrl).replace(/\/$/, '');
+const authApiBaseUrl = 'https://base44.app/api';
 const apiBaseUrl = `${apiServerUrl}/api`;
 export const hasBase44App = Boolean(appId && appId !== 'null' && appId !== 'undefined');
 
@@ -218,7 +218,10 @@ const auth = {
     const redirectUrl = nextUrl
       ? new URL(nextUrl, window.location.origin).toString()
       : window.location.href;
-    window.location.href = `${authBaseUrl}/login?from_url=${encodeURIComponent(redirectUrl)}`;
+    const loginUrl = new URL(`${authApiBaseUrl}/apps/auth/login`);
+    loginUrl.searchParams.set('app_id', String(appId));
+    loginUrl.searchParams.set('from_url', redirectUrl);
+    window.location.href = loginUrl.toString();
   },
   logout(redirectUrl) {
     if (typeof window === 'undefined') return;
@@ -229,7 +232,9 @@ const auth = {
       // Ignore storage failures; redirecting to the auth endpoint remains the source of truth.
     }
     const fromUrl = redirectUrl || window.location.href;
-    window.location.href = `${authBaseUrl}/api/apps/auth/logout?from_url=${encodeURIComponent(fromUrl)}`;
+    const logoutUrl = new URL(`${authApiBaseUrl}/apps/auth/logout`);
+    logoutUrl.searchParams.set('from_url', fromUrl);
+    window.location.href = logoutUrl.toString();
   },
   setToken(nextToken, saveToStorage = true) {
     if (!nextToken || !saveToStorage || typeof window === 'undefined') return;

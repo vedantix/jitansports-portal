@@ -31,6 +31,16 @@ on:
         required: false
         default: ""
         type: string
+      jotform_widget_id:
+        description: "Jotform Google Reviews widget ID"
+        required: false
+        default: ""
+        type: string
+      google_review_url:
+        description: "Google review write URL"
+        required: false
+        default: ""
+        type: string
 
 permissions:
   contents: read
@@ -77,6 +87,10 @@ jobs:
           NEXT_PUBLIC_GA_MEASUREMENT_ID: ${{ inputs.ga_measurement_id }}
           VITE_CLARITY_PROJECT_ID: ${{ inputs.clarity_project_id }}
           NEXT_PUBLIC_CLARITY_PROJECT_ID: ${{ inputs.clarity_project_id }}
+          VITE_BASE44_APP_ID: 6a115e447a3ac96774309014
+          VITE_BASE44_APP_BASE_URL: https://jitansports.base44.app
+          VITE_JOTFORM_WIDGET_ID: ${{ inputs.jotform_widget_id }}
+          VITE_GOOGLE_REVIEW_URL: ${{ inputs.google_review_url }}
         run: |
           rm -rf dist
           if [ -f package.json ] && node -e "const p=require('./package.json'); process.exit(p.scripts && p.scripts.build ? 0 : 1)"; then
@@ -142,7 +156,27 @@ jobs:
 
       - name: Upload to S3
         run: |
-          aws s3 sync dist/ "s3://${{ inputs.bucket }}/" --delete
+          aws s3 sync dist/ "s3://${{ inputs.bucket }}/" \
+            --delete \
+            --exclude "*.html" \
+            --exclude "site.webmanifest" \
+            --exclude "robots.txt" \
+            --exclude "sitemap.xml" \
+            --cache-control "public,max-age=31536000,immutable"
+
+          aws s3 cp dist/ "s3://${{ inputs.bucket }}/" \
+            --recursive \
+            --exclude "*" \
+            --include "*.html" \
+            --cache-control "max-age=0,must-revalidate" \
+            --content-type "text/html; charset=utf-8"
+
+          for file in site.webmanifest robots.txt sitemap.xml; do
+            if [ -f "dist/${file}" ]; then
+              aws s3 cp "dist/${file}" "s3://${{ inputs.bucket }}/${file}" \
+                --cache-control "max-age=0,must-revalidate"
+            fi
+          done
 
       - name: Invalidate CloudFront
         run: |

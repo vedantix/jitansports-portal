@@ -13,6 +13,7 @@ export default function PageHero({
   eyebrow = undefined,
   badge = null,
   title = '',
+  afterTitle = null,
   subtitle = undefined,
   children = null,
   footer = null,
@@ -74,7 +75,7 @@ export default function PageHero({
         </div>
       )}
 
-      <div className="relative z-10 mx-auto flex min-h-[clamp(480px,75svh,760px)] max-w-7xl items-center px-4 py-16 sm:px-6 md:py-20 lg:py-24">
+      <div className="relative z-10 mx-auto flex min-h-[clamp(420px,68svh,720px)] max-w-7xl items-center px-4 py-16 sm:px-6 md:py-20 lg:py-24">
         <div
           className={cn(
             isCentered ? 'mx-auto max-w-4xl text-center' : 'max-w-2xl',
@@ -95,6 +96,11 @@ export default function PageHero({
           >
             {title}
           </h1>
+          {afterTitle && (
+            <div className="mb-6">
+              {afterTitle}
+            </div>
+          )}
           {subtitle && (
             <p
               className={cn(

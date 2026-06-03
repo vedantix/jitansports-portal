@@ -1,13 +1,11 @@
-import { Toaster } from "@/components/ui/toaster"
-import { QueryClientProvider } from '@tanstack/react-query'
-import { queryClientInstance } from '@/lib/query-client'
-import { lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { lazy, Suspense, useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
+import Layout from './components/Layout';
+import Home from './pages/Home';
 
-const Layout = lazy(() => import('./components/Layout'));
-const Home = lazy(() => import('./pages/Home'));
+const Toaster = lazy(() => import('@/components/ui/toaster').then((module) => ({ default: module.Toaster })));
 const PersonalTraining = lazy(() => import('./pages/PersonalTraining'));
 const Massage = lazy(() => import('./pages/Massage'));
 const GetFit = lazy(() => import('./pages/GetFit'));
@@ -54,12 +52,14 @@ function RouteFallback() {
 
 const AppRoutes = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
 
-  if (isLoadingPublicSettings || isLoadingAuth) {
+  if (isAdminRoute && (isLoadingPublicSettings || isLoadingAuth)) {
     return <RouteFallback />;
   }
 
-  if (authError) {
+  if (isAdminRoute && authError) {
     if (authError.type === 'user_not_registered') {
       return <UserNotRegisteredError />;
     } else if (authError.type === 'auth_required') {
@@ -115,15 +115,35 @@ const AppRoutes = () => {
   );
 };
 
+function DeferredToaster() {
+  const [shouldMount, setShouldMount] = useState(false);
+
+  useEffect(() => {
+    if ('requestIdleCallback' in window) {
+      const idleId = window.requestIdleCallback(() => setShouldMount(true), { timeout: 2000 });
+      return () => window.cancelIdleCallback(idleId);
+    }
+
+    const timeoutId = window.setTimeout(() => setShouldMount(true), 1200);
+    return () => window.clearTimeout(timeoutId);
+  }, []);
+
+  if (!shouldMount) return null;
+
+  return (
+    <Suspense fallback={null}>
+      <Toaster />
+    </Suspense>
+  );
+}
+
 function App() {
   return (
     <AuthProvider>
-      <QueryClientProvider client={queryClientInstance}>
-        <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-          <AppRoutes />
-        </Router>
-        <Toaster />
-      </QueryClientProvider>
+      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+        <AppRoutes />
+      </Router>
+      <DeferredToaster />
     </AuthProvider>
   );
 }

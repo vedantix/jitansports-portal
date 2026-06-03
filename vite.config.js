@@ -25,13 +25,17 @@ export default defineConfig(async ({ command }) => {
   plugins.push(
     react(),
     {
-      name: 'optimize-critical-render-path',
+      name: 'preload-built-fonts',
       enforce: 'post',
-      transformIndexHtml(html) {
-        return html.replace(
-          /<link rel="stylesheet" crossorigin href="([^"]+)">/g,
-          `<link rel="preload" as="style" crossorigin fetchpriority="low" href="$1" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" crossorigin href="$1"></noscript>`
-        );
+      transformIndexHtml(html, ctx) {
+        const bundle = ctx?.bundle || {};
+        const fontPreloads = Object.values(bundle)
+          .filter((asset) => asset?.fileName?.endsWith('.woff2'))
+          .map((asset) => `<link rel="preload" as="font" type="font/woff2" crossorigin href="/${asset.fileName}">`);
+
+        if (!fontPreloads.length) return html;
+
+        return html.replace('</head>', `${fontPreloads.join('\n')}\n</head>`);
       },
     },
   );

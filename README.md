@@ -20,6 +20,8 @@ Any change pushed to the repo will also be reflected in the Base44 Builder.
 ```
 VITE_BASE44_APP_ID=your_app_id
 VITE_BASE44_APP_BASE_URL=your_backend_url
+VITE_JOTFORM_WIDGET_ID=JOTFORM_WIDGET_ID
+VITE_GOOGLE_REVIEW_URL=your_google_review_write_url
 
 e.g.
 VITE_BASE44_APP_ID=cbef744a8545c389ef439ea6

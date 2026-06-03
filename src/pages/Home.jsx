@@ -1,22 +1,25 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, MessageCircle, CheckCircle, Phone, Crown } from 'lucide-react';
+import { ArrowRight, CheckCircle, MessageCircle, Phone, Crown, Dumbbell, MapPin, Star, Trophy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import { contentLines, createWhatsAppUrl } from '@/lib/siteContent';
 import SEO, { ROUTE_SEO, buildFAQSchema, buildLocalBusinessSchema } from '@/components/SEO';
 import ResponsiveImage from '@/components/ResponsiveImage';
-import GoalCards from '../components/GoalCards';
-import WhyChooseUs from '../components/WhyChooseUs';
-import HowItWorks from '../components/HowItWorks';
-import ForWhom from '../components/ForWhom';
-import ReviewsSection from '../components/ReviewsSection';
-import TrustStats from '../components/TrustStats';
-import GallerySection from '../components/GallerySection';
-import FAQAccordion from '../components/FAQAccordion';
-import CTASection from '../components/CTASection';
 import PageHero from '@/components/PageHero';
+import GoogleRatingBadge from '@/components/GoogleRatingBadge';
+import { reviewsConfig } from '@/config/reviews';
+
+const GoalCards = lazy(() => import('../components/GoalCards'));
+const WhyChooseUs = lazy(() => import('../components/WhyChooseUs'));
+const HowItWorks = lazy(() => import('../components/HowItWorks'));
+const ForWhom = lazy(() => import('../components/ForWhom'));
+const GoogleReviewsCarousel = lazy(() => import('../components/GoogleReviewsCarousel'));
+const TrustStats = lazy(() => import('../components/TrustStats'));
+const GallerySection = lazy(() => import('../components/GallerySection'));
+const FAQAccordion = lazy(() => import('../components/FAQAccordion'));
+const CTASection = lazy(() => import('../components/CTASection'));
 
 const LEGACY_HERO_COPY = {
   eyebrow: 'YOUR HEALTH IS OUR GOAL',
@@ -72,6 +75,10 @@ function renderHeroTitle(title, highlight) {
   );
 }
 
+function DeferredSection({ children }) {
+  return <Suspense fallback={null}>{children}</Suspense>;
+}
+
 export default function Home() {
   const { content } = useSiteContent();
   const [faqs, setFaqs] = useState([]);
@@ -89,13 +96,23 @@ export default function Home() {
     answer: content[`home_faq_${number}_answer`],
   }));
   const visibleFaqs = faqs.length ? faqs : fallbackFaqs;
-  const heroUsps = [
-    'Gratis proefles',
-    'Training aan huis of outdoor',
-    'Voeding inbegrepen',
-    'Deep Tissue Massage mogelijk',
-    'Persoonlijke begeleiding',
-    'Den Bosch en omgeving',
+  const trustBarItems = [
+    {
+      type: 'rating',
+      title: `${reviewsConfig.rating}/5 Google Reviews`,
+    },
+    {
+      icon: Trophy,
+      title: '10+ jaar ervaring',
+    },
+    {
+      icon: Dumbbell,
+      title: 'Personal Training & Massage',
+    },
+    {
+      icon: MapPin,
+      title: 'Den Bosch',
+    },
   ];
 
   useEffect(() => {
@@ -129,8 +146,9 @@ export default function Home() {
         image={content.hero_image || '/images/optimized/hero-desktop-1344.jpg'}
         eyebrow={hero.eyebrow}
         title={renderHeroTitle(hero.title, hero.highlight)}
+        afterTitle={<GoogleRatingBadge compact tone="dark" />}
         subtitle={hero.subtitle}
-        contentClassName="max-w-2xl py-8"
+        contentClassName="max-w-2xl"
         titleClassName="mb-6 text-4xl md:text-5xl lg:text-6xl"
         subtitleClassName="max-w-[62ch] text-base md:text-lg"
       >
@@ -146,28 +164,36 @@ export default function Home() {
             </Button>
           </a>
         </div>
-        <div className="mt-7 flex items-center gap-3">
-          <div className="flex items-center gap-0.5">
-            {[...Array(5)].map((_, i) => (
-              <svg key={i} className="h-3.5 w-3.5" fill="hsl(var(--primary))" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-            ))}
-          </div>
-          <p className="text-xs font-medium text-white/65">
-            {content.home_review_proof}
-          </p>
-        </div>
       </PageHero>
 
       <section className="border-b border-border bg-white px-4 py-6">
-        <div className="mx-auto grid max-w-7xl gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {heroUsps.map((item) => (
-            <div key={item} className="flex items-center gap-2 rounded-lg bg-muted/50 px-4 py-3 text-sm font-semibold text-secondary">
-              <CheckCircle className="h-4 w-4 shrink-0 text-primary" />
-              <span>{item}</span>
-            </div>
-          ))}
+        <div className="mx-auto grid max-w-7xl gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {trustBarItems.map((item) => {
+            const Icon = item.icon;
+            return (
+              <div key={item.title} className="flex min-h-20 items-center gap-3 rounded-lg bg-muted/50 px-4 py-3 text-sm font-semibold text-secondary">
+                {item.type === 'rating' ? (
+                  <div className="flex shrink-0 items-center gap-0.5" aria-label={`${reviewsConfig.rating} van 5 sterren`}>
+                    {Array.from({ length: 5 }).map((_, index) => (
+                      <Star key={index} className="h-4 w-4 fill-primary text-primary" />
+                    ))}
+                  </div>
+                ) : (
+                  <Icon className="h-5 w-5 shrink-0 text-primary" />
+                )}
+                <span>{item.title}</span>
+              </div>
+            );
+          })}
+        </div>
+        <div className="sr-only">
+          {reviewsConfig.reviewProofText}
         </div>
       </section>
+
+      <DeferredSection>
+        <GoogleReviewsCarousel />
+      </DeferredSection>
 
       <section className="bg-secondary px-4 py-16 text-white md:py-20 lg:py-24">
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
@@ -187,13 +213,19 @@ export default function Home() {
       </section>
 
       {/* Why Choose – after hero */}
-      <WhyChooseUs />
+      <DeferredSection>
+        <WhyChooseUs />
+      </DeferredSection>
 
       {/* Goal Cards – Priority 1 */}
-      <GoalCards />
+      <DeferredSection>
+        <GoalCards />
+      </DeferredSection>
 
       {/* How it works */}
-      <HowItWorks />
+      <DeferredSection>
+        <HowItWorks />
+      </DeferredSection>
 
       {/* Services */}
       <section className="px-4 py-16 md:py-20 lg:py-24 bg-muted/30">
@@ -258,10 +290,9 @@ export default function Home() {
       </section>
 
       {/* Trust Stats – Priority 3 */}
-      <TrustStats />
-
-      {/* Reviews – Priority 2 */}
-      <ReviewsSection />
+      <DeferredSection>
+        <TrustStats />
+      </DeferredSection>
 
       {/* Mid CTA */}
       <section className="px-4 py-16 md:py-20 lg:py-24 bg-white">
@@ -286,10 +317,14 @@ export default function Home() {
       </section>
 
       {/* For whom */}
-      <ForWhom />
+      <DeferredSection>
+        <ForWhom />
+      </DeferredSection>
 
       {/* Gallery – Priority 4 */}
-      <GallerySection />
+      <DeferredSection>
+        <GallerySection />
+      </DeferredSection>
 
       {/* About */}
       <section className="px-4 py-16 md:py-20 lg:py-24 bg-white">
@@ -335,11 +370,15 @@ export default function Home() {
           <div className="text-center mb-10">
             <h2 className="text-3xl font-display font-bold text-secondary">{content.home_faq_title}</h2>
           </div>
-          <FAQAccordion items={visibleFaqs} />
+          <DeferredSection>
+            <FAQAccordion items={visibleFaqs} />
+          </DeferredSection>
         </div>
       </section>
 
-      <CTASection />
+      <DeferredSection>
+        <CTASection />
+      </DeferredSection>
     </div>
   );
 }

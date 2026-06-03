@@ -1,21 +1,61 @@
-import { useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
 import { base44, hasBase44App } from '@/api/base44Client';
 import { DEFAULT_SITE_CONTENT, mergeSiteContent } from '@/lib/siteContent';
 
+let cachedSiteContent = hasBase44App ? null : [];
+let siteContentError = null;
+let siteContentPromise = null;
+const listeners = new Set();
+
+function getSnapshot() {
+  return {
+    data: cachedSiteContent,
+    error: siteContentError,
+    isLoading: hasBase44App && !cachedSiteContent && !siteContentError,
+  };
+}
+
+function publish() {
+  const snapshot = getSnapshot();
+  listeners.forEach((listener) => listener(snapshot));
+}
+
+function loadSiteContent() {
+  if (!hasBase44App) return Promise.resolve([]);
+
+  if (!siteContentPromise) {
+    siteContentPromise = base44.entities.SiteContent.list('order')
+      .then((data) => {
+        cachedSiteContent = Array.isArray(data) ? data : [];
+        siteContentError = null;
+        publish();
+        return cachedSiteContent;
+      })
+      .catch((error) => {
+        cachedSiteContent = [];
+        siteContentError = error;
+        publish();
+        return cachedSiteContent;
+      });
+  }
+
+  return siteContentPromise;
+}
+
 export function useSiteContent() {
-  const query = useQuery({
-    queryKey: ['site-content'],
-    queryFn: async () => {
-      if (!base44.entities?.SiteContent) return [];
-      return base44.entities.SiteContent.list('order');
-    },
-    enabled: hasBase44App,
-    retry: false,
-    staleTime: 5 * 60 * 1000,
-  });
+  const [snapshot, setSnapshot] = useState(getSnapshot);
+
+  useEffect(() => {
+    listeners.add(setSnapshot);
+    loadSiteContent();
+
+    return () => {
+      listeners.delete(setSnapshot);
+    };
+  }, []);
 
   return {
-    ...query,
-    content: query.data ? mergeSiteContent(query.data) : DEFAULT_SITE_CONTENT,
+    ...snapshot,
+    content: snapshot.data ? mergeSiteContent(snapshot.data) : DEFAULT_SITE_CONTENT,
   };
 }

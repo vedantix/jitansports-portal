@@ -12,11 +12,18 @@ export default function ResponsiveImage({
   fetchPriority = undefined,
   width = undefined,
   height = undefined,
+  style = undefined,
   ...props
 }) {
   const resolvedAsset = asset || resolveImageAsset(src);
   const imageLoading = loading === 'eager' ? 'eager' : 'lazy';
   const imageDecoding = decoding === 'sync' || decoding === 'auto' ? decoding : 'async';
+  const intrinsicWidth = width || resolvedAsset?.width;
+  const intrinsicHeight = height || resolvedAsset?.height;
+  const aspectRatioStyle =
+    intrinsicWidth && intrinsicHeight
+      ? { aspectRatio: `${intrinsicWidth} / ${intrinsicHeight}`, ...style }
+      : style;
 
   if (!resolvedAsset) {
     return (
@@ -27,6 +34,9 @@ export default function ResponsiveImage({
         loading={imageLoading}
         decoding={imageDecoding}
         fetchPriority={fetchPriority}
+        width={width}
+        height={height}
+        style={aspectRatioStyle}
         {...props}
       />
     );
@@ -54,8 +64,9 @@ export default function ResponsiveImage({
         loading={imageLoading}
         decoding={imageDecoding}
         fetchPriority={fetchPriority}
-        width={width || resolvedAsset.width}
-        height={height || resolvedAsset.height}
+        width={intrinsicWidth}
+        height={intrinsicHeight}
+        style={aspectRatioStyle}
         {...props}
       />
     </picture>

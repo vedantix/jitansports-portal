@@ -1,71 +1,66 @@
 # PageSpeed Optimization Report
 
-## Baseline
+Laatste performance-pass uitgevoerd op 2 juni 2026 voor `https://jitan-sports.nl`.
 
-Gebruiker-aangeleverde PageSpeed Insights meting voor `https://jitan-sports.nl`:
+## Baseline Van Deze Pass
 
-| Form factor | Performance | Accessibility | Best Practices | SEO | FCP | LCP | TBT | CLS | Speed Index |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Mobile | 77 | 87 | 100 | 100 | 3.0s | 4.3s | 0ms | 0 | 4.9s |
-| Desktop | 98 | 87 | 100 | 100 | 0.7s | 1.0s | 0ms | 0 | 1.0s |
-
-## Resultaat Na Optimalisatie
-
-Live Lighthouse meting op `https://jitan-sports.nl`, uitgevoerd na deploy en CloudFront invalidation op 24 mei 2026:
+Gebruiker-aangeleverde PageSpeed score voorafgaand aan deze pass:
 
 | Form factor | Performance | Accessibility | Best Practices | SEO | FCP | LCP | TBT | CLS | Speed Index |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Mobile | 100 | 100 | 100 | 100 | 0.9s | 1.2s | 30ms | 0.004 | 1.8s |
-| Desktop | 100 | 100 | 100 | 100 | 0.3s | 0.4s | 0ms | 0.005 | 0.7s |
+| Mobile | 94 | 100 | 100 | 100 | n.b. | n.b. | n.b. | 0.101 | n.b. |
+| Desktop | 100 | 100 | 100 | 100 | n.b. | n.b. | n.b. | n.b. | n.b. |
 
-Lokale production-preview controle (`vite build` + `vite preview`) bevestigde dezelfde scoreklasse: Mobile 99+ en Desktop 100. Core Web Vitals zijn groen. PageSpeed Insights kan per run licht varieren door edge-cache, netwerkcondities en sampling.
+## Lokale Production Preview Na Wijzigingen
 
-## Belangrijkste Wijzigingen
+Gemeten met `vite build`, `vite preview` en Lighthouse CLI op `http://127.0.0.1:4173/`.
 
-- Hero/LCP pipeline vervangen door responsive AVIF/WebP/JPG varianten met preload en `fetchpriority="high"`.
-- Oude publieke hero-JPG uit `public/` verplaatst naar `scripts/assets/`, zodat die niet meer onnodig wordt gedeployed.
-- Alle publieke fallback-afbeeldingen voor diensten, paginahelden, blog en galerij geoptimaliseerd en lokaal geserveerd.
-- `ResponsiveImage` component toegevoegd voor `<picture>`, `srcset`, `sizes`, width/height en moderne formaten.
-- Above-the-fold app-shell toegevoegd in `index.html`, met inline critical CSS en non-critical CSS via preload + noscript fallback.
-- Mobiele hero-preload gecorrigeerd naar `sizes="100vw"` en LCP image expliciet `loading="eager"`, `fetchpriority="high"` en `decoding="sync"` gegeven.
-- Framer Motion verwijderd uit publieke pagina's en dependency verwijderd.
-- Zware Base44 SDK vervangen door kleine expliciete client voor entities, auth redirects en Core-integraties.
-- Google Fonts externe import verwijderd; Inter/Sora worden lokaal gehost met `font-display: swap`.
-- Admin/layout/404 lazy-loaded en route SEO verplaatst naar route chunks.
-- Accessibility gefixt voor formulierlabels, carousels, galerij/lightbox, touch targets, logo label mismatch en heading-structuur.
-- React Router future flags gezet om router warnings te voorkomen.
-- Productie build-output opgeschoond en cache-strategie voorbereid.
+| Form factor | Performance | Accessibility | Best Practices | SEO | FCP | LCP | TBT | CLS | Speed Index |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Mobile | 90 | 100 | 100 | 100 | 1.9s | 3.5s | 70ms | 0 | 1.9s |
+| Desktop | 100 | 100 | 100 | 100 | 0.4s | 0.7s | 0ms | 0 | 0.4s |
 
-## Bundle En Asset Verschillen
+De lokale mobiele Lighthouse-score blijft vooral beperkt door de SPA-rendering van de hero als LCP-element. De LCP image zelf is wel discoverable in de HTML, heeft `fetchpriority="high"`, laadt eager en wordt gepreload. CLS is opgelost naar 0 in de lokale production-preview.
 
-| Onderdeel | Voor | Na |
+## Uitgevoerde Wijzigingen
+
+- Dubbele statische hero/app-shell uit `index.html` verwijderd, zodat er geen tweede hero image of dubbele shell meer wordt gerenderd.
+- Hero preload behouden en afgestemd op responsive AVIF-bronnen voor mobiel en desktop.
+- `ResponsiveImage` uitgebreid met `width`, `height` en `aspect-ratio` fallback voor alle bekende assets.
+- `PageHero` gestandaardiseerd naar `min-h-[clamp(420px,68svh,720px)]`.
+- Extra homepage hero-padding verwijderd om de mobiele LCP-rect te verkleinen.
+- Navbar dropdown vervangen door een kleine eigen implementatie in plaats van Radix Dropdown/Floating UI.
+- Mobiele drawer buiten de fixed/blur navbar geplaatst, zodat hij weer de volledige viewport gebruikt.
+- Navigatie-items gecentraliseerd in `src/config/navigation.ts`.
+- Onder-de-vouw homepage-secties lazy-loaded: reviews, galerie, FAQ, trust stats, goal cards, how-it-works, doelgroep en CTA.
+- React Query verwijderd uit de publieke runtime; `useSiteContent` gebruikt nu een kleine gedeelde cache-hook.
+- Toaster uit de eerste render gehaald en pas na idle geladen.
+- Ongebruikte dependency/code verwijderd: React Query client, Radix Dropdown component, `tailwind-merge` en directe `clsx` dependency.
+- Deployment workflow uitgebreid met production cache headers:
+  - HTML: `max-age=0,must-revalidate`
+  - Hashed assets/images/fonts: `public,max-age=31536000,immutable`
+
+## Bundle Verschil
+
+| Onderdeel | Voor deze pass | Na deze pass |
 | --- | ---: | ---: |
-| Main JS entry | 422 KB | 230 KB |
-| Base44 runtime chunk | 109 KB | 4.9 KB |
-| CSS bundle | 77 KB | 78 KB |
-| Oude hero JPG | 176 KB publiek asset | niet meer publiek |
-| Mobiele LCP resource | 176 KB JPG | 23 KB AVIF (`hero-mobile-768.avif`) |
-| Responsive image variants | geen | 129 AVIF/WebP/JPG varianten |
-
-## Cache Strategie Voor Deploy
-
-- HTML: `Cache-Control: max-age=0, must-revalidate`
-- Hashed assets, fonts en afbeeldingen: `Cache-Control: public,max-age=31536000,immutable`
-- CloudFront invalidation na upload: `/*`
+| Main JS entry | ca. 423 KB | ca. 274 KB |
+| Homepage lazy chunks | beperkt | losse chunks voor niet-kritieke secties |
+| Unused JS Lighthouse opportunity | ca. 44 KB | opgelost in lokale run |
+| CLS | 0.101 | 0 lokaal |
 
 ## Validatie
 
 Uitgevoerd:
 
+- `npm run build`
 - `npm run lint`
-- `npm audit --omit=dev`
-- `VITE_BASE44_APP_ID=6a115e447a3ac96774309014 VITE_BASE44_APP_BASE_URL=https://jitansports.base44.app npm run build`
-- Lighthouse mobile + desktop op lokale production preview
-- Lighthouse mobile + desktop op live productie `https://jitan-sports.nl`
-- CloudFront invalidation en live cache-header controle
-- Browser render sanity check op `http://127.0.0.1:4173/`
+- Lighthouse mobile op lokale production preview
+- Lighthouse desktop op lokale production preview
+- Browser rendercheck op `http://127.0.0.1:5173/`
+- Mobiele drawer open/close/Escape controle
+- Image dimension audit via browser DOM
 
-Resterende Lighthouse-opportunities zijn informatief en drukken de scores niet:
+Resterend aandachtspunt:
 
-- Unused JS: vooral React/runtime baseline voor de SPA.
-- Unused CSS: Tailwind/shadcn basisregels die niet allemaal op de homepage nodig zijn.
+- Mobile LCP blijft in lokale Lighthouse rond 3.5s zolang de homepage een puur client-rendered React SPA blijft. Voor structureel 98-100 mobiel is prerendering/SSR van de above-the-fold hero de volgende duurzame stap.
