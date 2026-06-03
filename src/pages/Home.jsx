@@ -8,7 +8,6 @@ import { contentLines, createWhatsAppUrl } from '@/lib/siteContent';
 import SEO, { ROUTE_SEO, buildFAQSchema, buildLocalBusinessSchema } from '@/components/SEO';
 import ResponsiveImage from '@/components/ResponsiveImage';
 import PageHero from '@/components/PageHero';
-import GoogleRatingBadge from '@/components/GoogleRatingBadge';
 import { reviewsConfig } from '@/config/reviews';
 
 const GoalCards = lazy(() => import('../components/GoalCards'));
@@ -146,7 +145,6 @@ export default function Home() {
         image={content.hero_image || '/images/optimized/hero-desktop-1344.jpg'}
         eyebrow={hero.eyebrow}
         title={renderHeroTitle(hero.title, hero.highlight)}
-        afterTitle={<GoogleRatingBadge compact tone="dark" />}
         subtitle={hero.subtitle}
         contentClassName="max-w-2xl"
         titleClassName="mb-6 text-4xl md:text-5xl lg:text-6xl"
@@ -163,6 +161,12 @@ export default function Home() {
               <MessageCircle className="h-5 w-5" /> {content.secondary_cta_text}
             </Button>
           </a>
+        </div>
+        <div className="flex items-center gap-2 mt-1">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Star key={i} className="h-5 w-5 fill-primary text-primary" />
+          ))}
+          <span className="text-white font-semibold text-sm">{reviewsConfig.rating}/5</span>
         </div>
       </PageHero>
 
