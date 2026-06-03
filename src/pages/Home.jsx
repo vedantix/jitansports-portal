@@ -162,7 +162,7 @@ export default function Home() {
             </Button>
           </a>
         </div>
-        <div className="flex items-center gap-2 mt-1">
+        <div className="flex items-center gap-2 mt-3">
           {Array.from({ length: 5 }).map((_, i) => (
             <Star key={i} className="h-5 w-5 fill-primary text-primary" />
           ))}
