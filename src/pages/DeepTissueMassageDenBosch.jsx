@@ -5,19 +5,10 @@ import FAQAccordion from '../components/FAQAccordion';
 import CTASection from '../components/CTASection';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import { contentLines } from '@/lib/siteContent';
-import SEO, { ROUTE_SEO } from '@/components/SEO';
+import SEO, { ROUTE_SEO, buildFAQSchema, buildLocalBusinessSchema, buildServiceSchema } from '@/components/SEO';
 import PageHero from '@/components/PageHero';
 import ServiceReviews from '@/components/ServiceReviews';
-
-const SCHEMA = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "JitanSports – Deep Tissue Massage omgeving Den Bosch",
-  "description": "Professionele Deep Tissue Massage in omgeving Den Bosch. Effectief bij rugklachten, nek/schouder pijn en sportblessures. Aan huis beschikbaar.",
-  "telephone": "+31682272680",
-  "address": { "@type": "PostalAddress", "addressLocality": "Den Bosch", "addressCountry": "NL" },
-  "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "28" }
-};
+import SeoSummary from '@/components/SeoSummary';
 
 export default function DeepTissueMassageDenBosch() {
   const { content } = useSiteContent();
@@ -32,14 +23,25 @@ export default function DeepTissueMassageDenBosch() {
     <div>
       <SEO
         {...ROUTE_SEO['/deep-tissue-massage-den-bosch']}
-        title={content.seo_deep_tissue_den_bosch_title || ROUTE_SEO['/deep-tissue-massage-den-bosch'].title}
+        title={ROUTE_SEO['/deep-tissue-massage-den-bosch'].title}
         description={content.seo_deep_tissue_den_bosch_description || ROUTE_SEO['/deep-tissue-massage-den-bosch'].description}
         image={content.seo_image}
-        jsonLd={SCHEMA}
+        jsonLd={[
+          buildLocalBusinessSchema(content),
+          buildServiceSchema({
+            name: 'Deep Tissue Massage Den Bosch',
+            serviceType: 'Deep Tissue Massage',
+            description:
+              'Deep Tissue Massage in Den Bosch voor rugklachten, nek- en schouderpijn, spierherstel, vastzittend bindweefsel en sportblessures.',
+            path: '/deep-tissue-massage-den-bosch',
+            image: content.deep_db_hero_image,
+          }),
+          buildFAQSchema(faqs),
+        ]}
       />
       <PageHero
         image={content.deep_db_hero_image}
-        title={content.deep_db_title}
+        title="Deep Tissue Massage in Den Bosch"
         subtitle={content.deep_db_subtitle}
         align="center"
         overlayClassName="bg-secondary/85"
@@ -111,6 +113,29 @@ export default function DeepTissueMassageDenBosch() {
           </div>
         </div>
       </section>
+
+      <section className="bg-white px-4 py-16 md:py-20 lg:py-24">
+        <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-2">
+          <article className="rounded-2xl border border-border bg-muted/30 p-7">
+            <h2 className="mb-4 text-2xl font-display font-bold text-secondary">Wanneer toepassen?</h2>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              Deep Tissue Massage is geschikt wanneer spieren en bindweefsel langdurig vastzitten. Denk aan rugklachten, nek- en schouderspanning, stijve heupen, hoofdpijn door spierspanning, stressklachten of herstel na intensieve training.
+            </p>
+          </article>
+          <article className="rounded-2xl border border-border bg-white p-7 shadow-sm">
+            <h2 className="mb-4 text-2xl font-display font-bold text-secondary">Herstel van blessures</h2>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              Bij sportblessures en overbelasting kan Deep Tissue Massage helpen om spierspanning te verminderen, doorbloeding te verbeteren en herstel te ondersteunen. Jitan combineert massagekennis met trainingservaring, zodat behandeling en belastbaarheid logisch op elkaar aansluiten.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <SeoSummary>
+        <p>
+          Jitan Sports biedt Deep Tissue Massage in Den Bosch voor mensen met rug-, nek- en schouderklachten, sportblessures en opgebouwde spierspanning. De behandeling richt zich op diepe spierlagen en bindweefsel en ondersteunt herstel, betere doorbloeding en vrijer bewegen.
+        </p>
+      </SeoSummary>
 
       <section className="py-12 px-4 bg-muted/30">
         <div className="max-w-3xl mx-auto">

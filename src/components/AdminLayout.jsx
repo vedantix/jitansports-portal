@@ -2,7 +2,7 @@ import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import {
-  Calendar, Star, FileText, DollarSign, HelpCircle, Image,
+  Calendar, FileText, DollarSign, HelpCircle, Image,
   Clock, LayoutDashboard, Menu, X, LogOut, PanelsTopLeft, LockKeyhole
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -14,7 +14,6 @@ const NAV_LINKS = [
   { path: '/admin/appointments', label: 'Afspraken', icon: Calendar },
   { path: '/admin/availability', label: 'Beschikbaarheid', icon: Clock },
   { path: '/admin/content', label: 'Website content', icon: PanelsTopLeft },
-  { path: '/admin/reviews', label: 'Reviews', icon: Star },
   { path: '/admin/blog', label: 'Blog', icon: FileText },
   { path: '/admin/pricing', label: 'Tarieven', icon: DollarSign },
   { path: '/admin/faq', label: 'FAQ', icon: HelpCircle },

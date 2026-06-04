@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, ExternalLink } from 'lucide-react';
-import SEO from '@/components/SEO';
+import SEO, { ROUTE_SEO, buildLocalBusinessSchema, buildWebPageSchema } from '@/components/SEO';
 import PageHero from '@/components/PageHero';
 import GoogleRatingBadge from '@/components/GoogleRatingBadge';
 import JotformReviews from '@/components/JotformReviews';
@@ -11,9 +11,18 @@ export default function Referenties() {
   return (
     <div>
       <SEO
-        title="Google Reviews & Ervaringen | JitanSports Den Bosch"
-        description="Ontdek echte Google Reviews van klanten over personal training, deep tissue massage, voedingsbegeleiding en coaching bij JitanSports."
+        {...ROUTE_SEO['/referenties']}
+        title={ROUTE_SEO['/referenties'].title}
+        description={ROUTE_SEO['/referenties'].description}
         path="/referenties"
+        jsonLd={[
+          buildWebPageSchema({
+            title: ROUTE_SEO['/referenties'].title,
+            description: ROUTE_SEO['/referenties'].description,
+            path: '/referenties',
+          }),
+          buildLocalBusinessSchema(),
+        ]}
       />
 
       <PageHero

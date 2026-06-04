@@ -3,9 +3,10 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle, MapPin, Star } from 'lucide-react';
 import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
-import SEO from '@/components/SEO';
+import SEO, { buildFAQSchema, buildServiceSchema } from '@/components/SEO';
 import PageHero from '@/components/PageHero';
 import ServiceReviews from '@/components/ServiceReviews';
+import SeoSummary from '@/components/SeoSummary';
 
 const HERO_IMG = '/images/optimized/page-training-hero-960.jpg';
 
@@ -32,6 +33,19 @@ export default function PersonalTrainerRosmalen() {
         title="Personal Trainer Rosmalen – Aan Huis en Outdoor | JitanSports"
         description="Personal trainer in Rosmalen voor afvallen, kracht en conditie. Training aan huis of outdoor. Gratis proefles aanvragen bij JitanSports."
         path="/personal-trainer-rosmalen"
+        image={HERO_IMG}
+        jsonLd={[
+          buildServiceSchema({
+            name: 'Personal Trainer Rosmalen',
+            serviceType: 'Personal Training',
+            description:
+              'Personal training aan huis of outdoor in Rosmalen voor afvallen, krachttraining, conditie en voedingsbegeleiding.',
+            path: '/personal-trainer-rosmalen',
+            image: HERO_IMG,
+            areaServed: ['Rosmalen', 'Den Bosch'],
+          }),
+          buildFAQSchema(FAQS),
+        ]}
       />
       <PageHero
         image={HERO_IMG}
@@ -72,6 +86,11 @@ export default function PersonalTrainerRosmalen() {
           </div>
         </div>
       </section>
+      <SeoSummary>
+        <p>
+          Jitan Sports biedt personal training in Rosmalen voor mensen die willen afvallen, sterker willen worden, fitter willen worden of meer structuur willen in training en voeding. De begeleiding is 1-op-1, aan huis of outdoor, met een persoonlijk plan en meetbare voortgang.
+        </p>
+      </SeoSummary>
       <section className="px-4 py-16 md:py-20 lg:py-24 bg-muted/30">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-display font-bold text-secondary mb-8 text-center">Veelgestelde vragen</h2>

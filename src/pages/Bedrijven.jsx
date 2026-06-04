@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Building2, Users, Armchair, Zap, CheckCircle, Send, ArrowRight } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
-import SEO from '@/components/SEO';
+import SEO, { buildServiceSchema } from '@/components/SEO';
 import PageHero from '@/components/PageHero';
 import ServiceReviews from '@/components/ServiceReviews';
 import CTASection from '@/components/CTASection';
@@ -70,6 +70,15 @@ export default function Bedrijven() {
         title="Bedrijfsfitness en Stoelmassage Den Bosch | JitanSports"
         description="Stoelmassage, vitaliteitsdagen, groepstrainingen en workshops voor bedrijven in omgeving Den Bosch. Vraag een offerte aan bij JitanSports."
         path="/bedrijven"
+        image={HERO_IMG}
+        jsonLd={buildServiceSchema({
+          name: 'Bedrijfsfitness en Stoelmassage Den Bosch',
+          serviceType: 'Corporate Wellness',
+          description:
+            'Stoelmassage, vitaliteitsdagen, groepstrainingen en gezondheidsworkshops voor bedrijven in Den Bosch en omgeving.',
+          path: '/bedrijven',
+          image: HERO_IMG,
+        })}
       />
 
       <PageHero

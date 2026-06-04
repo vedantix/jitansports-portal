@@ -17,7 +17,7 @@ import {
 import { Button } from '@/components/ui/button';
 import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
-import SEO, { buildFAQSchema } from '@/components/SEO';
+import SEO, { buildFAQSchema, buildServiceSchema } from '@/components/SEO';
 import PageHero from '@/components/PageHero';
 import ServiceReviews from '@/components/ServiceReviews';
 
@@ -136,7 +136,17 @@ export default function GetFit() {
         description="Premium 12-weken traject met 2x per week personal training, voedingsschema, wegen, koelkast-check, voortgangsboekje, Deep Tissue Massage, mental coaching en 24/7 support."
         path="/get-fit"
         image="/images/optimized/page-getfit-hero-960.jpg"
-        jsonLd={buildFAQSchema(FAQS)}
+        jsonLd={[
+          buildServiceSchema({
+            name: 'Get Fit Pakket Den Bosch',
+            serviceType: '12 weken personal training, voeding, massage en coaching',
+            description:
+              'Premium 12-weken traject in Den Bosch met 2x per week personal training, voedingsschema op maat, lichaamsanalyse, koelkast-check, Deep Tissue Massage, mental coaching en 24/7 support.',
+            path: '/get-fit',
+            image: '/images/optimized/page-getfit-hero-960.jpg',
+          }),
+          buildFAQSchema(FAQS),
+        ]}
       />
 
       <PageHero

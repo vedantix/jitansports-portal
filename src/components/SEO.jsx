@@ -1,106 +1,155 @@
 import { useEffect } from 'react';
 import { DEFAULT_SITE_CONTENT } from '@/lib/siteContent';
+import { CORE_SERVICES, LOCAL_AREAS } from '@/config/seoContent';
 
 export const SITE_URL = 'https://jitan-sports.nl';
 export const DEFAULT_IMAGE = DEFAULT_SITE_CONTENT.seo_image;
 
 export const ROUTE_SEO = {
   '/': {
-    title: 'JitanSports - Personal Trainer & Massage omgeving Den Bosch',
+    title: 'Personal Trainer & Deep Tissue Massage Den Bosch | Jitan Sports',
     description:
-      'Personal training, deep tissue massage en voedingsbegeleiding in omgeving Den Bosch. Plan gratis een proefles.',
+      'Verbeter je conditie, herstel sneller en bereik jouw doelen met personal training, deep tissue massage en voedingsbegeleiding in Den Bosch. Plan direct een gratis intake.',
     path: '/',
     localBusiness: true,
   },
   '/personal-training': {
-    title: 'Personal Training omgeving Den Bosch - Outdoor & Aan Huis | JitanSports',
+    title: 'Personal Training Den Bosch - Outdoor & Aan Huis | JitanSports',
     description:
-      '1-op-1 personal training in omgeving Den Bosch. Outdoor, aan huis, duo-training en voedingsadvies. Start met een gratis proefles.',
+      '1-op-1 personal training in Den Bosch, Rosmalen en Vught. Outdoor, aan huis, duo-training en voedingsadvies. Start met een gratis proefles.',
     path: '/personal-training',
   },
   '/massage': {
-    title: 'Deep Tissue Massage omgeving Den Bosch - Aan Huis | JitanSports',
+    title: 'Massage Den Bosch - Deep Tissue, Sportmassage & Aan Huis | JitanSports',
     description:
-      'Professionele deep tissue massage en ontspanningsmassage in omgeving Den Bosch. Gericht op herstel, pijnvermindering en ontspanning.',
+      'Professionele deep tissue massage, sportmassage en ontspanningsmassage aan huis in Den Bosch. Gericht op herstel, pijnvermindering en ontspanning.',
     path: '/massage',
   },
+  '/voeding': {
+    title: 'Voedingscoach Den Bosch - Voedingsschema & Lichaamsanalyse | JitanSports',
+    description:
+      "Voedingscoach in Den Bosch voor afvallen, aankomen, spieropbouw, voedingsschema's op maat, lichaamsanalyse en digitaal weegrapport.",
+    path: '/voeding',
+  },
   '/get-fit': {
-    title: 'Get Fit Pakket omgeving Den Bosch - 12 Weken Coaching | JitanSports',
+    title: 'Get Fit Pakket Den Bosch - 12 Weken Personal Training | JitanSports',
     description:
       'Een compleet 12-weken traject met personal training, voeding, lichaamsanalyse, massage en coaching.',
     path: '/get-fit',
   },
-  '/over-ons': {
-    title: 'Over JitanSports - Personal Trainer omgeving Den Bosch',
+  '/vip-treatment': {
+    title: 'VIP Treatment Den Bosch - Personal Training + Massage | JitanSports',
     description:
-      'Leer JitanSports kennen: personal training, massage en voedingsbegeleiding met een persoonlijke aanpak in omgeving Den Bosch.',
+      'Exclusieve VIP Treatment in Den Bosch: 1 uur personal training gevolgd door 1 uur massage. Premium inspanning, herstel en ontspanning.',
+    path: '/vip-treatment',
+  },
+  '/bedrijven': {
+    title: 'Bedrijfsfitness en Stoelmassage Den Bosch | JitanSports',
+    description:
+      'Stoelmassage, vitaliteitsdagen, groepstrainingen en workshops voor bedrijven in Den Bosch en omgeving. Vraag een offerte aan bij JitanSports.',
+    path: '/bedrijven',
+  },
+  '/referenties': {
+    title: 'Google Reviews & Ervaringen | JitanSports Den Bosch',
+    description:
+      'Lees echte ervaringen van klanten over personal training, Deep Tissue Massage, voedingsbegeleiding en coaching bij JitanSports in Den Bosch.',
+    path: '/referenties',
+  },
+  '/over-ons': {
+    title: 'Over Jitan - Personal Trainer, Massage Specialist & Voedingscoach Den Bosch',
+    description:
+      'Leer Jitan kennen: personal trainer, Deep Tissue Massage specialist en voedingscoach in Den Bosch. Persoonlijke begeleiding met 10+ jaar ervaring.',
     path: '/over-ons',
   },
   '/tarieven': {
-    title: 'Tarieven Personal Training & Massage | JitanSports',
+    title: 'Tarieven Personal Training, Massage & Coaching Den Bosch | JitanSports',
     description:
-      'Bekijk de tarieven voor personal training, deep tissue massage, ontspanningsmassage en het Get Fit pakket.',
+      'Bekijk tarieven voor personal training, Deep Tissue Massage, sportmassage, VIP Treatment en het Get Fit pakket bij JitanSports Den Bosch.',
     path: '/tarieven',
   },
   '/blog': {
-    title: 'Blog over Training, Massage en Gezondheid | JitanSports',
+    title: 'Blog over Personal Training, Massage en Afvallen Den Bosch | JitanSports',
     description:
-      'Tips en inzichten over personal training, massage, voeding, herstel en een gezonde lifestyle.',
+      'Praktische tips van Jitan over personal training, Deep Tissue Massage, sportmassage, afvallen, voeding, herstel en fitter worden in Den Bosch.',
     path: '/blog',
   },
   '/faq': {
-    title: 'Veelgestelde Vragen | JitanSports',
+    title: 'Veelgestelde Vragen over Personal Training en Massage Den Bosch | JitanSports',
     description:
-      'Antwoorden op veelgestelde vragen over personal training, massage, tarieven, proeflessen en afspraken bij JitanSports.',
+      'Antwoorden op vragen over personal training, Deep Tissue Massage, sportmassage, voedingsbegeleiding, afvallen, tarieven en gratis intake bij JitanSports.',
     path: '/faq',
   },
   '/contact': {
-    title: 'Contact met JitanSports | Personal Trainer omgeving Den Bosch',
+    title: 'Contact met JitanSports | Personal Trainer Den Bosch',
     description:
-      'Neem contact op met JitanSports voor personal training, massage, voedingsadvies of een gratis proefles in omgeving Den Bosch.',
+      'Neem contact op met JitanSports voor personal training, Deep Tissue Massage, voedingsadvies of een gratis proefles in Den Bosch en omgeving.',
     path: '/contact',
   },
   '/booking': {
-    title: 'Afspraak Plannen | JitanSports',
+    title: 'Gratis Intake of Afspraak Plannen | JitanSports Den Bosch',
     description:
-      'Plan direct een gratis proefles, personal training sessie of massage bij JitanSports.',
+      'Plan direct een gratis proefles, intake, personal training sessie of massage bij JitanSports in Den Bosch.',
     path: '/booking',
   },
   '/personal-trainer-den-bosch': {
-    title: 'Personal Trainer omgeving Den Bosch | JitanSports',
+    title: 'Personal Trainer Den Bosch | Jitan Sports',
     description:
-      'Personal trainer in omgeving Den Bosch voor afvallen, krachttraining, conditie en voedingsbegeleiding. Gratis proefles.',
+      'Personal trainer in Den Bosch voor afvallen, krachttraining, fitter worden, conditie en voedingsbegeleiding. Start met een gratis proefles.',
     path: '/personal-trainer-den-bosch',
   },
-  '/massage-den-bosch': {
-    title: 'Massage omgeving Den Bosch - Deep Tissue & Ontspanning | JitanSports',
+  '/personal-trainer-rosmalen': {
+    title: 'Personal Trainer Rosmalen - Aan Huis en Outdoor | JitanSports',
     description:
-      'Massage in omgeving Den Bosch aan huis of op locatie. Deep tissue massage en ontspanningsmassage voor herstel en ontspanning.',
+      'Personal training in Rosmalen voor afvallen, krachttraining, conditie en voedingsbegeleiding. Training aan huis of outdoor met gratis proefles.',
+    path: '/personal-trainer-rosmalen',
+  },
+  '/personal-trainer-vught': {
+    title: 'Personal Trainer Vught - Aan Huis en Outdoor | JitanSports',
+    description:
+      'Personal training in Vught voor afvallen, sterker worden, conditie en voedingsbegeleiding. Training aan huis of outdoor met gratis proefles.',
+    path: '/personal-trainer-vught',
+  },
+  '/personal-trainer-boxtel': {
+    title: 'Personal Trainer Boxtel - Aan Huis en Outdoor | JitanSports',
+    description:
+      'Personal training in Boxtel voor afvallen, krachttraining, conditie en voedingsbegeleiding. Training aan huis of outdoor met gratis proefles.',
+    path: '/personal-trainer-boxtel',
+  },
+  '/massage-den-bosch': {
+    title: 'Massage Den Bosch - Deep Tissue, Sportmassage & Ontspanning | JitanSports',
+    description:
+      'Massage in Den Bosch aan huis of op locatie. Deep Tissue Massage, sportmassage en ontspanningsmassage voor herstel en ontspanning.',
     path: '/massage-den-bosch',
   },
   '/deep-tissue-massage-den-bosch': {
-    title: 'Deep Tissue Massage omgeving Den Bosch | JitanSports',
+    title: 'Deep Tissue Massage Den Bosch | Jitan Sports',
     description:
-      'Deep tissue massage in omgeving Den Bosch voor rugklachten, nek- en schouderpijn, spierherstel en sportblessures.',
+      'Deep Tissue Massage in Den Bosch voor rugklachten, nek- en schouderpijn, spierherstel, vastzittend bindweefsel en sportblessures.',
     path: '/deep-tissue-massage-den-bosch',
   },
   '/sportmassage-den-bosch': {
-    title: 'Sportmassage omgeving Den Bosch | JitanSports',
+    title: 'Sportmassage Den Bosch | Jitan Sports',
     description:
-      'Professionele sportmassage in omgeving Den Bosch. Sneller herstel, minder spierpijn en betere prestaties. Aan huis beschikbaar.',
+      'Professionele sportmassage in Den Bosch. Sneller herstel, minder spierpijn, betere prestaties en blessurepreventie. Aan huis beschikbaar.',
     path: '/sportmassage-den-bosch',
   },
   '/massage-aan-huis-den-bosch': {
-    title: 'Massage Aan Huis omgeving Den Bosch | JitanSports',
+    title: 'Massage Aan Huis Den Bosch | Deep Tissue & Ontspanning | JitanSports',
     description:
-      'Massage aan huis in omgeving Den Bosch. Deep Tissue Massage, sportmassage en ontspanningsmassage met professionele massagetafel.',
+      'Massage aan huis in Den Bosch en omgeving. Deep Tissue Massage, sportmassage en ontspanningsmassage met professionele massagetafel.',
     path: '/massage-aan-huis-den-bosch',
   },
   '/voedingscoach-den-bosch': {
-    title: 'Voedingscoach omgeving Den Bosch | JitanSports',
+    title: 'Voedingscoach Den Bosch | Afvallen, Spieropbouw & Lichaamsanalyse | JitanSports',
     description:
-      "Voedingscoach in omgeving Den Bosch voor voedingsschema's op maat, afvallen, spieropbouw, lichaamsanalyse en digitaal rapport.",
+      "Voedingscoach in Den Bosch voor voedingsschema's op maat, afvallen, spieropbouw, lichaamsanalyse en digitaal weegrapport.",
     path: '/voedingscoach-den-bosch',
+  },
+  '/voedingsbegeleiding-den-bosch': {
+    title: 'Voedingsbegeleiding Den Bosch | Jitan Sports',
+    description:
+      "Voedingsbegeleiding in Den Bosch voor afvallen, spieropbouw, gezonder eten, voedingsschema's op maat, lichaamsanalyse en voortgangsmetingen.",
+    path: '/voedingsbegeleiding-den-bosch',
   },
 };
 
@@ -110,31 +159,184 @@ export function absoluteUrl(path = '/') {
 }
 
 export function buildLocalBusinessSchema(content = DEFAULT_SITE_CONTENT) {
+  const businessId = absoluteUrl('/#jitan-sports');
+  const streetAddress = content.address_label || DEFAULT_SITE_CONTENT.address_label;
+  const serviceOffers = CORE_SERVICES.map((service) => ({
+    '@type': 'Offer',
+    url: absoluteUrl(service.url),
+    areaServed: LOCAL_AREAS,
+    itemOffered: {
+      '@type': 'Service',
+      name: service.name,
+      description: service.answer,
+      provider: { '@id': businessId },
+    },
+  }));
+
   return {
     '@context': 'https://schema.org',
-    '@type': 'HealthAndBeautyBusiness',
-    name: 'JitanSports',
+    '@type': ['LocalBusiness', 'SportsActivityLocation', 'HealthAndBeautyBusiness'],
+    '@id': businessId,
+    name: 'Jitan Sports',
+    alternateName: 'JitanSports',
+    description:
+      'Personal training, Deep Tissue Massage, sportmassage, massage aan huis en voedingsbegeleiding in Den Bosch en omgeving.',
     url: SITE_URL,
-    image: content.seo_image || DEFAULT_IMAGE,
+    logo: absoluteUrl('/images/jitansports-logo-menu.png'),
+    image: absoluteUrl(content.seo_image || DEFAULT_IMAGE),
     telephone: content.phone_href || DEFAULT_SITE_CONTENT.phone_href,
     email: content.email || DEFAULT_SITE_CONTENT.email,
     priceRange: '€€',
-    areaServed: [content.region || DEFAULT_SITE_CONTENT.region],
+    areaServed: LOCAL_AREAS.map((area) => ({
+      '@type': 'City',
+      name: area,
+    })),
     address: {
       '@type': 'PostalAddress',
+      ...(streetAddress && !streetAddress.toLowerCase().includes('omgeving') ? { streetAddress } : {}),
       addressLocality: 'Den Bosch',
+      addressRegion: 'Noord-Brabant',
       addressCountry: 'NL',
     },
     sameAs: [
       content.instagram_url || DEFAULT_SITE_CONTENT.instagram_url,
       content.facebook_url || DEFAULT_SITE_CONTENT.facebook_url,
       content.linkedin_url || DEFAULT_SITE_CONTENT.linkedin_url,
+    ].filter(Boolean),
+    founder: { '@id': absoluteUrl('/over-ons#jitan') },
+    knowsAbout: [
+      'Personal Training',
+      'Deep Tissue Massage',
+      'Sportmassage',
+      'Voedingsbegeleiding',
+      'Afvallen',
+      'Krachttraining',
+      'Herstel',
     ],
-    makesOffer: [
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Personal Training' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Deep Tissue Massage' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Voedingsbegeleiding' } },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      bestRating: '5',
+      reviewCount: '40',
+    },
+    makesOffer: serviceOffers,
+  };
+}
+
+export function buildServiceSchema({
+  name,
+  description,
+  path,
+  serviceType = name,
+  image = DEFAULT_IMAGE,
+  areaServed = LOCAL_AREAS,
+}) {
+  const businessId = absoluteUrl('/#jitan-sports');
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': `${absoluteUrl(path)}#service`,
+    name,
+    serviceType,
+    description,
+    url: absoluteUrl(path),
+    image: absoluteUrl(image),
+    provider: { '@id': businessId },
+    areaServed: areaServed.map((area) => ({
+      '@type': 'City',
+      name: area,
+    })),
+    audience: {
+      '@type': 'Audience',
+      audienceType: 'Mensen die fitter, sterker, pijnvrijer of energieker willen worden',
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      bestRating: '5',
+      reviewCount: '40',
+    },
+    offers: {
+      '@type': 'Offer',
+      url: absoluteUrl('/booking'),
+      availability: 'https://schema.org/InStock',
+      priceCurrency: 'EUR',
+    },
+  };
+}
+
+export function buildBreadcrumbSchema(items = []) {
+  const filtered = items.filter((item) => item.name && item.path);
+  if (!filtered.length) return null;
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: filtered.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: absoluteUrl(item.path),
+    })),
+  };
+}
+
+export function buildWebPageSchema({ title, description, path = '/', image = DEFAULT_IMAGE }) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': `${absoluteUrl(path)}#webpage`,
+    url: absoluteUrl(path),
+    name: title,
+    description,
+    inLanguage: 'nl-NL',
+    isPartOf: { '@id': absoluteUrl('/#website') },
+    primaryImageOfPage: {
+      '@type': 'ImageObject',
+      url: absoluteUrl(image),
+    },
+    about: CORE_SERVICES.map((service) => service.name),
+  };
+}
+
+export function buildPersonSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': absoluteUrl('/over-ons#jitan'),
+    name: 'Jitan',
+    url: absoluteUrl('/over-ons'),
+    worksFor: { '@id': absoluteUrl('/#jitan-sports') },
+    jobTitle: 'Personal Trainer, Massage Specialist en Voedingscoach',
+    hasOccupation: [
+      { '@type': 'Occupation', name: 'Personal Trainer' },
+      { '@type': 'Occupation', name: 'Massage Specialist' },
+      { '@type': 'Occupation', name: 'Voedingscoach' },
     ],
+    knowsAbout: [
+      'personal training',
+      'deep tissue massage',
+      'sportmassage',
+      'voedingsbegeleiding',
+      'krachttraining',
+      'afvallen',
+      'herstel',
+    ],
+    areaServed: LOCAL_AREAS,
+  };
+}
+
+export function buildWebSiteSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': absoluteUrl('/#website'),
+    name: 'Jitan Sports',
+    url: SITE_URL,
+    inLanguage: 'nl-NL',
+    publisher: { '@id': absoluteUrl('/#jitan-sports') },
+    about: CORE_SERVICES.map((service) => service.name),
   };
 }
 
@@ -162,27 +364,34 @@ export function buildFAQSchema(items = []) {
 
 export function buildArticleSchema(post) {
   if (!post) return null;
+  const image = post.featuredImage || post.featured_image || DEFAULT_IMAGE;
 
   return {
     '@context': 'https://schema.org',
-    '@type': 'Article',
+    '@type': 'BlogPosting',
     headline: post.title,
     description: post.meta_description || post.excerpt,
-    image: post.featured_image || DEFAULT_IMAGE,
+    image: absoluteUrl(image),
     author: {
       '@type': 'Organization',
-      name: post.author || 'JitanSports',
+      name: 'Jitan Sports',
+      url: SITE_URL,
     },
     publisher: {
       '@type': 'Organization',
-      name: 'JitanSports',
+      name: 'Jitan Sports',
       logo: {
         '@type': 'ImageObject',
-        url: absoluteUrl('/logo.svg'),
+        url: absoluteUrl('/images/jitansports-logo-menu.png'),
       },
     },
     datePublished: post.created_date,
+    dateModified: post.updated_date || post.created_date,
+    articleSection: post.category || 'Gezondheid',
+    inLanguage: 'nl-NL',
+    about: ['personal training', 'massage', 'voeding', 'herstel', 'Den Bosch'],
     mainEntityOfPage: absoluteUrl(`/blog/${post.slug}`),
+    isPartOf: { '@id': absoluteUrl('/blog#blog') },
   };
 }
 

@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
 import ResponsiveImage from '@/components/ResponsiveImage';
-import SEO, { buildFAQSchema } from '@/components/SEO';
+import SEO, { buildFAQSchema, buildServiceSchema } from '@/components/SEO';
 import PageHero from '@/components/PageHero';
 import ServiceReviews from '@/components/ServiceReviews';
 
@@ -73,7 +73,17 @@ export default function Voeding() {
         description="Voedingscoach in omgeving Den Bosch voor voedingsschema's op maat, afvallen, aankomen, spieropbouw, lichaamsanalyse, digitaal weegrapport en voortgangsmetingen."
         path="/voeding"
         image="/images/optimized/page-getfit-hero-960.jpg"
-        jsonLd={buildFAQSchema(FAQS)}
+        jsonLd={[
+          buildServiceSchema({
+            name: 'Voedingscoach Den Bosch',
+            serviceType: 'Voedingsbegeleiding',
+            description:
+              "Voedingscoach in Den Bosch voor voedingsschema's op maat, afvallen, aankomen, spieropbouw, lichaamsanalyse en digitaal weegrapport.",
+            path: '/voeding',
+            image: '/images/optimized/page-getfit-hero-960.jpg',
+          }),
+          buildFAQSchema(FAQS),
+        ]}
       />
 
       <PageHero

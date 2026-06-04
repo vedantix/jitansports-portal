@@ -3,7 +3,7 @@ import { ArrowRight, CheckCircle, Heart, Home, Shield, Sparkles, Star, Zap } fro
 import { Button } from '@/components/ui/button';
 import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
-import SEO, { buildFAQSchema } from '@/components/SEO';
+import SEO, { buildFAQSchema, buildServiceSchema } from '@/components/SEO';
 import PageHero from '@/components/PageHero';
 import ServiceReviews from '@/components/ServiceReviews';
 
@@ -91,10 +91,20 @@ export default function Massage() {
     <div>
       <SEO
         title="Massage Den Bosch - Deep Tissue, Sportmassage & Aan Huis | JitanSports"
-        description="Professionele massage aan huis in omgeving Den Bosch. Deep Tissue Massage, ontspanningsmassage en sportmassage voor herstel, minder pijn en ontspanning."
+        description="Professionele massage aan huis in Den Bosch en omgeving. Deep Tissue Massage, ontspanningsmassage en sportmassage voor herstel, minder pijn en ontspanning."
         path="/massage"
         image="/images/optimized/page-massage-hero-960.jpg"
-        jsonLd={buildFAQSchema(FAQS)}
+        jsonLd={[
+          buildServiceSchema({
+            name: 'Massage Den Bosch',
+            serviceType: 'Deep Tissue Massage, Sportmassage en Ontspanningsmassage',
+            description:
+              'Professionele massage aan huis in Den Bosch en omgeving: Deep Tissue Massage, sportmassage en ontspanningsmassage voor herstel, minder pijn en ontspanning.',
+            path: '/massage',
+            image: '/images/optimized/page-massage-hero-960.jpg',
+          }),
+          buildFAQSchema(FAQS),
+        ]}
       />
 
       <PageHero

@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle, Users, Clock, Dumbbell, Home, TreePine, Trophy, Heart } from 'lucide-react';
 import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
-import SEO from '@/components/SEO';
+import SEO, { buildFAQSchema, buildServiceSchema } from '@/components/SEO';
 import ResponsiveImage from '@/components/ResponsiveImage';
 import PageHero from '@/components/PageHero';
 import ServiceReviews from '@/components/ServiceReviews';
@@ -48,6 +48,18 @@ export default function PersonalTraining() {
         title="Personal Trainer Den Bosch – Aan Huis en Outdoor | JitanSports"
         description="Personal trainer in Den Bosch, Rosmalen, Vught en Oss. 1-op-1 training aan huis of outdoor. Voedingsbegeleiding inbegrepen. Gratis proefles. Plan vandaag bij JitanSports."
         path="/personal-training"
+        image={HERO_IMG}
+        jsonLd={[
+          buildServiceSchema({
+            name: 'Personal Training Den Bosch',
+            serviceType: 'Personal Training',
+            description:
+              '1-op-1 personal training aan huis of outdoor in Den Bosch, Rosmalen, Vught en omgeving voor afvallen, krachttraining, fitter worden en voedingsbegeleiding.',
+            path: '/personal-training',
+            image: HERO_IMG,
+          }),
+          buildFAQSchema(FAQS),
+        ]}
       />
 
       <PageHero

@@ -5,10 +5,23 @@ import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import { contentLines, createWhatsAppUrl } from '@/lib/siteContent';
-import SEO, { ROUTE_SEO, buildFAQSchema, buildLocalBusinessSchema } from '@/components/SEO';
+import SEO, {
+  ROUTE_SEO,
+  buildFAQSchema,
+  buildLocalBusinessSchema,
+  buildPersonSchema,
+  buildWebSiteSchema,
+} from '@/components/SEO';
 import ResponsiveImage from '@/components/ResponsiveImage';
 import PageHero from '@/components/PageHero';
 import { reviewsConfig } from '@/config/reviews';
+import {
+  AI_OVERVIEW_BLOCKS,
+  CORE_SERVICES,
+  HOMEPAGE_SEO_FAQS,
+  INTERNAL_SEO_LINKS,
+  LOCAL_AREAS,
+} from '@/config/seoContent';
 
 const GoalCards = lazy(() => import('../components/GoalCards'));
 const WhyChooseUs = lazy(() => import('../components/WhyChooseUs'));
@@ -21,16 +34,23 @@ const CTASection = lazy(() => import('../components/CTASection'));
 
 const LEGACY_HERO_COPY = {
   eyebrow: 'YOUR HEALTH IS OUR GOAL',
+  title: 'Word fitter, sterker en pijnvrij',
   highlight: 'met persoonlijke begeleiding op jouw tempo',
   subtitle: 'Personal training, deep tissue massage en voedingsbegeleiding in Den Bosch, Rosmalen, Vught en omgeving.',
 };
 
 const UPDATED_HERO_COPY = {
-  eyebrow: 'PERSONAL TRAINING • MASSAGE • VOEDINGSBEGELEIDING',
-  highlight: 'met een complete aanpak',
+  eyebrow: 'PERSONAL TRAINING • DEEP TISSUE MASSAGE • DEN BOSCH',
+  title: 'Personal Training en Deep Tissue Massage in Den Bosch',
+  highlight: '',
   subtitle:
-    'Bij JitanSports combineren we personal training, deep tissue massage en voedingsbegeleiding voor blijvend resultaat. Persoonlijke aandacht. Gericht op jouw doelen. Voor lichaam én geest.',
+    'Word fitter, sterker en pijnvrij met personal training, Deep Tissue Massage en voedingsbegeleiding in Den Bosch, Rosmalen, Vught, Sint-Michielsgestel en Boxtel.',
 };
+
+const LEGACY_HERO_TITLES = new Set([
+  LEGACY_HERO_COPY.title,
+  'Training en ontspanning in perfecte balans',
+]);
 
 function normalizeHeroCopy(content) {
   return {
@@ -38,7 +58,10 @@ function normalizeHeroCopy(content) {
       !content.hero_eyebrow || content.hero_eyebrow === LEGACY_HERO_COPY.eyebrow
         ? UPDATED_HERO_COPY.eyebrow
         : content.hero_eyebrow,
-    title: content.hero_title || 'Word fitter, sterker en pijnvrij',
+    title:
+      !content.hero_title || LEGACY_HERO_TITLES.has(content.hero_title)
+        ? UPDATED_HERO_COPY.title
+        : content.hero_title,
     highlight:
       !content.hero_highlight || content.hero_highlight === LEGACY_HERO_COPY.highlight
         ? UPDATED_HERO_COPY.highlight
@@ -94,6 +117,9 @@ export default function Home() {
     answer: content[`home_faq_${number}_answer`],
   }));
   const visibleFaqs = faqs.length ? faqs : fallbackFaqs;
+  const homepageFaqs = [...HOMEPAGE_SEO_FAQS, ...visibleFaqs]
+    .filter((faq, index, list) => faq.question && list.findIndex((item) => item.question === faq.question) === index)
+    .slice(0, 10);
   const trustBarItems = [
     {
       type: 'rating',
@@ -135,10 +161,15 @@ export default function Home() {
     <div>
       <SEO
         {...ROUTE_SEO['/']}
-        title={content.seo_home_title || ROUTE_SEO['/'].title}
-        description={content.seo_home_description || ROUTE_SEO['/'].description}
+        title={ROUTE_SEO['/'].title}
+        description={ROUTE_SEO['/'].description}
         image={content.seo_image || content.hero_image}
-        jsonLd={[buildLocalBusinessSchema(content), buildFAQSchema(visibleFaqs)].filter(Boolean)}
+        jsonLd={[
+          buildWebSiteSchema(),
+          buildLocalBusinessSchema(content),
+          buildPersonSchema(),
+          buildFAQSchema(homepageFaqs),
+        ].filter(Boolean)}
       />
       <PageHero
         image={content.hero_image || '/images/optimized/hero-desktop-1344.jpg'}
@@ -193,6 +224,65 @@ export default function Home() {
         </div>
         <div className="sr-only">
           {reviewsConfig.reviewProofText}
+        </div>
+      </section>
+
+      <section className="bg-white px-4 py-16 md:py-20 lg:py-24">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10 max-w-3xl">
+            <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-amber-700">In het kort</p>
+            <h2 className="font-display text-3xl font-bold text-secondary md:text-4xl">Jitan Sports in het kort</h2>
+            <p className="mt-4 text-muted-foreground">
+              Snel duidelijk wat Jitan Sports doet, voor wie de begeleiding is en in welke regio Jitan actief is.
+            </p>
+          </div>
+
+          <div className="grid gap-5 lg:grid-cols-3">
+            {AI_OVERVIEW_BLOCKS.map((block) => (
+              <article key={block.question} className="rounded-xl border border-border bg-muted/30 p-6">
+                <h3 className="mb-3 text-lg font-bold text-secondary">{block.question}</h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">{block.answer}</p>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-8 grid gap-5 md:grid-cols-3">
+            {CORE_SERVICES.map((service) => (
+              <article key={service.name} className="rounded-xl border border-border bg-white p-6 shadow-sm">
+                <h2 className="mb-3 text-xl font-bold text-secondary">{service.name}</h2>
+                <p className="mb-5 text-sm leading-relaxed text-muted-foreground">{service.answer}</p>
+                <Link to={service.url} className="inline-flex items-center gap-2 text-sm font-semibold text-amber-700 hover:text-amber-800">
+                  Meer over {service.name} <ArrowRight className="h-4 w-4" />
+                </Link>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-8 rounded-xl border border-primary/20 bg-primary/10 p-5">
+            <h2 className="mb-3 text-xl font-bold text-secondary">Werkgebied rond Den Bosch</h2>
+            <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
+              Jitan Sports helpt klanten in Den Bosch, &apos;s-Hertogenbosch en omliggende plaatsen met training aan huis, outdoor training, massage aan huis en voedingsbegeleiding.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {LOCAL_AREAS.map((area) => (
+                <span key={area} className="rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-secondary">
+                  {area}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <nav className="mt-8 flex flex-wrap gap-3" aria-label="Belangrijke Jitan Sports pagina's">
+            {INTERNAL_SEO_LINKS.map(([label, href]) => (
+              <Link
+                key={href}
+                to={href}
+                className="rounded-full border border-border bg-white px-4 py-2 text-sm font-semibold text-secondary transition-colors hover:border-primary hover:text-amber-700"
+              >
+                {label}
+              </Link>
+            ))}
+          </nav>
         </div>
       </section>
 
@@ -372,7 +462,7 @@ export default function Home() {
             <h2 className="text-3xl font-display font-bold text-secondary">{content.home_faq_title}</h2>
           </div>
           <DeferredSection>
-            <FAQAccordion items={visibleFaqs} />
+            <FAQAccordion items={homepageFaqs} />
           </DeferredSection>
         </div>
       </section>

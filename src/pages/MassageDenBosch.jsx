@@ -5,19 +5,9 @@ import FAQAccordion from '../components/FAQAccordion';
 import CTASection from '../components/CTASection';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import { contentLines } from '@/lib/siteContent';
-import SEO, { ROUTE_SEO } from '@/components/SEO';
+import SEO, { ROUTE_SEO, buildFAQSchema, buildLocalBusinessSchema, buildServiceSchema } from '@/components/SEO';
 import PageHero from '@/components/PageHero';
 import ServiceReviews from '@/components/ServiceReviews';
-
-const SCHEMA = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "JitanSports – Massage omgeving Den Bosch",
-  "description": "Professionele massage in omgeving Den Bosch. Deep Tissue Massage en ontspanningsmassage aan huis of op locatie. Direct boeken!",
-  "telephone": "+31682272680",
-  "address": { "@type": "PostalAddress", "addressLocality": "Den Bosch", "addressCountry": "NL" },
-  "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "31" }
-};
 
 export default function MassageDenBosch() {
   const { content } = useSiteContent();
@@ -41,7 +31,18 @@ export default function MassageDenBosch() {
         title={content.seo_massage_den_bosch_title || ROUTE_SEO['/massage-den-bosch'].title}
         description={content.seo_massage_den_bosch_description || ROUTE_SEO['/massage-den-bosch'].description}
         image={content.seo_image}
-        jsonLd={SCHEMA}
+        jsonLd={[
+          buildLocalBusinessSchema(content),
+          buildServiceSchema({
+            name: 'Massage Den Bosch',
+            serviceType: 'Deep Tissue Massage en Ontspanningsmassage',
+            description:
+              'Massage in Den Bosch aan huis of op locatie: Deep Tissue Massage, sportmassage en ontspanningsmassage voor herstel en ontspanning.',
+            path: '/massage-den-bosch',
+            image: content.massage_db_hero_image,
+          }),
+          buildFAQSchema(faqs),
+        ]}
       />
       <PageHero
         image={content.massage_db_hero_image}

@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
+import { topicPaths } from '@/config/topicRoutes';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 
@@ -19,12 +20,14 @@ const Booking = lazy(() => import('./pages/Booking'));
 const PersonalTrainerDenBosch = lazy(() => import('./pages/PersonalTrainerDenBosch'));
 const PersonalTrainerRosmalen = lazy(() => import('./pages/PersonalTrainerRosmalen'));
 const PersonalTrainerVught = lazy(() => import('./pages/PersonalTrainerVught'));
+const PersonalTrainerBoxtel = lazy(() => import('./pages/PersonalTrainerBoxtel'));
 const PersonalTrainerOss = lazy(() => import('./pages/PersonalTrainerOss'));
 const MassageDenBosch = lazy(() => import('./pages/MassageDenBosch'));
 const DeepTissueMassageDenBosch = lazy(() => import('./pages/DeepTissueMassageDenBosch'));
 const SportmassageDenBosch = lazy(() => import('./pages/SportmassageDenBosch'));
 const MassageAanHuisDenBosch = lazy(() => import('./pages/MassageAanHuisDenBosch'));
 const VoedingscoachDenBosch = lazy(() => import('./pages/VoedingscoachDenBosch'));
+const VoedingsbegeleidingDenBosch = lazy(() => import('./pages/VoedingsbegeleidingDenBosch'));
 const Voeding = lazy(() => import('./pages/Voeding'));
 const VipTreatment = lazy(() => import('./pages/VipTreatment'));
 const Bedrijven = lazy(() => import('./pages/Bedrijven'));
@@ -35,12 +38,12 @@ const AdminLogin = lazy(() => import('./pages/admin/AdminLogin'));
 const AdminDashboard = lazy(() => import('./pages/admin/Dashboard'));
 const ManageAppointments = lazy(() => import('./pages/admin/ManageAppointments'));
 const ManageAvailability = lazy(() => import('./pages/admin/ManageAvailability'));
-const ManageReviews = lazy(() => import('./pages/admin/ManageReviews'));
 const ManageBlog = lazy(() => import('./pages/admin/ManageBlog'));
 const ManagePricing = lazy(() => import('./pages/admin/ManagePricing'));
 const ManageFAQ = lazy(() => import('./pages/admin/ManageFAQ'));
 const ManageGallery = lazy(() => import('./pages/admin/ManageGallery'));
 const ManageContent = lazy(() => import('./pages/admin/ManageContent'));
+const TopicLandingPage = lazy(() => import('./pages/TopicLandingPage'));
 
 function RouteFallback() {
   return (
@@ -90,19 +93,23 @@ const AppRoutes = () => {
           <Route path="/personal-trainer-den-bosch" element={<PersonalTrainerDenBosch />} />
           <Route path="/personal-trainer-rosmalen" element={<PersonalTrainerRosmalen />} />
           <Route path="/personal-trainer-vught" element={<PersonalTrainerVught />} />
+          <Route path="/personal-trainer-boxtel" element={<PersonalTrainerBoxtel />} />
           <Route path="/personal-trainer-oss" element={<PersonalTrainerOss />} />
           <Route path="/massage-den-bosch" element={<MassageDenBosch />} />
           <Route path="/deep-tissue-massage-den-bosch" element={<DeepTissueMassageDenBosch />} />
           <Route path="/sportmassage-den-bosch" element={<SportmassageDenBosch />} />
           <Route path="/massage-aan-huis-den-bosch" element={<MassageAanHuisDenBosch />} />
           <Route path="/voedingscoach-den-bosch" element={<VoedingscoachDenBosch />} />
+          <Route path="/voedingsbegeleiding-den-bosch" element={<VoedingsbegeleidingDenBosch />} />
+          {topicPaths.map((path) => (
+            <Route key={path} path={path} element={<TopicLandingPage />} />
+          ))}
         </Route>
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<AdminDashboard />} />
           <Route path="appointments" element={<ManageAppointments />} />
           <Route path="availability" element={<ManageAvailability />} />
-          <Route path="reviews" element={<ManageReviews />} />
           <Route path="blog" element={<ManageBlog />} />
           <Route path="pricing" element={<ManagePricing />} />
           <Route path="faq" element={<ManageFAQ />} />

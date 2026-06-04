@@ -3,7 +3,7 @@ import { ArrowRight, CheckCircle, Home, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
-import SEO, { buildFAQSchema } from '@/components/SEO';
+import SEO, { buildFAQSchema, buildServiceSchema } from '@/components/SEO';
 import PageHero from '@/components/PageHero';
 import ServiceReviews from '@/components/ServiceReviews';
 
@@ -38,7 +38,17 @@ export default function MassageAanHuisDenBosch() {
         description="Massage aan huis in Den Bosch en omgeving. JitanSports komt met professionele massagetafel voor Deep Tissue Massage, sportmassage en ontspanningsmassage."
         path="/massage-aan-huis-den-bosch"
         image="/images/optimized/page-massage-hero-960.jpg"
-        jsonLd={buildFAQSchema(FAQS)}
+        jsonLd={[
+          buildServiceSchema({
+            name: 'Massage aan huis Den Bosch',
+            serviceType: 'Massage aan huis',
+            description:
+              'Massage aan huis in Den Bosch en omgeving met Deep Tissue Massage, sportmassage en ontspanningsmassage op een professionele massagetafel.',
+            path: '/massage-aan-huis-den-bosch',
+            image: '/images/optimized/page-massage-hero-960.jpg',
+          }),
+          buildFAQSchema(FAQS),
+        ]}
       />
 
       <PageHero

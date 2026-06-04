@@ -4,7 +4,7 @@ import { base44 } from '@/api/base44Client';
 import { Calendar, ArrowRight } from 'lucide-react';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import ResponsiveImage from '@/components/ResponsiveImage';
-import SEO, { ROUTE_SEO } from '@/components/SEO';
+import SEO, { ROUTE_SEO, buildWebPageSchema } from '@/components/SEO';
 import { FALLBACK_POSTS } from '@/lib/blogContent';
 import PageHero from '@/components/PageHero';
 import CTASection from '@/components/CTASection';
@@ -27,6 +27,8 @@ const normalizeCategory = (category = '') => {
   if (value.includes('40') || value.includes('lifestyle')) return 'Lifestyle';
   return category || 'Lifestyle';
 };
+
+const getPostImage = (post) => post.featuredImage || post.featured_image || '/images/optimized/page-training-hero-960.jpg';
 
 export default function Blog() {
   const { content } = useSiteContent();
@@ -58,6 +60,12 @@ export default function Blog() {
         title={content.seo_blog_title || ROUTE_SEO['/blog'].title}
         description={content.seo_blog_description || ROUTE_SEO['/blog'].description}
         image={content.seo_image}
+        jsonLd={buildWebPageSchema({
+          title: content.seo_blog_title || ROUTE_SEO['/blog'].title,
+          description: content.seo_blog_description || ROUTE_SEO['/blog'].description,
+          path: '/blog',
+          image: content.seo_image,
+        })}
       />
       <PageHero
         align="center"
@@ -66,6 +74,30 @@ export default function Blog() {
         subtitle={content.blog_subtitle}
         titleClassName="md:text-5xl lg:text-5xl"
       />
+
+      <section className="bg-white px-4 py-12">
+        <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-3">
+          {[
+            [
+              'Personal training en afvallen',
+              'Lees hoe krachttraining, voedingsbegeleiding en coaching helpen bij afvallen, fitter worden en meer energie in Den Bosch.',
+            ],
+            [
+              'Massage en herstel',
+              'Praktische uitleg over Deep Tissue Massage, sportmassage, massage aan huis en herstel bij rug-, nek- en schouderklachten.',
+            ],
+            [
+              'Voeding en leefstijl',
+              'Heldere antwoorden over voedingsschema’s, lichaamsanalyse, spieropbouw en duurzame gewoontes zonder crashdieet.',
+            ],
+          ].map(([title, text]) => (
+            <article key={title} className="rounded-xl border border-border bg-muted/30 p-5">
+              <h2 className="mb-2 text-lg font-bold text-secondary">{title}</h2>
+              <p className="text-sm leading-relaxed text-muted-foreground">{text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
 
       <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="max-w-7xl mx-auto">
@@ -97,7 +129,7 @@ export default function Blog() {
                   <Link to={`/blog/${post.slug}`} className="group block rounded-2xl overflow-hidden bg-white border border-border/50 hover:shadow-xl transition-all duration-300">
                     <div className="aspect-[3/2] overflow-hidden">
                       <ResponsiveImage
-                        src={post.featured_image || '/images/optimized/page-training-hero-960.jpg'}
+                        src={getPostImage(post)}
                         alt={post.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         loading="lazy"

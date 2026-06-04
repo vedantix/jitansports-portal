@@ -5,11 +5,13 @@ import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
 import FAQAccordion from '@/components/FAQAccordion';
 import CTASection from '@/components/CTASection';
-import SEO, { ROUTE_SEO, buildFAQSchema } from '@/components/SEO';
+import SEO, { ROUTE_SEO, buildFAQSchema, buildWebPageSchema } from '@/components/SEO';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import PageHero from '@/components/PageHero';
+import { AI_OVERVIEW_BLOCKS, HOMEPAGE_SEO_FAQS } from '@/config/seoContent';
 
 const FALLBACK_FAQS = [
+  ...HOMEPAGE_SEO_FAQS,
   {
     question: 'Waar geeft JitanSports personal training?',
     answer:
@@ -80,7 +82,15 @@ export default function FAQ() {
         title={content.seo_faq_title || ROUTE_SEO['/faq'].title}
         description={content.seo_faq_description || ROUTE_SEO['/faq'].description}
         image={content.seo_image}
-        jsonLd={buildFAQSchema(faqs)}
+        jsonLd={[
+          buildWebPageSchema({
+            title: content.seo_faq_title || ROUTE_SEO['/faq'].title,
+            description: content.seo_faq_description || ROUTE_SEO['/faq'].description,
+            path: '/faq',
+            image: content.seo_image,
+          }),
+          buildFAQSchema(faqs),
+        ].filter(Boolean)}
       />
       <PageHero
         align="center"
@@ -97,6 +107,17 @@ export default function FAQ() {
 
       <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="mx-auto max-w-3xl">
+          <div className="mb-10 rounded-xl border border-primary/20 bg-primary/10 p-5">
+            <h2 className="mb-4 text-xl font-bold text-secondary">Korte antwoorden over Jitan Sports</h2>
+            <div className="space-y-4">
+              {AI_OVERVIEW_BLOCKS.map((block) => (
+                <article key={block.question}>
+                  <h3 className="mb-1 text-base font-bold text-secondary">{block.question}</h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground">{block.answer}</p>
+                </article>
+              ))}
+            </div>
+          </div>
           <div className="mb-6 flex gap-2 overflow-x-auto pb-2">
             {categories.map((category) => (
               <button

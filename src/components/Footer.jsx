@@ -81,7 +81,7 @@ export default function Footer() {
               {[
                 ['Personal Training', '/personal-training'],
                 ['Massage', '/massage'],
-                ['Voeding', '/voeding'],
+                ['Voedingsbegeleiding', '/voedingsbegeleiding'],
                 ['VIP Treatment', '/vip-treatment'],
                 ['Get Fit Programma', '/get-fit'],
               ].map(([label, path]) => (
@@ -102,6 +102,7 @@ export default function Footer() {
                 ['Den Bosch', '/personal-trainer-den-bosch'],
                 ['Rosmalen', '/personal-trainer-rosmalen'],
                 ['Vught', '/personal-trainer-vught'],
+                ['Boxtel', '/personal-trainer-boxtel'],
                 ['Oss', '/personal-trainer-oss'],
               ].map(([label, path]) => (
                 <li key={path}>

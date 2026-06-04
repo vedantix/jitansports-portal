@@ -4,7 +4,15 @@ import { ArrowRight, MessageCircle } from 'lucide-react';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import { createWhatsAppUrl } from '@/lib/siteContent';
 
-export default function CTASection({ title = undefined, subtitle = undefined, dark = false }) {
+export default function CTASection({
+  title = undefined,
+  subtitle = undefined,
+  dark = false,
+  primaryLabel = undefined,
+  secondaryLabel = undefined,
+  showContact = false,
+  contactLabel = 'Neem contact op',
+}) {
   const { content } = useSiteContent();
   const heading = title || content.cta_title;
   const copy = subtitle || content.cta_subtitle;
@@ -22,14 +30,21 @@ export default function CTASection({ title = undefined, subtitle = undefined, da
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link to="/booking">
             <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 gap-2 w-full sm:w-auto">
-              {content.primary_cta_text} <ArrowRight className="w-4 h-4" />
+              {primaryLabel || content.primary_cta_text} <ArrowRight className="w-4 h-4" />
             </Button>
           </Link>
           <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
             <Button size="lg" variant="outline" className={`gap-2 w-full sm:w-auto ${dark ? 'border-secondary-foreground/30 text-secondary-foreground hover:bg-secondary-foreground/10' : ''}`}>
-              <MessageCircle className="w-4 h-4" /> {content.secondary_cta_text}
+              <MessageCircle className="w-4 h-4" /> {secondaryLabel || content.secondary_cta_text}
             </Button>
           </a>
+          {showContact && (
+            <Link to="/contact">
+              <Button size="lg" variant="ghost" className={`w-full sm:w-auto ${dark ? 'text-secondary-foreground hover:bg-secondary-foreground/10' : 'text-secondary hover:bg-secondary/10'}`}>
+                {contactLabel}
+              </Button>
+            </Link>
+          )}
         </div>
       </div>
     </section>

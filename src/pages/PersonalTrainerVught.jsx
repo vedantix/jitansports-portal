@@ -3,9 +3,10 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle, MapPin, Star } from 'lucide-react';
 import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
-import SEO from '@/components/SEO';
+import SEO, { buildFAQSchema, buildServiceSchema } from '@/components/SEO';
 import PageHero from '@/components/PageHero';
 import ServiceReviews from '@/components/ServiceReviews';
+import SeoSummary from '@/components/SeoSummary';
 
 const HERO_IMG = '/images/optimized/page-training-hero-960.jpg';
 
@@ -32,6 +33,19 @@ export default function PersonalTrainerVught() {
         title="Personal Trainer Vught – Aan Huis en Outdoor | JitanSports"
         description="Personal trainer in Vught voor afvallen, krachttraining en conditie. Training aan huis of outdoor in Vught. Gratis proefles – start vandaag bij JitanSports."
         path="/personal-trainer-vught"
+        image={HERO_IMG}
+        jsonLd={[
+          buildServiceSchema({
+            name: 'Personal Trainer Vught',
+            serviceType: 'Personal Training',
+            description:
+              'Personal training aan huis of outdoor in Vught voor afvallen, sterker worden, conditie, voedingsbegeleiding en meer energie.',
+            path: '/personal-trainer-vught',
+            image: HERO_IMG,
+            areaServed: ['Vught', 'Den Bosch'],
+          }),
+          buildFAQSchema(FAQS),
+        ]}
       />
       <PageHero
         image={HERO_IMG}
@@ -65,6 +79,11 @@ export default function PersonalTrainerVught() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">{BENEFITS.map(b => (<div key={b} className="flex items-start gap-3"><CheckCircle className="w-5 h-5 text-primary shrink-0 mt-0.5" /><span className="text-foreground text-sm">{b}</span></div>))}</div>
         </div>
       </section>
+      <SeoSummary>
+        <p>
+          Jitan Sports biedt personal training in Vught voor afvallen, sterker worden, fitter worden en persoonlijke begeleiding aan huis of outdoor. De aanpak combineert training, voedingsadvies, leefstijlbegeleiding en waar nodig massage voor herstel.
+        </p>
+      </SeoSummary>
       <section className="px-4 py-16 md:py-20 lg:py-24 bg-muted/30">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-display font-bold text-secondary mb-8 text-center">Veelgestelde vragen</h2>

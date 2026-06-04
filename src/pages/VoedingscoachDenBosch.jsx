@@ -3,9 +3,10 @@ import { ArrowRight, BarChart3, CheckCircle, Salad, Scale } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
-import SEO, { buildFAQSchema } from '@/components/SEO';
+import SEO, { buildFAQSchema, buildServiceSchema } from '@/components/SEO';
 import PageHero from '@/components/PageHero';
 import ServiceReviews from '@/components/ServiceReviews';
+import SeoSummary from '@/components/SeoSummary';
 
 const FAQS = [
   {
@@ -38,7 +39,17 @@ export default function VoedingscoachDenBosch() {
         description="Voedingscoach Den Bosch voor afvallen, aankomen, spieropbouw, voedingsschema's op maat, lichaamsanalyse en digitaal weegrapport."
         path="/voedingscoach-den-bosch"
         image="/images/optimized/page-getfit-hero-960.jpg"
-        jsonLd={buildFAQSchema(FAQS)}
+        jsonLd={[
+          buildServiceSchema({
+            name: 'Voedingscoach Den Bosch',
+            serviceType: 'Voedingsbegeleiding',
+            description:
+              "Voedingscoach in Den Bosch voor afvallen, aankomen, spieropbouw, voedingsschema's op maat, lichaamsanalyse en digitaal weegrapport.",
+            path: '/voedingscoach-den-bosch',
+            image: '/images/optimized/page-getfit-hero-960.jpg',
+          }),
+          buildFAQSchema(FAQS),
+        ]}
       />
 
       <PageHero
@@ -103,6 +114,12 @@ export default function VoedingscoachDenBosch() {
           </div>
         </div>
       </section>
+
+      <SeoSummary>
+        <p>
+          Jitan Sports biedt voedingscoaching in Den Bosch voor afvallen, aankomen, spieropbouw en gezonder eten. De begeleiding bestaat uit een voedingsschema op maat, lichaamsanalyse, digitaal rapport en praktische coaching die past bij jouw leefstijl.
+        </p>
+      </SeoSummary>
 
       <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="mx-auto max-w-3xl">

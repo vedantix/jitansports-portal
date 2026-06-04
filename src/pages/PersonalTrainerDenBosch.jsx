@@ -5,22 +5,10 @@ import FAQAccordion from '../components/FAQAccordion';
 import CTASection from '../components/CTASection';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import { contentLines } from '@/lib/siteContent';
-import SEO, { ROUTE_SEO } from '@/components/SEO';
+import SEO, { ROUTE_SEO, buildFAQSchema, buildLocalBusinessSchema, buildServiceSchema } from '@/components/SEO';
 import PageHero from '@/components/PageHero';
 import ServiceReviews from '@/components/ServiceReviews';
-
-const SCHEMA = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "JitanSports – Personal Trainer omgeving Den Bosch",
-  "description": "Personal trainer in omgeving Den Bosch voor gewichtsverlies, krachttraining en voedingsbegeleiding. 10+ jaar ervaring. Gratis proefles.",
-  "url": "https://jitan-sports.nl/personal-trainer-den-bosch",
-  "telephone": "+31682272680",
-  "address": { "@type": "PostalAddress", "addressLocality": "Den Bosch", "addressCountry": "NL" },
-  "priceRange": "€€",
-  "openingHours": ["Mo-Fr 07:00-20:00", "Sa 09:00-17:00"],
-  "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "47" }
-};
+import SeoSummary from '@/components/SeoSummary';
 
 export default function PersonalTrainerDenBosch() {
   const { content } = useSiteContent();
@@ -40,14 +28,25 @@ export default function PersonalTrainerDenBosch() {
     <div>
       <SEO
         {...ROUTE_SEO['/personal-trainer-den-bosch']}
-        title={content.seo_trainer_den_bosch_title || ROUTE_SEO['/personal-trainer-den-bosch'].title}
+        title={ROUTE_SEO['/personal-trainer-den-bosch'].title}
         description={content.seo_trainer_den_bosch_description || ROUTE_SEO['/personal-trainer-den-bosch'].description}
         image={content.seo_image}
-        jsonLd={SCHEMA}
+        jsonLd={[
+          buildLocalBusinessSchema(content),
+          buildServiceSchema({
+            name: 'Personal Trainer Den Bosch',
+            serviceType: 'Personal Training',
+            description:
+              'Personal trainer in Den Bosch voor afvallen, krachttraining, fitter worden, conditie en voedingsbegeleiding. Training aan huis of outdoor.',
+            path: '/personal-trainer-den-bosch',
+            image: content.trainer_db_hero_image,
+          }),
+          buildFAQSchema(faqs),
+        ]}
       />
       <PageHero
         image={content.trainer_db_hero_image}
-        title={content.trainer_db_title}
+        title="Personal Trainer in Den Bosch"
         subtitle={content.trainer_db_subtitle}
         align="center"
         overlayClassName="bg-secondary/85"
@@ -120,6 +119,44 @@ export default function PersonalTrainerDenBosch() {
           </div>
         </div>
       </section>
+
+      <section className="px-4 py-16 md:py-20 lg:py-24">
+        <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-2">
+          <article className="rounded-2xl border border-border bg-white p-7">
+            <h2 className="mb-4 text-2xl font-display font-bold text-secondary">Voor wie is personal training geschikt?</h2>
+            <p className="mb-5 text-sm leading-relaxed text-muted-foreground">
+              Personal training bij Jitan Sports is geschikt voor beginners, herstarters en ervaren sporters die gerichter willen trainen. Vooral als je wilt afvallen, sterker wilt worden, fitter wilt worden na je 40e of minder pijnklachten wilt ervaren, helpt persoonlijke begeleiding om veilig en consequent vooruitgang te boeken.
+            </p>
+            <div className="space-y-3">
+              {['Afvallen met structuur', 'Sterker worden zonder blessures', 'Fitter worden na je 40e', 'Meer energie en discipline'].map((item) => (
+                <div key={item} className="flex items-start gap-3 text-sm">
+                  <CheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+          </article>
+          <article className="rounded-2xl border border-border bg-muted/30 p-7">
+            <h2 className="mb-4 text-2xl font-display font-bold text-secondary">Werkwijze van Jitan</h2>
+            <p className="mb-5 text-sm leading-relaxed text-muted-foreground">
+              Jitan start met een gratis proefles of intake. Daarna krijg je een persoonlijk trainingsplan, duidelijke techniekbegeleiding en praktische voedingsadviezen. Training vindt plaats aan huis, outdoor of op een plek in Den Bosch die bij jou past.
+            </p>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {['Intake en doel bepalen', 'Training op maat', 'Voeding en leefstijl', 'Voortgang meten'].map((item) => (
+                <div key={item} className="rounded-lg bg-white px-4 py-3 text-sm font-semibold text-secondary">
+                  {item}
+                </div>
+              ))}
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <SeoSummary>
+        <p>
+          Jitan Sports is een personal training praktijk in Den Bosch gespecialiseerd in 1-op-1 begeleiding, afvallen, sterker worden, fitter worden en voedingsbegeleiding. De aanpak combineert training aan huis of outdoor met persoonlijke coaching, techniekcorrectie en meetbare voortgang.
+        </p>
+      </SeoSummary>
 
       <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="max-w-3xl mx-auto">

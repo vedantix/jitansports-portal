@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
-import { Calendar, Star, FileText, Clock, Image, HelpCircle, DollarSign, PanelsTopLeft } from 'lucide-react';
+import { Calendar, FileText, Clock, Image, HelpCircle, DollarSign, PanelsTopLeft } from 'lucide-react';
 
 export default function Dashboard() {
-  const [stats, setStats] = useState({ upcoming: 0, newRequests: 0, reviews: 0, blogs: 0 });
+  const [stats, setStats] = useState({ upcoming: 0, newRequests: 0, blogs: 0 });
   const [recentAppointments, setRecentAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -12,14 +12,12 @@ export default function Dashboard() {
     const today = new Date().toISOString().split('T')[0];
     Promise.all([
       base44.entities.Appointment.list('-created_date', 50),
-      base44.entities.Review.list('-created_date', 5),
       base44.entities.Blog.filter({ status: 'gepubliceerd' }),
-    ]).then(([appointments, reviews, blogs]) => {
+    ]).then(([appointments, blogs]) => {
       const upcoming = appointments.filter(a => a.date >= today && a.status !== 'geannuleerd');
       setStats({
         upcoming: upcoming.length,
         newRequests: appointments.filter(a => a.status === 'nieuw').length,
-        reviews: reviews.length,
         blogs: blogs.length,
       });
       setRecentAppointments(appointments.slice(0, 5));
@@ -37,7 +35,6 @@ export default function Dashboard() {
   const STAT_CARDS = [
     { label: 'Aankomende afspraken', value: stats.upcoming, icon: Calendar, link: '/admin/appointments', color: 'text-blue-500 bg-blue-50' },
     { label: 'Nieuwe aanvragen', value: stats.newRequests, icon: Clock, link: '/admin/appointments', color: 'text-amber-500 bg-amber-50' },
-    { label: 'Reviews', value: stats.reviews, icon: Star, link: '/admin/reviews', color: 'text-green-500 bg-green-50' },
     { label: 'Gepubliceerde blogs', value: stats.blogs, icon: FileText, link: '/admin/blog', color: 'text-purple-500 bg-purple-50' },
   ];
 
@@ -62,7 +59,7 @@ export default function Dashboard() {
       <h1 className="text-2xl font-bold text-secondary mb-1">Dashboard</h1>
       <p className="text-muted-foreground mb-8">Welkom terug bij het JitanSports beheerpaneel.</p>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
         {STAT_CARDS.map(card => (
           <Link key={card.label} to={card.link} className="bg-white rounded-2xl p-5 border border-border hover:shadow-md transition-all">
             <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 ${card.color}`}>

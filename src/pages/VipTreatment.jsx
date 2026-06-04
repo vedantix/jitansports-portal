@@ -3,7 +3,7 @@ import { ArrowRight, CheckCircle, Crown, Dumbbell, Gift, Heart, Moon, Sparkles, 
 import { Button } from '@/components/ui/button';
 import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
-import SEO, { buildFAQSchema } from '@/components/SEO';
+import SEO, { buildFAQSchema, buildServiceSchema } from '@/components/SEO';
 import PageHero from '@/components/PageHero';
 import ServiceReviews from '@/components/ServiceReviews';
 
@@ -47,7 +47,17 @@ export default function VipTreatment() {
         description="Exclusieve VIP behandeling aan huis: 1 uur personal training gevolgd door 1 uur massage. Premium inspanning en ontspanning in omgeving Den Bosch."
         path="/vip-treatment"
         image="/images/optimized/page-massage-hero-960.jpg"
-        jsonLd={buildFAQSchema(FAQS)}
+        jsonLd={[
+          buildServiceSchema({
+            name: 'VIP Treatment Den Bosch',
+            serviceType: 'Personal Training en Massage',
+            description:
+              'Exclusieve VIP Treatment in Den Bosch met 1 uur personal training en 1 uur massage voor inspanning, herstel en ontspanning in één premium ervaring.',
+            path: '/vip-treatment',
+            image: '/images/optimized/page-massage-hero-960.jpg',
+          }),
+          buildFAQSchema(FAQS),
+        ]}
       />
 
       <PageHero
