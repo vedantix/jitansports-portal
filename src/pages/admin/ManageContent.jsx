@@ -1,7 +1,70 @@
 import { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { CONTENT_FIELDS, DEFAULT_SITE_CONTENT, flattenContentFields } from '@/lib/siteContent';
-import { CheckCircle, ImagePlus, Save, Upload } from 'lucide-react';
+import { CheckCircle, ExternalLink, ImagePlus, Save, Upload } from 'lucide-react';
+
+const PAGE_TABS = [
+  {
+    id: 'home',
+    label: 'Home',
+    path: '/',
+    groups: ['Homepage hero', 'Homepage doelen en statistieken', 'Homepage diensten en over'],
+  },
+  {
+    id: 'personal-training',
+    label: 'Personal Training',
+    path: '/personal-training',
+    groups: ['Personal Training pagina'],
+  },
+  {
+    id: 'massage',
+    label: 'Massage',
+    path: '/massage',
+    groups: ['Massage pagina'],
+  },
+  {
+    id: 'get-fit',
+    label: 'Get Fit',
+    path: '/get-fit',
+    groups: ['Get Fit pagina'],
+  },
+  {
+    id: 'over-ons',
+    label: 'Over Ons',
+    path: '/over-ons',
+    groups: ['Over ons pagina'],
+  },
+  {
+    id: 'tarieven',
+    label: 'Tarieven',
+    path: '/tarieven',
+    groups: ['Tarieven pagina'],
+  },
+  {
+    id: 'blog-faq-contact',
+    label: 'Blog, FAQ, Contact & Booking',
+    path: null,
+    groups: ['Blog, FAQ, contact en booking'],
+  },
+  {
+    id: 'seo-pages',
+    label: "SEO Pagina's",
+    path: null,
+    groups: [
+      'SEO pagina Personal Trainer Den Bosch',
+      'SEO pagina Massage Den Bosch',
+      'SEO pagina Deep Tissue Den Bosch',
+      'SEO per pagina',
+    ],
+  },
+  {
+    id: 'general',
+    label: 'Algemeen',
+    path: null,
+    groups: ['Algemene CTA, contact en SEO'],
+  },
+];
 
 export default function ManageContent() {
   const defaults = useMemo(() => flattenContentFields().map((field) => ({ ...field, id: null })), []);
@@ -10,10 +73,10 @@ export default function ManageContent() {
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [uploadingKey, setUploadingKey] = useState(null);
+  const [activeTab, setActiveTab] = useState('home');
 
   useEffect(() => {
     let mounted = true;
-
     async function load() {
       try {
         const rows = base44.entities?.SiteContent
@@ -32,11 +95,8 @@ export default function ManageContent() {
         if (mounted) setLoading(false);
       }
     }
-
     load();
-    return () => {
-      mounted = false;
-    };
+    return () => { mounted = false; };
   }, [defaults]);
 
   const updateField = (key, value) => {
@@ -60,7 +120,6 @@ export default function ManageContent() {
       for (const field of fields) {
         const defaultValue = DEFAULT_SITE_CONTENT[field.key] ?? '';
         if (!field.id && (field.value || '') === defaultValue) continue;
-
         const payload = {
           key: field.key,
           label: field.label,
@@ -69,7 +128,6 @@ export default function ManageContent() {
           value: field.value || '',
           order: field.order || 0,
         };
-
         if (field.id) {
           await base44.entities.SiteContent.update(field.id, payload);
         } else {
@@ -89,7 +147,7 @@ export default function ManageContent() {
       return (
         <textarea
           value={field.value || ''}
-          onChange={(event) => updateField(field.key, event.target.value)}
+          onChange={(e) => updateField(field.key, e.target.value)}
           rows={3}
           className="w-full rounded-lg border border-border px-3 py-2.5 text-sm outline-none transition focus:ring-2 focus:ring-primary"
         />
@@ -103,25 +161,21 @@ export default function ManageContent() {
             <input
               type="url"
               value={field.value || ''}
-              onChange={(event) => updateField(field.key, event.target.value)}
+              onChange={(e) => updateField(field.key, e.target.value)}
               placeholder="https://..."
               className="min-w-0 flex-1 rounded-lg border border-border px-3 py-2.5 text-sm outline-none transition focus:ring-2 focus:ring-primary"
             />
             <label className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-secondary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-secondary/90">
               {uploadingKey === field.key ? (
-                <>
-                  <Upload className="h-4 w-4 animate-pulse" /> Uploaden
-                </>
+                <><Upload className="h-4 w-4 animate-pulse" /> Uploaden</>
               ) : (
-                <>
-                  <ImagePlus className="h-4 w-4" /> Upload
-                </>
+                <><ImagePlus className="h-4 w-4" /> Upload</>
               )}
               <input
                 type="file"
                 accept="image/*"
                 className="hidden"
-                onChange={(event) => uploadImage(field, event.target.files?.[0])}
+                onChange={(e) => uploadImage(field, e.target.files?.[0])}
               />
             </label>
           </div>
@@ -141,11 +195,14 @@ export default function ManageContent() {
       <input
         type={field.type === 'tel' ? 'tel' : field.type === 'email' ? 'email' : field.type === 'url' ? 'url' : 'text'}
         value={field.value || ''}
-        onChange={(event) => updateField(field.key, event.target.value)}
+        onChange={(e) => updateField(field.key, e.target.value)}
         className="w-full rounded-lg border border-border px-3 py-2.5 text-sm outline-none transition focus:ring-2 focus:ring-primary"
       />
     );
   };
+
+  const activePageTab = PAGE_TABS.find((t) => t.id === activeTab);
+  const activeSections = CONTENT_FIELDS.filter((s) => activePageTab?.groups.includes(s.group));
 
   if (loading) {
     return (
@@ -157,11 +214,12 @@ export default function ManageContent() {
 
   return (
     <div>
+      {/* Header */}
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold text-secondary">Website content beheren</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Beheer statische teksten, CTA's, servicefoto's, pagina-afbeeldingen en SEO per publieke pagina.
+            Kies een pagina links en bewerk de teksten, afbeeldingen en SEO.
           </p>
         </div>
         <button
@@ -176,24 +234,88 @@ export default function ManageContent() {
         </button>
       </div>
 
-      <div className="space-y-6">
-        {CONTENT_FIELDS.map((section) => {
-          const sectionFields = fields.filter((field) => field.group === section.group);
+      <div className="flex gap-6">
+        {/* Sidebar nav */}
+        <aside className="hidden w-52 shrink-0 lg:block">
+          <nav className="sticky top-4 rounded-xl border border-border bg-white p-2">
+            <p className="mb-1 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              Pagina's
+            </p>
+            {PAGE_TABS.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-left text-sm font-medium transition ${
+                  activeTab === tab.id
+                    ? 'bg-primary/10 text-primary'
+                    : 'text-secondary hover:bg-muted/60'
+                }`}
+              >
+                <span className="flex-1 truncate">{tab.label}</span>
+                {tab.path && (
+                  <a
+                    href={tab.path}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="shrink-0 opacity-40 hover:opacity-100"
+                    title="Bekijk pagina"
+                  >
+                    <ExternalLink className="h-3.5 w-3.5" />
+                  </a>
+                )}
+              </button>
+            ))}
+          </nav>
+        </aside>
 
-          return (
-            <section key={section.group} className="rounded-lg border border-border bg-white p-5">
-              <h2 className="mb-4 text-lg font-semibold text-secondary">{section.group}</h2>
-              <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-                {sectionFields.map((field) => (
-                  <div key={field.key} className={field.type === 'textarea' || field.type === 'image_url' ? 'lg:col-span-2' : ''}>
-                    <label className="mb-1.5 block text-sm font-medium text-secondary">{field.label}</label>
-                    {renderField(field)}
-                  </div>
-                ))}
-              </div>
-            </section>
-          );
-        })}
+        {/* Mobile tab selector */}
+        <div className="block w-full lg:hidden mb-4">
+          <select
+            value={activeTab}
+            onChange={(e) => setActiveTab(e.target.value)}
+            className="w-full rounded-lg border border-border px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-primary"
+          >
+            {PAGE_TABS.map((tab) => (
+              <option key={tab.id} value={tab.id}>{tab.label}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* Content area */}
+        <div className="min-w-0 flex-1 space-y-6">
+          {activePageTab?.path && (
+            <div className="flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2.5 text-sm text-muted-foreground">
+              <ExternalLink className="h-4 w-4 shrink-0 text-primary" />
+              <span>Pagina URL:</span>
+              <a
+                href={activePageTab.path}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-primary hover:underline"
+              >
+                {activePageTab.path}
+              </a>
+            </div>
+          )}
+
+          {activeSections.map((section) => {
+            const sectionFields = fields.filter((f) => f.group === section.group);
+            return (
+              <section key={section.group} className="rounded-lg border border-border bg-white p-5">
+                <h2 className="mb-4 text-lg font-semibold text-secondary">{section.group}</h2>
+                <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+                  {sectionFields.map((field) => (
+                    <div key={field.key} className={field.type === 'textarea' || field.type === 'image_url' ? 'lg:col-span-2' : ''}>
+                      <label className="mb-1.5 block text-sm font-medium text-secondary">{field.label}</label>
+                      {renderField(field)}
+                    </div>
+                  ))}
+                </div>
+              </section>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
