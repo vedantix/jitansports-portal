@@ -1,69 +1,55 @@
-import { useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { base44 } from '@/api/base44Client';
 import { CONTENT_FIELDS, DEFAULT_SITE_CONTENT, flattenContentFields } from '@/lib/siteContent';
-import { CheckCircle, ExternalLink, ImagePlus, Save, Upload } from 'lucide-react';
+import { CheckCircle, ChevronDown, ExternalLink, ImagePlus, Save, Upload } from 'lucide-react';
 
 const PAGE_TABS = [
+  { id: 'home', label: 'Home', path: '/', groups: ['Homepage hero', 'Homepage doelen en statistieken', 'Homepage diensten en over'] },
+  { id: 'personal-training', label: 'Personal Training', path: '/personal-training', groups: ['Personal Training pagina'] },
+  { id: 'massage', label: 'Massage', path: '/massage', groups: ['Massage pagina'] },
+  { id: 'get-fit', label: 'Get Fit', path: '/get-fit', groups: ['Get Fit pagina'] },
+  { id: 'over-ons', label: 'Over Ons', path: '/over-ons', groups: ['Over ons pagina'] },
+  { id: 'tarieven', label: 'Tarieven', path: '/tarieven', groups: ['Tarieven pagina'] },
+  { id: 'blog-faq-contact', label: 'Blog, FAQ, Contact & Booking', path: null, groups: ['Blog, FAQ, contact en booking'] },
+  { id: 'seo-trainer-db', label: 'PT Den Bosch', path: '/personal-trainer-den-bosch', groups: ['SEO pagina Personal Trainer Den Bosch'] },
+  { id: 'seo-massage-db', label: 'Massage Den Bosch', path: '/massage-den-bosch', groups: ['SEO pagina Massage Den Bosch'] },
+  { id: 'seo-deep-db', label: 'Deep Tissue Den Bosch', path: '/deep-tissue-massage-den-bosch', groups: ['SEO pagina Deep Tissue Den Bosch'] },
+  { id: 'seo-per-pagina', label: 'SEO per pagina', path: null, groups: ['SEO per pagina'] },
+  { id: 'general', label: 'Algemeen', path: null, groups: ['Algemene CTA, contact en SEO'] },
+];
+
+// Mirror public nav structure with dropdowns
+const NAV_STRUCTURE = [
+  { id: 'home', label: 'Home' },
   {
-    id: 'home',
-    label: 'Home',
-    path: '/',
-    groups: ['Homepage hero', 'Homepage doelen en statistieken', 'Homepage diensten en over'],
-  },
-  {
-    id: 'personal-training',
-    label: 'Personal Training',
-    path: '/personal-training',
-    groups: ['Personal Training pagina'],
-  },
-  {
-    id: 'massage',
-    label: 'Massage',
-    path: '/massage',
-    groups: ['Massage pagina'],
-  },
-  {
-    id: 'get-fit',
-    label: 'Get Fit',
-    path: '/get-fit',
-    groups: ['Get Fit pagina'],
-  },
-  {
-    id: 'over-ons',
-    label: 'Over Ons',
-    path: '/over-ons',
-    groups: ['Over ons pagina'],
-  },
-  {
-    id: 'tarieven',
-    label: 'Tarieven',
-    path: '/tarieven',
-    groups: ['Tarieven pagina'],
-  },
-  {
-    id: 'blog-faq-contact',
-    label: 'Blog, FAQ, Contact & Booking',
-    path: null,
-    groups: ['Blog, FAQ, contact en booking'],
-  },
-  {
-    id: 'seo-pages',
-    label: "SEO Pagina's",
-    path: null,
-    groups: [
-      'SEO pagina Personal Trainer Den Bosch',
-      'SEO pagina Massage Den Bosch',
-      'SEO pagina Deep Tissue Den Bosch',
-      'SEO per pagina',
+    id: 'diensten',
+    label: 'Diensten',
+    children: [
+      { id: 'personal-training', label: 'Personal Training', path: '/personal-training' },
+      { id: 'massage', label: 'Massage', path: '/massage' },
+      { id: 'get-fit', label: 'Get Fit Programma', path: '/get-fit' },
     ],
   },
   {
-    id: 'general',
-    label: 'Algemeen',
-    path: null,
-    groups: ['Algemene CTA, contact en SEO'],
+    id: 'over',
+    label: 'Over',
+    children: [
+      { id: 'over-ons', label: 'Over Ons', path: '/over-ons' },
+      { id: 'blog-faq-contact', label: 'Blog, FAQ, Contact & Booking', path: null },
+    ],
   },
+  { id: 'tarieven', label: 'Tarieven', path: '/tarieven' },
+  {
+    id: 'seo',
+    label: "SEO Pagina's",
+    children: [
+      { id: 'seo-trainer-db', label: 'PT Den Bosch', path: '/personal-trainer-den-bosch' },
+      { id: 'seo-massage-db', label: 'Massage Den Bosch', path: '/massage-den-bosch' },
+      { id: 'seo-deep-db', label: 'Deep Tissue Den Bosch', path: '/deep-tissue-massage-den-bosch' },
+      { id: 'seo-per-pagina', label: 'SEO per pagina', path: null },
+    ],
+  },
+  { id: 'general', label: 'Algemeen', path: null },
 ];
 
 export default function ManageContent() {
@@ -203,6 +189,24 @@ export default function ManageContent() {
 
   const activePageTab = PAGE_TABS.find((t) => t.id === activeTab);
   const activeSections = CONTENT_FIELDS.filter((s) => activePageTab?.groups.includes(s.group));
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const navRef = useRef(null);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handler = (e) => {
+      if (navRef.current && !navRef.current.contains(e.target)) {
+        setOpenDropdown(null);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
+
+  const selectTab = (id) => {
+    setActiveTab(id);
+    setOpenDropdown(null);
+  };
 
   if (loading) {
     return (
@@ -215,11 +219,11 @@ export default function ManageContent() {
   return (
     <div>
       {/* Header */}
-      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold text-secondary">Website content beheren</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Kies een pagina links en bewerk de teksten, afbeeldingen en SEO.
+            Kies een pagina en bewerk de teksten, afbeeldingen en SEO.
           </p>
         </div>
         <button
@@ -234,88 +238,115 @@ export default function ManageContent() {
         </button>
       </div>
 
-      <div className="flex gap-6">
-        {/* Sidebar nav */}
-        <aside className="hidden w-52 shrink-0 lg:block">
-          <nav className="sticky top-4 rounded-xl border border-border bg-white p-2">
-            <p className="mb-1 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              Pagina's
-            </p>
-            {PAGE_TABS.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-left text-sm font-medium transition ${
-                  activeTab === tab.id
-                    ? 'bg-primary/10 text-primary'
-                    : 'text-secondary hover:bg-muted/60'
-                }`}
-              >
-                <span className="flex-1 truncate">{tab.label}</span>
-                {tab.path && (
-                  <a
-                    href={tab.path}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="shrink-0 opacity-40 hover:opacity-100"
-                    title="Bekijk pagina"
-                  >
-                    <ExternalLink className="h-3.5 w-3.5" />
-                  </a>
-                )}
-              </button>
-            ))}
-          </nav>
-        </aside>
-
-        {/* Mobile tab selector */}
-        <div className="block w-full lg:hidden mb-4">
-          <select
-            value={activeTab}
-            onChange={(e) => setActiveTab(e.target.value)}
-            className="w-full rounded-lg border border-border px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-primary"
-          >
-            {PAGE_TABS.map((tab) => (
-              <option key={tab.id} value={tab.id}>{tab.label}</option>
-            ))}
-          </select>
-        </div>
-
-        {/* Content area */}
-        <div className="min-w-0 flex-1 space-y-6">
-          {activePageTab?.path && (
-            <div className="flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2.5 text-sm text-muted-foreground">
-              <ExternalLink className="h-4 w-4 shrink-0 text-primary" />
-              <span>Pagina URL:</span>
-              <a
-                href={activePageTab.path}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium text-primary hover:underline"
-              >
-                {activePageTab.path}
-              </a>
-            </div>
-          )}
-
-          {activeSections.map((section) => {
-            const sectionFields = fields.filter((f) => f.group === section.group);
+      {/* Topbar nav */}
+      <nav ref={navRef} className="mb-6 flex flex-wrap items-center gap-1 rounded-xl border border-border bg-white px-3 py-2">
+        {NAV_STRUCTURE.map((item) => {
+          if (item.children) {
+            const isOpen = openDropdown === item.id;
+            const childActive = item.children.some((c) => c.id === activeTab);
             return (
-              <section key={section.group} className="rounded-lg border border-border bg-white p-5">
-                <h2 className="mb-4 text-lg font-semibold text-secondary">{section.group}</h2>
-                <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-                  {sectionFields.map((field) => (
-                    <div key={field.key} className={field.type === 'textarea' || field.type === 'image_url' ? 'lg:col-span-2' : ''}>
-                      <label className="mb-1.5 block text-sm font-medium text-secondary">{field.label}</label>
-                      {renderField(field)}
-                    </div>
-                  ))}
-                </div>
-              </section>
+              <div key={item.id} className="relative">
+                <button
+                  onClick={() => setOpenDropdown(isOpen ? null : item.id)}
+                  className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition ${
+                    childActive
+                      ? 'bg-primary/10 text-primary'
+                      : 'text-secondary hover:bg-muted/60'
+                  }`}
+                >
+                  {item.label}
+                  <ChevronDown className={`h-3.5 w-3.5 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {isOpen && (
+                  <div className="absolute left-0 top-full z-50 mt-1 min-w-[200px] rounded-xl border border-border bg-white py-1.5 shadow-lg">
+                    {item.children.map((child) => (
+                      <button
+                        key={child.id}
+                        onClick={() => selectTab(child.id)}
+                        className={`flex w-full items-center justify-between gap-3 px-4 py-2.5 text-left text-sm font-medium transition ${
+                          activeTab === child.id
+                            ? 'bg-primary/10 text-primary'
+                            : 'text-secondary hover:bg-muted/40'
+                        }`}
+                      >
+                        <span>{child.label}</span>
+                        {child.path && (
+                          <a
+                            href={child.path}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="shrink-0 opacity-40 hover:opacity-100"
+                            title="Bekijk pagina"
+                          >
+                            <ExternalLink className="h-3.5 w-3.5" />
+                          </a>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             );
-          })}
+          }
+
+          return (
+            <button
+              key={item.id}
+              onClick={() => selectTab(item.id)}
+              className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition ${
+                activeTab === item.id
+                  ? 'bg-primary/10 text-primary'
+                  : 'text-secondary hover:bg-muted/60'
+              }`}
+            >
+              {item.label}
+              {item.path && (
+                <a
+                  href={item.path}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="opacity-40 hover:opacity-100"
+                  title="Bekijk pagina"
+                >
+                  <ExternalLink className="h-3.5 w-3.5" />
+                </a>
+              )}
+            </button>
+          );
+        })}
+      </nav>
+
+      {/* Page URL banner */}
+      {activePageTab?.path && (
+        <div className="mb-5 flex items-center gap-2 rounded-lg border border-border bg-white px-4 py-2.5 text-sm text-muted-foreground">
+          <ExternalLink className="h-4 w-4 shrink-0 text-primary" />
+          <span>Pagina:</span>
+          <a href={activePageTab.path} target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">
+            {activePageTab.path}
+          </a>
         </div>
+      )}
+
+      {/* Content sections */}
+      <div className="space-y-6">
+        {activeSections.map((section) => {
+          const sectionFields = fields.filter((f) => f.group === section.group);
+          return (
+            <section key={section.group} className="rounded-lg border border-border bg-white p-5">
+              <h2 className="mb-4 text-lg font-semibold text-secondary">{section.group}</h2>
+              <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+                {sectionFields.map((field) => (
+                  <div key={field.key} className={field.type === 'textarea' || field.type === 'image_url' ? 'lg:col-span-2' : ''}>
+                    <label className="mb-1.5 block text-sm font-medium text-secondary">{field.label}</label>
+                    {renderField(field)}
+                  </div>
+                ))}
+              </div>
+            </section>
+          );
+        })}
       </div>
     </div>
   );
