@@ -222,11 +222,6 @@ export default function Home() {
 
             {/* CTAs */}
             <div className="flex flex-col gap-3">
-              <Link to="/booking" className="w-full">
-                <Button size="lg" className="w-full gap-2 bg-primary text-base font-bold text-secondary hover:bg-primary/90">
-                  Plan Gratis Intake <ArrowRight className="h-5 w-5" />
-                </Button>
-              </Link>
               <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="w-full">
                 <Button size="lg" variant="outline" className="w-full gap-2 border-white/30 text-base text-white hover:bg-white/10">
                   <MessageCircle className="h-5 w-5" /> WhatsApp Direct
