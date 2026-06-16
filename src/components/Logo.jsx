@@ -4,7 +4,7 @@ const MENU_LOGO_SRC = 'https://media.base44.com/images/public/6a115e447a3ac96774
 
 const LOGO_SIZES = {
   default: { height: '80px', maxWidth: '300px' },
-  nav: { height: 'clamp(84px, 7vw, 104px)', maxWidth: 'clamp(300px, 28vw, 420px)' },
+  nav: { height: 'clamp(44px, 7vw, 104px)', maxWidth: 'clamp(160px, 28vw, 420px)' },
   compact: { height: '64px', maxWidth: '250px' },
 };
 
