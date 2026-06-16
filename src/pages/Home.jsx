@@ -171,61 +171,64 @@ export default function Home() {
           buildFAQSchema(homepageFaqs),
         ].filter(Boolean)}
       />
-      <PageHero
-        image={content.hero_image || '/images/optimized/hero-desktop-1344.jpg'}
-        eyebrow={hero.eyebrow}
-        title={renderHeroTitle(hero.title, hero.highlight)}
-        subtitle={hero.subtitle}
-        contentClassName="max-w-[550px] xl:-ml-6 2xl:-ml-[60px]"
-        titleClassName="mb-4"
-        subtitleClassName="max-w-[62ch] text-base md:text-lg"
-        imageClassName="object-[55%_top] sm:object-[58%_30%] md:object-[64%_34%] xl:object-[70%_35%]"
-        overlayClassName="bg-[linear-gradient(180deg,rgba(7,17,38,0.82)_0%,rgba(7,17,38,0.62)_42%,rgba(7,17,38,0.38)_100%)] md:bg-[linear-gradient(90deg,rgba(7,17,38,0.85)_0%,rgba(7,17,38,0.65)_35%,rgba(7,17,38,0.25)_65%,rgba(7,17,38,0.05)_100%)]"
-      >
-        <div className="flex flex-col gap-3 sm:flex-row">
-          <Link to="/booking">
-            <Button size="lg" className="w-full gap-2 bg-primary px-7 text-base font-bold text-secondary hover:bg-primary/90 sm:w-auto">
-              {content.primary_cta_text} <ArrowRight className="h-5 w-5" />
-            </Button>
-          </Link>
-          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-            <Button size="lg" variant="outline" className="w-full gap-2 border-white/30 text-base text-white hover:bg-white/10 sm:w-auto">
-              <MessageCircle className="h-5 w-5" /> {content.secondary_cta_text}
-            </Button>
-          </a>
-        </div>
-        <div className="flex items-center gap-2 mt-3">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <Star key={i} className="h-5 w-5 fill-primary text-primary" />
-          ))}
-          <span className="text-white font-semibold text-sm">{reviewsConfig.rating}/5</span>
-        </div>
-      </PageHero>
+      <div className="flex flex-col" style={{ height: 'calc(100svh - 88px)' }}>
+        <PageHero
+          className="flex-1 min-h-0"
+          image={content.hero_image || '/images/optimized/hero-desktop-1344.jpg'}
+          eyebrow={hero.eyebrow}
+          title={renderHeroTitle(hero.title, hero.highlight)}
+          subtitle={hero.subtitle}
+          contentClassName="max-w-[550px] xl:-ml-6 2xl:-ml-[60px]"
+          titleClassName="mb-4"
+          subtitleClassName="max-w-[62ch] text-base md:text-lg"
+          imageClassName="object-[55%_top] sm:object-[58%_30%] md:object-[64%_34%] xl:object-[70%_35%]"
+          overlayClassName="bg-[linear-gradient(180deg,rgba(7,17,38,0.82)_0%,rgba(7,17,38,0.62)_42%,rgba(7,17,38,0.38)_100%)] md:bg-[linear-gradient(90deg,rgba(7,17,38,0.85)_0%,rgba(7,17,38,0.65)_35%,rgba(7,17,38,0.25)_65%,rgba(7,17,38,0.05)_100%)]"
+        >
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Link to="/booking">
+              <Button size="lg" className="w-full gap-2 bg-primary px-7 text-base font-bold text-secondary hover:bg-primary/90 sm:w-auto">
+                {content.primary_cta_text} <ArrowRight className="h-5 w-5" />
+              </Button>
+            </Link>
+            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+              <Button size="lg" variant="outline" className="w-full gap-2 border-white/30 text-base text-white hover:bg-white/10 sm:w-auto">
+                <MessageCircle className="h-5 w-5" /> {content.secondary_cta_text}
+              </Button>
+            </a>
+          </div>
+          <div className="flex items-center gap-2 mt-3">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Star key={i} className="h-5 w-5 fill-primary text-primary" />
+            ))}
+            <span className="text-white font-semibold text-sm">{reviewsConfig.rating}/5</span>
+          </div>
+        </PageHero>
 
-      <section className="border-b border-border bg-white px-4 py-4">
-        <div className="mx-auto grid max-w-7xl gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {trustBarItems.map((item) => {
-            const Icon = item.icon;
-            return (
-              <div key={item.title} className="flex min-h-20 items-center gap-3 rounded-lg bg-muted/50 px-4 py-3 text-sm font-semibold text-secondary">
-                {item.type === 'rating' ? (
-                  <div className="flex shrink-0 items-center gap-0.5" aria-label={`${reviewsConfig.rating} van 5 sterren`}>
-                    {Array.from({ length: 5 }).map((_, index) => (
-                      <Star key={index} className="h-4 w-4 fill-primary text-primary" />
-                    ))}
-                  </div>
-                ) : (
-                  <Icon className="h-5 w-5 shrink-0 text-primary" />
-                )}
-                <span>{item.title}</span>
-              </div>
-            );
-          })}
-        </div>
-        <div className="sr-only">
-          {reviewsConfig.reviewProofText}
-        </div>
-      </section>
+        <section className="border-b border-border bg-white px-4 py-4 shrink-0">
+          <div className="mx-auto grid max-w-7xl gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {trustBarItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <div key={item.title} className="flex items-center gap-3 rounded-lg bg-muted/50 px-4 py-3 text-sm font-semibold text-secondary">
+                  {item.type === 'rating' ? (
+                    <div className="flex shrink-0 items-center gap-0.5" aria-label={`${reviewsConfig.rating} van 5 sterren`}>
+                      {Array.from({ length: 5 }).map((_, index) => (
+                        <Star key={index} className="h-4 w-4 fill-primary text-primary" />
+                      ))}
+                    </div>
+                  ) : (
+                    <Icon className="h-5 w-5 shrink-0 text-primary" />
+                  )}
+                  <span>{item.title}</span>
+                </div>
+              );
+            })}
+          </div>
+          <div className="sr-only">
+            {reviewsConfig.reviewProofText}
+          </div>
+        </section>
+      </div>
 
       <section className="bg-white px-4 py-16 md:py-20 lg:py-24">
         <div className="mx-auto max-w-7xl">

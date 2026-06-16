@@ -60,7 +60,7 @@ export default function PageHero({
   };
 
   return (
-    <section className={cn('relative overflow-hidden bg-secondary text-white', className)}>
+    <section className={cn('relative overflow-hidden bg-secondary text-white flex flex-col', className)}>
       {image && (
         <div className="absolute inset-0" aria-hidden="true">
           <ResponsiveImage
@@ -75,7 +75,7 @@ export default function PageHero({
         </div>
       )}
 
-      <div className="relative z-10 mx-auto flex min-h-[min(calc(100svh-200px),620px)] max-w-7xl items-center px-4 py-10 sm:px-6">
+      <div className="relative z-10 mx-auto flex flex-1 w-full min-h-[400px] max-w-7xl items-center px-4 py-10 sm:px-6">
         <div
           className={cn(
             isCentered ? 'mx-auto max-w-4xl text-center' : 'max-w-2xl',
