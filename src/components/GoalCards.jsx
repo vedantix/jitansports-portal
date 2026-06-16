@@ -29,13 +29,13 @@ export default function GoalCards() {
             <Link
               key={goal.title}
               to={goal.link}
-              className="group relative rounded-2xl border-2 border-border bg-white hover:border-primary hover:shadow-md p-6 transition-all duration-300"
+              className="group relative flex flex-col rounded-2xl border-2 border-border bg-white hover:border-primary hover:shadow-md p-6 transition-all duration-300"
             >
               <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-4 shadow-sm">
                 <goal.icon className="w-6 h-6 text-amber-700" />
               </div>
               <h3 className="text-xl font-bold text-secondary mb-2">{goal.title}</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed mb-5">{goal.text}</p>
+              <p className="text-muted-foreground text-sm leading-relaxed mb-5 flex-1">{goal.text}</p>
               <span className="inline-flex items-center gap-1 text-sm font-semibold text-amber-700 group-hover:gap-2 transition-all">
                 {goal.cta} <ArrowRight className="w-4 h-4" />
               </span>
