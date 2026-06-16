@@ -179,7 +179,7 @@ export default function Home() {
           title={renderHeroTitle(hero.title, hero.highlight)}
           subtitle={hero.subtitle}
           contentClassName="max-w-[550px] xl:-ml-6 2xl:-ml-[60px]"
-          titleClassName="mb-4"
+          titleClassName="mb-4 text-2xl md:text-3xl lg:text-4xl"
           subtitleClassName="max-w-[62ch] text-base md:text-lg"
           imageClassName="object-[55%_top] sm:object-[58%_30%] md:object-[64%_34%] xl:object-[70%_35%]"
           overlayClassName="bg-[linear-gradient(180deg,rgba(7,17,38,0.82)_0%,rgba(7,17,38,0.62)_42%,rgba(7,17,38,0.38)_100%)] md:bg-[linear-gradient(90deg,rgba(7,17,38,0.85)_0%,rgba(7,17,38,0.65)_35%,rgba(7,17,38,0.25)_65%,rgba(7,17,38,0.05)_100%)]"
