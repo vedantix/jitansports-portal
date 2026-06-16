@@ -321,10 +321,6 @@ export default function Home() {
       {/* Reviews – direct onder hero/trust */}
       <section className="bg-muted/30 px-4 py-16 md:py-20 lg:py-24">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-8 text-center">
-            <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-amber-700">Google Reviews</p>
-            <h2 className="font-display text-3xl font-bold text-secondary md:text-4xl">Wat klanten zeggen</h2>
-          </div>
           <DeferredSection>
             <JotformReviews variant="grid" />
           </DeferredSection>
