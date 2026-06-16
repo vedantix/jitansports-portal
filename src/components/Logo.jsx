@@ -15,13 +15,13 @@ export default function Logo({ to = '/', className = '', compact = false, onClic
   return (
     <Link to={to} onClick={onClick} className={`inline-flex shrink-0 items-center ${className}`}>
       <span className={wrapClass}>
-        <span style={{ display: 'inline-block', overflow: 'hidden', height: logoSize.height, maxWidth: logoSize.maxWidth }}>
+        <span style={{ display: 'inline-flex', overflow: 'hidden', height: logoSize.height, maxWidth: logoSize.maxWidth, alignItems: 'center' }}>
           <img
             src={MENU_LOGO_SRC}
             alt="JitanSports Training & Massage"
             width="560"
             height="121"
-            style={{ height: '120%', width: 'auto', maxWidth: logoSize.maxWidth, objectFit: 'cover', marginTop: '-10%' }}
+            style={{ height: '120%', width: 'auto', maxWidth: logoSize.maxWidth, objectFit: 'cover', flexShrink: 0 }}
             decoding="async"
           />
         </span>
