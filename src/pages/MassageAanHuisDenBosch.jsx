@@ -5,7 +5,6 @@ import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
 import SEO, { buildFAQSchema, buildServiceSchema } from '@/components/SEO';
 import PageHero from '@/components/PageHero';
-import ServiceReviews from '@/components/ServiceReviews';
 
 const FAQS = [
   {
@@ -132,9 +131,6 @@ export default function MassageAanHuisDenBosch() {
           <FAQAccordion items={FAQS} />
         </div>
       </section>
-
-      <ServiceReviews title="Klanten over massage aan huis" />
-
       <CTASection
         dark
         title="Klaar om fitter, sterker en energieker te worden?"

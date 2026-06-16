@@ -6,7 +6,6 @@ import FAQAccordion from '../components/FAQAccordion';
 import SEO, { buildFAQSchema, buildServiceSchema } from '@/components/SEO';
 import ResponsiveImage from '@/components/ResponsiveImage';
 import PageHero from '@/components/PageHero';
-import ServiceReviews from '@/components/ServiceReviews';
 
 const HERO_IMG = '/images/optimized/page-training-hero-960.jpg';
 const OUTDOOR_IMG = '/images/optimized/gallery-outdoor-thumb-640.jpg';
@@ -261,9 +260,6 @@ export default function PersonalTraining() {
           <FAQAccordion items={FAQS} />
         </div>
       </section>
-
-      <ServiceReviews title="Resultaten met personal training op jouw tempo" />
-
       <CTASection title="Klaar om fitter, sterker en energieker te worden?" subtitle="Plan vandaag nog jouw gratis proefles. Geen verplichtingen, geen kosten." />
     </div>
   );

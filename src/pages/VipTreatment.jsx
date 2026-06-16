@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle, Crown, Dumbbell, Gift, Heart, Moon, Sparkles, Star } from 'lucide-react';
+import { ArrowRight, CheckCircle, Crown, Dumbbell, Gift, Heart, Moon, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
 import SEO, { buildFAQSchema, buildServiceSchema } from '@/components/SEO';
 import PageHero from '@/components/PageHero';
-import ServiceReviews from '@/components/ServiceReviews';
 
 const INCLUDES = [
   '1 uur doelgerichte personal training',
@@ -169,29 +168,12 @@ export default function VipTreatment() {
         </div>
       </section>
 
-      <section className="px-4 py-16 md:py-20 lg:py-24">
-        <div className="mx-auto max-w-4xl text-center">
-          <div className="mb-5 flex justify-center gap-0.5">
-            {[...Array(5)].map((_, index) => (
-              <Star key={index} className="h-5 w-5 fill-primary text-primary" />
-            ))}
-          </div>
-          <blockquote className="text-xl font-display italic leading-relaxed text-secondary md:text-2xl">
-            "Training gevolgd door massage voelt als een complete reset. Je lichaam heeft gewerkt, daarna mag het direct loslaten."
-          </blockquote>
-          <p className="mt-5 text-sm font-semibold text-amber-700">JitanSports VIP Treatment</p>
-        </div>
-      </section>
-
       <section className="bg-muted/30 px-4 py-16 md:py-20 lg:py-24">
         <div className="mx-auto max-w-3xl">
           <h2 className="mb-8 text-center text-3xl font-display font-bold text-secondary">Veelgestelde vragen</h2>
           <FAQAccordion items={FAQS} />
         </div>
       </section>
-
-      <ServiceReviews title="Waarom klanten kiezen voor training plus massage" />
-
       <CTASection
         dark
         title="Klaar om fitter, sterker en energieker te worden?"

@@ -5,7 +5,6 @@ import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
 import SEO, { ROUTE_SEO, buildFAQSchema, buildLocalBusinessSchema, buildServiceSchema } from '@/components/SEO';
 import PageHero from '@/components/PageHero';
-import ServiceReviews from '@/components/ServiceReviews';
 import SeoSummary from '@/components/SeoSummary';
 
 const HERO_IMG = '/images/optimized/page-getfit-hero-960.jpg';
@@ -144,9 +143,6 @@ export default function VoedingsbegeleidingDenBosch() {
           <FAQAccordion items={FAQS} />
         </div>
       </section>
-
-      <ServiceReviews title="Resultaten met voedingsbegeleiding" />
-
       <CTASection
         title="Klaar om voeding helder te maken?"
         subtitle="Plan een gratis intake en ontdek welk voedingsplan past bij jouw lichaam, doel en dagelijkse leven."

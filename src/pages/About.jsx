@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, CheckCircle, Award, Heart, Target, Zap, Star } from 'lucide-react';
+import { ArrowRight, CheckCircle, Award, Heart, Target, Zap } from 'lucide-react';
 import CTASection from '../components/CTASection';
 import SEO, { buildLocalBusinessSchema, buildPersonSchema, buildWebPageSchema } from '@/components/SEO';
 import ResponsiveImage from '@/components/ResponsiveImage';
@@ -30,27 +30,6 @@ const STATS = [
   { value: '200+', label: 'Klanten begeleid' },
   { value: '5.0', label: 'Google rating' },
   { value: '100%', label: 'Persoonlijke aanpak' },
-];
-
-const SUCCESS_STORIES = [
-  {
-    situation: 'Een ondernemer uit Den Bosch had weinig energie, stijve schouders en geen vast sportritme.',
-    approach: 'We combineerden twee korte krachttrainingen per week met voedingsafspraken voor drukke werkdagen en Deep Tissue Massage voor nek en schouders.',
-    result: 'Na twaalf weken was zijn energie stabieler, voelde zijn houding sterker en was trainen weer een vast onderdeel van zijn week.',
-    quote: 'Jitan maakte het praktisch. Geen groot verhaal, maar precies wat ik nodig had om weer ritme te krijgen.',
-  },
-  {
-    situation: 'Een klant uit Rosmalen wilde afvallen, maar viel steeds terug na strenge dieten.',
-    approach: 'We startten met lichaamsanalyse, krachttraining, eiwitrijke maaltijden en kleine gewoontes die binnen het gezin haalbaar bleven.',
-    result: 'Het gewicht ging omlaag, kracht nam toe en de klant kreeg vooral rust omdat eten niet meer voelde als alles-of-niets.',
-    quote: 'Voor het eerst voelde afvallen niet als straf. Ik begreep eindelijk wat mijn lichaam nodig had.',
-  },
-  {
-    situation: 'Een sportieve klant uit Vught liep telkens vast door rug- en heupspanning na intensieve trainingen.',
-    approach: 'We gebruikten sportmassage, Deep Tissue Massage en een aangepaste trainingsopbouw met meer aandacht voor herstel.',
-    result: 'De belastbaarheid nam toe en de klant kon weer trainen zonder steeds terugkerende spanning.',
-    quote: 'Jitan keek verder dan de pijnplek. Daardoor bleef het resultaat ook na de massage hangen.',
-  },
 ];
 
 export default function About() {
@@ -189,54 +168,6 @@ export default function About() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Success stories */}
-      <section className="px-4 py-16 md:py-20 lg:py-24 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-12 max-w-3xl">
-            <p className="text-amber-700 font-semibold uppercase tracking-wider text-sm mb-3">Succesverhalen</p>
-            <h2 className="text-3xl font-display font-bold text-secondary mb-4">Resultaat begint met een aanpak die bij de persoon past</h2>
-            <p className="text-muted-foreground leading-relaxed">
-              Iedere klant start anders. Daarom kijk ik naar de situatie, het lichaam, de agenda en de reden waarom eerdere pogingen niet bleven werken.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-            {SUCCESS_STORIES.map((story, index) => (
-              <article key={story.quote} className="rounded-2xl border border-border bg-muted/30 p-6">
-                <span className="mb-5 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
-                  {index + 1}
-                </span>
-                <div className="space-y-4 text-sm leading-relaxed text-muted-foreground">
-                  <p><strong className="text-secondary">Situatie:</strong> {story.situation}</p>
-                  <p><strong className="text-secondary">Aanpak:</strong> {story.approach}</p>
-                  <p><strong className="text-secondary">Resultaat:</strong> {story.result}</p>
-                </div>
-                <blockquote className="mt-6 border-l-4 border-primary pl-4 text-sm italic text-secondary">
-                  "{story.quote}"
-                </blockquote>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonial */}
-      <section className="px-4 py-16 md:py-20 lg:py-24 bg-secondary text-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="flex justify-center gap-1 mb-6">
-            {[...Array(5)].map((_, i) => <Star key={i} className="w-6 h-6 fill-primary text-primary" />)}
-          </div>
-          <blockquote className="text-xl md:text-2xl font-display italic leading-relaxed text-white/90 mb-6">
-            "Jitan heeft mijn leven letterlijk veranderd. Niet alleen mijn lichaam, maar ook mijn mindset rondom eten en bewegen. Hij ziet wat je nodig hebt voordat je het zelf weet."
-          </blockquote>
-          <p className="text-primary font-semibold">— Frank D., Rosmalen · Get Fit Programma</p>
-          <Link to="/referenties" className="mt-8 inline-block">
-            <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 gap-2">
-              Lees alle klantverhalen <ArrowRight className="w-4 h-4" />
-            </Button>
-          </Link>
         </div>
       </section>
 

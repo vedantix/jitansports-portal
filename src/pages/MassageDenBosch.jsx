@@ -7,7 +7,6 @@ import { useSiteContent } from '@/hooks/useSiteContent';
 import { contentLines } from '@/lib/siteContent';
 import SEO, { ROUTE_SEO, buildFAQSchema, buildLocalBusinessSchema, buildServiceSchema } from '@/components/SEO';
 import PageHero from '@/components/PageHero';
-import ServiceReviews from '@/components/ServiceReviews';
 
 export default function MassageDenBosch() {
   const { content } = useSiteContent();
@@ -110,9 +109,6 @@ export default function MassageDenBosch() {
           <FAQAccordion items={faqs} />
         </div>
       </section>
-
-      <ServiceReviews title="Klanten over Massage Den Bosch" />
-
       <CTASection title="Klaar om fitter, sterker en energieker te worden?" subtitle={content.massage_db_cta_subtitle} />
     </div>
   );

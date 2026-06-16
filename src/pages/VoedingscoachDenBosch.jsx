@@ -5,7 +5,6 @@ import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
 import SEO, { buildFAQSchema, buildServiceSchema } from '@/components/SEO';
 import PageHero from '@/components/PageHero';
-import ServiceReviews from '@/components/ServiceReviews';
 import SeoSummary from '@/components/SeoSummary';
 
 const FAQS = [
@@ -127,9 +126,6 @@ export default function VoedingscoachDenBosch() {
           <FAQAccordion items={FAQS} />
         </div>
       </section>
-
-      <ServiceReviews title="Resultaten met voedingscoaching" />
-
       <CTASection title="Klaar om fitter, sterker en energieker te worden?" subtitle="Plan een gratis intake voor voedingscoaching, lichaamsanalyse en een plan dat bij jouw lichaam past." />
     </div>
   );

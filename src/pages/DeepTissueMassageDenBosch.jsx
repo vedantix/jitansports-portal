@@ -7,7 +7,6 @@ import { useSiteContent } from '@/hooks/useSiteContent';
 import { contentLines } from '@/lib/siteContent';
 import SEO, { ROUTE_SEO, buildFAQSchema, buildLocalBusinessSchema, buildServiceSchema } from '@/components/SEO';
 import PageHero from '@/components/PageHero';
-import ServiceReviews from '@/components/ServiceReviews';
 import SeoSummary from '@/components/SeoSummary';
 
 export default function DeepTissueMassageDenBosch() {
@@ -143,9 +142,6 @@ export default function DeepTissueMassageDenBosch() {
           <FAQAccordion items={faqs} />
         </div>
       </section>
-
-      <ServiceReviews title="Ervaringen met Deep Tissue Massage" />
-
       <CTASection title="Klaar om fitter, sterker en energieker te worden?" subtitle={content.deep_db_cta_subtitle} />
     </div>
   );

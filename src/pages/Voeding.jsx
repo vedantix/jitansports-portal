@@ -6,7 +6,6 @@ import FAQAccordion from '../components/FAQAccordion';
 import ResponsiveImage from '@/components/ResponsiveImage';
 import SEO, { buildFAQSchema, buildServiceSchema } from '@/components/SEO';
 import PageHero from '@/components/PageHero';
-import ServiceReviews from '@/components/ServiceReviews';
 
 const BENEFITS = [
   'Voedingsschema op maat voor afvallen, aankomen of spieropbouw',
@@ -228,9 +227,6 @@ export default function Voeding() {
           <FAQAccordion items={FAQS} />
         </div>
       </section>
-
-      <ServiceReviews title="Resultaten met voeding, training en begeleiding" />
-
       <CTASection title="Klaar om fitter, sterker en energieker te worden?" subtitle="Plan vandaag nog jouw gratis proefles en ontdek welk voedingsplan bij jouw lichaam, doel en leefstijl past." />
     </div>
   );

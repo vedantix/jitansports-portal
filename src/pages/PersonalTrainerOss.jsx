@@ -5,7 +5,6 @@ import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
 import SEO, { buildFAQSchema, buildServiceSchema } from '@/components/SEO';
 import PageHero from '@/components/PageHero';
-import ServiceReviews from '@/components/ServiceReviews';
 import SeoSummary from '@/components/SeoSummary';
 
 const HERO_IMG = '/images/optimized/page-training-hero-960.jpg';
@@ -90,8 +89,6 @@ export default function PersonalTrainerOss() {
           <FAQAccordion items={FAQS} />
         </div>
       </section>
-      <ServiceReviews title="Resultaten met Personal Trainer Oss" />
-
       <CTASection title="Klaar om fitter, sterker en energieker te worden?" subtitle="Plan je gratis intake – JitanSports komt naar jou toe." />
     </div>
   );

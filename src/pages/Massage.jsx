@@ -5,7 +5,6 @@ import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
 import SEO, { buildFAQSchema, buildServiceSchema } from '@/components/SEO';
 import PageHero from '@/components/PageHero';
-import ServiceReviews from '@/components/ServiceReviews';
 
 const MASSAGE_TYPES = [
   {
@@ -274,9 +273,6 @@ export default function Massage() {
           </div>
         </div>
       </section>
-
-      <ServiceReviews title="Wat klanten ervaren na massage en herstelbegeleiding" />
-
       <CTASection
         dark
         title="Klaar om fitter, sterker en energieker te worden?"

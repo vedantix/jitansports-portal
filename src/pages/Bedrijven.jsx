@@ -5,7 +5,6 @@ import { Building2, Users, Armchair, Zap, CheckCircle, Send, ArrowRight } from '
 import { base44 } from '@/api/base44Client';
 import SEO, { buildServiceSchema } from '@/components/SEO';
 import PageHero from '@/components/PageHero';
-import ServiceReviews from '@/components/ServiceReviews';
 import CTASection from '@/components/CTASection';
 
 const HERO_IMG = '/images/optimized/page-training-hero-960.jpg';
@@ -193,9 +192,6 @@ export default function Bedrijven() {
           )}
         </div>
       </section>
-
-      <ServiceReviews title="Teams die vitaler werken met JitanSports" />
-
       <CTASection
         dark
         title="Klaar om je team fitter en energieker te maken?"

@@ -5,7 +5,6 @@ import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
 import SEO, { ROUTE_SEO, buildFAQSchema, buildLocalBusinessSchema, buildServiceSchema } from '@/components/SEO';
 import PageHero from '@/components/PageHero';
-import ServiceReviews from '@/components/ServiceReviews';
 import SeoSummary from '@/components/SeoSummary';
 
 const HERO_IMG = '/images/optimized/page-massage-hero-960.jpg';
@@ -117,8 +116,6 @@ export default function SportmassageDenBosch() {
           <FAQAccordion items={FAQS} />
         </div>
       </section>
-      <ServiceReviews title="Klanten over sportmassage en herstel" />
-
       <CTASection dark title="Klaar om fitter, sterker en energieker te worden?" subtitle="Aan huis. Professioneel. Effectief. Snel geboekt." />
     </div>
   );

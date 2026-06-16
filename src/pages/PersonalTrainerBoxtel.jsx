@@ -5,7 +5,6 @@ import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
 import SEO, { ROUTE_SEO, buildFAQSchema, buildServiceSchema } from '@/components/SEO';
 import PageHero from '@/components/PageHero';
-import ServiceReviews from '@/components/ServiceReviews';
 import SeoSummary from '@/components/SeoSummary';
 
 const HERO_IMG = '/images/optimized/page-training-hero-960.jpg';
@@ -134,9 +133,6 @@ export default function PersonalTrainerBoxtel() {
           <FAQAccordion items={FAQS} />
         </div>
       </section>
-
-      <ServiceReviews title="Resultaten met Personal Trainer Boxtel" />
-
       <CTASection
         title="Klaar om te starten in Boxtel?"
         subtitle="Plan vandaag nog je gratis proefles en ontdek wat persoonlijke begeleiding voor jou kan doen."

@@ -11,7 +11,6 @@ import {
   Salad,
   Scale,
   Sparkles,
-  Star,
   Trophy,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -19,7 +18,6 @@ import CTASection from '../components/CTASection';
 import FAQAccordion from '../components/FAQAccordion';
 import SEO, { buildFAQSchema, buildServiceSchema } from '@/components/SEO';
 import PageHero from '@/components/PageHero';
-import ServiceReviews from '@/components/ServiceReviews';
 
 const INCLUSIONS = [
   {
@@ -79,24 +77,6 @@ const PHASES = [
     label: 'Week 9-12',
     title: 'Resultaat vasthouden',
     items: ['Deep Tissue Massage', 'Eindmeting met rapport', 'Voortgangsboekje afronden', 'Plan voor de periode daarna'],
-  },
-];
-
-const RESULTS = [
-  {
-    name: 'Patries',
-    result: 'Fit en zelfverzekerd',
-    text: 'Ik wilde op mijn 50e weer met vertrouwen in een bikini op de foto. Door training, voeding en coaching is dat meer dan gelukt.',
-  },
-  {
-    name: 'Michiel',
-    result: 'Atletischer lichaam',
-    text: 'Aroen gaf mij training, voedingsadvies en mentale begeleiding. Ik heb een niveau bereikt dat ik alleen nooit had gehaald.',
-  },
-  {
-    name: 'Ellen',
-    result: '12 kilo kwijt',
-    text: 'Na enkele weken voelde ik me gezonder, fitter en gelukkiger. De combinatie van training, voeding en begeleiding werkte voor mij.',
   },
 ];
 
@@ -262,40 +242,12 @@ export default function GetFit() {
         </div>
       </section>
 
-      <section className="bg-muted/30 px-4 py-16 md:py-20 lg:py-24">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-10 text-center">
-            <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-amber-700">Resultaten</p>
-            <h2 className="text-3xl font-display font-bold text-secondary">Wat klanten ervaren</h2>
-          </div>
-          <div className="grid gap-6 md:grid-cols-3">
-            {RESULTS.map((result) => (
-              <div key={result.name} className="rounded-2xl border border-border bg-white p-6">
-                <div className="mb-4 flex gap-0.5">
-                  {[...Array(5)].map((_, index) => (
-                    <Star key={index} className="h-4 w-4 fill-primary text-primary" />
-                  ))}
-                </div>
-                <p className="mb-5 text-sm italic leading-relaxed text-muted-foreground">"{result.text}"</p>
-                <div className="border-t border-border pt-4">
-                  <p className="font-semibold text-secondary">{result.name}</p>
-                  <p className="text-sm font-semibold text-amber-700">{result.result}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section className="px-4 py-16 md:py-20 lg:py-24">
         <div className="mx-auto max-w-3xl">
           <h2 className="mb-8 text-center text-3xl font-display font-bold text-secondary">Veelgestelde vragen</h2>
           <FAQAccordion items={FAQS} />
         </div>
       </section>
-
-      <ServiceReviews title="Resultaten uit het Get Fit Programma" />
-
       <CTASection
         dark
         title="Klaar om fitter, sterker en energieker te worden?"

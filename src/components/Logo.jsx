@@ -2,8 +2,15 @@ import { Link } from 'react-router-dom';
 
 const MENU_LOGO_SRC = 'https://media.base44.com/images/public/6a115e447a3ac96774309014/e13bc7230_jitanlogo.png';
 
-export default function Logo({ to = '/', className = '', compact = false, onClick = undefined, tone = 'light' }) {
+const LOGO_SIZES = {
+  default: { height: '80px', maxWidth: '300px' },
+  nav: { height: 'clamp(76px, 8vw, 118px)', maxWidth: 'clamp(260px, 30vw, 460px)' },
+  compact: { height: '64px', maxWidth: '250px' },
+};
+
+export default function Logo({ to = '/', className = '', compact = false, onClick = undefined, tone = 'light', size = 'default' }) {
   const wrapClass = tone === 'dark' ? 'bg-white rounded-lg px-2 py-1' : '';
+  const logoSize = compact ? LOGO_SIZES.compact : LOGO_SIZES[size] || LOGO_SIZES.default;
 
   return (
     <Link to={to} onClick={onClick} className={`inline-flex shrink-0 items-center ${className}`}>
@@ -13,7 +20,7 @@ export default function Logo({ to = '/', className = '', compact = false, onClic
           alt="JitanSports Training & Massage"
           width="560"
           height="121"
-          style={{ height: compact ? '52px' : '80px', width: 'auto', maxWidth: '300px', objectFit: 'contain' }}
+          style={{ height: logoSize.height, width: 'auto', maxWidth: logoSize.maxWidth, objectFit: 'contain' }}
           decoding="async"
         />
       </span>
