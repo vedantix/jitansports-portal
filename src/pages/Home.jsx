@@ -88,7 +88,7 @@ function renderHeroTitle(title, highlight) {
         </span>
       ))}
       {highlight && (
-        <span className="mt-3 block text-2xl font-bold leading-tight text-primary md:text-3xl lg:text-4xl">
+        <span className="mt-2 block text-xl font-bold leading-tight text-primary md:text-2xl lg:text-3xl">
           {highlight}
         </span>
       )}
@@ -177,7 +177,7 @@ export default function Home() {
         title={renderHeroTitle(hero.title, hero.highlight)}
         subtitle={hero.subtitle}
         contentClassName="max-w-[550px] xl:-ml-6 2xl:-ml-[60px]"
-        titleClassName="mb-6 text-4xl md:text-5xl lg:text-6xl"
+        titleClassName="mb-4 text-3xl md:text-4xl lg:text-5xl"
         subtitleClassName="max-w-[62ch] text-base md:text-lg"
         imageClassName="object-[55%_top] sm:object-[58%_30%] md:object-[64%_34%] xl:object-[70%_35%]"
         overlayClassName="bg-[linear-gradient(180deg,rgba(7,17,38,0.82)_0%,rgba(7,17,38,0.62)_42%,rgba(7,17,38,0.38)_100%)] md:bg-[linear-gradient(90deg,rgba(7,17,38,0.85)_0%,rgba(7,17,38,0.65)_35%,rgba(7,17,38,0.25)_65%,rgba(7,17,38,0.05)_100%)]"
