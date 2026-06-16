@@ -32,7 +32,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-5">
           {/* Brand */}
           <div>
-            <Logo tone="dark" className="mb-4" />
+            <Logo tone="dark" className="mb-4" compact />
             <p className="text-white/60 text-sm leading-relaxed mb-5">
               Personal Training, Deep Tissue Massage en voedingsbegeleiding in {content.region}.
             </p>
