@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const MENU_LOGO_SRC = 'https://media.base44.com/images/public/6a115e447a3ac96774309014/e13bc7230_jitanlogo.png';
+const MENU_LOGO_SRC = 'https://media.base44.com/images/public/6a115e447a3ac96774309014/b4f776ec4_LogoJitan1.png';
 
 const LOGO_SIZES = {
   default: { height: '80px', maxWidth: '300px' },
@@ -15,16 +15,14 @@ export default function Logo({ to = '/', className = '', compact = false, onClic
   return (
     <Link to={to} onClick={onClick} className={`inline-flex shrink-0 items-center ${className}`}>
       <span className={wrapClass}>
-        <span style={{ display: 'inline-flex', overflow: 'hidden', height: logoSize.height, maxWidth: logoSize.maxWidth, alignItems: 'center' }}>
-          <img
-            src={MENU_LOGO_SRC}
-            alt="JitanSports Training & Massage"
-            width="560"
-            height="121"
-            style={{ height: '120%', width: 'auto', maxWidth: logoSize.maxWidth, objectFit: 'cover', flexShrink: 0 }}
-            decoding="async"
-          />
-        </span>
+        <img
+          src={MENU_LOGO_SRC}
+          alt="JitanSports Training & Massage"
+          width="560"
+          height="121"
+          style={{ height: logoSize.height, width: 'auto', maxWidth: logoSize.maxWidth, objectFit: 'contain' }}
+          decoding="async"
+        />
       </span>
     </Link>
   );
