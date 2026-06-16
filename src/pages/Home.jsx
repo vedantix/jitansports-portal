@@ -202,8 +202,8 @@ export default function Home() {
         </div>
       </PageHero>
 
-      <section className="border-b border-border bg-white px-4 py-6">
-        <div className="mx-auto grid max-w-7xl gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <section className="border-b border-border bg-white px-4 py-6 lg:flex lg:min-h-svh lg:items-center lg:py-0">
+        <div className="mx-auto grid w-full max-w-7xl gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {trustBarItems.map((item) => {
             const Icon = item.icon;
             return (

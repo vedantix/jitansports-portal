@@ -75,7 +75,7 @@ export default function PageHero({
         </div>
       )}
 
-      <div className="relative z-10 mx-auto flex min-h-[clamp(420px,68svh,720px)] max-w-7xl items-center px-4 py-16 sm:px-6 md:py-20 lg:py-24">
+      <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl items-center px-4 py-20 sm:px-6 md:py-24">
         <div
           className={cn(
             isCentered ? 'mx-auto max-w-4xl text-center' : 'max-w-2xl',
