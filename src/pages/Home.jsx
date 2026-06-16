@@ -179,8 +179,8 @@ export default function Home() {
           title={renderHeroTitle(hero.title, hero.highlight)}
           subtitle={hero.subtitle}
           contentClassName="max-w-[550px] xl:-ml-6 2xl:-ml-[60px]"
-          titleClassName="mb-4 text-2xl md:text-3xl lg:text-4xl"
-          subtitleClassName="max-w-[62ch] text-base md:text-lg"
+          titleClassName="mb-4 text-xl md:text-3xl lg:text-4xl"
+          subtitleClassName="max-w-[62ch] text-sm md:text-lg"
           imageClassName="object-[55%_top] sm:object-[58%_30%] md:object-[64%_34%] xl:object-[70%_35%]"
           overlayClassName="bg-[linear-gradient(180deg,rgba(7,17,38,0.82)_0%,rgba(7,17,38,0.62)_42%,rgba(7,17,38,0.38)_100%)] md:bg-[linear-gradient(90deg,rgba(7,17,38,0.85)_0%,rgba(7,17,38,0.65)_35%,rgba(7,17,38,0.25)_65%,rgba(7,17,38,0.05)_100%)]"
         >
@@ -214,7 +214,7 @@ export default function Home() {
           </div>
         </PageHero>
 
-        <section className="border-b border-border bg-white px-4 py-4 shrink-0">
+        <section className="hidden md:block border-b border-border bg-white px-4 py-4 shrink-0">
           <div className="mx-auto grid max-w-7xl gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {trustBarItems.map((item) => {
               const Icon = item.icon;
