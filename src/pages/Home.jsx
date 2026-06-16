@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle, MessageCircle, Phone, Crown, Dumbbell, MapPin, Star, Trophy } from 'lucide-react';
+import { ArrowRight, CheckCircle, MessageCircle, Phone, Crown, Dumbbell, MapPin, Star, Trophy, Award } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
 import { useSiteContent } from '@/hooks/useSiteContent';
@@ -171,7 +171,81 @@ export default function Home() {
           buildFAQSchema(homepageFaqs),
         ].filter(Boolean)}
       />
-      <div className="flex flex-col" style={{ height: 'calc(100svh - 88px)' }}>
+      {/* ── MOBILE HERO (< md) ─────────────────────────────── */}
+      <section className="relative md:hidden overflow-hidden bg-secondary text-white" style={{ minHeight: 'calc(100svh - 56px)' }}>
+        {/* Background image */}
+        <div className="absolute inset-0" aria-hidden="true">
+          <img
+            src={content.hero_image || '/images/optimized/hero-desktop-1344.jpg'}
+            alt=""
+            className="h-full w-full object-cover object-top"
+            loading="eager"
+            fetchPriority="high"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,17,38,0.55)_0%,rgba(7,17,38,0.72)_50%,rgba(7,17,38,0.90)_100%)]" />
+        </div>
+
+        {/* Social proof bar */}
+        <div className="relative z-10 flex items-center justify-center gap-3 border-b border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold text-white backdrop-blur-sm">
+          <span className="flex items-center gap-1">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Star key={i} className="h-3 w-3 fill-primary text-primary" />
+            ))}
+            <span className="ml-1">{reviewsConfig.rating} Google</span>
+          </span>
+          <span className="text-white/30">·</span>
+          <span>100+ klanten</span>
+          <span className="text-white/30">·</span>
+          <span className="flex items-center gap-1"><MapPin className="h-3 w-3 text-primary" /> Den Bosch</span>
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 flex flex-col justify-end px-5 pb-8" style={{ minHeight: 'calc(100svh - 56px - 36px)' }}>
+          <div>
+            <p className="mb-2 text-xs font-bold uppercase tracking-widest text-primary">Personal Training &amp; Massage</p>
+            <h1 className="mb-1 font-display text-3xl font-bold leading-tight text-white">
+              Word sterker.<br />Herstel sneller.
+            </h1>
+            <p className="mb-5 text-sm leading-relaxed text-white/75">
+              Persoonlijke training, voedingsbegeleiding en deep tissue massage in Den Bosch.
+            </p>
+
+            {/* Checkmarks */}
+            <ul className="mb-6 space-y-1.5">
+              {['Gratis intake', 'Persoonlijk plan', 'Resultaatgericht'].map((item) => (
+                <li key={item} className="flex items-center gap-2 text-sm font-medium text-white/90">
+                  <CheckCircle className="h-4 w-4 shrink-0 text-primary" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+
+            {/* CTAs */}
+            <div className="flex flex-col gap-3">
+              <Link to="/booking" className="w-full">
+                <Button size="lg" className="w-full gap-2 bg-primary text-base font-bold text-secondary hover:bg-primary/90">
+                  Plan Gratis Intake <ArrowRight className="h-5 w-5" />
+                </Button>
+              </Link>
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="w-full">
+                <Button size="lg" variant="outline" className="w-full gap-2 border-white/30 text-base text-white hover:bg-white/10">
+                  <MessageCircle className="h-5 w-5" /> WhatsApp Direct
+                </Button>
+              </a>
+            </div>
+
+            {/* Trust badges */}
+            <div className="mt-5 flex items-center gap-4 text-xs text-white/60">
+              <span className="flex items-center gap-1"><Trophy className="h-3.5 w-3.5 text-primary" /> 100+ klanten</span>
+              <span className="flex items-center gap-1"><Star className="h-3.5 w-3.5 fill-primary text-primary" /> {reviewsConfig.rating}/5 reviews</span>
+              <span className="flex items-center gap-1"><MapPin className="h-3.5 w-3.5 text-primary" /> Den Bosch</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── DESKTOP HERO (≥ md) ────────────────────────────── */}
+      <div className="hidden md:flex flex-col" style={{ height: 'calc(100svh - 96px)' }}>
         <PageHero
           className="flex-1 min-h-0"
           image={content.hero_image || '/images/optimized/hero-desktop-1344.jpg'}
@@ -179,8 +253,8 @@ export default function Home() {
           title={renderHeroTitle(hero.title, hero.highlight)}
           subtitle={hero.subtitle}
           contentClassName="max-w-[550px] xl:-ml-6 2xl:-ml-[60px]"
-          titleClassName="mb-4 text-xl md:text-3xl lg:text-4xl"
-          subtitleClassName="max-w-[62ch] text-sm md:text-lg"
+          titleClassName="mb-4 text-3xl lg:text-4xl"
+          subtitleClassName="max-w-[62ch] text-lg"
           imageClassName="object-[55%_top] sm:object-[58%_30%] md:object-[64%_34%] xl:object-[70%_35%]"
           overlayClassName="bg-[linear-gradient(180deg,rgba(7,17,38,0.82)_0%,rgba(7,17,38,0.62)_42%,rgba(7,17,38,0.38)_100%)] md:bg-[linear-gradient(90deg,rgba(7,17,38,0.85)_0%,rgba(7,17,38,0.65)_35%,rgba(7,17,38,0.25)_65%,rgba(7,17,38,0.05)_100%)]"
         >
@@ -214,7 +288,7 @@ export default function Home() {
           </div>
         </PageHero>
 
-        <section className="hidden md:block border-b border-border bg-white px-4 py-4 shrink-0">
+        <section className="border-b border-border bg-white px-4 py-4 shrink-0">
           <div className="mx-auto grid max-w-7xl gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {trustBarItems.map((item) => {
               const Icon = item.icon;
