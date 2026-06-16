@@ -318,6 +318,19 @@ export default function Home() {
         </section>
       </div>
 
+      {/* Reviews – direct onder hero/trust */}
+      <section className="bg-muted/30 px-4 py-16 md:py-20 lg:py-24">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-8 text-center">
+            <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-amber-700">Google Reviews</p>
+            <h2 className="font-display text-3xl font-bold text-secondary md:text-4xl">Wat klanten zeggen</h2>
+          </div>
+          <DeferredSection>
+            <JotformReviews variant="grid" />
+          </DeferredSection>
+        </div>
+      </section>
+
       <section className="bg-white px-4 py-16 md:py-20 lg:py-24">
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 max-w-3xl">
@@ -475,19 +488,6 @@ export default function Home() {
       <DeferredSection>
         <TrustStats />
       </DeferredSection>
-
-      {/* Reviews */}
-      <section className="bg-muted/30 px-4 py-16 md:py-20 lg:py-24">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-8 text-center">
-            <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-amber-700">Google Reviews</p>
-            <h2 className="font-display text-3xl font-bold text-secondary md:text-4xl">Wat klanten zeggen</h2>
-          </div>
-          <DeferredSection>
-            <JotformReviews variant="grid" />
-          </DeferredSection>
-        </div>
-      </section>
 
       {/* Mid CTA */}
       <section className="px-4 py-16 md:py-20 lg:py-24 bg-white">
