@@ -244,9 +244,9 @@ export default function Home() {
         <PageHero
           className="flex-1 min-h-0"
           image={content.hero_image || '/images/optimized/hero-desktop-1344.jpg'}
-          eyebrow={hero.eyebrow}
-          title={renderHeroTitle(hero.title, hero.highlight)}
-          subtitle={hero.subtitle}
+          eyebrow="PERSONAL TRAINING & MASSAGE"
+          title={<><span className="block">Word sterker.</span><span className="block">Herstel sneller.</span></>}
+          subtitle="Persoonlijke training, voedingsbegeleiding en deep tissue massage in Den Bosch."
           contentClassName="max-w-[550px] xl:-ml-6 2xl:-ml-[60px]"
           titleClassName="mb-4 text-3xl lg:text-4xl"
           subtitleClassName="max-w-[62ch] text-lg"
