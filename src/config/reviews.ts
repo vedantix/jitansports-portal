@@ -4,8 +4,8 @@ const PROVIDED_JOTFORM_WIDGET_ID = '019e8d1eb29f770e9812e675798285c79a2d';
 
 export const reviewsConfig = {
   businessName: 'JitanSports',
-  rating: '4.9',
-  ratingValue: 4.9,
+  rating: '5.0',
+  ratingValue: 5.0,
   maxRating: 5,
   provider: 'Google Reviews',
   reviewProofText: 'Gebaseerd op echte klantbeoordelingen',
