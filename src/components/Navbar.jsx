@@ -94,7 +94,7 @@ export default function Navbar() {
     <>
       <nav className="fixed top-0 left-0 right-0 z-40 border-b border-border/60 bg-white/95 shadow-sm backdrop-blur-md" aria-label="Hoofdnavigatie">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex h-24 items-center justify-between gap-5 md:h-32">
+          <div className="flex h-16 items-center justify-between gap-5 md:h-24">
             <Logo size="nav" onClick={() => setOpen(false)} />
 
             {/* Desktop nav */}
