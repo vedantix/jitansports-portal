@@ -126,16 +126,16 @@ export default function Home() {
       title: `${reviewsConfig.rating}/5 Google Reviews`,
     },
     {
-      icon: Trophy,
-      title: '10+ jaar ervaring',
-    },
-    {
       icon: Dumbbell,
       title: 'Personal Training & Massage',
     },
     {
-      icon: MapPin,
-      title: 'Den Bosch',
+      icon: Award,
+      title: 'Deep Tissue Massage',
+    },
+    {
+      icon: CheckCircle,
+      title: 'Voedingsbegeleiding',
     },
   ];
 
