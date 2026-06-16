@@ -123,8 +123,8 @@ export default function Home() {
     .slice(0, 10);
   const trustBarItems = [
     {
-      type: 'rating',
-      title: `${reviewsConfig.rating}/5 Google Reviews`,
+      icon: Trophy,
+      title: '100+ Klanten Geholpen',
     },
     {
       icon: Dumbbell,
