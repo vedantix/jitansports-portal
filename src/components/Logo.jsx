@@ -1,36 +1,23 @@
 import { Link } from 'react-router-dom';
 
-const MENU_LOGO_SRC = 'https://media.base44.com/images/public/6a115e447a3ac96774309014/4962d9694_JitanLogo.png';
+const MENU_LOGO_SRC = 'https://media.base44.com/images/public/6a115e447a3ac96774309014/e13bc7230_jitanlogo.png';
 
 export default function Logo({ to = '/', className = '', compact = false, onClick = undefined, tone = 'light' }) {
-  const titleClass = tone === 'dark' ? 'text-white' : 'text-secondary';
-  const subtitleClass = tone === 'dark' ? 'text-white/50' : 'text-muted-foreground';
+  const imgClass = compact ? 'h-10 w-auto max-w-[190px] object-contain' : 'h-12 w-auto max-w-[240px] object-contain md:h-16 md:max-w-[300px]';
+  const wrapClass = tone === 'dark' ? 'bg-white rounded-lg px-2 py-1' : '';
 
-  if (tone !== 'dark') {
-    return (
-      <Link to={to} onClick={onClick} className={`inline-flex shrink-0 items-center ${className}`}>
+  return (
+    <Link to={to} onClick={onClick} className={`inline-flex shrink-0 items-center ${className}`}>
+      <span className={wrapClass}>
         <img
           src={MENU_LOGO_SRC}
           alt="JitanSports Training & Massage"
           width="560"
           height="121"
-          className={compact ? 'h-10 w-auto max-w-[190px] object-contain' : 'h-12 w-auto max-w-[240px] object-contain md:h-16 md:max-w-[300px]'}
+          className={imgClass}
           decoding="async"
         />
-      </Link>
-    );
-  }
-
-  return (
-    <Link to={to} onClick={onClick} className={`inline-flex shrink-0 items-center ${className}`}>
-      <img
-        src={MENU_LOGO_SRC}
-        alt="JitanSports Training & Massage"
-        width="560"
-        height="121"
-        className={compact ? 'h-10 w-auto max-w-[190px] object-contain' : 'h-12 w-auto max-w-[240px] object-contain md:h-16 md:max-w-[300px]'}
-        decoding="async"
-      />
+      </span>
     </Link>
   );
 }
