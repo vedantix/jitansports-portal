@@ -197,10 +197,20 @@ export default function Home() {
             </a>
           </div>
           <div className="flex items-center gap-2 mt-3">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Star key={i} className="h-5 w-5 fill-primary text-primary" />
-            ))}
-            <span className="text-white font-semibold text-sm">{reviewsConfig.rating}/5</span>
+            <div className="flex items-center gap-0.5" aria-label={`${reviewsConfig.rating} van 5 sterren`}>
+              {Array.from({ length: 5 }).map((_, i) => {
+                const fill = Math.min(1, Math.max(0, reviewsConfig.ratingValue - i));
+                return (
+                  <span key={i} className="relative inline-block h-5 w-5">
+                    <Star className="absolute inset-0 h-5 w-5 text-primary/30" />
+                    <span className="absolute inset-0 overflow-hidden" style={{ width: `${fill * 100}%` }}>
+                      <Star className="h-5 w-5 fill-primary text-primary" />
+                    </span>
+                  </span>
+                );
+              })}
+            </div>
+            <span className="text-white font-semibold text-sm">{reviewsConfig.rating}/5 Google Reviews</span>
           </div>
         </PageHero>
 
@@ -212,9 +222,17 @@ export default function Home() {
                 <div key={item.title} className="flex items-center gap-3 rounded-lg bg-muted/50 px-4 py-3 text-sm font-semibold text-secondary">
                   {item.type === 'rating' ? (
                     <div className="flex shrink-0 items-center gap-0.5" aria-label={`${reviewsConfig.rating} van 5 sterren`}>
-                      {Array.from({ length: 5 }).map((_, index) => (
-                        <Star key={index} className="h-4 w-4 fill-primary text-primary" />
-                      ))}
+                      {Array.from({ length: 5 }).map((_, index) => {
+                        const fill = Math.min(1, Math.max(0, reviewsConfig.ratingValue - index));
+                        return (
+                          <span key={index} className="relative inline-block h-4 w-4">
+                            <Star className="absolute inset-0 h-4 w-4 text-primary/30" />
+                            <span className="absolute inset-0 overflow-hidden" style={{ width: `${fill * 100}%` }}>
+                              <Star className="h-4 w-4 fill-primary text-primary" />
+                            </span>
+                          </span>
+                        );
+                      })}
                     </div>
                   ) : (
                     <Icon className="h-5 w-5 shrink-0 text-primary" />
