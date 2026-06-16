@@ -13,7 +13,7 @@ export default function Logo({ to = '/', className = '', compact = false, onClic
           alt="JitanSports Training & Massage"
           width="560"
           height="121"
-          style={{ height: compact ? '48px' : '72px', width: 'auto', objectFit: 'contain' }}
+          style={{ height: compact ? '52px' : '80px', width: 'auto', maxWidth: '300px', objectFit: 'contain' }}
           decoding="async"
         />
       </span>
