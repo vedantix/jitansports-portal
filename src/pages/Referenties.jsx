@@ -25,35 +25,6 @@ export default function Referenties() {
         ]}
       />
 
-      <PageHero
-        align="center"
-        eyebrow="Google Reviews"
-        title="Ervaringen van klanten"
-        afterTitle={<GoogleRatingBadge compact tone="dark" showButton={false} />}
-        subtitle="Ontdek wat klanten vertellen over hun ervaringen met JitanSports."
-        titleClassName="md:text-5xl lg:text-5xl"
-      >
-        <div className="mt-7 flex justify-center">
-          {isGoogleReviewUrlConfigured ? (
-            <Button asChild size="lg" className="gap-2 bg-primary font-bold text-primary-foreground hover:bg-primary/90">
-              <a href={reviewsConfig.googleReviewUrl} target="_blank" rel="noopener noreferrer">
-                Schrijf een review <ExternalLink className="h-4 w-4" />
-              </a>
-            </Button>
-          ) : (
-            <Button
-              type="button"
-              size="lg"
-              className="gap-2 bg-primary font-bold text-primary-foreground opacity-80"
-              disabled
-              title="Vul VITE_GOOGLE_REVIEW_URL in om deze knop te activeren."
-            >
-              Schrijf een review <ExternalLink className="h-4 w-4" />
-            </Button>
-          )}
-        </div>
-      </PageHero>
-
       <section className="bg-white px-4 py-16 md:py-20 lg:py-24">
         <div className="mx-auto max-w-7xl">
           <div className="mb-8 text-center">
